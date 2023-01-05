@@ -1,0 +1,5 @@
+20230105	09:00:00	6542aed8-4445-4c05-9745-50fedc7fc254	GET	undefined	/
+20230105	09:00:00	b83e2e34-a08d-4345-8af8-e93d5e34cd8f	GET	undefined	/css/style.css
+20230105	09:00:00	feafbf8e-5a24-4a6d-9c73-202f0f43d130	GET	undefined	/favicon.ico
+20230105	09:00:42	40edf258-c13f-48d5-b74f-5a8b1167c582	GET	undefined	/
+20230105	09:00:43	a3ba6a4d-b712-43bf-811b-0ab42ff1e6dd	GET	undefined	/css/style.css
