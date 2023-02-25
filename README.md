@@ -1,15 +1,67 @@
-# "Express JS Tutorial - Middleware"
+# Preparation to run the code
+1. Use must create a .env file in source code, with those format
 
-✅ [Check out my YouTube Channel with all of my tutorials](https://www.youtube.com/DaveGrayTeachesCode).
+#App configuration
+APP_PORT = ${your-data-here}
 
-**Description:**
+#Mysql configuration
+DB_PORT=${your-data-here}
+DB_HOST=${your-data-here}
+DB_USER=${your-data-here}
+DB_PASSWORD=${your-data-here}
+DB_NAME=${your-data-here}
+DB_CONNECTION_LIMIT=${your-data-here}
 
-This repository shares the code applied during the Youtube tutorial. The tutorial is part of a [Node.js & Express for Beginners Playlist](https://www.youtube.com/playlist?list=PL0Zuz27SZ-6PFkIxaJ6Xx_X46avTM1aYw) on my channel.  
+#JWT configuration
+JWT_SECRET=${your-data-here}
+JWT_EXPIRE=${your-data-here}
 
-[YouTube Tutorial](https://youtu.be/y18ubz7gOsQ) for this repository.
+2. Start the MySQL server
+3. Run the sql script, inside scripts/database.sql
+4. Run the command `npm install` to install all the component required
+5. Run the command `npm start` to start the server
 
-I suggest completing my [8 hour JavaScript course tutorial video](https://youtu.be/EfAl9bwzVZk) if you are new to Javascript.
+# API List (update reguraly)
 
-### Academic Honesty
+## Authorization
+### Log in
+#### Request 
+URL: ```http
+POST /api/v1/auth/login
+```
 
-**DO NOT COPY FOR AN ASSIGNMENT** - Avoid plagiargism and adhere to the spirit of this [Academic Honesty Policy](https://www.freecodecamp.org/news/academic-honesty-policy/).
+Body: ```javascript
+{
+  "email" : string,
+  "password" : string,
+}
+```
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Authenticate successfully",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcxMzgwNjI5OTY1NDY2MSwiaWF0IjoxNjc3MzMxNTI2LCJleHAiOjE2NzczMzUxMjZ9.JLoBoAREa3GNucvYT-SMkBIfMNvAsqiVrGjYR8i5nww"
+}
+```
+
+### Sign up
+#### Request 
+URL: ```http
+POST /api/v1/auth/signup
+```
+
+Body: ```javascript
+{
+  "email" : string,
+  "password" : string,
+  "password2": string,
+}
+```
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Registrate successfully"
+}
+```
