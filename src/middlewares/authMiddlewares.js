@@ -2,6 +2,13 @@ const messageConstants = require('../constants/messageConstants');
 const {verifyJWT} = require('../helpers/authHelper');
 
 //Middleware to check a request has a valid json web token
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @param {Express.Request} next 
+ * @returns 
+ */
 function checkJWT(request, response, next) {    
     
     const errorCode = verifyJWT(request);

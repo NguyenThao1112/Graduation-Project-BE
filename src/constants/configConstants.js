@@ -16,5 +16,10 @@ module.exports = Object.freeze({
     //JWT configs
     JWT_SECRET: process.env.JWT_SECRET,
     JWT_EXPIRE: process.env.JWT_EXPIRE,
+
+    //Role value
+    ROLE_GUEST: 0,
+    ROLE_SCHOLAR: 1,
+    ROLE_ADMIN: 2,
 });
 

@@ -32,6 +32,58 @@ function authenticate(email, password) {
     return jwt;
 }
 
+/**
+ * 
+ * @param {string} email 
+ * @param {string} password 
+ * @return {Promise}
+ */
+function accountRegistrate(email, password) {
+    return new Promise(function(resolve, reject) {
+
+        const hashPassword = authHelper.hashPassword(password);
+        accountDAO.createAccount({
+            email: email,
+            password: hashPassword,
+
+        }).catch(error => {
+            reject(error);
+        }).then(() => {
+            resolve();
+        })
+    });
+
+}
+
+/**
+ * Check if a email in in used as username
+ * @param {string} email 
+ * @return {boolean} isUsed;
+ */
+function isUsedEmail(email) {
+    return new Promise((resolve, reject) => {
+        let isUsed = true;
+        accountDAO.getAccountByEmail(email)
+            .then(account => {
+                
+                //Check if the account is empty or not
+                if (account && account.length > 0) {
+                    isUsed = true;
+                } else {
+                    isUsed = false;
+                }
+
+                resolve(isUsed);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    });
+}
+
 module.exports = {
     authenticate,
+    isUsedEmail,
+    accountRegistrate,
 }
