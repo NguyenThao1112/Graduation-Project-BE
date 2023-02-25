@@ -11,7 +11,7 @@ function getAccountByEmail(email) {
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            'SELECT email, password',
+            'SELECT id, email, password',
             'FROM account',
             'WHERE email = ?',
             'LIMIT 1'

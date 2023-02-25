@@ -2,27 +2,43 @@ const authService = require('../services/authServices');
 const authConstants = require('../constants/messageConstants');
 const {validationResult} = require('express-validator');
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
 function login(request, response) {
+    return new Promise((resolve, reject) => {
+        const {email, password} = request.body;
 
-    const {email, password} = request.body;
+        //Default response is login failed
+        let responseJson = {
+            code: authConstants.AUTH_LOGIN_FAILED_CODE,
+            message: authConstants.AUTH_LOGIN_FAILED_MESSAGE, 
+        }
 
-    //Default response is login failed
-    responseJson = {
-        code: authConstants.AUTH_LOGIN_FAILED_CODE,
-        message: authConstants.AUTH_LOGIN_FAILED_MESSAGE, 
-    }
+        //Check if authenticate successfully
+        authService.authenticate(email, password)
+            .then((jwt) => {
 
-    //Check if authenticate successfully
-    const jwt = authService.authenticate(email, password);
+                //If authenticated success => change the response's data
+                if (jwt) {
+                    responseJson.code = authConstants.SUCCESSFUL_CODE;
+                    responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
+                    responseJson.token = jwt;
+                }
+                
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
 
-    //If authenticated success => change the response's data
-    if (jwt) {
-        responseJson.code = authConstants.SUCCESSFUL_CODE;
-        responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
-        responseJson.token = jwt;
-    }
-
-    response.json(responseJson);
+    });
+    
 }
 
 /**
@@ -44,7 +60,7 @@ function signUp(request, response) {
         const {email, password} = request.body;
 
         //Default response is sign up failed
-        responseJson = {
+        let responseJson = {
             code: authConstants.AUTH_SIGNUP_FAILED_CODE,
             message: authConstants.AUTH_SIGNUP_FAILED_MESSAGE, 
         }
@@ -53,11 +69,13 @@ function signUp(request, response) {
         authService
             .accountRegistrate(email, password)
             .then(() => {
+
+                //if then => successfully case
                 responseJson.code = authConstants.SUCCESSFUL_CODE;
                 responseJson.message = authConstants.AUTH_SIGNUP_SUCCESS_MESSAGE;
             })
             .catch((error) => {
-                // console.log(error);
+                console.log(error);
             })
             .finally(() => {
                 response.json(responseJson);

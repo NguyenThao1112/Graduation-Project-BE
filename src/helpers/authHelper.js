@@ -15,6 +15,14 @@ function hashPassword(plainPassword) {
 
 /**
  * 
+ * @return {int} random
+ */
+function getRandomNumber() {
+    return Math.random();
+}
+
+/**
+ * 
  * @param {string} plainTextPassword 
  * @param {string} hashPassword
  * @return {boolean} isMatch 
@@ -52,4 +60,5 @@ module.exports = {
     hashPassword, 
     isPasswordMatch,
     verifyJWT,
+    getRandomNumber,
 }

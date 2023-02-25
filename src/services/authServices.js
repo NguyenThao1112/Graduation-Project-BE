@@ -8,28 +8,39 @@ const {sign} = require('jsonwebtoken');
  * 
  * @param {string} email 
  * @param {string} password 
- * @return {string} jwt
+ * @return {Promise}
  *  
  */
 function authenticate(email, password) {
-    let jwt = null;
-    const account = accountDAO.getAccountByEmail(email);
-    
-    //Account not existed => return empty token
-    if (!account) {
-        return jwt;
-    }
+    return new Promise((resolve, reject) => {
+        let jwt = null;
 
-    //Check if the password is correct
-    const isPasswordMatched = authHelper.isPasswordMatch(password, account.password);
-    if (isPasswordMatched) {
-        account.password = undefined;   //not include the account password in jwt's payload
-        jwt = sign(account, configConstants.JWT_SECRET, {
-            expiresIn: configConstants.JWT_EXPIRE,
-        });
-    }
+        accountDAO.getAccountByEmail(email)
+            .then(account => {
+                
+                //Check if the account is empty or not
+                if (account && account.length > 0) {
 
-    return jwt;
+                    const hashPassword = account[0].password;
+
+                    //If yes, check if the password is correct
+                    const isPasswordMatched = authHelper.isPasswordMatch(password, hashPassword);
+                    if (isPasswordMatched) {
+                        
+                        jwt = sign({key: authHelper.getRandomNumber()}, configConstants.JWT_SECRET, {
+                            expiresIn: configConstants.JWT_EXPIRE,
+                        });
+                    }
+
+                } 
+
+                resolve(jwt);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
 }
 
 /**
