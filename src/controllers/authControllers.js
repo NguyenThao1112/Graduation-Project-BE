@@ -28,7 +28,7 @@ function login(request, response) {
                     responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
                     responseJson.token = jwt;
                 }
-                
+
             })
             .catch(error => {
                 console.log(error);
@@ -53,7 +53,11 @@ function signUp(request, response) {
 
         const errors = validationResult(request);
         if (!errors.isEmpty()) {
-            response.status(400).json({errors: errors.array()});
+            const errorResponse = [];
+            errors.array().forEach(error => {
+                errorResponse.push({param: error.param, msg: error.msg});
+            });
+            response.status(400).json({errors: errorResponse});
             return;
         }
 
