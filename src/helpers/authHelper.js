@@ -1,4 +1,5 @@
-const { genSaltSync, hashSync, compareSync, verify } = require('bcrypt');
+const { genSaltSync, hashSync, compareSync} = require('bcrypt');
+const { verify } = require('jsonwebtoken');
 const messageConstants = require('../constants/messageConstants');
 const { JWT_SECRET } = require('../constants/configConstants');
 
