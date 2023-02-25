@@ -1,20 +1,20 @@
 # Preparation to run the code
 1. Use must create a .env file in source code, with those format
 
-#App configuration
-APP_PORT = ${your-data-here}
+#App configuration\
+APP_PORT = ${your-data-here}\
 
-#Mysql configuration
-DB_PORT=${your-data-here}
-DB_HOST=${your-data-here}
-DB_USER=${your-data-here}
-DB_PASSWORD=${your-data-here}
-DB_NAME=${your-data-here}
-DB_CONNECTION_LIMIT=${your-data-here}
+#Mysql configuration\
+DB_PORT=${your-data-here}\
+DB_HOST=${your-data-here}\
+DB_USER=${your-data-here}\
+DB_PASSWORD=${your-data-here}\
+DB_NAME=${your-data-here}\
+DB_CONNECTION_LIMIT=${your-data-here}\
 
-#JWT configuration
-JWT_SECRET=${your-data-here}
-JWT_EXPIRE=${your-data-here}
+#JWT configuration\
+JWT_SECRET=${your-data-here}\
+JWT_EXPIRE=${your-data-here}\
 
 2. Start the MySQL server
 3. Run the sql script, inside scripts/database.sql
@@ -26,11 +26,11 @@ JWT_EXPIRE=${your-data-here}
 ## Authorization
 ### Log in
 #### Request 
-URL: ```http
+```http
 POST /api/v1/auth/login
 ```
 
-Body: ```javascript
+```javascript
 {
   "email" : string,
   "password" : string,
@@ -47,11 +47,11 @@ Body: ```javascript
 
 ### Sign up
 #### Request 
-URL: ```http
+```http
 POST /api/v1/auth/signup
 ```
 
-Body: ```javascript
+```javascript
 {
   "email" : string,
   "password" : string,
