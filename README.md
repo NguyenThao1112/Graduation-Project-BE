@@ -138,3 +138,10 @@ POST /api/v1/auth/forget-change-password
     "message": "Invalid token"
 }
 ```
+
+```javascript
+{
+    "code": 2,
+    "message": "Expired token"
+}
+```
