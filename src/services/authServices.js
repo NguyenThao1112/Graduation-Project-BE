@@ -31,8 +31,11 @@ function authenticate(email, password) {
                     //If yes, check if the password is correct
                     const isPasswordMatched = authHelper.isPasswordMatch(password, hashPassword);
                     if (isPasswordMatched) {
-                        
-                        jwt = sign({key: authHelper.getRandomNumber()}, configConstants.JWT_SECRET, {
+                        const jwtPayload = {
+                            key: authHelper.getRandomNumber(),
+                            role: account[0].role,
+                        }
+                        jwt = sign(jwtPayload, configConstants.JWT_SECRET, {
                             expiresIn: configConstants.JWT_EXPIRE,
                         });
                     }
@@ -180,10 +183,56 @@ function verifyForgetPasswordToken(token) {
     })
 }
 
+/**
+ * 
+ * @param {string} token 
+ * @returns {Promise}
+ */
+ function changePasswordViaToken(token, password) {
+    return new Promise((resolve, reject) => {
+        accountDAO.getAccountByToken(token)
+            .catch(error => {reject(error);})
+            .then(account => {
+
+                let errorCode = messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE;
+
+                //Check if the account is empty or not
+                if (!account || account.length <= 0) {
+                    reject(errorCode);
+                    return;
+                }   
+
+
+                return accountDAO.getAccountByToken(token);
+
+            })
+            .then(account => {
+                const hashPassword = authHelper.hashPassword(password);
+                const dao = {
+                    id: account[0].id,
+                    password: hashPassword,
+                }
+
+                return accountDAO.updateAccountPassword(dao);
+
+            })
+            .catch(error => {
+                reject(error);
+            })
+            .then(() => {
+                //The token is valid
+                errorCode = messageConstants.SUCCESSFUL_CODE;
+                resolve(errorCode);
+            })
+    })
+}
+
+
 module.exports = {
     authenticate,
     isUsedEmail,
     accountRegistrate,
     createTokenForForgetPassword,
     verifyForgetPasswordToken,
+    changePasswordViaToken,
 }

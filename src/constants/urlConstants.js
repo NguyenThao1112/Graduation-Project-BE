@@ -7,4 +7,5 @@ module.exports = Object.freeze({
     AUTH_SIGNUP_API_URL: `/signup`,
     AUTH_FORGET_PASSWORD_API_URL: `/forget-password`,
         AUTH_FORGET_PASSWORD_TOKEN_PARAM: 'token',
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_API_URL: `/forget-change-password`,
 })

@@ -111,3 +111,30 @@ GET /api/v1/auth/forget-password?token=${token}
     "message": "Expired token"
 }
 ```
+### Change Password via Forget Password Token
+#### Request 
+```http
+POST /api/v1/auth/forget-change-password
+```
+
+```javascript
+{
+  "token" : string,
+  "password": string,
+  "password2": string,
+}
+```
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "The password has been changed",
+}
+```
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Invalid token"
+}
+```

@@ -172,9 +172,52 @@ function verifyForgetPasswordToken(request, response) {
     })
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function changePasswordAfterForgeting(request, response) {
+    
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+        const hasError = validatorHelper.verifyValidations(request, response);
+        if (hasError) {
+            return;
+        }
+
+        const {token, password} = request.body;
+
+        //Default response is sign up failed
+        let responseJson = {
+            code: authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_CODE,
+            message: authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE,
+        }
+
+        //Check if registrating successfully
+        authService
+            .changePasswordViaToken(token, password)
+            .then((errorCode) => {
+
+                //if then => successfully case
+                responseJson.code = errorCode;
+                responseJson.message = authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+    })
+}
+
 module.exports = {
     login, 
     signUp,
     buildForgetPassword,
     verifyForgetPasswordToken,
+    changePasswordAfterForgeting,
 }

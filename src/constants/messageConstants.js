@@ -27,6 +27,11 @@ module.exports = Object.freeze({
     AUTH_FORGET_PASSWORD_VERIFY_INVALID_MESSAGE: "Invalid token",
     AUTH_FORGET_PASSWORD_VERIFY_EXPIRE_MESSAGE: "Expired token",
 
+    //Change password after forgeting password
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_CODE: 1,
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE: "Invalid token",
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE: "The password has been changed",
+
 
     //JWT's
     AUTH_JWT_SUCCESS_CODE: 0,

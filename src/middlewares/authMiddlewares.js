@@ -9,7 +9,7 @@ const {verifyJWT} = require('../helpers/authHelper');
  * @param {Express.Request} next 
  * @returns 
  */
-function checkJWT(request, response, next) {    
+function authGuard(request, response, next) {    
     
     const errorCode = verifyJWT(request);
 
@@ -47,5 +47,5 @@ function checkJWT(request, response, next) {
 
 
 module.exports = {
-    checkJWT,
+    authGuard,
 }
