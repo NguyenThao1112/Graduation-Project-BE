@@ -5,4 +5,5 @@ module.exports = Object.freeze({
     AUTH_PREFIX_API_URL: `/auth`,
     AUTH_LOGIN_API_URL: `/login`,
     AUTH_SIGNUP_API_URL: `/signup`,
+    AUTH_FORGET_PASSWORD_API_URL: `/forget-password`,
 })

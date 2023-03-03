@@ -2,10 +2,18 @@ const {check} = require('express-validator');
 const {isUsedEmail} = require('../services/authServices');
 const messageConstants = require('../constants/messageConstants');
 
-function registrationValidators() {
+
+function emailValidators() {
     return [
         check('email', `Email ${messageConstants.VAL_IS_REQUIRED_MESSAGE}`).not().isEmpty(),
         check('email', `Email ${messageConstants.VAL_IS_NOT_EMAIL_MESSAGE}`).isEmail(),
+    ]
+}
+
+function registrationValidators() {
+    return [
+        ...emailValidators(),
+
         check('email').custom((email) => {
 
             //Check if the email is used
@@ -30,6 +38,25 @@ function registrationValidators() {
     ]
 }
 
+function forgetPasswordValidators() {
+    return [
+        ...emailValidators(),
+        check('email').custom((email) => {
+
+            //Check if the email is not used
+            return isUsedEmail(email)
+                .then((isUsed) => {
+                    if (!isUsed) {
+                        console.log(isUsed);
+                        return Promise.reject(`Email ${messageConstants.VAL_IS_NOT_EXISTED}`);
+                    } 
+                })
+
+        }),
+    ]
+}
+
 module.exports = {
     registrationValidators,
+    forgetPasswordValidators,
 }

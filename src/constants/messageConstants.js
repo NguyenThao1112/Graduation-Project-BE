@@ -15,6 +15,11 @@ module.exports = Object.freeze({
     AUTH_SIGNUP_SUCCESS_MESSAGE: "Registrate successfully",
     AUTH_SIGNUP_FAILED_MESSAGE: "Something went wrong on registration",
 
+    //Forget password's
+    AUTH_FORGET_PASSWORD_FAILED_CODE: 1,
+    AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE: "Please login to the email for reseting password",
+    AUTH_FORGET_PASSWORD_FAILED_MESSAGE: "There is something wrong on forgot password feature",
+
 
     //JWT's
     AUTH_JWT_SUCCESS_CODE: 0,
@@ -28,5 +33,6 @@ module.exports = Object.freeze({
     VAL_IS_BEING_USED_MESSAGE: "is being used",
     VAL_IS_NOT_EMAIL_MESSAGE: "must have email format",
     VAL_IS_NOT_MATCHED_MESSAGE: "do not match",
+    VAL_IS_NOT_EXISTED: "is not existed",
 })
 

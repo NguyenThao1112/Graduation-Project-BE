@@ -87,6 +87,55 @@ function signUp(request, response) {
     })
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function buildForgetPassword(request, response) {
+
+    return new Promise((resolve, reject) => {
+
+        const errors = validationResult(request);
+        if (!errors.isEmpty()) {
+            const errorResponse = [];
+            errors.array().forEach(error => {
+                errorResponse.push({param: error.param, msg: error.msg});
+            });
+            response.status(400).json({errors: errorResponse});
+            return;
+        }
+
+        const {email} = request.body;
+
+        //Default response is sign up failed
+        let responseJson = {
+            code: authConstants.AUTH_FORGET_PASSWORD_FAILED_CODE,
+            message: authConstants.AUTH_FORGET_PASSWORD_FAILED_MESSAGE,
+        }
+
+        //Check if the email is sent successfully
+        authService.createTokenForForgetPassword(email)
+            .then(() => {
+
+                //if then => successfully case
+                responseJson.code = authConstants.SUCCESSFUL_CODE;
+                responseJson.message = authConstants.AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE;
+                
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+        
+    })
+}
+
 module.exports = {
-    login, signUp,
+    login, 
+    signUp,
+    buildForgetPassword,
 }

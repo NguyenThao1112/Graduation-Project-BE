@@ -9,5 +9,6 @@ CREATE TABLE account (
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
     role INT NOT NULL,
+    token VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY(id)
 )

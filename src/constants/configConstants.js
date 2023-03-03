@@ -4,6 +4,7 @@ module.exports = Object.freeze({
     
     //App configs
     APP_PORT: process.env.APP_PORT,
+    APP_HOST: process.env.APP_HOST,
 
     //DB configs
     DB_PORT: process.env.DB_PORT,
@@ -21,5 +22,6 @@ module.exports = Object.freeze({
     ROLE_GUEST: 0,
     ROLE_SCHOLAR: 1,
     ROLE_ADMIN: 2,
+
 });
 

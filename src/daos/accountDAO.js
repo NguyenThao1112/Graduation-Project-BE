@@ -11,7 +11,7 @@ function getAccountByEmail(email) {
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            'SELECT id, email, password',
+            'SELECT id, email, password, role, is_deleted, token',
             'FROM account',
             'WHERE email = ?',
             'LIMIT 1'
@@ -32,7 +32,7 @@ function getAccountByEmail(email) {
 
 /**
  * 
- * @param {Object} account
+ * @param {Object {email: string, password: string}} account
  * @return {Promise}
  */
 function createAccount(account) {
@@ -42,14 +42,14 @@ function createAccount(account) {
         const query = 
             [
                 'INSERT',
-                'INTO account (email, password, created_at, updated_at, is_deleted, role)',
-                'VALUES (?, ?, ?, ?, ?, ?)',
+                'INTO account (email, password, created_at, updated_at, is_deleted, role, token)',
+                'VALUES (?, ?, ?, ?, ?, ?, ?)',
             ].join(' ');
 
         const role = configConstants.ROLE_SCHOLAR;
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 
-        connection.query(query, [email, password, now, now, false, role], function (error, results, fields) {
+        connection.query(query, [email, password, now, now, false, role, null], function (error, results, fields) {
             
             if (error) {
                 reject(error);
@@ -61,7 +61,71 @@ function createAccount(account) {
     });
 }
 
+/**
+ * 
+ * @param {Object{id: int, token: string}} account
+ * @return {Promise}
+ */
+ function updateAccountToken(account) {
+    return new Promise(function (resolve, reject) {
+
+        const {id, token} = account;
+        const query = 
+            [
+                'UPDATE account',
+                'SET token = ?, updated_at = ?',
+                'WHERE id = ?',
+            ].join(' ');
+
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+        connection.query(query, [token, now, id], function (error, results, fields) {
+            
+            if (error) {
+                reject(error);
+                return;
+            } 
+
+            resolve(token);
+        });
+    });
+}
+
+
+// /**
+//  * 
+//  * @param {Object{id: int, email: string, password: string, is_deleted: boolean, role: int, token: string}} account
+//  * @return {Promise}
+//  */
+//  function updateAccount(account) {
+//     return new Promise(function (resolve, reject) {
+
+//         const {id, email, password, role, is_deleted, token} = account;
+//         const query = 
+//             [
+//                 'UPDATE account',
+//                 'SET email = ?, password = ?, updated_at = ? , is_deleted = ?, role = ?, token = ?)',
+//                 'WHERE id = ?',
+//             ].join(' ');
+
+
+//         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+//         connection.query(query, [email, password, now, is_deleted , role, token, id], function (error, results, fields) {
+            
+//             if (error) {
+//                 reject(error);
+//                 return;
+//             } 
+
+//             resolve();
+//         });
+//     });
+// }
+
 module.exports = {
     getAccountByEmail,
     createAccount,
+    updateAccountToken,
 }
