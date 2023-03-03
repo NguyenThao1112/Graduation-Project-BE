@@ -1,6 +1,7 @@
-const {check} = require('express-validator');
+const {check, query} = require('express-validator');
 const {isUsedEmail} = require('../services/authServices');
 const messageConstants = require('../constants/messageConstants');
+const urlConstants = require('../constants/urlConstants');
 
 
 function emailValidators() {
@@ -47,7 +48,6 @@ function forgetPasswordValidators() {
             return isUsedEmail(email)
                 .then((isUsed) => {
                     if (!isUsed) {
-                        console.log(isUsed);
                         return Promise.reject(`Email ${messageConstants.VAL_IS_NOT_EXISTED}`);
                     } 
                 })
@@ -56,7 +56,16 @@ function forgetPasswordValidators() {
     ]
 }
 
+function forgetPasswordTokenValidators() {
+    return [
+        query(urlConstants.AUTH_FORGET_PASSWORD_TOKEN_PARAM)
+            .exists()
+            .withMessage(messageConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_MESSAGE),
+    ]
+}
+
 module.exports = {
     registrationValidators,
     forgetPasswordValidators,
+    forgetPasswordTokenValidators,
 }

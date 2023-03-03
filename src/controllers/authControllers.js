@@ -1,6 +1,6 @@
 const authService = require('../services/authServices');
 const authConstants = require('../constants/messageConstants');
-const {validationResult} = require('express-validator');
+const validatorHelper = require('../helpers/validatorHelper');
 
 /**
  * 
@@ -51,13 +51,9 @@ function signUp(request, response) {
 
     return new Promise((resolve, reject) => {
 
-        const errors = validationResult(request);
-        if (!errors.isEmpty()) {
-            const errorResponse = [];
-            errors.array().forEach(error => {
-                errorResponse.push({param: error.param, msg: error.msg});
-            });
-            response.status(400).json({errors: errorResponse});
+        //Check if the request is valid
+        const hasError = validatorHelper.verifyValidations(request, response);
+        if (hasError) {
             return;
         }
 
@@ -97,19 +93,15 @@ function signUp(request, response) {
 
     return new Promise((resolve, reject) => {
 
-        const errors = validationResult(request);
-        if (!errors.isEmpty()) {
-            const errorResponse = [];
-            errors.array().forEach(error => {
-                errorResponse.push({param: error.param, msg: error.msg});
-            });
-            response.status(400).json({errors: errorResponse});
+        //Check if the request is valid
+        const hasError = validatorHelper.verifyValidations(request, response);
+        if (hasError) {
             return;
         }
 
         const {email} = request.body;
 
-        //Default response is sign up failed
+        //Default response is failed to send email
         let responseJson = {
             code: authConstants.AUTH_FORGET_PASSWORD_FAILED_CODE,
             message: authConstants.AUTH_FORGET_PASSWORD_FAILED_MESSAGE,
@@ -134,8 +126,55 @@ function signUp(request, response) {
     })
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function verifyForgetPasswordToken(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+        const hasError = validatorHelper.verifyValidations(request, response);
+        if (hasError) {
+            return;
+        }
+
+        const token = request.query.token;
+
+        //Default response is sign up failed
+        let responseJson = {
+            code: authConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_CODE,
+            message: authConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_MESSAGE,
+        }
+
+        //Check if the email is sent successfully
+        authService.verifyForgetPasswordToken(token)
+            .then((errorCode) => {
+                //if then => successfully case
+                responseJson.code = authConstants.SUCCESSFUL_CODE;
+                responseJson.message = authConstants.AUTH_FORGET_PASSWORD_VERIFY_SUCCESS_MESSAGE;
+            })
+            .catch((errorCode) => {
+                responseJson.code = errorCode;
+                if (errorCode === authConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_CODE) {
+                    responseJson.message = authConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_MESSAGE;
+                } else if (errorCode === authConstants.AUTH_FORGET_PASSWORD_VERIFY_EXPIRE_CODE) {
+                    responseJson.message = authConstants.AUTH_FORGET_PASSWORD_VERIFY_EXPIRE_MESSAGE;
+                }
+
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+        
+    })
+}
+
 module.exports = {
     login, 
     signUp,
     buildForgetPassword,
+    verifyForgetPasswordToken,
 }

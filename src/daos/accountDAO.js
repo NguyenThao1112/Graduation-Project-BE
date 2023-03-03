@@ -32,6 +32,34 @@ function getAccountByEmail(email) {
 
 /**
  * 
+ * @param {string} email
+ * @return {Promise}
+ */
+ function getAccountByToken(token) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            'SELECT id, email, password, role, is_deleted, token, token_expired_in',
+            'FROM account',
+            'WHERE token = ?',
+            'LIMIT 1'
+        ].join(' ');
+
+        let account = null;
+        connection.query(query, [token], (error, results, fields) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            account = results;
+            resolve(account);
+        });
+    })
+    
+}
+
+/**
+ * 
  * @param {Object {email: string, password: string}} account
  * @return {Promise}
  */
@@ -69,18 +97,18 @@ function createAccount(account) {
  function updateAccountToken(account) {
     return new Promise(function (resolve, reject) {
 
-        const {id, token} = account;
+        const {id, token, expire} = account;
         const query = 
             [
                 'UPDATE account',
-                'SET token = ?, updated_at = ?',
+                'SET token = ?, updated_at = ?,  token_expired_in = ?',
                 'WHERE id = ?',
             ].join(' ');
 
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 
-        connection.query(query, [token, now, id], function (error, results, fields) {
+        connection.query(query, [token, now, expire, id], function (error, results, fields) {
             
             if (error) {
                 reject(error);
@@ -128,4 +156,5 @@ module.exports = {
     getAccountByEmail,
     createAccount,
     updateAccountToken,
+    getAccountByToken,
 }

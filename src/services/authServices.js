@@ -5,6 +5,7 @@ const authHelper = require('../helpers/authHelper');
 const randToken = require('rand-token');
 const mailServices = require('./mailServices');
 const {sign} = require('jsonwebtoken');
+const moment = require('moment');
 
 const TOKEN_LENGTH = 20;
 
@@ -117,9 +118,15 @@ function createTokenForForgetPassword(email) {
 
                 //Genearate the token (the new password) and save to database
                 const token = randToken.generate(TOKEN_LENGTH);
+                const tokenExpiredIn = moment()
+                    .add(configConstants.FORGET_PASSWORD_TOKEN_EXPIRE, 'minutes')
+                    .utc(true)
+                    .format('YYYY/MM/DD hh:mm:ss');
+
                 const dao = {
                     id: account[0].id,
                     token: token,
+                    expire: tokenExpiredIn,
                 }
 
                 return accountDAO.updateAccountToken(dao);
@@ -135,9 +142,48 @@ function createTokenForForgetPassword(email) {
     })
 }
 
+/**
+ * 
+ * @param {string} token 
+ * @returns {Promise}
+ */
+function verifyForgetPasswordToken(token) {
+    return new Promise((resolve, reject) => {
+        accountDAO.getAccountByToken(token)
+            .catch(error => {reject(error);})
+            .then(account => {
+
+                let errorCode = messageConstants.AUTH_FORGET_PASSWORD_VERIFY_INVALID_CODE;
+
+                //Check if the account is empty or not
+                if (!account || account.length <= 0) {
+                    reject(errorCode);
+                    return;
+                }   
+
+                //Check if the token is expired or not
+                const expireRaw = account[0].token_expired_in;
+                const expireMoment = moment(expireRaw).utc(true);
+                const now = moment().utc(true);
+                const isExpired = now.isAfter(expireMoment);
+                if (isExpired) {
+                    errorCode = messageConstants.AUTH_FORGET_PASSWORD_VERIFY_EXPIRE_CODE;
+                    reject(errorCode);
+                    return;
+                }
+
+                //The token is valid
+                errorCode = messageConstants.SUCCESSFUL_CODE;
+                resolve(errorCode);
+
+            })
+    })
+}
+
 module.exports = {
     authenticate,
     isUsedEmail,
     accountRegistrate,
     createTokenForForgetPassword,
+    verifyForgetPasswordToken,
 }
