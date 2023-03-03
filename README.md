@@ -65,3 +65,49 @@ POST /api/v1/auth/signup
     "message": "Registrate successfully"
 }
 ```
+
+### Forget Password
+#### Request 
+```http
+POST /api/v1/auth/forget-password
+```
+
+```javascript
+{
+  "email" : string,
+}
+```
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Please login to the email for reseting password"
+}
+```
+### Verify Forget Password Token
+#### Request 
+```http
+GET /api/v1/auth/forget-password?token=${token}
+```
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "The token is valid"
+}
+```
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Invalid token"
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "Expired token"
+}
+```
