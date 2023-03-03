@@ -4,15 +4,25 @@
   "description": "Express tutorial",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node src/app",
+    "dev": "nodemon src/app"
   },
   "author": "Dave Gray",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "date-fns": "^2.23.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
+    "express-validator": "^6.15.0",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.1",
+    "npm": "^9.5.1",
+    "rand-token": "^1.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
