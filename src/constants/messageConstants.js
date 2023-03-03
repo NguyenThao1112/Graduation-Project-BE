@@ -2,6 +2,8 @@
 module.exports = Object.freeze({
     
     //Error codes
+    UNEXPECTED_ERROR_MSG: "Unexpected error",
+    UNEXPECTED_ERROR_CODE: -1,
     SUCCESSFUL_CODE: 0,
     FAILED_CODE: 1,
 
@@ -29,7 +31,10 @@ module.exports = Object.freeze({
 
     //Change password after forgeting password
     AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_CODE: 1,
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_CODE: 2,
     AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE: "Invalid token",
+    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_MESSAGE: "Expired token",
+
     AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE: "The password has been changed",
 
 

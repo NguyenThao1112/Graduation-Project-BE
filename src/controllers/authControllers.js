@@ -205,8 +205,16 @@ function changePasswordAfterForgeting(request, response) {
                 responseJson.code = errorCode;
                 responseJson.message = authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE;
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((errorCode) => {
+                responseJson.code = errorCode;
+                if (errorCode === authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_CODE) {
+                    responseJson.message = authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE;
+                } else if (errorCode === authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_CODE) {
+                    responseJson.message = authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_MESSAGE;
+                } else if (errorCode === authConstants.UNEXPECTED_ERROR_CODE) {
+                    responseJson.message = authConstants.UNEXPECTED_ERROR_MSG;
+                }
+
             })
             .finally(() => {
                 response.json(responseJson);

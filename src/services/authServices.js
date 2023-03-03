@@ -194,18 +194,27 @@ function verifyForgetPasswordToken(token) {
             .catch(error => {reject(error);})
             .then(account => {
 
-                let errorCode = messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_MESSAGE;
+                let errorCode = messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_INVALID_CODE;
 
                 //Check if the account is empty or not
                 if (!account || account.length <= 0) {
-                    reject(errorCode);
-                    return;
+                    return Promise.reject(errorCode);;
                 }   
 
-
+                //Check if the token is expired or not
+                const expireRaw = account[0].token_expired_in;
+                const expireMoment = moment(expireRaw).utc(true);
+                const now = moment().utc(true);
+                const isExpired = now.isAfter(expireMoment);
+                if (isExpired) {
+                    errorCode = messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_CODE;
+                    return Promise.reject(errorCode);;
+                }
+ 
                 return accountDAO.getAccountByToken(token);
 
             })
+            
             .then(account => {
                 const hashPassword = authHelper.hashPassword(password);
                 const dao = {
@@ -216,8 +225,8 @@ function verifyForgetPasswordToken(token) {
                 return accountDAO.updateAccountPassword(dao);
 
             })
-            .catch(error => {
-                reject(error);
+            .catch(errorCode => {
+                reject(errorCode);
             })
             .then(() => {
                 //The token is valid
