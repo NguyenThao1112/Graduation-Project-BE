@@ -120,6 +120,36 @@ function createAccount(account) {
     });
 }
 
+/**
+ * 
+ * @param {Object{id: int, token: string}} account
+ * @return {Promise}
+ */
+ function updateAccountPassword(account) {
+    return new Promise(function (resolve, reject) {
+
+        const {id, password} = account;
+        const query = 
+            [
+                'UPDATE account',
+                'SET password = ?, updated_at = ?',
+                'WHERE id = ?',
+            ].join(' ');
+
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+        connection.query(query, [password, now, id], function (error, results, fields) {
+            
+            if (error) {
+                reject(error);
+                return;
+            } 
+
+            resolve();
+        });
+    });
+}
 
 // /**
 //  * 
@@ -157,4 +187,5 @@ module.exports = {
     createAccount,
     updateAccountToken,
     getAccountByToken,
+    updateAccountPassword,
 }

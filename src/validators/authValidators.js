@@ -11,6 +11,20 @@ function emailValidators() {
     ]
 }
 
+function confirmPasswordValidators() {
+    return [
+        check('password', `Password ${messageConstants.VAL_IS_REQUIRED_MESSAGE}`)
+            .not().isEmpty()
+            .custom((password, {req}) => {
+                if (password !== req.body.password2) {
+                    throw new Error(`Password ${messageConstants.VAL_IS_NOT_MATCHED_MESSAGE}`);
+                }
+
+                return true;
+            }),
+    ]
+}
+
 function registrationValidators() {
     return [
         ...emailValidators(),
@@ -27,15 +41,7 @@ function registrationValidators() {
 
         }),
 
-        check('password', `Password ${messageConstants.VAL_IS_REQUIRED_MESSAGE}`)
-            .not().isEmpty()
-            .custom((password, {req}) => {
-                if (password !== req.body.password2) {
-                    throw new Error(`Password ${messageConstants.VAL_IS_NOT_MATCHED_MESSAGE}`);
-                }
-
-                return true;
-            }),
+        ...confirmPasswordValidators(),
     ]
 }
 
@@ -68,4 +74,5 @@ module.exports = {
     registrationValidators,
     forgetPasswordValidators,
     forgetPasswordTokenValidators,
+    confirmPasswordValidators,
 }
