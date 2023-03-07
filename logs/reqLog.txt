@@ -3,3 +3,17 @@
 20230105	09:00:00	feafbf8e-5a24-4a6d-9c73-202f0f43d130	GET	undefined	/favicon.ico
 20230105	09:00:42	40edf258-c13f-48d5-b74f-5a8b1167c582	GET	undefined	/
 20230105	09:00:43	a3ba6a4d-b712-43bf-811b-0ab42ff1e6dd	GET	undefined	/css/style.css
+20230308	02:15:46	b6d0a86f-3235-4567-8afd-a7df712d9ef7	POST	undefined	/api/v1/auth/login
+20230308	02:16:23	3692afdb-63ca-4d98-b36d-44c2aea44d2a	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:16:23	0c46c2b3-4138-4b40-a62f-5566858bfe39	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:21:54	649ecd08-0bba-4cbb-b6c8-2352ede4aca1	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:21:54	5a92bd2a-0223-409f-a201-1b31c4404ea6	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:22:08	6f773221-fd35-49a3-8879-92ce38ee6234	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:22:08	2d414caf-6c87-4bf7-b7e9-f4fcda61dc81	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:22:44	280d4e9b-7914-4dea-9c19-f8c6e6614f24	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:22:44	8fbb169c-d854-4e2a-b699-50a1a4f3cfae	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:22:47	b66ae037-969d-4ee2-8ecf-6e6ae0f2610d	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:25:10	9c6fd20b-ebe8-4675-9d13-66364859a30e	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:25:10	2d9668cb-84f6-44b9-a956-dfa625fcdcf5	POST	http://localhost:3001	/api/v1/auth/login
+20230308	02:28:07	c2955844-00de-4789-b1c7-4818b5e44744	OPTIONS	http://localhost:3001	/api/v1/auth/login
+20230308	02:28:07	5a268bbf-84fb-486e-9e8c-5d3c4ccc6822	POST	http://localhost:3001	/api/v1/auth/login
