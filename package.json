@@ -4,8 +4,8 @@
   "description": "Express tutorial",
   "main": "server.js",
   "scripts": {
-    "start": "node src/app",
-    "dev": "nodemon src/app"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "author": "Dave Gray",
   "license": "ISC",
