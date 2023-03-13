@@ -9,9 +9,9 @@ const { JWT_SECRET } = require('../constants/configConstants');
  * @return {string} hashPassword
  */
 function hashPassword(plainPassword) {
-  const salt = genSaltSync(10);
-  const hashPassword = hashSync(plainPassword, salt);
-  return hashPassword;
+	const salt = genSaltSync(10);
+	const hashPassword = hashSync(plainPassword, salt);
+	return hashPassword;
 }
 
 /**
@@ -19,7 +19,7 @@ function hashPassword(plainPassword) {
  * @return {int} random
  */
 function getRandomNumber() {
-  return Math.random();
+	return Math.random();
 }
 
 /**
@@ -29,8 +29,8 @@ function getRandomNumber() {
  * @return {boolean} isMatch
  */
 function isPasswordMatch(plainTextPassword, hashPassword) {
-  const isMatch = compareSync(plainTextPassword, hashPassword);
-  return isMatch;
+	const isMatch = compareSync(plainTextPassword, hashPassword);
+	return isMatch;
 }
 
 //Check if the request has the correct token
@@ -40,26 +40,26 @@ function isPasswordMatch(plainTextPassword, hashPassword) {
  * @return {int} errorCode
  */
 function verifyJWT(request) {
-  let token = request.get('authorization');
-  let errorCode = messageConstants.AUTH_JWT_UNAUTHORIZE_CODE;
+	let token = request.get('Authorization');
+	let errorCode = messageConstants.AUTH_JWT_UNAUTHORIZE_CODE;
 
-  if (token) {
-    token = token.slice(7); //Magic number of jwt design : Bearer
-    verify(token, JWT_SECRET, (error, decoded) => {
-      if (error) {
-        errorCode = messageConstants.AUTH_JWT_INVALID_TOKEN_CODE;
-      } else {
-        errorCode = messageConstants.AUTH_JWT_SUCCESS_CODE;
-      }
-    });
-  }
+	if (token) {
+		token = token.slice(7); //Magic number of jwt design : Bearer
+		verify(token, JWT_SECRET, (error, decoded) => {
+			if (error) {
+				errorCode = messageConstants.AUTH_JWT_INVALID_TOKEN_CODE;
+			} else {
+				errorCode = messageConstants.AUTH_JWT_SUCCESS_CODE;
+			}
+		});
+	}
 
-  return errorCode;
+	return errorCode;
 }
 
 module.exports = {
-  hashPassword,
-  isPasswordMatch,
-  verifyJWT,
-  getRandomNumber,
+	hashPassword,
+	isPasswordMatch,
+	verifyJWT,
+	getRandomNumber,
 };

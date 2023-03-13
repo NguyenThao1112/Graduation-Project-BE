@@ -6,7 +6,7 @@ const randToken = require('rand-token');
 const mailServices = require('./mailServices');
 const { sign } = require('jsonwebtoken');
 const moment = require('moment');
-const { convertRowsDataToArray } = require('../helpers/helper');
+const { convertRowsDataToArray } = require('../helpers/commonHelper');
 
 const TOKEN_LENGTH = 20;
 
