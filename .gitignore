@@ -2,3 +2,4 @@
 package-lock.json
 /logs
 .env
+logs/reqLog.txt
