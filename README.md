@@ -1,4 +1,5 @@
 # Preparation to run the code
+
 1. Use must create a .env file in source code, with those format
 
 #App configuration\
@@ -24,8 +25,11 @@ JWT_EXPIRE=${your-data-here}\
 # API List (update reguraly)
 
 ## Authorization
+
 ### Log in
-#### Request 
+
+#### Request
+
 ```http
 POST /api/v1/auth/login
 ```
@@ -36,7 +40,9 @@ POST /api/v1/auth/login
   "password" : string,
 }
 ```
+
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -46,7 +52,9 @@ POST /api/v1/auth/login
 ```
 
 ### Sign up
-#### Request 
+
+#### Request
+
 ```http
 POST /api/v1/auth/signup
 ```
@@ -58,7 +66,9 @@ POST /api/v1/auth/signup
   "password2": string,
 }
 ```
+
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -67,7 +77,9 @@ POST /api/v1/auth/signup
 ```
 
 ### Forget Password
-#### Request 
+
+#### Request
+
 ```http
 POST /api/v1/auth/forget-password
 ```
@@ -77,27 +89,35 @@ POST /api/v1/auth/forget-password
   "email" : string,
 }
 ```
+
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Please login to the email for reseting password"
 }
 ```
+
 ### Verify Forget Password Token
-#### Request 
+
+#### Request
+
 ```http
 GET /api/v1/auth/forget-password?token=${token}
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "The token is valid"
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -111,8 +131,11 @@ GET /api/v1/auth/forget-password?token=${token}
     "message": "Expired token"
 }
 ```
+
 ### Change Password via Forget Password Token
-#### Request 
+
+#### Request
+
 ```http
 POST /api/v1/auth/forget-change-password
 ```
@@ -124,14 +147,18 @@ POST /api/v1/auth/forget-change-password
   "password2": string,
 }
 ```
+
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "The password has been changed",
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -143,5 +170,68 @@ POST /api/v1/auth/forget-change-password
 {
     "code": 2,
     "message": "Expired token"
+}
+```
+
+### Get all accounts
+
+#### Request
+
+```http
+GET /api/v1/accounts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2Njk5NTYwOTAwMSwicm9sZSI6MSwiaWF0IjoxNjc4NzIxNjA2LCJleHAiOjE2Nzg3MzI0MDZ9.pyDPS03_NxHVo6kN4F62abj8hTcm67tMAGJzRgbUm20
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get accounts successfully!",
+    "data": [
+        {
+            "id": 1,
+            "email": "hadtnt71@gmail.com",
+            "password": "$2b$10$UR0Q6FEUUVkjSWMHubruouMYhnrvIF98AARl7pcFxIL2CpWKRgtse",
+            "created_at": "2023-03-06T23:28:48.000Z",
+            "updated_at": "2023-03-06T23:28:48.000Z",
+            "is_deleted": 0,
+            "role": 1,
+            "token": null,
+            "token_expired_in": null
+        },
+        {
+            "id": 2,
+            "email": "hadtnt72@gmail.com",
+            "password": "$2b$10$22KmIdPRjT2EI.UIVT3vdOQ07D2DVNDL27RFLNeUzMG6cQGCxbYxW",
+            "created_at": "2023-03-12T01:56:20.000Z",
+            "updated_at": "2023-03-12T20:31:25.000Z",
+            "is_deleted": 0,
+            "role": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjE4NTYzMDc2MTE4ODg3NCwicm9sZSI6MSwiaWF0IjoxNjc4NzIxNDg1LCJleHAiOjE2Nzg3MzIyODV9.kDTbeEpiUm-7YDb2c3ztWussVhGndx8Y7G5utaARFaQ",
+            "token_expired_in": "2023-03-13T04:31:25.000Z"
+        },
+        {
+            "id": 3,
+            "email": "hadtnt73@gmail.com",
+            "password": "$2b$10$5Yz4JvY0jJN3xvoKZLHZ3OwuvqhSCItZa7FqHeSBk9Jlw5N.H9YU2",
+            "created_at": "2023-03-12T20:33:15.000Z",
+            "updated_at": "2023-03-12T20:33:26.000Z",
+            "is_deleted": 0,
+            "role": 1,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2Njk5NTYwOTAwMSwicm9sZSI6MSwiaWF0IjoxNjc4NzIxNjA2LCJleHAiOjE2Nzg3MzI0MDZ9.pyDPS03_NxHVo6kN4F62abj8hTcm67tMAGJzRgbUm20",
+            "token_expired_in": "2023-03-13T04:33:26.000Z"
+        }
+    ]
+}
+
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Invalid token"
 }
 ```
