@@ -30,7 +30,7 @@ function login(request, response) {
 							account
 						);
 
-						if (token) {
+						if (account) {
 							responseJson.code = authConstants.SUCCESSFUL_CODE;
 							responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
 							responseJson.token = account.token;

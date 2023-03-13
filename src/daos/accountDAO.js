@@ -163,7 +163,7 @@ function getAllAccounts() {
 				reject(error);
 				return;
 			}
-
+			console.log('results ', JSON.stringify(results));
 			resolve(results);
 		});
 	});

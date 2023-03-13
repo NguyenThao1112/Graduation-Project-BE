@@ -6,6 +6,7 @@ const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 const configs = require('./src/constants/configConstants');
 const authRoutes = require('./src/routes/authRoutes');
+const accountRoutes = require('./src/routes/accountRoutes');
 const urls = require('./src/constants/urlConstants');
 
 const PORT = process.env.APP_PORT || 3001;
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
+app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
 
 app.all('*', (req, res) => {
 	res.status(404);
