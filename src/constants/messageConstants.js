@@ -55,4 +55,8 @@ module.exports = Object.freeze({
 	//Accounts
 	ACCOUNT_GET_ALL_SUCCESS_MESSAGE: 'Get accounts successfully!',
 	ACCOUNT_GET_ALL_FAILED_MESSAGE: 'Get accounts failed!',
+	ACCOUNT_CREATE_SUCCESS_MESSAGE: 'Create account successfully!',
+	ACCOUNT_CREATE_FAILED_MESSAGE: 'Create account failed!',
+	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
+	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 });

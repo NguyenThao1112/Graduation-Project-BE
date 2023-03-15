@@ -10,15 +10,7 @@ const { verifyJWT } = require('../helpers/authHelper');
  * @returns
  */
 function authGuard(request, response, next) {
-	console.log(
-		'🚀 ~ file: authMiddlewares.js:13 ~ authGuard ~ request:',
-		request
-	);
 	const errorCode = verifyJWT(request);
-	console.log(
-		'🚀 ~ file: authMiddlewares.js:18 ~ authGuard ~ errorCode:',
-		errorCode
-	);
 
 	//Valid token case
 	if (messageConstants.AUTH_JWT_SUCCESS_CODE === errorCode) {
