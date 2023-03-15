@@ -3,7 +3,7 @@ USE nckh;
 
 CREATE TABLE account (
     id INT NOT NULL AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     created_at DATETIME,
     updated_at DATETIME,
