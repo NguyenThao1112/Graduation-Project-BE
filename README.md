@@ -235,3 +235,64 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2N
     "message": "Invalid token"
 }
 ```
+
+#### Request
+
+```http
+POST /api/v1/accounts HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1MTUyMzM4MDA2MjMzLCJyb2xlIjoxLCJpYXQiOjE2Nzg4OTIzNTgsImV4cCI6MTY3ODkwMzE1OH0.gpFxXaI9XB0ioVGNysDN8lGYbvF_9z3NYJwhqz74GLw
+Content-Type: application/json
+Content-Length: 108
+
+{
+    "email": "hadtnt76@gmail.com",
+    "password": "Phambinh3107@",
+    "password2": "Phambinh3107@"
+}
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Create account successfully!"
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Invalid token"
+}
+```
+
+#### Request
+
+```http
+DELETE /api/v1/accounts/1 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1MTUyMzM4MDA2MjMzLCJyb2xlIjoxLCJpYXQiOjE2Nzg4OTIzNTgsImV4cCI6MTY3ODkwMzE1OH0.gpFxXaI9XB0ioVGNysDN8lGYbvF_9z3NYJwhqz74GLw
+
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete account successfully!"
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Invalid token"
+}
+```
