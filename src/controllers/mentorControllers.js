@@ -24,7 +24,7 @@ function getAllMentorsWithBasicInformation(request, response) {
                 if (mentors) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.MENTOR_GET_ALL_SUCCESS_MESSAGE;
-                    responseJson.mentors = JSON.stringify(mentors);
+                    responseJson.data = JSON.stringify(mentors);
                 }
 
             })

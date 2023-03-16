@@ -306,7 +306,7 @@ GET /api/v1/mentors/get-all
 {
     "code": 0,
     "message": "Fetch the mentor from database successfully",
-    "mentors": [
+    "data": [
         {
             "id": 1, 
             "name": "Test user 1", 
@@ -332,6 +332,7 @@ GET /api/v1/mentors/get-all
         },
     ]
 }
+```
 
 #### Error response
 ```javascript
@@ -340,4 +341,78 @@ GET /api/v1/mentors/get-all
     "message": "Fetch the mentor from database successfully";
 }
 ```
-=======
+
+## Configuration API
+### Contact type
+#### Get contact type with pagination
+##### Request 
+```http
+GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |
+|------------| -------------------------|                    
+| pageOffset | integer greater than 0   |
+| limitSize  | integer greater than 0   |
+
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get contact type successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Email", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+
+         {
+            "id": 2, 
+            "name": "Mobile phone", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all contact type
+##### Request 
+```http
+GET /api/v1/config/contact-type/fetch-all
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get contact type successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Email", 
+        },
+
+         {
+            "id": 2, 
+            "name": "Mobile phone", 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```

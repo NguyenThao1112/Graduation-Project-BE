@@ -10,20 +10,26 @@ module.exports = Object.freeze({
     
     //All auth api (${API_URL}`) would be `${ROOT_API_URL}${AUTH_PREFIX_API_URL}${API_URL}`    
     AUTH_PREFIX_API_URL: `/auth`,
-    AUTH_LOGIN_API_URL: `/login`,
-    AUTH_SIGNUP_API_URL: `/signup`,
-    AUTH_FORGET_PASSWORD_API_URL: `/forget-password`,
-        AUTH_FORGET_PASSWORD_TOKEN_PARAM: 'token',
-    AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_API_URL: `/forget-change-password`,
+        AUTH_LOGIN_API_URL: `/login`,
+        AUTH_SIGNUP_API_URL: `/signup`,
+        AUTH_FORGET_PASSWORD_API_URL: `/forget-password`,
+            AUTH_FORGET_PASSWORD_TOKEN_PARAM: 'token',
+        AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_API_URL: `/forget-change-password`,
 
     //ALL Account api
     ACCOUNT_PREFIX_API_URL: `/accounts`,
 
     //All mentor api (${API_URL}`) would be `${ROOT_API_URL}${MENTOR_PREFIX_API_URL}${API_URL}`    
     MENTOR_PREFIX_API_URL: `/mentors`,
-    MENTOR_GET_ALL_URL: `/get-all`,
+        MENTOR_GET_ALL_URL: `/get-all`,
+        //Resources url for mentor API
+        MENTOR_RESOURCE_MENTOR_AVATAR: `${process.env.RESOURCE_HOST}/mentor/images/avatar/`,
 
-    //Resources url for mentor API
-    MENTOR_RESOURCE_MENTOR_AVATAR: `${process.env.RESOURCE_HOST}/mentor/images/avatar/`,
-    
+    //Configuration API
+    CONFIG_PREFIX_API_URL: `/configs`,
+        CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,  //Contact types API
+        CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,
+            CONFIG_CONTACT_TYPE_PAGEOFFSET_PARAM: `pageOffset`,
+            CONFIG_CONTACT_TYPE_LIMITSIZE_PARAM: `limitSize`,
+        CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
 })

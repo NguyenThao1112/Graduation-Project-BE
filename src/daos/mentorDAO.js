@@ -11,6 +11,7 @@ const queryConstants = require("../constants/queryConstants");
         [
             `SELECT id, name, gender, avatar, DATE_FORMAT(date_of_birth, "%d-%m-%Y"), ${queryConstants.GET_METADATA_QUERY}`, 
             'FROM mentor_information',
+            'WHERE is_deleted = false',
         ].join(' ');
 
         let mentors = null;
