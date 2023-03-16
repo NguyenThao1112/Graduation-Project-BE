@@ -2,6 +2,7 @@ const configurationService = require('../services/configurationServices');
 const messageConstants = require('../constants/messageConstants');
 const queryConstants = require('../constants/queryConstants');
 const validatorHelper = require('../helpers/validatorHelper');
+const commonHelper = require('../helpers/commonHelper');
 
 /**
  * 
@@ -24,16 +25,11 @@ function getContactTypesWithPagination(request, response) {
             message: messageConstants.CONFIG_CONTACT_TYPE_INVALID_MESSAGE,
         }
 
-        let pageOffset = parseInt(request.query.pageOffset);
-        let limitSize =  parseInt(request.query.limitSize);
-
-        if (!pageOffset) {
-            pageOffset = queryConstants.DEFAULT_PAGINATION_PAGEOFFSET;
-        }
-
-        if (!limitSize) {
-            limitSize = queryConstants.DEFAULT_PAGINATION_LIMITSIZE;
-        }
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.param.pageOffset, 
+                request.param.limitSize
+            );
 
         //Try to get all the mentors from the database
         configurationService.getContactTypeWithPagination(pageOffset, limitSize)

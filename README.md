@@ -298,7 +298,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1M
 ### Get all mentors (without pagination)
 #### Request 
 ```http
-GET /api/v1/mentors/get-all
+GET /api/v1/mentors/fetch-all
 ```
 
 #### Success response
@@ -315,8 +315,6 @@ GET /api/v1/mentors/get-all
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"), 
             "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "is_deleted": false, 
-            "expand_column": null,
         },
 
         {
@@ -326,9 +324,56 @@ GET /api/v1/mentors/get-all
             "avatar": "{resources-host}/resources/images/mentor/avatar/{avatar-url}", 
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),  
+        },
+    ]
+}
+```
+
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Fetch the mentor from database successfully";
+}
+```
+
+### Get all mentors with pagination
+#### Request 
+```http
+GET /api/v1/mentors/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |                   Note                |
+|------------| -------------------------| ------------------------------------- |                  
+| pageOffset | integer greater than 0   | using 1-indexing                      |
+| limitSize  | integer greater than 0   | maximum number of records to return   |
+
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Fetch the mentor from database successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test user 1", 
+            "gender": "male", 
+            "avatar": "{resources-host}/resources/mentor/images/avatar/{avatar-url}", 
+            "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
             "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "is_deleted": false, 
-            "expand_column": null,
+        },
+
+        {
+            "id": 2, 
+            "name": "Test user 2", 
+            "gender": "female", 
+            "avatar": "{resources-host}/resources/images/mentor/avatar/{avatar-url}", 
+            "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),  
         },
     ]
 }
@@ -350,10 +395,10 @@ GET /api/v1/mentors/get-all
 GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |
-|------------| -------------------------|                    
-| pageOffset | integer greater than 0   |
-| limitSize  | integer greater than 0   |
+|   Param    |         Datatype         |                   Note                |
+|------------| -------------------------| ------------------------------------- |                  
+| pageOffset | integer greater than 0   | using 1-indexing                      |
+| limitSize  | integer greater than 0   | maximum number of records to return   |
 
 
 ##### Success response

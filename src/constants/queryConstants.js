@@ -12,7 +12,7 @@ module.exports = Object.freeze({
     TIME_FORMAT_QUERY,
 
     //Append for the select query, to get the object's metadata
-    GET_METADATA_QUERY: `DATE_FORMAT(created_at, "${DATETIME_FORMAT_QUERY}"), DATE_FORMAT(updated_at, "${DATETIME_FORMAT_QUERY}"), is_deleted`,
+    GET_METADATA_QUERY: `DATE_FORMAT(created_at, "${DATETIME_FORMAT_QUERY}"), DATE_FORMAT(updated_at, "${DATETIME_FORMAT_QUERY}")`,
     FILTER_DELETED_RECORD_QUERY: `WHERE is_deleted = false`,
 
     //Default pagination params

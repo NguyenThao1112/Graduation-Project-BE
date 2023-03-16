@@ -66,6 +66,11 @@ module.exports = Object.freeze({
 	MENTOR_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
 	MENTOR_GET_ALL_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
 
+	//Get all mentors with pagination API
+	MENTOR_GET_ALL_PAGINATION_INVALID_CODE: 1,
+	MENTOR_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
+	MENTOR_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+
 	//Configuration APIs
 	//Contact type API
 	CONFIG_CONTACT_TYPE_INVALID_CODE: 1,

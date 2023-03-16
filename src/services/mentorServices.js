@@ -33,7 +33,34 @@ function getAllMentorsWithBasicInformation() {
 }
 
 
+/**
+ * Get all mentors with pagination
+ * 
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * 
+ * @return {Promise}
+ *  
+ */
+ function getAllMentorsWithPagination(pageOffset, limitSize) {
+
+    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+    const recordOffset = (pageOffset - 1) * limitSize;
+
+    return new Promise((resolve, reject) => {
+        mentorService.getAllMentorsWithPagination(recordOffset, limitSize)
+            .then(mentors => {
+                resolve(mentors);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
 
 module.exports = {
     getAllMentorsWithBasicInformation,
+    getAllMentorsWithPagination,
 }
