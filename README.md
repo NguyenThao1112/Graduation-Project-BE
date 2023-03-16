@@ -23,7 +23,7 @@ JWT_EXPIRE=${your-data-here}\
 
 # API List (update reguraly)
 
-## Authorization
+## Authorization API
 ### Log in
 #### Request 
 ```http
@@ -143,5 +143,52 @@ POST /api/v1/auth/forget-change-password
 {
     "code": 2,
     "message": "Expired token"
+}
+```
+
+## Mentors API
+### Get all mentors (without pagination)
+#### Request 
+```http
+GET /api/v1/mentors/get-all
+```
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Fetch the mentor from database successfully",
+    "mentors": [
+        {
+            "id": 1, 
+            "name": "Test user 1", 
+            "gender": "male", 
+            "avatar": "{resources-host}/resources/mentor/images/avatar/{avatar-url}", 
+            "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "is_deleted": false, 
+            "expand_column": null,
+        },
+
+        {
+            "id": 2, 
+            "name": "Test user 2", 
+            "gender": "female", 
+            "avatar": "{resources-host}/resources/images/mentor/avatar/{avatar-url}", 
+            "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "is_deleted": false, 
+            "expand_column": null,
+        },
+    ]
+}
+
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Fetch the mentor from database successfully";
 }
 ```

@@ -37,6 +37,10 @@ module.exports = Object.freeze({
 
     AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE: "The password has been changed",
 
+    //Get all mentors API
+    MENTOR_GET_ALL_INVALID_CODE: 1,
+    MENTOR_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
+    MENTOR_GET_ALL_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
 
     //JWT's
     AUTH_JWT_SUCCESS_CODE: 0,
