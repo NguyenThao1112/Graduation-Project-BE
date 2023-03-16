@@ -16,6 +16,9 @@ module.exports = Object.freeze({
         AUTH_FORGET_PASSWORD_TOKEN_PARAM: 'token',
     AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_API_URL: `/forget-change-password`,
 
+    //ALL Account api
+    ACCOUNT_PREFIX_API_URL: `/accounts`,
+
     //All mentor api (${API_URL}`) would be `${ROOT_API_URL}${MENTOR_PREFIX_API_URL}${API_URL}`    
     MENTOR_PREFIX_API_URL: `/mentors`,
     MENTOR_GET_ALL_URL: `/get-all`,
