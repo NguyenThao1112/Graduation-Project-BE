@@ -55,3 +55,27 @@ CREATE TABLE contact_type (
 
     PRIMARY KEY(id)
 )
+
+CREATE TABLE academic_rank (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    teacher_id INT NOT NULL,
+
+    PRIMARY KEY(id),
+    FOREIGN KEY(teacher_id) REFERENCES mentor_information(id)
+)
+
+CREATE TABLE academic_title (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+	teacher_id INT NOT NULL,
+    
+    PRIMARY KEY(id),
+    FOREIGN KEY (teacher_id) REFERENCES mentor_information(id)
+)
