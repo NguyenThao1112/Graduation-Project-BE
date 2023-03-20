@@ -8,4 +8,8 @@ const accountController = require('../controllers/accountControllers');
 
 router.get('/', authGuard, accountController.getAccounts);
 
+router.post('/', authGuard, accountController.createAccount);
+
+router.delete('/:id', authGuard, accountController.deleteAccount);
+
 module.exports = router;

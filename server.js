@@ -4,10 +4,16 @@ const path = require('path');
 const cors = require('cors');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
+
+//Constants
 const configs = require('./src/constants/configConstants');
+const urls = require('./src/constants/urlConstants');
+
+//Routes
 const authRoutes = require('./src/routes/authRoutes');
 const accountRoutes = require('./src/routes/accountRoutes');
-const urls = require('./src/constants/urlConstants');
+const mentorRoutes = require('./src/routes/mentorRoutes');
+const configurationRoutes = require('./src/routes/configurationRoutes');
 
 const PORT = process.env.APP_PORT || 3001;
 const rootUrl = urls.ROOT_API_URL;
@@ -37,6 +43,8 @@ app.use(express.json());
 
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
 app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
+app.use(`${rootUrl}${urls.MENTOR_PREFIX_API_URL}`, mentorRoutes);
+app.use(`${rootUrl}${urls.CONFIG_PREFIX_API_URL}`, configurationRoutes);
 
 app.all('*', (req, res) => {
 	res.status(404);

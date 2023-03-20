@@ -56,7 +56,9 @@ function getAccountByToken(token) {
 
 /**
  *
- * @param {Object {email: string, password: string}} account
+ * @param {Object} account
+ * @param {string} account.email
+ * @param {string} account.password
  * @return {Promise}
  */
 function createAccount(account) {
@@ -77,10 +79,9 @@ function createAccount(account) {
 			function (error, results, fields) {
 				if (error) {
 					reject(error);
-					return;
 				}
 
-				resolve();
+				resolve(results);
 			}
 		);
 	});
@@ -93,9 +94,7 @@ function createAccount(account) {
  */
 function updateAccountToken(account) {
 	return new Promise(function (resolve, reject) {
-		console.log('account ', account);
 		const { id, expire, token } = account;
-		console.log('🚀 ~ file: accountDAO.js:97 ~ account:', account);
 
 		const query = [
 			'UPDATE account',
@@ -122,7 +121,7 @@ function updateAccountToken(account) {
 
 /**
  *
- * @param {Object{id: int, token: string}} account
+ * @param {Object} account
  * @return {Promise}
  */
 function updateAccountPassword(account) {
@@ -145,7 +144,7 @@ function updateAccountPassword(account) {
 					return;
 				}
 
-				resolve();
+				resolve(results);
 			}
 		);
 	});
@@ -157,17 +156,38 @@ function updateAccountPassword(account) {
  */
 function getAllAccounts() {
 	return new Promise(function (resolve, reject) {
-		const query = ['SELECT *', 'FROM account'].join(' ');
+		const query = ['SELECT *', 'FROM account', 'WHERE is_deleted <> 1'].join(
+			' '
+		);
 		connection.query(query, function (error, results, fields) {
 			if (error) {
 				reject(error);
 				return;
 			}
-			console.log('results ', JSON.stringify(results));
 			resolve(results);
 		});
 	});
 }
+
+/**
+ * @param {number} id
+ * @return {Promise}
+ */
+function deleteOneAccount(id) {
+	return new Promise(function (resolve, reject) {
+		const query = ['UPDATE account', 'SET is_deleted = 1', 'WHERE id = ?'].join(
+			' '
+		);
+		connection.query(query, [id], function (error, results, fields) {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(results);
+		});
+	});
+}
+
 // /**
 //  *
 //  * @param {Object{id: int, email: string, password: string, is_deleted: boolean, role: int, token: string}} account
@@ -205,4 +225,5 @@ module.exports = {
 	getAccountByToken,
 	updateAccountPassword,
 	getAllAccounts,
+	deleteOneAccount,
 };

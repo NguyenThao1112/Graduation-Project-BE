@@ -51,8 +51,32 @@ module.exports = Object.freeze({
 	VAL_IS_NOT_EMAIL_MESSAGE: 'must have email format',
 	VAL_IS_NOT_MATCHED_MESSAGE: 'do not match',
 	VAL_IS_NOT_EXISTED: 'is not existed',
+	VAL_IS_NOT_POSTITIVE_INTEGER_GREATER_THAN_0: 'is not an positive integer greater than 0',
 
 	//Accounts
 	ACCOUNT_GET_ALL_SUCCESS_MESSAGE: 'Get accounts successfully!',
 	ACCOUNT_GET_ALL_FAILED_MESSAGE: 'Get accounts failed!',
+	ACCOUNT_CREATE_SUCCESS_MESSAGE: 'Create account successfully!',
+	ACCOUNT_CREATE_FAILED_MESSAGE: 'Create account failed!',
+	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
+	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
+
+	//Get all mentors API
+	MENTOR_GET_ALL_INVALID_CODE: 1,
+	MENTOR_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
+	MENTOR_GET_ALL_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+
+	//Get all mentors with pagination API
+	MENTOR_GET_ALL_PAGINATION_INVALID_CODE: 1,
+	MENTOR_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
+	MENTOR_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+
+	//Configuration APIs
+	//Contact type API
+	CONFIG_CONTACT_TYPE_INVALID_CODE: 1,
+	CONFIG_CONTACT_TYPE_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE: "Get contact type successfully",
+
+ 
 });
