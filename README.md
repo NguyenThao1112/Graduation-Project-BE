@@ -461,3 +461,115 @@ GET /api/v1/config/contact-type/fetch-all
     "message": "Something went wrong from the backend",
 }
 ```
+
+
+#### Create multiple contact types
+##### Request 
+```http
+POST /api/v1/config/contact-type/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Email", 
+        },
+
+         {
+            "name": "Mobile phone", 
+        },
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save contact type successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update a contact type
+##### Request 
+```http
+PUT /api/v1/config/contact-type/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Email", 
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save contact type successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated contact type is not exists",
+}
+```
+
+#### Delete multiple contact types
+##### Request 
+```http
+DELETE /api/v1/config/contact-type/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete contact types successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
