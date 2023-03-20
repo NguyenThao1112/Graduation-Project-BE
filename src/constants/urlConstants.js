@@ -39,4 +39,8 @@ module.exports = Object.freeze({
             // CONFIG_CONTACT_TYPE_LIMITSIZE_PARAM: `limitSize`,
             
         CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
+        CONFIG_CONTACT_TYPE_CREATE: `/create`,
+        CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
+        CONFIG_CONTACT_TYPE_DELETE: `/delete`,
+
 })

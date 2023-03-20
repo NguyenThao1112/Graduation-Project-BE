@@ -16,4 +16,19 @@ router.get(
     configController.getAllContactTypes,
 );
 
+router.post(
+    `${urls.CONFIG_CONTACT_TYPE_API_URL}${urls.CONFIG_CONTACT_TYPE_CREATE}`, 
+    configController.createContactTypes,
+);
+
+router.put(
+    `${urls.CONFIG_CONTACT_TYPE_API_URL}${urls.CONFIG_CONTACT_TYPE_UPDATE}`,
+    configController.updateContactType,
+)
+
+router.delete(
+    `${urls.CONFIG_CONTACT_TYPE_API_URL}${urls.CONFIG_CONTACT_TYPE_DELETE}`,
+    configController.deleteContactTypes,
+)
+
 module.exports = router;

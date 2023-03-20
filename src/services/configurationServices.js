@@ -47,8 +47,83 @@ function getAllContactType() {
     })
 }
 
+/**
+ * create multiple contacts type at the same time
+ * @param {Array<Object{name: string}>} contactTypes
+ * @return {Promise}
+ *  
+ */
+ function createContactTypes(contactTypes) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.createContactTypes(contactTypes)
+            .then(contactTypeIds => {
+                resolve(contactTypeIds);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Update a contact type
+ * @param {Object{id: number, name: string}} contactType
+ * @return {Promise}
+ *  
+ */
+ function updateContactType(contactType) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getContactTypeById(contactType.id)
+            .then(foundContactType => {
+
+                //The updated contact type is not existed
+                //  => throw error
+                if(foundContactType.length <= 0) {
+                    reject(null);
+                    return
+                }
+
+                return configurationDAO.updateContactType(contactType);
+            })
+            .catch(error => {
+                reject(error);
+            })
+            .then(updatedContactType => {
+                resolve(updatedContactType);
+            })
+
+    })
+}
+
+
+/**
+ * delete multiple contacts type at the same time with contact types' ids
+ * @param {Array<number>} contactTypeIds
+ * @return {Promise}
+ *  
+ */
+ function deleteContactTypes(contactTypeIds) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.deleteContactTypes(contactTypeIds)
+            .then(deleteCount => {
+                resolve(deleteCount);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
 
 module.exports = {
     getContactTypeWithPagination,
     getAllContactType,
+    createContactTypes,
+    updateContactType,
+    deleteContactTypes,
 }

@@ -74,9 +74,15 @@ module.exports = Object.freeze({
 	//Configuration APIs
 	//Contact type API
 	CONFIG_CONTACT_TYPE_INVALID_CODE: 1,
+	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_CODE: 3,
 	CONFIG_CONTACT_TYPE_INVALID_MESSAGE: "Something went wrong from the backend",
 
 	CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE: "Get contact type successfully",
+	CONFIG_CONTACT_TYPE_DELETE_SUCCESS_MESSAGE: "Delete the contact types successfully",
+	CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE: "Save contact types successfully",
+	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE: "The updated contact type is not exists",
+	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 
  
 });
