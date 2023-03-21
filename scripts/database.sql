@@ -14,7 +14,7 @@ CREATE TABLE account (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE mentor_information (
+CREATE TABLE researcher_information (
     id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
     
@@ -65,7 +65,7 @@ CREATE TABLE academic_rank (
     teacher_id INT NOT NULL,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(teacher_id) REFERENCES mentor_information(id)
+    FOREIGN KEY(teacher_id) REFERENCES lecture_information(id)
 )
 
 CREATE TABLE academic_title (
@@ -77,5 +77,5 @@ CREATE TABLE academic_title (
 	teacher_id INT NOT NULL,
     
     PRIMARY KEY(id),
-    FOREIGN KEY (teacher_id) REFERENCES mentor_information(id)
+    FOREIGN KEY (teacher_id) REFERENCES lecture_information(id)
 )
