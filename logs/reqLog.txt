@@ -197,3 +197,4 @@
 20230322	14:26:02	76657c9c-5d5d-4627-ae56-a8b1dc8ac97b	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=1&limitSize=10
 20230322	14:26:13	f09bd020-d6f5-4e13-a81f-6c59667bd082	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=10
 20230322	14:26:28	20f402b1-90cc-4215-b59b-25d2f9614f74	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2
+20230322	14:49:50	cbef51b3-cc82-4c20-8fe4-c4f1282dfbde	POST	undefined	/api/v1/configs/academic-title/create
