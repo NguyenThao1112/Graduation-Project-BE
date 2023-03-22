@@ -185,3 +185,12 @@
 20230322	13:47:44	38e74bf9-8ef1-4128-b70f-e16c48a7c17c	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=2&limitSize=10
 20230322	13:47:52	ef475ce7-d046-4b94-b0be-050efa7492fc	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=10
 20230322	13:47:58	1c847af9-2873-4777-a2f2-a8cf328aa079	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=3&limitSize=10
+20230322	14:15:53	b569f514-b12d-45aa-8b91-f6380398ee54	POST	undefined	/api/v1/configs/academic-rank/create
+20230322	14:15:57	bafe8606-5a8f-4465-a596-c6f6443e3373	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=3&limitSize=10
+20230322	14:16:01	2658bc6e-7062-46e1-8865-9436ba5e2c06	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=4&limitSize=10
+20230322	14:16:08	98444b7a-acf3-4b6f-80da-bbb339137f73	GET	undefined	/api/v1/configs/academic-rank/fetch-all
+20230322	14:16:22	5c7afee2-1cc2-4bd5-9ab6-4b2f7983950e	PUT	undefined	/api/v1/configs/academic-rank/1/update
+20230322	14:16:38	813735bd-2aae-4c69-b41f-a10b7034c3b3	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=1
+20230322	14:16:48	d7ae8b57-9379-4d6f-9cf7-7dcf48b89a54	DELETE	undefined	/api/v1/configs/academic-rank/delete
+20230322	14:16:53	c949ed54-648f-42e5-8fb4-b6f9c79f0b06	GET	undefined	/api/v1/configs/academic-rank/fetch-all
+20230322	14:16:58	297823ca-d781-428e-ba81-eb56b70140c1	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=1
