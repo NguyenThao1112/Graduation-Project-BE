@@ -194,3 +194,6 @@
 20230322	14:16:48	d7ae8b57-9379-4d6f-9cf7-7dcf48b89a54	DELETE	undefined	/api/v1/configs/academic-rank/delete
 20230322	14:16:53	c949ed54-648f-42e5-8fb4-b6f9c79f0b06	GET	undefined	/api/v1/configs/academic-rank/fetch-all
 20230322	14:16:58	297823ca-d781-428e-ba81-eb56b70140c1	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=1
+20230322	14:26:02	76657c9c-5d5d-4627-ae56-a8b1dc8ac97b	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=1&limitSize=10
+20230322	14:26:13	f09bd020-d6f5-4e13-a81f-6c59667bd082	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=10
+20230322	14:26:28	20f402b1-90cc-4215-b59b-25d2f9614f74	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2

@@ -31,8 +31,8 @@ function getContactTypesWithPagination(request, response) {
 
         const [pageOffset, limitSize] = 
             commonHelper.normalizePaginationParam(
-                request.param.pageOffset, 
-                request.param.limitSize
+                request.query.pageOffset, 
+                request.query.limitSize
             );
 
         //Try to get all the contact types from the database
