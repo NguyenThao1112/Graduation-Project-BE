@@ -25,7 +25,9 @@ JWT_EXPIRE=${your-data-here}\
 # API List (update reguraly)
 
 ## Authorization API
+
 ### Log in
+
 #### Request
 
 ```http
@@ -172,7 +174,9 @@ POST /api/v1/auth/forget-change-password
 ```
 
 ## Account API
+
 ### Get all accounts
+
 #### Request
 
 ```http
@@ -294,136 +298,151 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1M
     "message": "Invalid token"
 }
 ```
-## Mentors API
-### Get all mentors (without pagination)
-#### Request 
+
+## lectures API
+
+### Get all lectures (without pagination)
+
+#### Request
+
 ```http
-GET /api/v1/mentors/fetch-all
+GET /api/v1/lectures/fetch-all
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the mentor from database successfully",
+    "message": "Fetch the lecture from database successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test user 1", 
-            "gender": "male", 
-            "avatar": "{resources-host}/resources/mentor/images/avatar/{avatar-url}", 
+            "id": 1,
+            "name": "Test user 1",
+            "gender": "male",
+            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
         {
-            "id": 2, 
-            "name": "Test user 2", 
-            "gender": "female", 
-            "avatar": "{resources-host}/resources/images/mentor/avatar/{avatar-url}", 
+            "id": 2,
+            "name": "Test user 2",
+            "gender": "female",
+            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"),  
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
 
 #### Error response
+
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the mentor from database successfully";
+    "message": "Fetch the lecture from database successfully";
 }
 ```
 
-### Get all mentors with pagination
-#### Request 
+### Get all lectures with pagination
+
+#### Request
+
 ```http
-GET /api/v1/mentors/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the mentor from database successfully",
+    "message": "Fetch the lecture from database successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test user 1", 
-            "gender": "male", 
-            "avatar": "{resources-host}/resources/mentor/images/avatar/{avatar-url}", 
+            "id": 1,
+            "name": "Test user 1",
+            "gender": "male",
+            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
         {
-            "id": 2, 
-            "name": "Test user 2", 
-            "gender": "female", 
-            "avatar": "{resources-host}/resources/images/mentor/avatar/{avatar-url}", 
+            "id": 2,
+            "name": "Test user 2",
+            "gender": "female",
+            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"),  
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
 
 #### Error response
+
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the mentor from database successfully";
+    "message": "Fetch the lecture from database successfully";
 }
 ```
 
 ## Configuration API
+
 ### Contact type
+
 #### Get contact type with pagination
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get contact type successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Email", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 1,
+            "name": "Email",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
          {
-            "id": 2, 
-            "name": "Mobile phone", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 2,
+            "name": "Mobile phone",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -432,36 +451,41 @@ GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
 #### Get all contact type
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/contact-type/fetch-all
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get contact type successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Email", 
+            "id": 1,
+            "name": "Email",
         },
 
          {
-            "id": 2, 
-            "name": "Mobile phone", 
+            "id": 2,
+            "name": "Mobile phone",
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
     "message": "Something went wrong from the backend",
 }
 ```
-
 
 #### Create multiple contact types
 ##### Request 
