@@ -248,6 +248,130 @@ function getAllAcademicRank() {
 }
 
 
+/****************************************************************
+ ***********************ACADEMIC TITLE*****************************
+ ****************************************************************/
+
+
+/**
+ * Get academic title with pagination
+ * 
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * 
+ * @return {Promise}
+ *  
+ */
+ function getAcademicTitleWithPagination(pageOffset, limitSize) {
+
+    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+    const recordOffset = (pageOffset - 1) * limitSize;
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAcademicTitleWithPagination(recordOffset, limitSize)
+            .then(academicTitles => {
+                resolve(academicTitles);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Get all the academic title, but with only its id and name
+ * 
+ * @return {Promise}
+ *  
+ */
+function getAllAcademicTitle() {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAllAcademicTitle()
+            .then(academicTitles => {
+                resolve(academicTitles);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * create multiple academic titles at the same time
+ * @param {Array<Object{name: string}>} academicTitles
+ * @return {Promise}
+ *  
+ */
+ function createAcademicTitles(academicTitles) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.createAcademicTitles(academicTitles)
+            .then(academicTitleIds => {
+                resolve(academicTitleIds);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Update a academic title
+ * @param {Object{id: number, name: string}} academicTitle
+ * @return {Promise}
+ *  
+ */
+ function updateAcademicTitle(academicTitle) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAcademicTitleById(academicTitle.id)
+            .then(foundAcademicTitle => {
+
+                //The updated academic title is not existed
+                //  => throw error
+                if(foundAcademicTitle.length <= 0) {
+                    reject(null);
+                    return
+                }
+
+                return configurationDAO.updateAcademicTitle(academicTitle);
+            })
+            .catch(error => {
+                reject(error);
+            })
+            .then(updatedAcademicTitle => {
+                resolve(updatedAcademicTitle);
+            })
+
+    })
+}
+
+
+/**
+ * delete multiple academic titles at the same time with academic titles' ids
+ * @param {Array<number>} academicTitleIds
+ * @return {Promise}
+ *  
+ */
+ function deleteAcademicTitles(academicTitleIds) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.deleteAcademicTitles(academicTitleIds)
+            .then(deleteCount => {
+                resolve(deleteCount);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+
 module.exports = {
     
     //Contact types
@@ -263,4 +387,11 @@ module.exports = {
     createAcademicRanks,
     updateAcademicRank,
     deleteAcademicRanks,
+
+    //Academic titles
+    getAcademicTitleWithPagination,
+    getAllAcademicTitle,
+    createAcademicTitles,
+    updateAcademicTitle,
+    deleteAcademicTitles,
 }
