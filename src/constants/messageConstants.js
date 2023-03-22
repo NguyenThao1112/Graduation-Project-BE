@@ -61,15 +61,15 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
-	//Get all mentors API
-	MENTOR_GET_ALL_INVALID_CODE: 1,
-	MENTOR_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
-	MENTOR_GET_ALL_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+	//Get all lecturers API
+	LECTURER_GET_ALL_INVALID_CODE: 1,
+	LECTURER_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
+	LECTURER_GET_ALL_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
 
-	//Get all mentors with pagination API
-	MENTOR_GET_ALL_PAGINATION_INVALID_CODE: 1,
-	MENTOR_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
-	MENTOR_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+	//Get all LECTURERs with pagination API
+	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
+	LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
+	LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
 
 	//Configuration APIs
 	//Contact type API

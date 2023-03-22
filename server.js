@@ -43,7 +43,7 @@ app.use(express.json());
 
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
 app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
-app.use(`${rootUrl}${urls.MENTOR_PREFIX_API_URL}`, lecturerRoutes);
+app.use(`${rootUrl}${urls.LECTURER_PREFIX_API_URL}`, lecturerRoutes);
 app.use(`${rootUrl}${urls.CONFIG_PREFIX_API_URL}`, configurationRoutes);
 
 app.all('*', (req, res) => {
