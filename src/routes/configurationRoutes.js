@@ -5,6 +5,10 @@ const urls = require('../constants/urlConstants');
 const validators = require('../validators/commonValidators');
 const configController = require('../controllers/configurationControllers');
 
+/****************************************************************
+ ***********************CONTACT TYPE*****************************
+ ****************************************************************/
+
 router.get(
     `${urls.CONFIG_CONTACT_TYPE_API_URL}${urls.CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION}`, 
     validators.getPaginationValidators(),
@@ -30,5 +34,37 @@ router.delete(
     `${urls.CONFIG_CONTACT_TYPE_API_URL}${urls.CONFIG_CONTACT_TYPE_DELETE}`,
     configController.deleteContactTypes,
 )
+
+
+/****************************************************************
+ ***********************ACADEMIC RANK*****************************
+ ****************************************************************/
+
+ router.get(
+    `${urls.CONFIG_ACADEMIC_RANK_API_URL}${urls.CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION}`, 
+    validators.getPaginationValidators(),
+    configController.getAcademicRanksWithPagination
+);
+
+router.get(
+    `${urls.CONFIG_ACADEMIC_RANK_API_URL}${urls.CONFIG_ACADEMIC_RANK_GET_ALL}`, 
+    configController.getAllAcademicRanks,
+);
+
+router.post(
+    `${urls.CONFIG_ACADEMIC_RANK_API_URL}${urls.CONFIG_ACADEMIC_RANK_CREATE}`, 
+    configController.createAcademicRanks,
+);
+
+router.put(
+    `${urls.CONFIG_ACADEMIC_RANK_API_URL}${urls.CONFIG_ACADEMIC_RANK_UPDATE}`,
+    configController.updateAcademicRank,
+)
+
+router.delete(
+    `${urls.CONFIG_ACADEMIC_RANK_API_URL}${urls.CONFIG_ACADEMIC_RANK_DELETE}`,
+    configController.deleteAcademicRanks,
+)
+
 
 module.exports = router;

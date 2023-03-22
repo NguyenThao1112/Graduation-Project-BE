@@ -32,15 +32,20 @@ module.exports = Object.freeze({
 
     //Configuration API
     CONFIG_PREFIX_API_URL: `/configs`,
-        CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,  //Contact types API
-        CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,
-            //Using PAGINATION_PAGE_OFFSET_PARAM and PAGINATION_LIMIT_SIZE_PARAM instead
-            // CONFIG_CONTACT_TYPE_PAGEOFFSET_PARAM: `pageOffset`,
-            // CONFIG_CONTACT_TYPE_LIMITSIZE_PARAM: `limitSize`,
-            
+
+        //Contact types API
+        CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,  
+        CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,            
         CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
         CONFIG_CONTACT_TYPE_CREATE: `/create`,
         CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
         CONFIG_CONTACT_TYPE_DELETE: `/delete`,
 
+        //Contact types API
+        CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
+        CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
+        CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
+        CONFIG_ACADEMIC_RANK_CREATE: `/create`,
+        CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
+        CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
 })
