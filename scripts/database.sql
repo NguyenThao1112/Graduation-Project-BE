@@ -14,7 +14,7 @@ CREATE TABLE account (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE researcher_information (
+CREATE TABLE lecturer_information (
     id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
     
@@ -42,7 +42,7 @@ CREATE TABLE researcher_information (
     expand_column VARCHAR(255),
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE contact_type (
     id INT NOT NULL AUTO_INCREMENT,
@@ -54,7 +54,7 @@ CREATE TABLE contact_type (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
@@ -66,7 +66,7 @@ CREATE TABLE academic_rank (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE academic_title (
     id INT NOT NULL AUTO_INCREMENT,
@@ -78,4 +78,4 @@ CREATE TABLE academic_title (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     PRIMARY KEY(id)
-)
+);

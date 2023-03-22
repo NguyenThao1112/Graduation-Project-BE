@@ -2,13 +2,10 @@ const connection = require("../configs/database");
 const queryConstants = require("../constants/queryConstants");
 const moment = require('moment');
 
-<<<<<<< HEAD
-=======
 /****************************************************************
  ***********************CONTACT TYPE*****************************
  ****************************************************************/
 
->>>>>>> development
 /**
  *  Query to get all the contact type: email, phone, linkedin,...
  *  with offset and limit size for pagination

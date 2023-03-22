@@ -299,14 +299,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1M
 }
 ```
 
-## lectures API
+## lecturers API
 
-### Get all lectures (without pagination)
+### Get all lecturers (without pagination)
 
 #### Request
 
 ```http
-GET /api/v1/lectures/fetch-all
+GET /api/v1/lecturers/fetch-all
 ```
 
 #### Success response
@@ -314,13 +314,13 @@ GET /api/v1/lectures/fetch-all
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the lecture from database successfully",
+    "message": "Fetch the lecturer from database successfully",
     "data": [
         {
             "id": 1,
             "name": "Test user 1",
             "gender": "male",
-            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/lecturer/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -330,7 +330,7 @@ GET /api/v1/lectures/fetch-all
             "id": 2,
             "name": "Test user 2",
             "gender": "female",
-            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/images/lecturer/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -344,16 +344,16 @@ GET /api/v1/lectures/fetch-all
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the lecture from database successfully";
+    "message": "Fetch the lecturer from database successfully";
 }
 ```
 
-### Get all lectures with pagination
+### Get all lecturers with pagination
 
 #### Request
 
 ```http
-GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -366,13 +366,13 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the lecture from database successfully",
+    "message": "Fetch the lecturer from database successfully",
     "data": [
         {
             "id": 1,
             "name": "Test user 1",
             "gender": "male",
-            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/lecturer/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -382,7 +382,7 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
             "id": 2,
             "name": "Test user 2",
             "gender": "female",
-            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/images/lecturer/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -396,7 +396,7 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the lecture from database successfully";
+    "message": "Fetch the lecturer from database successfully";
 }
 ```
 

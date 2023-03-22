@@ -22,12 +22,12 @@ module.exports = Object.freeze({
 	//ALL Account api
 	ACCOUNT_PREFIX_API_URL: `/accounts`,
 
-	//All Lecture api (${API_URL}`) would be `${ROOT_API_URL}${LECTURE_PREFIX_API_URL}${API_URL}`
-	LECTURE_PREFIX_API_URL: `/lectures`,
-	LECTURE_GET_ALL_URL: `/fetch-all`,
-	LECTURE_GET_ALL_PAGINATION_URL: `/fetch`,
-	//Resources url for LECTURE API
-	LECTURE_RESOURCE_LECTURE_AVATAR: `${process.env.RESOURCE_HOST}/lecture/images/avatar/`,
+	//All lecturer api (${API_URL}`) would be `${ROOT_API_URL}${LECTURER_PREFIX_API_URL}${API_URL}`
+	LECTURER_PREFIX_API_URL: `/lecturers`,
+	LECTURER_GET_ALL_URL: `/fetch-all`,
+	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
+	//Resources url for lectureRr API
+	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
 
     //Configuration API
     CONFIG_PREFIX_API_URL: `/configs`,

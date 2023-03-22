@@ -35,7 +35,7 @@ function getContactTypesWithPagination(request, response) {
             );
 
 
-		//Try to get all the lectures from the database
+		//Try to get all the lecturers from the database
 		configurationService
 			.getContactTypeWithPagination(pageOffset, limitSize)
 			.then((contactTypes) => {
