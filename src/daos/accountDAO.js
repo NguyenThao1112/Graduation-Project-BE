@@ -30,7 +30,7 @@ function getAccountByEmail(email) {
 
 /**
  *
- * @param {string} email
+ * @param {string} token
  * @return {Promise}
  */
 function getAccountByToken(token) {
@@ -89,7 +89,7 @@ function createAccount(account) {
 
 /**
  *
- * @param {Object{id: int, token: string}} account
+ * @param {Object} account
  * @return {Promise}
  */
 function updateAccountToken(account) {
