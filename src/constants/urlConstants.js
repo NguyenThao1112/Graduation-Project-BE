@@ -41,11 +41,19 @@ module.exports = Object.freeze({
         CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
         CONFIG_CONTACT_TYPE_DELETE: `/delete`,
 
-        //Contact types API
+        //Academic ranks API
         CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
         CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
         CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
         CONFIG_ACADEMIC_RANK_CREATE: `/create`,
         CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
         CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
+
+        //Academic titles API
+        CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,  
+        CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
+        CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
+        CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
+        CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
+        CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
 })

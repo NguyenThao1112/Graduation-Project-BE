@@ -66,5 +66,34 @@ router.delete(
     configController.deleteAcademicRanks,
 )
 
+/****************************************************************
+ ***********************ACADEMIC TITLE*****************************
+ ****************************************************************/
+
+ router.get(
+    `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION}`, 
+    validators.getPaginationValidators(),
+    configController.getAcademicTitlesWithPagination
+);
+
+router.get(
+    `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_GET_ALL}`, 
+    configController.getAllAcademicTitles,
+);
+
+router.post(
+    `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_CREATE}`, 
+    configController.createAcademicTitles,
+);
+
+router.put(
+    `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_UPDATE}`,
+    configController.updateAcademicTitle,
+)
+
+router.delete(
+    `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_DELETE}`,
+    configController.deleteAcademicTitles,
+)
 
 module.exports = router;
