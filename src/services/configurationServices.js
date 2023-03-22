@@ -1,6 +1,10 @@
 const configurationDAO = require('../daos/configurationDAO');
 
 
+/****************************************************************
+ ***********************CONTACT TYPE*****************************
+ ****************************************************************/
+
 /**
  * Get contact type with pagination
  * 
@@ -120,10 +124,143 @@ function getAllContactType() {
 }
 
 
+/****************************************************************
+ ***********************ACADEMIC RANK*****************************
+ ****************************************************************/
+
+
+/**
+ * Get academic rank with pagination
+ * 
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * 
+ * @return {Promise}
+ *  
+ */
+ function getAcademicRankWithPagination(pageOffset, limitSize) {
+
+    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+    const recordOffset = (pageOffset - 1) * limitSize;
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAcademicRankWithPagination(recordOffset, limitSize)
+            .then(academicRanks => {
+                resolve(academicRanks);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Get all the academic rank, but with only its id and name
+ * 
+ * @return {Promise}
+ *  
+ */
+function getAllAcademicRank() {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAllAcademicRank()
+            .then(academicRanks => {
+                resolve(academicRanks);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * create multiple academic ranks at the same time
+ * @param {Array<Object{name: string}>} academicRanks
+ * @return {Promise}
+ *  
+ */
+ function createAcademicRanks(academicRanks) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.createAcademicRanks(academicRanks)
+            .then(academicRankIds => {
+                resolve(academicRankIds);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Update a academic rank
+ * @param {Object{id: number, name: string}} academicRank
+ * @return {Promise}
+ *  
+ */
+ function updateAcademicRank(academicRank) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAcademicRankById(academicRank.id)
+            .then(foundAcademicRank => {
+
+                //The updated academic rank is not existed
+                //  => throw error
+                if(foundAcademicRank.length <= 0) {
+                    reject(null);
+                    return
+                }
+
+                return configurationDAO.updateAcademicRank(academicRank);
+            })
+            .catch(error => {
+                reject(error);
+            })
+            .then(updatedAcademicRank => {
+                resolve(updatedAcademicRank);
+            })
+
+    })
+}
+
+
+/**
+ * delete multiple academic ranks at the same time with academic ranks' ids
+ * @param {Array<number>} academicRankIds
+ * @return {Promise}
+ *  
+ */
+ function deleteAcademicRanks(academicRankIds) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.deleteAcademicRanks(academicRankIds)
+            .then(deleteCount => {
+                resolve(deleteCount);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+
 module.exports = {
+    
+    //Contact types
     getContactTypeWithPagination,
     getAllContactType,
     createContactTypes,
     updateContactType,
     deleteContactTypes,
+
+    //Academic ranks
+    getAcademicRankWithPagination,
+    getAllAcademicRank,
+    createAcademicRanks,
+    updateAcademicRank,
+    deleteAcademicRanks,
 }
