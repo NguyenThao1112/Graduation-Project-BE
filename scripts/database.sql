@@ -58,24 +58,24 @@ CREATE TABLE contact_type (
 
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(30) DEFAULT NULL,
+
+     -- metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
-    is_deleted BOOLEAN DEFAULT FALSE,
-    teacher_id INT NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE,  
 
-    PRIMARY KEY(id),
-    FOREIGN KEY(teacher_id) REFERENCES lecture_information(id)
+    PRIMARY KEY(id)
 )
 
 CREATE TABLE academic_title (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(30) DEFAULT NULL,
+
+     -- metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
-    is_deleted BOOLEAN DEFAULT FALSE,
-	teacher_id INT NOT NULL,
-    
-    PRIMARY KEY(id),
-    FOREIGN KEY (teacher_id) REFERENCES lecture_information(id)
+    is_deleted BOOLEAN DEFAULT FALSE,  
+
+    PRIMARY KEY(id)
 )
