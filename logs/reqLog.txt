@@ -165,3 +165,5 @@
 20230320	23:45:15	c6624913-9c80-4620-a7dc-22629c356c97	DELETE	undefined	/api/v1/configs/contact-type/delete
 20230320	23:46:31	63a10888-747f-4619-9a6b-ef6aa15f9052	DELETE	undefined	/api/v1/configs/contact-type/delete
 20230320	23:46:45	f52fe777-9fb7-4405-840c-60caff2def3b	DELETE	undefined	/api/v1/configs/contact-type/delete
+20230322	13:37:53	318fbd19-dc33-4703-9943-38cfd9eaea6a	GET	undefined	/api/v1/configs/academic-rank/create
+20230322	13:38:19	cc3c88ed-0a90-4807-b52e-75b3ea13c404	POST	undefined	/api/v1/configs/academic-rank/create
