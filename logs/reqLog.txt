@@ -198,3 +198,13 @@
 20230322	14:26:13	f09bd020-d6f5-4e13-a81f-6c59667bd082	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=10
 20230322	14:26:28	20f402b1-90cc-4215-b59b-25d2f9614f74	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2
 20230322	14:49:50	cbef51b3-cc82-4c20-8fe4-c4f1282dfbde	POST	undefined	/api/v1/configs/academic-title/create
+20230322	14:52:19	3e2dc621-c894-4c18-9dde-ea5265921e98	POST	undefined	/api/v1/configs/academic-title/create
+20230322	14:52:23	a15f8d6d-de1a-4738-a21e-daa13c2a70e3	GET	undefined	/api/v1/configs/academic-title/fetch-all
+20230322	14:52:37	3431afad-9fa6-4734-896a-a923a27331bb	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
+20230322	14:52:50	ceeec4f9-e31a-41dc-958d-0e6076c71d82	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=2&limitSize=10
+20230322	14:53:03	3881a52d-d8b1-48c2-b5a5-1225fed8c2bc	PUT	undefined	/api/v1/configs/academic-title/1/update
+20230322	14:53:08	1b534d5e-c352-4653-a19a-4b04aea69899	PUT	undefined	/api/v1/configs/academic-title/1/update
+20230322	14:53:19	fca8269c-9156-48d6-8cba-5e7768954c4e	DELETE	undefined	/api/v1/configs/academic-title/delete
+20230322	14:53:23	4ee24be5-f38e-4b0b-9e3f-36561c0f9e38	GET	undefined	/api/v1/configs/academic-title/fetch-all
+20230322	14:53:31	dbc14fc3-5784-4287-910d-0205eeb4dbcb	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=2&limitSize=10
+20230322	14:53:38	2d1800f4-ae7a-49b8-ad3d-005ae12b7894	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
