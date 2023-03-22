@@ -208,3 +208,15 @@
 20230322	14:53:23	4ee24be5-f38e-4b0b-9e3f-36561c0f9e38	GET	undefined	/api/v1/configs/academic-title/fetch-all
 20230322	14:53:31	dbc14fc3-5784-4287-910d-0205eeb4dbcb	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=2&limitSize=10
 20230322	14:53:38	2d1800f4-ae7a-49b8-ad3d-005ae12b7894	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
+20230322	14:55:30	13e7516b-dd9d-4b8a-9e6c-6d9d5329f914	GET	undefined	/api/v1/configs/contact-type/fetch-all
+20230322	14:55:35	8aa001a2-8215-4d4d-a86b-2bce6bbc504c	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2
+20230322	14:55:36	c585ecc1-fa95-4de3-b5e9-e1df2859dd76	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2
+20230322	14:55:39	1a157698-bf9f-4326-88bf-debef6ddf8af	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=2
+20230322	14:55:42	759156ad-9253-4f93-9e3b-2eac1dc6ad6f	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=3
+20230322	14:55:43	6b322e20-5fa5-4f4d-858e-6a7eba4521e7	GET	undefined	/api/v1/configs/contact-type/fetch?pageOffset=2&limitSize=3
+20230322	14:55:49	48cd8d1e-53f6-4067-bcac-9012aab609ca	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=1
+20230322	14:55:50	3baa512c-4c4f-4645-9d2c-49fdca7a4917	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=1
+20230322	14:55:55	c2a3b651-fec9-47c6-85f6-5b7d4c331b62	GET	undefined	/api/v1/configs/academic-rank/fetch?pageOffset=10&limitSize=1
+20230322	14:56:02	8fa3fb77-1b84-47a7-8c4f-bfc3c6cf6007	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
+20230322	14:56:06	733cf801-c860-4494-a33b-8611cbc269ec	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=100
+20230322	14:56:11	c862e1c3-7c33-40fe-855e-af5b70c491ea	GET	undefined	/api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=jf;ldajfdl;kf
