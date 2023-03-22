@@ -4,6 +4,10 @@ const queryConstants = require('../constants/queryConstants');
 const validatorHelper = require('../helpers/validatorHelper');
 const commonHelper = require('../helpers/commonHelper');
 
+/****************************************************************
+ ***********************CONTACT TYPE*****************************
+ ****************************************************************/
+
 /**
  * 
  * @param {Express.Request} request 
@@ -238,11 +242,257 @@ function getAllContactTypes(request, response) {
     
 }
 
+/****************************************************************
+ ***********************ACADEMIC RANK*****************************
+ ****************************************************************/
 
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function getAcademicRanksWithPagination(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_CODE,
+            message: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_MESSAGE,
+        }
+
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.param.pageOffset, 
+                request.param.limitSize
+            );
+
+        //Try to get all the academic ranks from the database
+        configurationService.getAcademicRankWithPagination(pageOffset, limitSize)
+            .then((academicRanks) => {
+
+                //If there is a not-null academic ranks => change the response's data
+                if (academicRanks) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE;
+                    responseJson.data = JSON.stringify(academicRanks);
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getAllAcademicRanks(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_CODE,
+            message: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_MESSAGE,
+        }
+
+        //Try to get all the academic ranks from the database
+        configurationService.getAllAcademicRank()
+            .then((academicRanks) => {
+
+                //If there is a not-null academic ranks => change the response's data
+                if (academicRanks) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE;
+                    responseJson.data = JSON.stringify(academicRanks);
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Create multiple academic ranks at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function createAcademicRanks(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_CODE,
+            message: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+
+        configurationService.createAcademicRanks(data)
+            .then((academicRankIds) => {
+
+                //If there is a not empty id array => change the response's data
+                if (academicRankIds.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Update a academic rank
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function updateAcademicRank(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_CODE,
+            message: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_MESSAGE,
+        }
+
+        const updatedAcademicRank = request.body;
+
+        configurationService.updateAcademicRank(updatedAcademicRank)
+            .then((academicRank) => {
+
+                //If there is a not-null academic rank => change the response's data
+                if (academicRank) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                if (null === error) {
+                    responseJson.code = messageConstants.CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE;
+                    error = messageConstants.CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE;
+                }
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
+/**
+ * Delete multiple academic ranks at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function deleteAcademicRanks(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_CODE,
+            message: messageConstants.CONFIG_ACADEMIC_RANK_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const ids = data.map(data => data.id);
+
+        configurationService.deleteAcademicRanks(ids)
+            .then((deleteCount) => {
+
+                const originalSize = data.length;
+
+                //If number of delete record is equal to the input size
+                if (deleteCount === originalSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_DELETE_SUCCESS_MESSAGE;
+                } else {
+                    responseJson.code = messageConstants.CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_CODE;
+                    responseJson.message =`${messageConstants.CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_MESSAGE}: ${deleteCount}/${originalSize}`;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
 module.exports = {
+
+    //Contact types
     getContactTypesWithPagination,
     getAllContactTypes,
     createContactTypes,
     updateContactType,
     deleteContactTypes,
+
+    //Academic ranks
+    getAcademicRanksWithPagination,
+    getAllAcademicRanks,
+    createAcademicRanks,
+    updateAcademicRank,
+    deleteAcademicRanks,
 }
