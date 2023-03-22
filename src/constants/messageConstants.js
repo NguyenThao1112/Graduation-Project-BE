@@ -84,7 +84,7 @@ module.exports = Object.freeze({
 	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE: "The updated contact type is not exists",
 	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 
- 	//Contact type API
+ 	//Academic rank API
 	CONFIG_ACADEMIC_RANK_INVALID_CODE: 1,
 	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_CODE: 2,
 	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_CODE: 2,
@@ -95,5 +95,17 @@ module.exports = Object.freeze({
 	CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE: "Save academic ranks successfully",
 	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic rank is not exists",
 	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
+	//Academic title API
+	CONFIG_ACADEMIC_TITLE_INVALID_CODE: 1,
+	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_ACADEMIC_TITLE_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE: "Get academic title successfully",
+	CONFIG_ACADEMIC_TITLE_DELETE_SUCCESS_MESSAGE: "Delete the academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_CREATE_SUCCESS_MESSAGE: "Save academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic title is not exists",
+	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
  
 });
