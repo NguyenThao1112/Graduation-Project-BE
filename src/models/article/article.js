@@ -45,6 +45,78 @@ class Article {
     #files;         //Array<ArticleFile>
     #notes;         //Array<ArticleNote>
 
+    constructor(
+        id,
+        name,
+        year,
+        pageFrom,
+        pageTo,
+        volume,
+        issue,
+        city,
+        abstract,
+        institution,
+        department,
+        type,
+        month,
+        day,
+        urlAccessDate,
+        ArXivID,
+        DOI,
+        ISBN,
+        ISSN,
+        PMID,
+        Scopus,
+        PII,
+        SGR,
+        projectId,
+        citationKey,
+        generalNote,
+        createdAt,
+        updatedAt,
+        isDeleted,
+        tags,
+        authors,
+        urls,
+        files,
+        notes
+    ) { 
+        this.#id = id;
+        this.#name = name;
+        this.#year = year;
+        this.#pageFrom = pageFrom;
+        this.#pageTo = pageTo;
+        this.#volume = volume;
+        this.#issue = issue;
+        this.#city = city;
+        this.#abstract = abstract;
+        this.#institution = institution;
+        this.#department = department;
+        this.#type = type;
+        this.#month = month;
+        this.#day = day;
+        this.#urlAccessDate = urlAccessDate;
+        this.#ArXivID = ArXivID;
+        this.#DOI = DOI;
+        this.#ISBN = ISBN;
+        this.#ISSN = ISSN;
+        this.#PMID = PMID;
+        this.#Scopus = Scopus;
+        this.#PII = PII;
+        this.#SGR = SGR;
+        this.#projectId = projectId;
+        this.#citationKey = citationKey;
+        this.#generalNote = generalNote;
+        this.#createdAt = createdAt;
+        this.#updatedAt = updatedAt;
+        this.#isDeleted = isDeleted;
+        this.#tags = tags;
+        this.#authors = authors;
+        this.#urls = urls;
+        this.#files = files;
+        this.#notes = notes;
+    }
+
     //Getters
     getId() {return this.#id;};    
     getName() {return this.#name;};  
@@ -86,7 +158,7 @@ class Article {
     setName(name) {this.#name = name;};  
     setYear(year) {this.#year = year;};  
     setPageFrom(pageFrom) {this.#pageFrom = pageFrom;}; 
-    setPaseto(pageTo) {this.#paseto = pageTo;};   
+    setPageTo(pageTo) {this.#paseto = pageTo;};   
     setVolume(volume) {this.#volume = volume;};    
     setIssue(issue) {this.#issue = issue;};     
     setCity(city) {this.#city = city;}; 
