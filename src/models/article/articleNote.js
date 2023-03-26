@@ -8,18 +8,18 @@ class ArticleNote {
     #isDeleted;     //boolean
 
     //Getters
-    getId() {return this.#id;};
-    getNote() {return this.#note;};   
-    getCreatedAt() {return this.#createdAt;};
-    getUpdatedAt() {return this.#updatedAt;}; 
-    getIsDeleted() {return this.#isDeleted;};
+    get id() {return this.#id;};
+    get note() {return this.#note;};   
+    get createdAt() {return this.#createdAt;};
+    get updatedAt() {return this.#updatedAt;}; 
+    get isDeleted() {return this.#isDeleted;};
 
     //Setters
-    setId(id) {this.#id = id;};
-    setNote(note) {this.#note = note;};
-    setCreatedAt(createdAt) {this.#createdAt = createdAt;};
-    setUpdatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
-    setIsDeleted(isDeleted) {this.#isDeleted = isDeleted;};
+    set id(id) {this.#id = id;};
+    set note(note) {this.#note = note;};
+    set createdAt(createdAt) {this.#createdAt = createdAt;};
+    set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
+    set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};
 }
 
 module.exports = {

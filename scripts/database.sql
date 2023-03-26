@@ -201,6 +201,7 @@ CREATE TABLE article_tag(
 CREATE TABLE author(
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT DEFAULT NULL,
+    article_id INT DEFAULT NULL,
 
     first_name VARCHAR(30) DEFAULT NULL,
     last_name VARCHAR(30) DEFAULT NULL,

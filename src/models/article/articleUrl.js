@@ -8,18 +8,18 @@ class ArticleUrl {
     #isDeleted;     //boolean
 
     //Getters
-    getId() {return this.#id;};
-    getUrl() {return this.#url;};   
-    getCreatedAt() {return this.#createdAt;};
-    getUpdatedAt() {return this.#updatedAt;}; 
-    getIsDeleted() {return this.#isDeleted;};
+    get id() {return this.#id;};
+    get url() {return this.#url;};   
+    get createdAt() {return this.#createdAt;};
+    get updatedAt() {return this.#updatedAt;}; 
+    get isDeleted() {return this.#isDeleted;};
 
     //Setters
-    setId(id) {this.#id = id;};
-    setUrl(url) {this.#url = url;};
-    setCreatedAt(createdAt) {this.#createdAt = createdAt;};
-    setUpdatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
-    setIsDeleted(isDeleted) {this.#isDeleted = isDeleted;};
+    set id(id) {this.#id = id;};
+    set url(url) {this.#url = url;};
+    set createdAt(createdAt) {this.#createdAt = createdAt;};
+    set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
+    set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};
 }
 
 module.exports = {

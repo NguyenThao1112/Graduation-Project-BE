@@ -184,6 +184,80 @@ class ArticleBuilder {
         return this;
     };
 
+    setBulk(articleObject) {
+        this.#id = articleObject.id ?? null;                        
+        this.#name = articleObject.name ?? null;                    
+        this.#year = articleObject.year ?? null;                    
+        this.#pageFrom = articleObject.pageFrom ?? null;            
+        this.#pageTo = articleObject.pageTo ?? null;                
+        this.#volume = articleObject.volume ?? null;                
+        this.#issue = articleObject.issue ?? null;                  
+        this.#city = articleObject.city ?? null;                    
+        this.#abstract = articleObject.abstract ?? null;            
+        this.#institution = articleObject.institution ?? null;      
+        this.#department = articleObject.department ?? null;        
+        this.#type = articleObject.type ?? null;                    
+        this.#month = articleObject.month ?? null;                  
+        this.#day = articleObject.day ?? null;                      
+        this.#urlAccessDate = articleObject.urlAccessDate ?? null;  
+        this.#ArXivID = articleObject.ArXivID ?? null;              
+        this.#DOI = articleObject.DOI ?? null;                      
+        this.#ISBN = articleObject.ISBN ?? null;                    
+        this.#ISSN = articleObject.ISSN ?? null;                    
+        this.#PMID = articleObject.PMID ?? null;                    
+        this.#Scopus = articleObject.Scopus ?? null;                
+        this.#PII = articleObject.PII ?? null;                      
+        this.#SGR = articleObject.SGR ?? null;                      
+        this.#projectId = articleObject.projectId ?? null;          
+        this.#citationKey = articleObject.citationKey ?? null;      
+        this.#generalNote = articleObject.generalNote ?? null;      
+        this.#createdAt = articleObject.createdAt ?? null;          
+        this.#updatedAt = articleObject.updatedAt ?? null;          
+        this.#isDeleted = articleObject.isDeleted ?? null;          
+        this.#tags = articleObject.tags ?? null;                    
+        this.#authors = articleObject.authors ?? null;              
+        this.#urls = articleObject.urls ?? null;                    
+        this.#files = articleObject.files ?? null;                  
+        this.#notes = articleObject.notes ?? null;         
+    }
+
+    reset() {
+        this.#id = null;            
+        this.#name = null;          
+        this.#year = null;          
+        this.#pageFrom = null;      
+        this.#pageTo = null;        
+        this.#volume = null;        
+        this.#issue = null;         
+        this.#city = null;          
+        this.#abstract = null;      
+        this.#institution = null;   
+        this.#department = null;    
+        this.#type = null;          
+        this.#month = null;         
+        this.#day = null;           
+        this.#urlAccessDate = null; 
+        this.#ArXivID = null;       
+        this.#DOI = null;           
+        this.#ISBN = null;          
+        this.#ISSN = null;          
+        this.#PMID = null;          
+        this.#Scopus = null;        
+        this.#PII = null;           
+        this.#SGR = null;           
+        this.#projectId = null;     
+        this.#citationKey = null;   
+        this.#generalNote = null;   
+        this.#createdAt = null;     
+        this.#updatedAt = null;     
+        this.#isDeleted = null;     
+        this.#tags = null;          
+        this.#authors = null;       
+        this.#urls = null;          
+        this.#files = null;         
+        this.#notes = null;       
+    }
+
     build() {
         return new Article(
             this.#id,
@@ -223,6 +297,8 @@ class ArticleBuilder {
         );
     }
 }
+
+
 
 module.exports = {
     ArticleBuilder,

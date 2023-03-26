@@ -11,20 +11,20 @@ class ArticleTag {
     #articles;      //Array<Article>
 
     //Getters
-    getId() {return this.#id;};
-    getTag() {return this.#tag;};   
-    getCreatedAt() {return this.#createdAt;};
-    getUpdatedAt() {return this.#updatedAt;}; 
-    getIsDeleted() {return this.#isDeleted;};
-    getArticles() {return this.#articles;};
+    get id() {return this.#id;};
+    get tag() {return this.#tag;};   
+    get createdAt() {return this.#createdAt;};
+    get updatedAt() {return this.#updatedAt;}; 
+    get isDeleted() {return this.#isDeleted;};
+    get articles() {return this.#articles;};
 
     //Setters
-    setId(id) {this.#id = id;};
-    setTag(tag) {this.#tag = tag;};
-    setCreatedAt(createdAt) {this.#createdAt = createdAt;};
-    setUpdatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
-    setIsDeleted(isDeleted) {this.#isDeleted = isDeleted;};
-    setArticles(articles) {this.#articles = articles;};
+    set id(id) {this.#id = id;};
+    set tag(tag) {this.#tag = tag;};
+    set createdAt(createdAt) {this.#createdAt = createdAt;};
+    set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
+    set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};
+    set articles(articles) {this.#articles = articles;};
 }
 
 module.exports = {
