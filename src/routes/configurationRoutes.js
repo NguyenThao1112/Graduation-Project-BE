@@ -3,6 +3,7 @@ const router = express.Router();
 
 const urls = require('../constants/urlConstants');
 const validators = require('../validators/commonValidators');
+const configurationValidators = require('../validators/configurationValidators');
 const configController = require('../controllers/configurationControllers');
 
 /****************************************************************
@@ -114,11 +115,13 @@ router.get(
 
 router.post(
     `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_CREATE}`, 
+    configurationValidators.createTagValidators(),
     configController.createTags,
 );
 
 router.put(
     `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_UPDATE}`,
+    configurationValidators.updateTagValidators(),
     configController.updateTag,
 )
 

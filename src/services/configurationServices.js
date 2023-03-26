@@ -494,6 +494,25 @@ function getAllTag() {
     })
 }
 
+
+/**
+ * Get tags by its name
+ * @param {Array<String>} tagNames
+ * @return {Promise}
+ */
+ function getTagsByNames(tagNames) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getTagsByNames(tagNames)
+			.then((tags) => {
+				resolve(tags);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
     
     //Contact types
@@ -523,4 +542,5 @@ module.exports = {
     createTags,
     updateTag,
     deleteTags,
+    getTagsByNames
 }

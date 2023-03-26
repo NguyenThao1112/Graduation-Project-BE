@@ -810,6 +810,33 @@ function createTags(tags) {
     
 }
 
+/**
+ * Get all the tags with those given names
+ * @param {Array<String>} tagNames 
+ * @return {Promise} 
+ */
+function getTagsByNames(tagNames) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `SELECT id, name`, 
+            'FROM tag',
+            `WHERE name IN (?)`,
+            'LIMIT 1'
+        ].join(' ');
+
+        let tags = null;
+        connection.query(query, [tagNames], (error, results, fields) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            tags = results;
+            resolve(tags);
+        });
+    })
+}
+
 
 module.exports = {
 
@@ -844,4 +871,5 @@ module.exports = {
     getTagById,
     updateTag,
     deleteTags,
+    getTagsByNames,
 }
