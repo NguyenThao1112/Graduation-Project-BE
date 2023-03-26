@@ -209,6 +209,57 @@ const queryConstants = require('../constants/queryConstants');
     
 }
 
+
+/**
+ *  Query to create Many-to-Many relation ship between article and tag
+ * 
+ * @param {Array<[Article, Array<Tag>]>} categories
+ * @return {Promise}
+ */
+ function createArticleCategories(categories) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `INSERT INTO article_tag (`
+					`article_id, tag_id,`,
+					`created_at, updated_at, is_deleted`,
+				`)`, 
+            'VALUES (',
+					'?,?,',
+					'?,?,?', 
+				')',
+        ].join(' ');
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+        const is_deleted = false;
+        const values = categories.map(cat => cat[1].map(tag => [
+			cat[0].id, tag.id, 
+			now, now, is_deleted,
+		]));
+
+        //Using bulk insertion for better performance
+        connection.query(query, [values], (error, result) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+
+            //Get the id of the created ones
+            const size = result.affectedRows;
+            const firstId = result.insertId;
+            const aboveMaxId = firstId + size;
+            let ids = [];
+            for (let i = firstId; i < aboveMaxId; i++) {
+                ids.push(i);
+            }
+
+            resolve(ids);
+        });
+    })
+    
+}
+
+
 /**
  *  Query to create multiple articles at the same time
  * 
@@ -278,5 +329,6 @@ module.exports = {
 	createArticleFiles,
 	createArticleNotes,
 	createAuthors,
+    createArticleCategories,
 	createArticles,
 };
