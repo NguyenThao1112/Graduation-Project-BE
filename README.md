@@ -970,3 +970,189 @@ DELETE /api/v1/config/academic-title/delete
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
+
+### Tag
+#### Get tag with pagination
+##### Request 
+```http
+GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |                   Note                |
+|------------| -------------------------| ------------------------------------- |                  
+| pageOffset | integer greater than 0   | using 1-indexing                      |
+| limitSize  | integer greater than 0   | maximum number of records to return   |
+
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get tag successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all tag
+##### Request 
+```http
+GET /api/v1/config/tag/fetch-all
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get tag successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+
+#### Create multiple tags
+##### Request 
+```http
+POST /api/v1/config/tag/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0", 
+        },
+
+         {
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save tag successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update a tag
+##### Request 
+```http
+PUT /api/v1/config/tag/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0", 
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save tag successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated tag is not exists",
+}
+```
+
+#### Delete multiple tags
+##### Request 
+```http
+DELETE /api/v1/config/tag/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete tags successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```

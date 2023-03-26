@@ -55,5 +55,13 @@ module.exports = Object.freeze({
         CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
         CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
         CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
+
+        //Tags API
+        CONFIG_TAG_API_URL: `/tag`,  
+        CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
+        CONFIG_TAG_GET_ALL: `/fetch-all`,
+        CONFIG_TAG_CREATE: `/create`,
+        CONFIG_TAG_UPDATE: `/:id/update`,
+        CONFIG_TAG_DELETE: `/delete`,
 })
 

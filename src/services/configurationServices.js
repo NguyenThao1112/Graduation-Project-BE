@@ -369,6 +369,147 @@ function getAllAcademicTitle() {
 }
 
 
+/****************************************************************
+ *****************************TAG********************************
+ ****************************************************************/
+
+/**
+ * Get tag with pagination
+ * 
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * 
+ * @return {Promise}
+ *  
+ */
+function getTagWithPagination(pageOffset, limitSize) {
+
+    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+    const recordOffset = (pageOffset - 1) * limitSize;
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getTagWithPagination(recordOffset, limitSize)
+            .then(tags => {
+                resolve(tags);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Get all the tag, but with only its id and name
+ * 
+ * @return {Promise}
+ *  
+ */
+function getAllTag() {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getAllTag()
+            .then(tags => {
+                resolve(tags);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * create multiple tags at the same time
+ * @param {Array<Object{name: string}>} tags
+ * @return {Promise}
+ *  
+ */
+ function createTags(tags) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.createTags(tags)
+            .then(tagIds => {
+                resolve(tagIds);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+/**
+ * Update a tag
+ * @param {Object{id: number, name: string}} tag
+ * @return {Promise}
+ *  
+ */
+ function updateTag(tag) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.getTagById(tag.id, false)
+            .then(foundTag => {
+
+                //The updated tag is not existed
+                //  => throw error
+                if(foundTag.length <= 0) {
+                    reject(null);
+                    return
+                }
+
+                return configurationDAO.updateTag(tag);
+            })
+            .catch(error => {
+                reject(error);
+            })
+            .then(updatedTag => {
+                resolve(updatedTag);
+            })
+
+    })
+}
+
+
+/**
+ * delete multiple tags at the same time with tags' ids
+ * @param {Array<number>} tagIds
+ * @return {Promise}
+ *  
+ */
+ function deleteTags(tagIds) {
+
+    return new Promise((resolve, reject) => {
+        configurationDAO.deleteTags(tagIds)
+            .then(deleteCount => {
+                resolve(deleteCount);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
+}
+
+
+/**
+ * Get tags by its name
+ * @param {Array<String>} tagNames
+ * @return {Promise}
+ */
+ function getTagsByNames(tagNames) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getTagsByNames(tagNames)
+			.then((tags) => {
+				resolve(tags);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
     
     //Contact types
@@ -391,4 +532,13 @@ module.exports = {
     createAcademicTitles,
     updateAcademicTitle,
     deleteAcademicTitles,
+
+    //Tags
+    getTagWithPagination,
+    getAllTag,
+    createTags,
+    updateTag,
+    deleteTags,
+    getTagsByNames
 }
+

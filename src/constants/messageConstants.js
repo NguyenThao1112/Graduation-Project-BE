@@ -108,4 +108,15 @@ module.exports = Object.freeze({
 	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic title is not exists",
 	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
  
+	//Tag API
+	CONFIG_TAG_INVALID_CODE: 1,
+	CONFIG_TAG_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_TAG_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_TAG_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_TAG_SUCCESS_MESSAGE: "Get tag successfully",
+	CONFIG_TAG_DELETE_SUCCESS_MESSAGE: "Delete the tags successfully",
+	CONFIG_TAG_CREATE_SUCCESS_MESSAGE: "Save tags successfully",
+	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
+	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 });
