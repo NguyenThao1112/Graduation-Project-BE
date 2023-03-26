@@ -608,6 +608,209 @@ function createAcademicTitles(academicTitles) {
     
 }
 
+
+/****************************************************************
+ *******************************TAG******************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the tag
+ *  with offset and limit size for pagination
+ * 
+ * @param {int} offset
+ * @param {int} limitSize 
+ * @return {Promise}
+ */
+ function getTagWithPagination(offset, limitSize) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `SELECT id, name, created_at, updated_at`, 
+            'FROM tag',
+            queryConstants.FILTER_DELETED_RECORD_QUERY,
+            `ORDER BY id ASC`,
+            'LIMIT ?, ?',
+        ].join(' ');
+
+        let tags = null;
+        connection.query(query, [offset, limitSize], (error, results, fields) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            tags = results;
+            resolve(tags);
+        });
+    })
+    
+}
+
+/**
+ *  Query to get all exists tags
+ * 
+ * @return {Promise}
+ */
+function getAllTag() {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `SELECT id, name`, 
+            'FROM tag',
+            queryConstants.FILTER_DELETED_RECORD_QUERY,
+            `ORDER BY id ASC`,
+        ].join(' ');
+
+        let tags = null;
+        connection.query(query, (error, results, fields) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            tags = results;
+            resolve(tags);
+        });
+    })
+    
+}
+
+
+/**
+ *  Query to get a tag by its id
+ * @param {number} id
+ * @return {Promise}
+ */
+ function getTagById(id) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `SELECT id, name`, 
+            'FROM tag',
+            `WHERE id = ?`,
+            'LIMIT 1'
+        ].join(' ');
+
+        let tag = null;
+        connection.query(query, [id], (error, results, fields) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            tag = results;
+            resolve(tag);
+        });
+    })
+    
+}
+
+/**
+ *  Query to update a tag
+ * @param {Object{id: number, name: string}} tag
+ * @return {Promise}
+ */
+ function updateTag(tag) {
+    const {id, name} = tag;
+
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            'UPDATE tag',
+			'SET name = ?, updated_at = ?',
+			'WHERE id = ?',
+        ].join(' ');
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+		connection.query(
+			query,
+			[name, now, id],
+			function (error, results, fields) {
+				if (error) {
+					reject(error);
+					return;
+				}
+
+				resolve(tag);
+			}
+		);
+    })
+    
+}
+
+
+/**
+ *  Query to delete multiple tags at the same time with the given ids
+ * 
+ * @param {Array<number>} ids
+ * @return {Promise}
+ */
+ function deleteTags(ids) {
+    return new Promise(function (resolve, reject) {
+
+        //Using in to avoid n + 1 problem
+        const query = 
+        [
+            'UPDATE tag',
+			'SET is_deleted = ?, updated_at = ?',
+			'WHERE id IN (?)',
+        ].join(' ');
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+        connection.query(query, [true, now, ids], (error, result) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+
+            //Number of records are deleted
+            const size = result.affectedRows;
+            resolve(size);
+        });
+    })
+    
+}
+
+/**
+ *  Query to create multiple tags at the same time
+ * 
+ * @param {Array<Object{name: string}>} tags
+ * @return {Promise}
+ */
+function createTags(tags) {
+    return new Promise(function (resolve, reject) {
+        const query = 
+        [
+            `INSERT INTO tag (name, created_at, updated_at, is_deleted)`, 
+            'VALUES ?',
+        ].join(' ');
+
+        const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+        const is_deleted = false;
+        const values = tags.map(tag => [tag.name, now, now, is_deleted]);
+
+        //Using bulk insertion for better performance
+        connection.query(query, [values], (error, result) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+
+            //Get the id of the created contact types
+            const size = result.affectedRows;
+            const firstId = result.insertId;
+            const aboveMaxId = firstId + size;
+            let ids = [];
+            for (let i = firstId; i < aboveMaxId; i++) {
+                ids.push(i);
+            }
+
+            resolve(ids);
+        });
+    })
+    
+}
+
+
 module.exports = {
 
     //Contact types
@@ -633,4 +836,12 @@ module.exports = {
     getAcademicTitleById,
     updateAcademicTitle,
     deleteAcademicTitles,
+
+    //Tags
+    getTagWithPagination,
+    getAllTag,
+    createTags,
+    getTagById,
+    updateTag,
+    deleteTags,
 }
