@@ -451,7 +451,7 @@ function getAllTag() {
  function updateTag(tag) {
 
     return new Promise((resolve, reject) => {
-        configurationDAO.getTagById(tag.id)
+        configurationDAO.getTagById(tag.id, false)
             .then(foundTag => {
 
                 //The updated tag is not existed

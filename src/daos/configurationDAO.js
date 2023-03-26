@@ -677,15 +677,22 @@ function getAllTag() {
 /**
  *  Query to get a tag by its id
  * @param {number} id
+ * @param {boolean} containDeleted: do you want to fetch the deleted data?
  * @return {Promise}
  */
- function getTagById(id) {
+ function getTagById(id, containDeleted = true) {
     return new Promise(function (resolve, reject) {
+
+        //The where condition to check if you want to select the deleted data
+        const deletedFetchStatement = containDeleted?
+            'WHERE id = ?':
+            `${queryConstants.FILTER_DELETED_RECORD_QUERY} AND id = ?`;
+
         const query = 
         [
             `SELECT id, name`, 
             'FROM tag',
-            `WHERE id = ?`,
+            deletedFetchStatement,
             'LIMIT 1'
         ].join(' ');
 
@@ -821,8 +828,8 @@ function getTagsByNames(tagNames) {
         [
             `SELECT id, name`, 
             'FROM tag',
-            `WHERE name IN (?)`,
-            'LIMIT 1'
+            queryConstants.FILTER_DELETED_RECORD_QUERY,
+            `AND name IN (?)`,
         ].join(' ');
 
         let tags = null;
