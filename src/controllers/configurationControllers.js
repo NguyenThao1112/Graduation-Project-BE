@@ -721,6 +721,244 @@ function getAllAcademicTitles(request, response) {
     
 }
 
+/****************************************************************
+ *******************************TAG******************************
+ ****************************************************************/
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function getTagsWithPagination(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_TAG_INVALID_CODE,
+            message: messageConstants.CONFIG_TAG_INVALID_MESSAGE,
+        }
+
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.query.pageOffset, 
+                request.query.limitSize
+            );
+
+        //Try to get all the tags from the database
+        configurationService.getTagWithPagination(pageOffset, limitSize)
+            .then((tags) => {
+
+                //If there is a not-null tags => change the response's data
+                if (tags) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_SUCCESS_MESSAGE;
+                    responseJson.data = JSON.stringify(tags);
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getAllTags(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_TAG_INVALID_CODE,
+            message: messageConstants.CONFIG_TAG_INVALID_MESSAGE,
+        }
+
+        //Try to get all the tags from the database
+        configurationService.getAllTag()
+            .then((tags) => {
+
+                //If there is a not-null tags => change the response's data
+                if (tags) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_SUCCESS_MESSAGE;
+                    responseJson.data = JSON.stringify(tags);
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Create multiple tags at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function createTags(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_TAG_INVALID_CODE,
+            message: messageConstants.CONFIG_TAG_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+
+        configurationService.createTags(data)
+            .then((tagIds) => {
+
+                //If there is a not empty id array => change the response's data
+                if (tagIds.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Update a tag
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function updateTag(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_TAG_INVALID_CODE,
+            message: messageConstants.CONFIG_TAG_INVALID_MESSAGE,
+        }
+
+        const updatedTag = request.body;
+
+        configurationService.updateTag(updatedTag)
+            .then((tag) => {
+
+                //If there is a not-null tag => change the response's data
+                if (tag) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                if (null === error) {
+                    responseJson.code = messageConstants.CONFIG_TAG_UPDATED_NOT_EXISTS_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE;
+                    error = messageConstants.CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE;
+                }
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
+/**
+ * Delete multiple tags at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function deleteTags(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_TAG_INVALID_CODE,
+            message: messageConstants.CONFIG_TAG_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const ids = data.map(data => data.id);
+
+        configurationService.deleteTags(ids)
+            .then((deleteCount) => {
+
+                const originalSize = data.length;
+
+                //If number of delete record is equal to the input size
+                if (deleteCount === originalSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_TAG_DELETE_SUCCESS_MESSAGE;
+                } else {
+                    responseJson.code = messageConstants.CONFIG_TAG_DELETED_NOT_ALL_CODE;
+                    responseJson.message =`${messageConstants.CONFIG_TAG_DELETED_NOT_ALL_MESSAGE}: ${deleteCount}/${originalSize}`;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
 module.exports = {
 
     //Contact types
@@ -737,11 +975,17 @@ module.exports = {
     updateAcademicRank,
     deleteAcademicRanks,
 
-
     //Academic titles
     getAcademicTitlesWithPagination,
     getAllAcademicTitles,
     createAcademicTitles,
     updateAcademicTitle,
     deleteAcademicTitles,
+
+    //Academic titles
+    getTagsWithPagination,
+    getAllTags,
+    createTags,
+    updateTag,
+    deleteTags,
 }
