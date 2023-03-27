@@ -12,6 +12,8 @@ module.exports = Object.freeze({
 	DB_PASSWORD: process.env.DB_PASSWORD,
 	DB_NAME: process.env.DB_NAME,
 	DB_CONNECTION_LIMIT: process.env.DB_CONNECTION_LIMIT,
+	SSL: true,
+	SOCKET_PATH: process.env.SOCKET_PATH,
 
 	//JWT configs
 	JWT_SECRET: process.env.JWT_SECRET,

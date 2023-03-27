@@ -21,4 +21,10 @@ router.get(
 	lecturerControllers.getAllLecturersWithPagination
 );
 
+router.post(
+	urls.LECTURER_CREATE_URL,
+	authGuard,
+	lecturerControllers.createLecturers
+);
+
 module.exports = router;
