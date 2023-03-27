@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = Object.freeze({
 	//App configs
-	APP_PORT: process.env.APP_PORT,
+	APP_PORT: process.env.APP_PORT || 3001,
 	APP_HOST: process.env.APP_HOST,
 
 	//DB configs

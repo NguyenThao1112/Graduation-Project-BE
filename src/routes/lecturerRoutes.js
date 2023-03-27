@@ -9,13 +9,13 @@ const lecturerControllers = require('../controllers/lecturerControllers');
 const { authGuard } = require('../middlewares/authMiddlewares');
 
 router.get(
-	urls.LECTURE_GET_ALL_URL,
+	urls.LECTURER_GET_ALL_URL,
 	authGuard,
 	lecturerControllers.getAllLecturersWithBasicInformation
 );
 
 router.get(
-	urls.LECTURE_GET_ALL_PAGINATION_URL,
+	urls.LECTURER_GET_ALL_PAGINATION_URL,
 	authGuard,
 	validators.getPaginationValidators(),
 	lecturerControllers.getAllLecturersWithPagination

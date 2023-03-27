@@ -12,8 +12,8 @@ const commonHelper = require('../helpers/commonHelper');
 function getAllLecturersWithBasicInformation(request, response) {
 	return new Promise((resolve, reject) => {
 		let responseJson = {
-			code: messageConstants.LECTURE_GET_ALL_INVALID_CODE,
-			message: messageConstants.LECTURE_GET_ALL_INVALID_MESSAGE,
+			code: messageConstants.LECTURER_GET_ALL_INVALID_CODE,
+			message: messageConstants.LECTURER_GET_ALL_INVALID_MESSAGE,
 		};
 
 		lecturerServices
@@ -22,7 +22,7 @@ function getAllLecturersWithBasicInformation(request, response) {
 				if (lectures) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
-						messageConstants.LECTURE_GET_ALL_SUCCESS_MESSAGE;
+						messageConstants.LECTURER_GET_ALL_SUCCESS_MESSAGE;
 					responseJson.data = JSON.stringify(lectures);
 				}
 			})
@@ -51,13 +51,13 @@ function getAllLecturersWithPagination(request, response) {
 
 		//Default response is error response
 		let responseJson = {
-			code: messageConstants.LECTURE_GET_ALL_PAGINATION_INVALID_CODE,
-			message: messageConstants.LECTURE_GET_ALL_PAGINATION_INVALID_MESSAGE,
+			code: messageConstants.LECTURER_GET_ALL_PAGINATION_INVALID_CODE,
+			message: messageConstants.LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE,
 		};
 
 		const [pageOffset, limitSize] = commonHelper.normalizePaginationParam(
-			request.param.pageOffset,
-			request.param.limitSize
+			request.query.pageOffset,
+			request.query.limitSize
 		);
 
 		//Try to get all the lectures from the database
@@ -68,8 +68,9 @@ function getAllLecturersWithPagination(request, response) {
 				if (lectures) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
-						messageConstants.LECTURE_GET_ALL_PAGINATION_SUCCESS_MESSAGE;
+						messageConstants.LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE;
 					responseJson.data = JSON.stringify(lectures);
+				}
 			})
 			.catch((error) => {
 				console.log(error);

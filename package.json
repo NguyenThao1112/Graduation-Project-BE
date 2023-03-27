@@ -1,32 +1,38 @@
 {
-  "name": "07tut",
-  "version": "1.0.0",
-  "description": "Express tutorial",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
-  },
-  "author": "Dave Gray",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "cors": "^2.8.5",
-    "date-fns": "^2.23.0",
-    "dotenv": "^16.0.3",
-    "dotenv-expand": "^10.0.0",
-    "express": "^4.17.1",
-    "express-validator": "^6.15.0",
-    "install": "^0.13.0",
-    "jsonwebtoken": "^9.0.0",
-    "moment": "^2.29.4",
-    "mysql": "^2.18.1",
-    "nodemailer": "^6.9.1",
-    "npm": "^9.5.1",
-    "rand-token": "^1.0.1",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12"
-  }
+	"name": "07tut",
+	"version": "1.0.0",
+	"description": "Express tutorial",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server",
+		"dev": "nodemon server",
+		"lint:fix": "eslint --fix ./*.js"
+	},
+	"author": "Dave Gray",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.0",
+		"cors": "^2.8.5",
+		"date-fns": "^2.23.0",
+		"dotenv": "^16.0.3",
+		"dotenv-expand": "^10.0.0",
+		"express": "^4.17.1",
+		"express-validator": "^6.15.0",
+		"install": "^0.13.0",
+		"jsonwebtoken": "^9.0.0",
+		"moment": "^2.29.4",
+		"mysql": "^2.18.1",
+		"nodemailer": "^6.9.1",
+		"npm": "^9.5.1",
+		"rand-token": "^1.0.1",
+		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"eslint": "^8.0.1",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"nodemon": "^2.0.12"
+	}
 }

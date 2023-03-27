@@ -61,22 +61,51 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
-	//Get all mentors API
-	MENTOR_GET_ALL_INVALID_CODE: 1,
-	MENTOR_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
-	MENTOR_GET_ALL_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+	//Get all lecturers API
+	LECTURER_GET_ALL_INVALID_CODE: 1,
+	LECTURER_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
+	LECTURER_GET_ALL_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
 
-	//Get all mentors with pagination API
-	MENTOR_GET_ALL_PAGINATION_INVALID_CODE: 1,
-	MENTOR_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
-	MENTOR_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the mentor from database successfully",
+	//Get all LECTURERs with pagination API
+	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
+	LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
+	LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
 
 	//Configuration APIs
 	//Contact type API
 	CONFIG_CONTACT_TYPE_INVALID_CODE: 1,
+	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_CODE: 2,
 	CONFIG_CONTACT_TYPE_INVALID_MESSAGE: "Something went wrong from the backend",
 
 	CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE: "Get contact type successfully",
+	CONFIG_CONTACT_TYPE_DELETE_SUCCESS_MESSAGE: "Delete the contact types successfully",
+	CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE: "Save contact types successfully",
+	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE: "The updated contact type is not exists",
+	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 
+ 	//Academic rank API
+	CONFIG_ACADEMIC_RANK_INVALID_CODE: 1,
+	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_ACADEMIC_RANK_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE: "Get academic rank successfully",
+	CONFIG_ACADEMIC_RANK_DELETE_SUCCESS_MESSAGE: "Delete the academic ranks successfully",
+	CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE: "Save academic ranks successfully",
+	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic rank is not exists",
+	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
+	//Academic title API
+	CONFIG_ACADEMIC_TITLE_INVALID_CODE: 1,
+	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_ACADEMIC_TITLE_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE: "Get academic title successfully",
+	CONFIG_ACADEMIC_TITLE_DELETE_SUCCESS_MESSAGE: "Delete the academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_CREATE_SUCCESS_MESSAGE: "Save academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic title is not exists",
+	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
  
 });

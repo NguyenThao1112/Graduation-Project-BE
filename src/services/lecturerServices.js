@@ -2,7 +2,7 @@ const lecturerDAO = require('../daos/lecturerDAO');
 const urlConstants = require('../constants/urlConstants');
 
 /**
- * Get all the lectures, with only usable column in the lecture's base table (without join any table)
+ * Get all the lecturers, with only usable column in the lecturer's base table (without join any table)
  * @return {Promise}
  *
  */
@@ -13,10 +13,10 @@ function getAllLecturersWithBasicInformation() {
 		lecturerDAO
 			.getAllLecturersWithBasicInformation()
 			.then((lecturers) => {
-				//Add the full url for lecture's avatar image
-				lecturers.forEach(function (lecture, index) {
+				//Add the full url for lecturer's avatar image
+				lecturers.forEach(function (lecturer, index) {
 					//Change the avatarFileName to the full path of resources url
-					const avatarFileName = lecture[index].avatar;
+					const avatarFileName = lecturer[index].avatar;
 					this[index].avatar = `${resourcePath}/${avatarFileName}`;
 				}, lecturers);
 
@@ -29,7 +29,7 @@ function getAllLecturersWithBasicInformation() {
 }
 
 /**
- * Get all lectures with pagination
+ * Get all lecturers with pagination
  *
  * @param {number} pageOffset which page, in 1-offset-indexing
  * @param {number} limitSize maximum number of record in a page
@@ -43,8 +43,8 @@ function getAllLecturersWithPagination(pageOffset, limitSize) {
 	return new Promise((resolve, reject) => {
 		lecturerDAO
 			.getAllLecturersWithPagination(recordOffset, limitSize)
-			.then((lecture) => {
-				resolve(lecture);
+			.then((lecturer) => {
+				resolve(lecturer);
 			})
 			.catch((error) => {
 				reject(error);

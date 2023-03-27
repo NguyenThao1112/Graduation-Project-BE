@@ -2,7 +2,7 @@ const connection = require('../configs/database');
 const queryConstants = require('../constants/queryConstants');
 
 /**
- *  Query to get all the lectures, with only usable column in the lecture base table (without join any table)
+ *  Query to get all the lecturers, with only usable column in the lecturer base table (without join any table)
  * @return {Promise}
  */
 function getAllLecturersWithBasicInformation() {
@@ -26,7 +26,7 @@ function getAllLecturersWithBasicInformation() {
 }
 
 /**
- *  Query to get all the lectures
+ *  Query to get all the lecturers
  *  with offset and limit size for pagination
  *
  * @param {number} offset

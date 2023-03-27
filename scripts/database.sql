@@ -14,7 +14,7 @@ CREATE TABLE account (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE researcher_information (
+CREATE TABLE lecturer_information (
     id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
     
@@ -42,7 +42,7 @@ CREATE TABLE researcher_information (
     expand_column VARCHAR(255),
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE contact_type (
     id INT NOT NULL AUTO_INCREMENT,
@@ -54,28 +54,28 @@ CREATE TABLE contact_type (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(30) DEFAULT NULL,
+
+     -- metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
-    is_deleted BOOLEAN DEFAULT FALSE,
-    teacher_id INT NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE,  
 
-    PRIMARY KEY(id),
-    FOREIGN KEY(teacher_id) REFERENCES lecture_information(id)
-)
+    PRIMARY KEY(id)
+);
 
 CREATE TABLE academic_title (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255),
+    name VARCHAR(30) DEFAULT NULL,
+
+     -- metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
-    is_deleted BOOLEAN DEFAULT FALSE,
-	teacher_id INT NOT NULL,
-    
-    PRIMARY KEY(id),
-    FOREIGN KEY (teacher_id) REFERENCES lecture_information(id)
-)
+    is_deleted BOOLEAN DEFAULT FALSE,  
+
+    PRIMARY KEY(id)
+);

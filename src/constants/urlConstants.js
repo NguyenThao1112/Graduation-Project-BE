@@ -22,20 +22,38 @@ module.exports = Object.freeze({
 	//ALL Account api
 	ACCOUNT_PREFIX_API_URL: `/accounts`,
 
-	//All Lecture api (${API_URL}`) would be `${ROOT_API_URL}${LECTURE_PREFIX_API_URL}${API_URL}`
-	LECTURE_PREFIX_API_URL: `/lectures`,
-	LECTURE_GET_ALL_URL: `/fetch-all`,
-	LECTURE_GET_ALL_PAGINATION_URL: `/fetch`,
-	//Resources url for LECTURE API
-	LECTURE_RESOURCE_LECTURE_AVATAR: `${process.env.RESOURCE_HOST}/lecture/images/avatar/`,
+	//All lecturer api (${API_URL}`) would be `${ROOT_API_URL}${LECTURER_PREFIX_API_URL}${API_URL}`
+	LECTURER_PREFIX_API_URL: `/lecturers`,
+	LECTURER_GET_ALL_URL: `/fetch-all`,
+	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
+	//Resources url for lectureRr API
+	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
 
-	//Configuration API
-	CONFIG_PREFIX_API_URL: `/configs`,
-	CONFIG_CONTACT_TYPE_API_URL: `/contact-type`, //Contact types API
-	CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,
-	//Using PAGINATION_PAGE_OFFSET_PARAM and PAGINATION_LIMIT_SIZE_PARAM instead
-	// CONFIG_CONTACT_TYPE_PAGEOFFSET_PARAM: `pageOffset`,
-	// CONFIG_CONTACT_TYPE_LIMITSIZE_PARAM: `limitSize`,
+    //Configuration API
+    CONFIG_PREFIX_API_URL: `/configs`,
 
-	CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
-});
+        //Contact types API
+        CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,  
+        CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,            
+        CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
+        CONFIG_CONTACT_TYPE_CREATE: `/create`,
+        CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
+        CONFIG_CONTACT_TYPE_DELETE: `/delete`,
+
+        //Academic ranks API
+        CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
+        CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
+        CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
+        CONFIG_ACADEMIC_RANK_CREATE: `/create`,
+        CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
+        CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
+
+        //Academic titles API
+        CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,  
+        CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
+        CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
+        CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
+        CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
+        CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
+})
+

@@ -299,14 +299,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1M
 }
 ```
 
-## lectures API
+## lecturers API
 
-### Get all lectures (without pagination)
+### Get all lecturers (without pagination)
 
 #### Request
 
 ```http
-GET /api/v1/lectures/fetch-all
+GET /api/v1/lecturers/fetch-all
 ```
 
 #### Success response
@@ -314,13 +314,13 @@ GET /api/v1/lectures/fetch-all
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the lecture from database successfully",
+    "message": "Fetch the lecturer from database successfully",
     "data": [
         {
             "id": 1,
             "name": "Test user 1",
             "gender": "male",
-            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/lecturer/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -330,7 +330,7 @@ GET /api/v1/lectures/fetch-all
             "id": 2,
             "name": "Test user 2",
             "gender": "female",
-            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/images/lecturer/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -344,16 +344,16 @@ GET /api/v1/lectures/fetch-all
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the lecture from database successfully";
+    "message": "Fetch the lecturer from database successfully";
 }
 ```
 
-### Get all lectures with pagination
+### Get all lecturers with pagination
 
 #### Request
 
 ```http
-GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -366,13 +366,13 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
 ```javascript
 {
     "code": 0,
-    "message": "Fetch the lecture from database successfully",
+    "message": "Fetch the lecturer from database successfully",
     "data": [
         {
             "id": 1,
             "name": "Test user 1",
             "gender": "male",
-            "avatar": "{resources-host}/resources/lecture/images/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/lecturer/images/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -382,7 +382,7 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
             "id": 2,
             "name": "Test user 2",
             "gender": "female",
-            "avatar": "{resources-host}/resources/images/lecture/avatar/{avatar-url}",
+            "avatar": "{resources-host}/resources/images/lecturer/avatar/{avatar-url}",
             "date_of_birth": "DD-MM-YYYY", (Example: "26/04/2023")
             "created_at": "hh:mm:ss", (Example: "23:59:59"),
             "updated_at": "hh:mm:ss", (Example: "23:59:59"),
@@ -396,7 +396,7 @@ GET /api/v1/lectures/fetch?pageOffset=1&limitSize=10
 ```javascript
 {
     "code": 1,
-    "message": "Fetch the lecture from database successfully";
+    "message": "Fetch the lecturer from database successfully";
 }
 ```
 
@@ -484,5 +484,489 @@ GET /api/v1/config/contact-type/fetch-all
 {
     "code": 1,
     "message": "Something went wrong from the backend",
+}
+```
+
+#### Create multiple contact types
+##### Request 
+```http
+POST /api/v1/config/contact-type/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Email", 
+        },
+
+         {
+            "name": "Mobile phone", 
+        },
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save contact type successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update a contact type
+##### Request 
+```http
+PUT /api/v1/config/contact-type/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Email", 
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save contact type successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated contact type is not exists",
+}
+```
+
+#### Delete multiple contact types
+##### Request 
+```http
+DELETE /api/v1/config/contact-type/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete contact types successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+### Academic rank
+#### Get academic rank with pagination
+##### Request 
+```http
+GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |                   Note                |
+|------------| -------------------------| ------------------------------------- |                  
+| pageOffset | integer greater than 0   | using 1-indexing                      |
+| limitSize  | integer greater than 0   | maximum number of records to return   |
+
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get academic rank successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all academic rank
+##### Request 
+```http
+GET /api/v1/config/academic-rank/fetch-all
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get academic rank successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+
+#### Create multiple academic ranks
+##### Request 
+```http
+POST /api/v1/config/academic-rank/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0", 
+        },
+
+         {
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save academic rank successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update a academic rank
+##### Request 
+```http
+PUT /api/v1/config/academic-rank/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0", 
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save academic rank successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated academic rank is not exists",
+}
+```
+
+#### Delete multiple academic ranks
+##### Request 
+```http
+DELETE /api/v1/config/academic-rank/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete academic ranks successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+
+### Academic title
+#### Get academic title with pagination
+##### Request 
+```http
+GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |                   Note                |
+|------------| -------------------------| ------------------------------------- |                  
+| pageOffset | integer greater than 0   | using 1-indexing                      |
+| limitSize  | integer greater than 0   | maximum number of records to return   |
+
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get academic title successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all academic title
+##### Request 
+```http
+GET /api/v1/config/academic-title/fetch-all
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get academic title successfully",
+    "data": [
+        {
+            "id": 1, 
+            "name": "Test 0", 
+        },
+
+         {
+            "id": 2, 
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+
+#### Create multiple academic titles
+##### Request 
+```http
+POST /api/v1/config/academic-title/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0", 
+        },
+
+         {
+            "name": "Test 1", 
+        },
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save academic title successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update a academic title
+##### Request 
+```http
+PUT /api/v1/config/academic-title/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0", 
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save academic title successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated academic title is not exists",
+}
+```
+
+#### Delete multiple academic titles
+##### Request 
+```http
+DELETE /api/v1/config/academic-title/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete academic titles successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
