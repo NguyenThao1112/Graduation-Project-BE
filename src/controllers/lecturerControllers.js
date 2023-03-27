@@ -81,7 +81,7 @@ function getAllLecturersWithPagination(request, response) {
 	});
 }
 /**
- * Create multiple contact types at the same time
+ * Create multiple lecturers at the same time
  * @param {Express.Request} request
  * @param {Express.Response} response
  * @returns {Promise}
@@ -96,21 +96,26 @@ function createLecturers(request, response) {
 
 		//Default response is error response
 		let responseJson = {
-			code: messageConstants.CONFIG_CONTACT_TYPE_INVALID_CODE,
-			message: messageConstants.CONFIG_CONTACT_TYPE_INVALID_MESSAGE,
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_CREATE_FAILED_MESSAGE,
 		};
 
 		//Get the "data" property
 		const { data } = request.body;
+		console.log(
+			'🚀 ~ file: lecturerControllers.js:105 ~ returnnewPromise ~ data:',
+			data
+		);
 
 		lecturerServices
 			.createLecturers(data)
-			.then((contactTypeIds) => {
+			.then((lecturerId) => {
+				console.log('vao day', lecturerId);
 				//If there is a not empty id array => change the response's data
-				if (contactTypeIds.length > 0) {
+				if (lecturerId.length > 0) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
-						messageConstants.CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE;
+						messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
 				}
 			})
 			.catch((error) => {
