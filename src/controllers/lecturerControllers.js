@@ -80,8 +80,50 @@ function getAllLecturersWithPagination(request, response) {
 			});
 	});
 }
+/**
+ * Create multiple contact types at the same time
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function createLecturers(request, response) {
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.CONFIG_CONTACT_TYPE_INVALID_CODE,
+			message: messageConstants.CONFIG_CONTACT_TYPE_INVALID_MESSAGE,
+		};
+
+		//Get the "data" property
+		const { data } = request.body;
+
+		lecturerServices
+			.createLecturers(data)
+			.then((contactTypeIds) => {
+				//If there is a not empty id array => change the response's data
+				if (contactTypeIds.length > 0) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
 
 module.exports = {
 	getAllLecturersWithBasicInformation,
 	getAllLecturersWithPagination,
+	createLecturers,
 };

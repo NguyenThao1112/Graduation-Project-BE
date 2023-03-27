@@ -52,7 +52,21 @@ function getAllLecturersWithPagination(pageOffset, limitSize) {
 	});
 }
 
+function createLecturers(lecturers) {
+	return new Promise((resolve, reject) => {
+		lecturerDAO
+			.createLecturers(lecturers)
+			.then((id) => {
+				resolve(id);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
 	getAllLecturersWithBasicInformation,
 	getAllLecturersWithPagination,
+	createLecturers,
 };
