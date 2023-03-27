@@ -279,3 +279,15 @@
 20230328	00:26:59	b60d969f-af69-437a-87a0-e88e0fd58220	POST	undefined	/api/v1/auth/login
 20230328	00:30:13	3facf15d-335a-400b-a08a-f8c9b4f3d382	GET	undefined	/api/v1/accounts
 20230328	00:30:27	466bf48b-47f4-4191-b661-d62d191b5af8	GET	undefined	/api/v1/accounts
+20230328	00:37:13	bd6afbf7-8056-495d-8340-3a688951f2ef	POST	undefined	/api/v1/lecturers/create
+20230328	00:40:19	0a9497f4-cd19-43b9-be9c-8d4e035e7ab5	POST	undefined	/api/v1/lecturers/create
+20230328	00:40:56	00e44f11-eb1c-4c69-8d50-0385cc247ef0	POST	undefined	/api/v1/lecturers/create
+20230328	00:41:33	a51dee08-a4d6-4dfe-8f56-63a10f2ca3a6	POST	undefined	/api/v1/lecturers/create
+20230328	00:42:03	56ba7c81-473f-478a-9a6d-e5a33d82996c	POST	undefined	/api/v1/lecturers/create
+20230328	00:42:50	56f9300d-e71a-4a98-8d57-cac006df3c7c	POST	undefined	/api/v1/lecturers/create
+20230328	00:43:13	88b73e2a-49e8-4021-9a66-12422869c772	POST	undefined	/api/v1/lecturers/create
+20230328	00:51:57	4e35f18c-22b1-4446-89fe-d15a76b6ba46	POST	undefined	/api/v1/lecturers/create
+20230328	00:53:18	49227294-6716-4b95-9d01-d66c871dbff7	POST	undefined	/api/v1/lecturers/create
+20230328	00:54:01	7b5a6de5-522f-4d09-9ef3-6036a212a0e9	POST	undefined	/api/v1/lecturers/create
+20230328	00:55:02	588278cb-e311-4492-b16e-ecb9e4a38524	POST	undefined	/api/v1/lecturers/create
+20230328	00:55:21	223b28fb-ab89-4c83-8514-54053057bec9	POST	undefined	/api/v1/lecturers/create

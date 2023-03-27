@@ -51,6 +51,7 @@ function getAllLecturersWithPagination(offset, limitSize) {
 		let lecturers = null;
 		connection.query(query, [offset, limitSize], (error, results, fields) => {
 			if (error) {
+				console.log('error ', error);
 				reject(error);
 				return;
 			}
@@ -67,18 +68,10 @@ function getAllLecturersWithPagination(offset, limitSize) {
  * @return {Promise}
  */
 function createLecturers(lecturers) {
-	const {
-		account_id,
-		name,
-		gender,
-		avatar,
-		date_of_birth,
-		academic_rank_id,
-		academic_rank_gain_year,
-		academic_title_id,
-		academic_title_gain_year,
-		expand_column,
-	} = lecturers;
+	console.log(
+		'🚀 ~ file: lecturerDAO.js:70 ~ createLecturers ~ lecturers:',
+		lecturers
+	);
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO lecturer_information(account_id,name,gender,avatar,date_of_birth,academic_rank_id,academic_rank_gain_year,academic_title_id,academic_title_gain_year, created_at, updated_at, is_deleted,expand_column)`,
@@ -87,20 +80,20 @@ function createLecturers(lecturers) {
 
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 		const is_deleted = false;
-		const values = lecturers.map((contactType) => [
-			account_id,
-			name,
-			gender,
-			avatar,
-			date_of_birth,
-			academic_rank_id,
-			academic_rank_gain_year,
-			academic_title_id,
-			academic_title_gain_year,
+		const values = lecturers.map((lecturer) => [
+			lecturer.account_id,
+			lecturer.name,
+			lecturer.gender,
+			lecturer.avatar,
+			lecturer.date_of_birth,
+			lecturer.academic_rank_id,
+			lecturer.academic_rank_gain_year,
+			lecturer.academic_title_id,
+			lecturer.academic_title_gain_year,
 			now,
 			now,
 			is_deleted,
-			expand_column,
+			lecturer.expand_column,
 		]);
 
 		//Using bulk insertion for better performance
@@ -109,9 +102,16 @@ function createLecturers(lecturers) {
 				reject(error);
 				return;
 			}
-
 			console.log('result ', result);
-			resolve(result);
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const finalId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < finalId; i++) {
+				ids.push(i);
+			}
+			console.log('ids ', ids);
+			resolve(ids);
 		});
 	});
 }

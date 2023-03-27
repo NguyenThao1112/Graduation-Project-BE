@@ -57,9 +57,11 @@ function createLecturers(lecturers) {
 		lecturerDAO
 			.createLecturers(lecturers)
 			.then((id) => {
+				console.log('id ', id);
 				resolve(id);
 			})
 			.catch((error) => {
+				console.log('error ', error);
 				reject(error);
 			});
 	});
