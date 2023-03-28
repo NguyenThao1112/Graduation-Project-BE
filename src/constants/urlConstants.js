@@ -27,6 +27,9 @@ module.exports = Object.freeze({
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
 	LECTURER_CREATE_URL: '/create',
+	LECTURER_UPDATE_URL: '/update/:id',
+	LECTURER_DELETE_URL: '/delete',
+
 	//Resources url for lectureRr API
 	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
 

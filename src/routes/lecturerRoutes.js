@@ -21,10 +21,23 @@ router.get(
 	lecturerControllers.getAllLecturersWithPagination
 );
 
+//create lecturers
 router.post(
 	urls.LECTURER_CREATE_URL,
 	authGuard,
 	lecturerControllers.createLecturers
+);
+
+router.put(
+	urls.LECTURER_UPDATE_URL,
+	authGuard,
+	lecturerControllers.updateLecturer
+);
+
+router.delete(
+	urls.LECTURER_DELETE_URL,
+	authGuard,
+	lecturerControllers.deleteLecturers
 );
 
 module.exports = router;

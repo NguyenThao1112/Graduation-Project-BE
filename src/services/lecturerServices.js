@@ -7,7 +7,7 @@ const urlConstants = require('../constants/urlConstants');
  *
  */
 function getAllLecturersWithBasicInformation() {
-	const resourcePath = urlConstants.LECTURE_RESOURCE_LECTURE_AVATAR;
+	const resourcePath = urlConstants.LECTURER_RESOURCE_LECTURER_AVATAR;
 
 	return new Promise((resolve, reject) => {
 		lecturerDAO
@@ -67,8 +67,40 @@ function createLecturers(lecturers) {
 	});
 }
 
+function updateLecturer(id, lecturer) {
+	return new Promise((resolve, reject) => {
+		lecturerDAO
+			.updateLecturer(id, lecturer)
+			.then((lecturer) => {
+				resolve(lecturer);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+function deleteLecturers(ids) {
+	console.log(
+		'🚀 ~ file: lecturerServices.js:84 ~ deleteLecturers ~ ids:',
+		ids
+	);
+	return new Promise((resolve, reject) => {
+		lecturerDAO
+			.deleteLecturers(ids)
+			.then((deleteCount) => {
+				resolve(deleteCount);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
 	getAllLecturersWithBasicInformation,
 	getAllLecturersWithPagination,
 	createLecturers,
+	updateLecturer,
+	deleteLecturers,
 };

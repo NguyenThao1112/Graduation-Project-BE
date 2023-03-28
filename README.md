@@ -1098,3 +1098,88 @@ POST /api/v1/lecturers/create
     "message": "Create lecturer failed!"
 }
 ```
+
+#### Update one lecturer
+
+##### Request
+
+```http
+POST /api/v1/lecturers/update/1
+```
+
+```javascript
+{
+    "data":
+        {
+            "account_id": 4,
+            "name": "lecturer 3",
+            "gender": "male",
+            "avatar": null,
+            "date_of_birth": "2001-04-22",
+            "academic_rank_id": 1,
+            "academic_rank_gain_year": 2022,
+            "academic_title_id": 1,
+            "academic_title_gain_year": 2023,
+            "is_deleted": 0,
+            "expand_column": null
+        }
+
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Update lecturer successfully!"
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Update lecturer failed!"
+}
+```
+
+#### Delete one lecturer
+
+##### Request
+
+```http
+DELETE /api/v1/lecturers/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete lecturer successfully!"
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Delete lecturer failed!"
+}
+```
