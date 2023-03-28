@@ -1,6 +1,7 @@
 const connection = require('../configs/database');
 const queryConstants = require('../constants/queryConstants');
 const moment = require('moment');
+const { getCurrentTimeFormat } = require('../helpers/timeHelper');
 
 /****************************************************************
  ***********************LECTURER DAO*****************************
@@ -115,9 +116,121 @@ function createLecturers(lecturers) {
 		});
 	});
 }
+/**
+ * Query to get lecturer by its id
+ */
+function getLecturerById(id) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name`,
+			`FROM lecturer_information`,
+			`WHERE id = ?`,
+			'LIMIT 1',
+		].join(' ');
+
+		let lecturer = null;
+		connection.query(query, [id], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			lecturer = results;
+			resolve(lecturer);
+		});
+	});
+}
+/**
+ * Query to update lecturer by its id
+ * @param {number} id
+ * @param {Object} lecturer
+ */
+function updateLecturer(id, lecturer) {
+	return new Promise(function (resolve, reject) {
+		console.log(
+			'🚀 ~ file: lecturerDAO.js:149 ~ updateLecturer ~ lecturer:',
+			lecturer
+		);
+		let {
+			account_id,
+			name,
+			gender,
+			avatar,
+			date_of_birth,
+			academic_rank_id,
+			academic_rank_gain_year,
+			academic_title_id,
+			academic_title_gain_year,
+			is_deleted,
+			expand_column,
+		} = lecturer;
+		const query = [
+			'UPDATE lecturer_information',
+			`SET account_id = ?, name= ? ,gender = ? , avatar = ? , date_of_birth = ?, academic_rank_id = ?, academic_rank_gain_year = ?, academic_title_id = ? , academic_title_gain_year = ?,is_deleted = ?, updated_at = ?, expand_column = ?`,
+			`WHERE id = ?`,
+		].join(' ');
+
+		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+
+		connection.query(
+			query,
+			[
+				account_id,
+				name,
+				gender,
+				avatar,
+				date_of_birth,
+				academic_rank_id,
+				academic_rank_gain_year,
+				academic_title_id,
+				academic_title_gain_year,
+				is_deleted,
+				now,
+				expand_column,
+				id,
+			],
+			function (error, results, fields) {
+				if (error) {
+					console.log('error ', error);
+					reject(error);
+				}
+				console.log('result ', results);
+
+				resolve(results);
+			}
+		);
+	});
+}
+
+/**
+ * @param {Array<String>} ids
+ * @return {Promise}
+ */
+function deleteLecturers(ids) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`UPDATE lecturer_information`,
+			`SET is_deleted = ?, updated_at = ?`,
+			'WHERE id IN (?)',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+		connection.query(query, [true, now, ids], (error, result, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			const size = result.affectedRows;
+			resolve(size);
+		});
+	});
+}
 
 module.exports = {
 	getAllLecturersWithBasicInformation,
 	getAllLecturersWithPagination,
 	createLecturers,
+	updateLecturer,
+	deleteLecturers,
 };

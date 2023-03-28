@@ -1,6 +1,7 @@
 const connection = require('../configs/database');
 const queryConstants = require('../constants/queryConstants');
 const moment = require('moment');
+const { getCurrentTimeFormat } = require('../helpers/timeHelper');
 
 /****************************************************************
  ***********************CONTACT TYPE*****************************
@@ -131,8 +132,7 @@ function deleteContactTypes(ids) {
 			'WHERE id IN (?)',
 		].join(' ');
 
-		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
-
+		const now = getCurrentTimeFormat();
 		connection.query(query, [true, now, ids], (error, result) => {
 			if (error) {
 				reject(error);
@@ -258,7 +258,7 @@ function getAcademicRankById(id) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`SELECT id, name`,
-			'FROM academic_rank',
+			`FROM academic_rank`,
 			`WHERE id = ?`,
 			'LIMIT 1',
 		].join(' ');
