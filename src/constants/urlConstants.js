@@ -26,7 +26,7 @@ module.exports = Object.freeze({
 	LECTURER_PREFIX_API_URL: `/lecturers`,
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
-	//Resources url for lectureRr API
+	//Resources url for lecturer API
 	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
 
     //Configuration API
@@ -63,5 +63,17 @@ module.exports = Object.freeze({
         CONFIG_TAG_CREATE: `/create`,
         CONFIG_TAG_UPDATE: `/:id/update`,
         CONFIG_TAG_DELETE: `/delete`,
+
+    
+    //Article API
+    //Resources url for article API
+	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_HOST}/article/`,
+    ARTICLE_PREFIX_API_URL: `/articles`,
+        ARTICLE_GET_WITH_PAGINATION: `/fetch`,            
+        ARTICLE_GET_ALL: `/fetch-all`,
+        ARTICLE_CREATE: `/create`,
+        ARTICLE_UPDATE: `/:id/update`,
+        ARTICLE_DELETE: `/delete`,
+    
 })
 

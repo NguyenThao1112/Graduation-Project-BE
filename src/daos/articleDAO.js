@@ -1,9 +1,10 @@
-import {Article} from '../models/article/article';
-import {ArticleUrl} from '../models/article/articleUrl';
-import {ArticleFile} from '../models/article/articleFile';
-import {ArticleNote} from '../models/article/articleNote';
-import {Author} from '../models/article/author';
+const {Article} = '../models/article/article';
+const {ArticleUrl} = '../models/article/articleUrl';
+const {ArticleFile} = '../models/article/articleFile';
+const {ArticleNote} = '../models/article/articleNote';
+const {Author} = '../models/article/author';
 const connection = require('../configs/database');
+const moment = require('moment');
 const queryConstants = require('../constants/queryConstants');
 
 
@@ -181,11 +182,16 @@ const queryConstants = require('../constants/queryConstants');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
-        const values = authors.map(author => [
-			author.lecturer.id, author.article.id, 
-			author.first_name, author.last_name,
-			now, now, is_deleted,
-		]);
+        const values = authors.map(author => {
+            const lecturerId = author.lecturerId ?? null;
+            const articleId = author.articleId ?? null;
+
+            return [
+                lecturerId, articleId,
+                author.first_name, author.last_name,
+                now, now, is_deleted,
+		    ]
+        });
 
         //Using bulk insertion for better performance
         connection.query(query, [values], (error, result) => {
@@ -213,7 +219,7 @@ const queryConstants = require('../constants/queryConstants');
 /**
  *  Query to create Many-to-Many relation ship between article and tag
  * 
- * @param {Array<[Article, Array<Tag>]>} categories
+ * @param {Array<[Article, Array<number>]>} categories
  * @return {Promise}
  */
  function createArticleCategories(categories) {
@@ -232,8 +238,8 @@ const queryConstants = require('../constants/queryConstants');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
-        const values = categories.map(cat => cat[1].map(tag => [
-			cat[0].id, tag.id, 
+        const values = categories.map(cat => cat[1].map(tagId => [
+			cat[0].id, tagId,
 			now, now, is_deleted,
 		]));
 
@@ -261,12 +267,12 @@ const queryConstants = require('../constants/queryConstants');
 
 
 /**
- *  Query to create multiple articles at the same time
+ *  Query to create an article
  * 
- * @param {Array<Article>} articles
+ * @param {Array<Article>} article
  * @return {Promise}
  */
- function createArticles(articles) {
+ function createArticle(article) {
     return new Promise(function (resolve, reject) {
         const query = 
         [
@@ -292,33 +298,25 @@ const queryConstants = require('../constants/queryConstants');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
-        const values = articles.map(a => [
-			a.name, a.year, a.page_from, a.page_to, a.volume, a.issue, a.city, a.abstract,
-			a.institution, a.department, a.type, a.month, a.day,
-			a.url_date_access,
-			a.ArXivID, a.DOI, a.ISBN, a.ISSN,
-			a.PMID, a.Scopus, a.PII, a.SGR,
-			a.project_id, a.citation_key, a.general_note,
+        const values = [
+			article.name, article.year, article.page_from, article.page_to, article.volume, article.issue, article.city, article.abstract,
+			article.institution, article.department, article.type, article.month, article.day,
+			article.url_date_access,
+			article.ArXivID, article.DOI, article.ISBN, article.ISSN,
+			article.PMID, article.Scopus, article.PII, article.SGR,
+			article.project_id, article.citation_key, article.general_note,
 			now, now, is_deleted
-		]);
+		];
 
-        //Using bulk insertion for better performance
         connection.query(query, [values], (error, result) => {
             if (error) {
                 reject(error);
                 return;
             }
 
-            //Get the id of the created contact types
-            const size = result.affectedRows;
-            const firstId = result.insertId;
-            const aboveMaxId = firstId + size;
-            let ids = [];
-            for (let i = firstId; i < aboveMaxId; i++) {
-                ids.push(i);
-            }
-
-            resolve(ids);
+ 
+            let id = result.insertId;
+            resolve(id);
         });
     })
     
@@ -330,5 +328,5 @@ module.exports = {
 	createArticleNotes,
 	createAuthors,
     createArticleCategories,
-	createArticles,
+	createArticle,
 };

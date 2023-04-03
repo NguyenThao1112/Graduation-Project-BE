@@ -1,4 +1,4 @@
-import {Article} from '../models/article/article';
+const {Article} = '../models/article/article';
 
 class ArticleBuilder {
 

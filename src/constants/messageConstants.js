@@ -119,4 +119,10 @@ module.exports = Object.freeze({
 	CONFIG_TAG_CREATE_SUCCESS_MESSAGE: "Save tags successfully",
 	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
 	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
+	//Article APIs
+	ARTICLE_INVALID_CODE: 1,
+	ARTICLE_SAVED_OVERLIMIT_FILE_SIZE_CODE: 2,
+	ARTICLE_SAVED_INVALID_EXTENSIONS_FILE: 3,
+	ARTICLE_UPDATED_NOT_EXISTS_CODE: 4,
 });

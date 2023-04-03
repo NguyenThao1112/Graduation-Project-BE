@@ -25,4 +25,11 @@ module.exports = Object.freeze({
 	//Forget password token expiration
 	FORGET_PASSWORD_TOKEN_EXPIRE: 10, //forget password token will expired in 10 minutes before creating,
 	LOGIN_TOKEN_EXPIRE: 1,
+
+	//Upload file limiter
+	FILE_SIZE: 20,
+	FILE_SIZE_LIMIT: 20 * 1024 * 1024,	//20 Mb
+	ARTICLE_FILE_UPLOAD_ALLOWED_EXT: [
+		"pdf",
+	],
 });
