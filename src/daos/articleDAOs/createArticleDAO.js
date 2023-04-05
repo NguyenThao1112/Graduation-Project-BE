@@ -1,11 +1,11 @@
-const {Article} = '../models/article/article';
-const {ArticleUrl} = '../models/article/articleUrl';
-const {ArticleFile} = '../models/article/articleFile';
-const {ArticleNote} = '../models/article/articleNote';
-const {Author} = '../models/article/author';
-const connection = require('../configs/database');
+const {Article} = require('../../models/article/article');
+const {ArticleUrl} = require('../../models/article/articleUrl');
+const {ArticleFile} = require('../../models/article/articleFile');
+const {ArticleNote} = require('../../models/article/articleNote');
+const {Author} = require('../../models/article/author');
+const connection = require('../../configs/database');
 const moment = require('moment');
-const queryConstants = require('../constants/queryConstants');
+const queryConstants = require('../../constants/queryConstants');
 
 
 /**

@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 const path = require("path");
 
-const articleDAO = require('../../daos/articleDAO');
+const articleDAO = require('../../daos/articleDAOs/createArticleDAO');
 const articleHelper = require('../../helpers/articleHelper');
 const urlConstants = require('../../constants/urlConstants');
 const {ArticleFile} = require('../../models/article/articleFile');
