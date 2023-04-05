@@ -38,18 +38,18 @@ function createArticleFiles(article, articleFiles) {
 
             if (Array.isArray(file)) {
                 file.forEach(f => {
-                    const fileName = uuid.v4();  //using uuid to generate an unique file name
+                    const fileName = `${uuid.v4()}${path.extname(f.name)}`;  //using uuid to generate an unique file name
                     const filePath = path.join(dirPath, fileName);
-                    fileNames.push(fileName);
+                    fileNames.push([f.name, fileName]); //save the original name with the new name
                     f.mv(filePath, (error) => {
                         errors.push(error);
                         fileNames.pop();    //remove the already add name
                     })
                 })
             } else {
-                const fileName = uuid.v4();  //using uuid to generate an unique file name
+                const fileName = `${uuid.v4()}${path.extname(file.name)}`;  //using uuid to generate an unique file name
                 const filePath = path.join(dirPath, fileName);
-                fileNames.push(fileName);
+                fileNames.push([file.name, fileName]); //save the original name with the new name
                 file.mv(filePath, (error) => {
                     errors.push(error);
                     fileNames.pop();    //remove the already add name
@@ -68,7 +68,8 @@ function createArticleFiles(article, articleFiles) {
         const articleFileDtos = fileNames.map(fileName => {
             const articleFile = new ArticleFile();
             articleFile.article = article;
-            articleFile.path = fileName;
+            articleFile.originalFileName = fileName[0];
+            articleFile.path = fileName[1];
             return articleFile;
         })
         

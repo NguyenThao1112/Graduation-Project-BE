@@ -66,7 +66,7 @@ const queryConstants = require('../../constants/queryConstants');
         const query = 
         [
             `INSERT INTO article_file (`,
-					`article_id, file_path,`,
+					`article_id, file_path, original_file_name,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
             'VALUES ?'
@@ -75,7 +75,7 @@ const queryConstants = require('../../constants/queryConstants');
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
         const values = articleFiles.map(file => [
-			file.article.id, file.path,
+			file.article.id, file.path, file.originalFileName,
 			now, now, is_deleted
 		]);
 

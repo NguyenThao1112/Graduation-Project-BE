@@ -148,6 +148,7 @@ CREATE TABLE article_file (
     article_id INT,
 
     file_path TEXT DEFAULT NULL,
+    original_file_name TEXT DEFAULT NULL,
 
     -- metadata stuffs
     created_at DATETIME,
