@@ -1,7 +1,9 @@
+const uuidv4 = require('uuidv4');
+const path = require("path");
+
 const articleDAO = require('../daos/articleDAO');
 const articleHelper = require('../helpers/articleHelper');
 const urlConstants = require('../constants/urlConstants');
-const uuidv4 = require('uuidv4');
 const {ArticleFile} = require('../models/article/articleFile');
 const {ArticleUrl} = require('../models/article/articleUrl');
 const {ArticleNote} = require('../models/article/articleNote');
@@ -54,7 +56,7 @@ function createArticleFiles(article, articleFiles) {
         
         return articleDAO.createArticleFiles(articleFileDtos);
     }).catch(error => {
-        reject(error);
+        console.log(error);
     });
 }
 
@@ -104,7 +106,7 @@ function createArticleNotes(article, articleNoteObjs) {
         const articleNoteDtos = articleNoteObjs.map(obj => {
             const articleNote = new ArticleNote();
             articleNote.article = article;
-            articleNote.note = obj.note;
+            articleNote.note = obj.note ?? null;
             return articleNote;
         })
 
@@ -133,11 +135,9 @@ function createAuthors(article, authors) {
             .map(dto => {
                 const author = new Author();
 
-                author.firstName = dto.firstName;
-                author.lastName = dto.lastName;
-                if (dto.hasOwnProperty('lecturerId')) {
-                    author.lecturerId = dto.lecturerId;
-                };
+                author.firstName = dto.firstName ?? null;
+                author.lastName = dto.lastName ?? null;
+                author.lecturerId = dto.lecturerId ?? null;
                 author.articleId = article.id;
 
                 return author;
@@ -195,7 +195,7 @@ function createArticleCategories(article, articleCategories) {
 
 /**
  * create an article
- * @param {Array<Object>} articleObject
+ * @param {Object} articleObject
  * @param {fileUpload.FileArray | null} articleFiles
  * @return {Promise}
  *  
@@ -203,36 +203,29 @@ function createArticleCategories(article, articleCategories) {
 function createArticle(articleObject, articleFiles) {
 
     const builder = new articleHelper.ArticleBuilder();
-
     builder.reset();
     builder.setBulk(articleObject);
     const article = builder.build();
 
-    return new Promise((resolve, reject) => {
-        articleDAO.createArticle(article)
-            .catch(error => {
-                reject(error);
-            })
-            .then(articleId => {
+    return articleDAO.createArticle(article)
+        .catch(error => {
+            reject(error);
+        })
+        .then(articleId => {
 
-                resolve(articleId);
-                article.id = articleId;
+            article.id = articleId;
 
-                console.log(article);
+            console.log(articleId);
 
-                return Promise.all([
-                    createArticleFiles(article, articleFiles),
-                    createArticleNotes(article, articleObject.notes),
-                    createArticleCategories(article, articleObject.categories),
-                    createArticleUrls(article, articleObject.urls),
-                    createAuthors(article, articleObject.authors),
-                ]);
-            })
-            .catch(error => {
-                reject(error);
-            })
+            return Promise.all([
+                createArticleFiles(article, articleFiles).catch(error => {console.log(error);}),
+                createArticleNotes(article, articleObject.notes).catch(error => {console.log(error);}),
+                createArticleCategories(article, articleObject.tags).catch(error => {console.log(error);}),
+                createArticleUrls(article, articleObject.urls).catch(error => {console.log(error);}),
+                createAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
+            ]);
 
-    })
+        })
 }
 
 module.exports = {

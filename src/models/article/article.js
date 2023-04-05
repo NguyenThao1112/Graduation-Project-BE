@@ -2,6 +2,7 @@ class Article {
 
     #id;            //number
     #name;          //string
+    #journal;       //string
     #year;          //number
     #pageFrom;      //number
     #pageTo;        //number
@@ -48,6 +49,7 @@ class Article {
     constructor(
         id,
         name,
+        journal,
         year,
         pageFrom,
         pageTo,
@@ -83,6 +85,7 @@ class Article {
     ) { 
         this.#id = id;
         this.#name = name;
+        this.#journal = journal;
         this.#year = year;
         this.#pageFrom = pageFrom;
         this.#pageTo = pageTo;
@@ -119,7 +122,8 @@ class Article {
 
     //Getters
     get id() {return this.#id;};    
-    get name() {return this.#name;};  
+    get name() {return this.#name;};
+    get journal() {return this.#journal;};  
     get year() {return this.#year;};  
     get pageFrom() {return this.#pageFrom;}; 
     get pageTo() {return this.#pageTo;};   
@@ -133,14 +137,14 @@ class Article {
     get month() {return this.#month;};
     get day() {return this.#day;};  
     get urlAccessDate() {return this.#urlAccessDate;}; 
-    get arXivID() {return this.#ArXivID;}; 
-    get dOI() {return this.#DOI;};        
-    get iSBN() {return this.#ISBN;}; 
-    get iSSN() {return this.#ISSN;};       
-    get pMID() {return this.#PMID;};    
-    get scopus() {return this.#Scopus;};     
-    get pII() {return this.#PII;};        
-    get sGR() {return this.#SGR;};        
+    get ArXivID() {return this.#ArXivID;}; 
+    get DOI() {return this.#DOI;};        
+    get ISBN() {return this.#ISBN;}; 
+    get ISSN() {return this.#ISSN;};       
+    get PMID() {return this.#PMID;};    
+    get Scopus() {return this.#Scopus;};     
+    get PII() {return this.#PII;};        
+    get SGR() {return this.#SGR;};        
     get projectId() {return this.#projectId;}; 
     get citationKey() {return this.#citationKey;};    
     get generalNote() {return this.#generalNote;};
@@ -155,7 +159,8 @@ class Article {
 
     //Setters
     set id(id) {this.#id = id;};    
-    set name(name) {this.#name = name;};  
+    set name(name) {this.#name = name;};
+    set journal(journal) {this.#journal = journal;};  
     set year(year) {this.#year = year;};  
     set pageFrom(pageFrom) {this.#pageFrom = pageFrom;}; 
     set pageTo(pageTo) {this.#pageTo = pageTo;};   
@@ -169,14 +174,14 @@ class Article {
     set month(month) {this.#month = month;};
     set day(day) {this.#day = day;};  
     set urlAccessDate(urlAccessDate) {this.#urlAccessDate = urlAccessDate;}; 
-    set arXivID(ArXivID) {this.#ArXivID = ArXivID;}; 
-    set dOI(DOI) {this.#DOI = DOI;};        
-    set iSBN(ISBN) {this.#ISBN = ISBN;}; 
-    set iSSN(ISSN) {this.#ISSN = ISSN;};       
-    set pMID(PMID) {this.#PMID = PMID;};    
-    set scopus(Scopus) {this.#Scopus = Scopus;};     
-    set pII(PII) {this.#PII = PII;};        
-    set sGR(SGR) {this.#SGR = SGR;};        
+    set ArXivID(ArXivID) {this.#ArXivID = ArXivID;}; 
+    set DOI(DOI) {this.#DOI = DOI;};        
+    set ISBN(ISBN) {this.#ISBN = ISBN;}; 
+    set ISSN(ISSN) {this.#ISSN = ISSN;};       
+    set PMID(PMID) {this.#PMID = PMID;};    
+    set Scopus(Scopus) {this.#Scopus = Scopus;};     
+    set PII(PII) {this.#PII = PII;};        
+    set SGR(SGR) {this.#SGR = SGR;};        
     set projectId(projectId) {this.#projectId = projectId;}; 
     set citationKey(citationKey) {this.#citationKey = citationKey;};    
     set generalNote(generalNote) {this.#generalNote = generalNote;};

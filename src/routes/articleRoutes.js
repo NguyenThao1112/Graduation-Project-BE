@@ -9,7 +9,7 @@ const configConstants = require('../constants/configConstants');
 
 router.post(
     `${urls.ARTICLE_CREATE}`, 
-    fileUpload(),
+    fileUpload({createParentPath: true}),
     uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),
     uploadFileMiddlewares.checkFileSizeLimit,
     articleController.createArticle

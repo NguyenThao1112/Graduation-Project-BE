@@ -24,9 +24,19 @@ const path = require("path");
     //Which files are over the limit?
     Object.keys(files).forEach(key => {
         const file = files[key];
-        if (file.size > configConstants.FILE_SIZE_LIMIT) {
-            overlimitFiles.push(file.name);
+
+        if (Array.isArray(file)) {
+            file.forEach(f => {
+                if (f.size > configConstants.FILE_SIZE_LIMIT) {
+                    overlimitFiles.push(f.name);
+                }
+            })
+        } else {
+            if (file.size > configConstants.FILE_SIZE_LIMIT) {
+                overlimitFiles.push(file.name);
+            }
         }
+
     })
 
     if (overlimitFiles.length) {
@@ -62,7 +72,7 @@ const path = require("path");
  function checkFileExtension(allowedExtensions) {
     return (request, response, next) => {
         const files = request.files ?? null;
-        if (nulll === files) {
+        if (null === files) {
             next();
             return;
         }
@@ -71,7 +81,14 @@ const path = require("path");
         const fileExtensions = []
         Object.keys(files).forEach(key => {
             const file = files[key];
-            fileExtensions.push(path.extname(file.name));
+
+            if (Array.isArray(file)) {
+                file.forEach(f => {
+                    fileExtensions.push(path.extname(f.name));
+                })
+            } else {
+                fileExtensions.push(path.extname(file.name));
+            }
         })
 
         //Are the file extension allowed ?

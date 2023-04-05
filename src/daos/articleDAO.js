@@ -276,17 +276,17 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO article (`
-					`name, year, page_from, page_to, volume, issue, city, abstract,`,
-					`institution, department, type, month, day,`
-					`url_date_access,`
-					`ArXivID, DOI, ISBN, ISSN,`
-					`PMID, Scopus, PII, SGR,`
-					`project_id, citation_key, general_note,`
+            `INSERT INTO article (`,
+					`name, journal, year, page_from, page_to, volume, issue, city, abstract,`,
+					`institution, department, type, month, day,`,
+					`url_date_access,`,
+					`ArXivID, DOI, ISBN, ISSN,`,
+					`PMID, Scopus, PII, SGR,`,
+					`project_id, citation_key, general_note,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
             'VALUES (',
-					'?,?,?,?,?,?,?,?,',
+					'?,?,?,?,?,?,?,?,?,',
 					'?,?,?,?,?,',
 					'?,',
 					'?,?,?,?,',
@@ -299,21 +299,24 @@ const queryConstants = require('../constants/queryConstants');
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
         const values = [
-			article.name, article.year, article.page_from, article.page_to, article.volume, article.issue, article.city, article.abstract,
+			article.name, article.journal, article.year, article.pageFrom, article.pageTo, article.volume, article.issue, article.city, article.abstract,
 			article.institution, article.department, article.type, article.month, article.day,
-			article.url_date_access,
+			article.urlAccessDate,
 			article.ArXivID, article.DOI, article.ISBN, article.ISSN,
 			article.PMID, article.Scopus, article.PII, article.SGR,
-			article.project_id, article.citation_key, article.general_note,
+			article.projectId, article.citationKey, article.generalNote,
 			now, now, is_deleted
 		];
 
-        connection.query(query, [values], (error, result) => {
+        // console.log(article);
+        // console.log(query);
+        // console.log(values);
+
+        connection.query(query, [...values], (error, result) => {
             if (error) {
                 reject(error);
                 return;
             }
-
  
             let id = result.insertId;
             resolve(id);

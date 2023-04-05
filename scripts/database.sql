@@ -85,6 +85,7 @@ CREATE TABLE academic_title (
 CREATE TABLE article (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
+    journal VARCHAR(255) DEFAULT NULL,
     year INT DEFAULT NULL,
     page_from INT DEFAULT NULL,
     page_to INT DEFAULT NULL,

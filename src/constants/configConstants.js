@@ -30,6 +30,6 @@ module.exports = Object.freeze({
 	FILE_SIZE: 20,
 	FILE_SIZE_LIMIT: 20 * 1024 * 1024,	//20 Mb
 	ARTICLE_FILE_UPLOAD_ALLOWED_EXT: [
-		"pdf",
+		".pdf",
 	],
 });
