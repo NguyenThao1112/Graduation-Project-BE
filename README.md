@@ -1156,3 +1156,146 @@ DELETE /api/v1/config/tag/delete
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
+
+## Article API
+### Create an article
+
+```
+POST /api/v1/articles/create
+```
+
+```javascript
+POST /api/v1/articles/create HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Length: 3659
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="data"
+
+{
+    "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+    "journal": "ACM Transactions on Computing Education",
+    "year": 2020,
+    "pageFrom": 8,
+    "pageTo": 10,
+    "volume": 20,
+    "issue": 2,
+    "month":  2,
+    "day": 28,
+    "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+    "urlAccessDate": "28/02/2023",
+    "ArXivID": "test",
+    "DOI": "10.1145/3383456",
+    "ISBN": "testISBN",
+    "ISSN": "10.1145/3383456",
+    "PMID": "testPMID",
+    "Scopus": "2-s2.0-85085248397",
+    "PII": "testPII",
+    "SGR": "85085248397",
+    "projectId": "testProjectId",
+    "citationKey": "testCitationKey",
+    "generalNote": "This is the general note for testing",
+    "tags": [
+        {
+            "tag_id": 4
+        },
+        {
+            "tag_id": 5
+        },
+        {
+            "name": "test tag 0"
+        },
+        {
+            "name": "test tag 1"
+        }
+    ],
+    "authors": [
+        {
+            "lecturerId": 1
+        },
+        {
+            "firstName": "first0",
+            "lastName": "last0"
+        },
+                        {
+            "firstName": "first1",
+            "lastName": "last1"
+        },
+                        {
+            "firstName": "first2",
+            "lastName": "last2"
+        },
+        {
+            "lecturerId": 2
+        }
+    ],
+    "urls": [
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+        },
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+        },
+        {
+            "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+        }
+    ],
+    "notes": [
+        {
+            "note": "Sample note test 0"
+        },
+        {
+            "note": "Sample note test 1"
+        },
+        {
+            "note": "Sample note test 2"
+        }
+    ]
+}
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023-1.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+```
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Save article successfully,
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "Upload failed. ${overlimitFiles} ${'are' | 'is'} over the file size limit of ${MAX_FILE_SIZE} MB",
+}
+```
+
+```javascript
+{
+    "code": 3,
+    "message": "Upload failed. Only ${allowedExtensions} files allowed",
+}
+```
