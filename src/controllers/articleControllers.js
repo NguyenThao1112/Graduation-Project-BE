@@ -36,7 +36,7 @@ const commonHelper = require('../helpers/commonHelper');
                 //If there is a not empty id => change the response's data
                 if (null !== articleId) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
-                    responseJson.message = messageConstants.ARTICLE_INVALID_MESSAGE;
+                    responseJson.message = messageConstants.ARTICLE_CREATE_SUCCESS_MESSAGE;
                 }
 
             })

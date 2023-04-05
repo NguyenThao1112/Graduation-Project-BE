@@ -435,7 +435,6 @@ function getAllTag() {
             .catch(error => {
                 reject(error);
             })
-
     })
 }
 

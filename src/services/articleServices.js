@@ -1,4 +1,4 @@
-const uuidv4 = require('uuidv4');
+const uuid = require('uuid');
 const path = require("path");
 
 const articleDAO = require('../daos/articleDAO');
@@ -27,21 +27,39 @@ function createArticleFiles(article, articleFiles) {
         }
         
         //Handling to save each article file to the directory
-        const dirPath = path.join(__dirname, urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE, article.id, 'article_files');
+        const stringId = '' + article.id;    //cast articleId to string
+        const dirPath = path.join(__dirname, "..", "..", urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE, stringId, 'article_files');
         const errors = [];
         const fileNames = [];
+        
         Object.keys(articleFiles).forEach(key => {
-            const fileName = uuidv4();  //using uuid to generate an unique file name
-            const filePath = path.join(dirPath, fileName);
-            fileNames.push(fileName);
-            articleFiles[key].mv(filePath, (error) => {
-                errors.push(error);
-                fileNames.pop();    //remove the already add name
-            })
+
+            const file = articleFiles[key];
+
+            if (Array.isArray(file)) {
+                file.forEach(f => {
+                    const fileName = uuid.v4();  //using uuid to generate an unique file name
+                    const filePath = path.join(dirPath, fileName);
+                    fileNames.push(fileName);
+                    f.mv(filePath, (error) => {
+                        errors.push(error);
+                        fileNames.pop();    //remove the already add name
+                    })
+                })
+            } else {
+                const fileName = uuid.v4();  //using uuid to generate an unique file name
+                const filePath = path.join(dirPath, fileName);
+                fileNames.push(fileName);
+                file.mv(filePath, (error) => {
+                    errors.push(error);
+                    fileNames.pop();    //remove the already add name
+                })
+            }
+            
         })
 
         //Terminate the process, if saving process to filesystem has error
-        if (errors.length) {
+        if (errors?.length) {
             reject(errors);
             return;
         }
@@ -54,7 +72,8 @@ function createArticleFiles(article, articleFiles) {
             return articleFile;
         })
         
-        return articleDAO.createArticleFiles(articleFileDtos);
+        return articleDAO.createArticleFiles(articleFileDtos)
+            .then((ids) => resolve(ids));
     }).catch(error => {
         console.log(error);
     });
@@ -70,7 +89,7 @@ function createArticleFiles(article, articleFiles) {
  function createArticleUrls(article, articleUrlObjs) {
     return new Promise((resolve, reject) => {
 
-        if (!articleUrlObjs.length) {
+        if (!articleUrlObjs?.length) {
             resolve(null);
             return null;
         }
@@ -78,13 +97,14 @@ function createArticleFiles(article, articleFiles) {
         const articleUrlDtos = articleUrlObjs.map(obj => {
             const articleUrl = new ArticleUrl();
             articleUrl.article = article;
-            articleUrl.url = obj.id;
+            articleUrl.url = obj.url;
             return articleUrl;
         })
 
-        return articleDAO.createArticleUrls(articleUrlDtos);
+        return articleDAO.createArticleUrls(articleUrlDtos)
+            .then((ids) => resolve(ids));
     }).catch(error => {
-        reject(error);
+        console.log(error);
     });
  }
 
@@ -98,7 +118,7 @@ function createArticleFiles(article, articleFiles) {
 function createArticleNotes(article, articleNoteObjs) {
     return new Promise((resolve, reject) => {
 
-        if (!articleNoteObjs.length) {
+        if (!articleNoteObjs?.length) {
             resolve(null);
             return null;
         }
@@ -110,9 +130,10 @@ function createArticleNotes(article, articleNoteObjs) {
             return articleNote;
         })
 
-        return articleDAO.createArticleNotes(articleNoteDtos);
+        return articleDAO.createArticleNotes(articleNoteDtos)
+            .then((ids) => resolve(ids));
     }).catch(error => {
-        reject(error);
+        console.log(error);
     });
 }
 
@@ -126,7 +147,7 @@ function createArticleNotes(article, articleNoteObjs) {
 function createAuthors(article, authors) {
     return new Promise((resolve, reject) => {
 
-        if (!authors.length) {
+        if (!authors?.length) {
             resolve(null);
             return null;
         }
@@ -134,7 +155,6 @@ function createAuthors(article, authors) {
         const authorDtos = authors
             .map(dto => {
                 const author = new Author();
-
                 author.firstName = dto.firstName ?? null;
                 author.lastName = dto.lastName ?? null;
                 author.lecturerId = dto.lecturerId ?? null;
@@ -143,9 +163,10 @@ function createAuthors(article, authors) {
                 return author;
             })
 
-        return articleDAO.createAuthors(authorDtos);
+        return articleDAO.createAuthors(authorDtos)
+            .then((ids) => resolve(ids));
     }).catch(error => {
-        reject(error);
+        console.log(error);
     });
 }
 
@@ -160,7 +181,7 @@ function createArticleCategories(article, articleCategories) {
 
     return new Promise((resolve, reject) => {
 
-        if (!articleCategories.length) {
+        if (!articleCategories?.length) {
             resolve(null);
             return null;
         }
@@ -176,21 +197,23 @@ function createArticleCategories(article, articleCategories) {
                 return tag;
             });
         
-        return createTags(unexistedTags);
-        
-    }).catch(error => {
-        reject(error);
-    }).then(tagIds => {
+        return createTags(unexistedTags)
+        .catch(error => {
+            console.log(error);
+        })
+        .then(tagIds => {
 
-        const existedTagIds = articleCategories
-            .filter(category => category.hasOwnProperty('tag_id'))
-            .map(category => category.tag_id);
-
-        const allTagIds = [...tagIds, ...existedTagIds];
-        const articleCategory = [[article, allTagIds]];
-
-        return articleDAO.createArticleCategories(articleCategory)
-    });
+            const existedTagIds = articleCategories
+                .filter(category => category.hasOwnProperty('tag_id'))
+                .map(category => category.tag_id);
+            
+            const allTagIds = [...tagIds, ...existedTagIds];
+            const articleCategory = [[article, allTagIds]];
+    
+            return articleDAO.createArticleCategories(articleCategory)
+                .then((ids) => resolve(ids));
+        });
+    })
 }
 
 /**
@@ -209,13 +232,11 @@ function createArticle(articleObject, articleFiles) {
 
     return articleDAO.createArticle(article)
         .catch(error => {
-            reject(error);
+            console.log(error);
         })
         .then(articleId => {
 
             article.id = articleId;
-
-            console.log(articleId);
 
             return Promise.all([
                 createArticleFiles(article, articleFiles).catch(error => {console.log(error);}),
@@ -223,7 +244,10 @@ function createArticle(articleObject, articleFiles) {
                 createArticleCategories(article, articleObject.tags).catch(error => {console.log(error);}),
                 createArticleUrls(article, articleObject.urls).catch(error => {console.log(error);}),
                 createAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
-            ]);
+            ])
+            .then(() => {
+                return Promise.resolve(articleId);
+            });
 
         })
 }

@@ -67,7 +67,7 @@ module.exports = Object.freeze({
     
     //Article API
     //Resources url for article API
-	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_HOST}/article/`,
+	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_PATH}/article/`,
     ARTICLE_PREFIX_API_URL: `/articles`,
         ARTICLE_GET_WITH_PAGINATION: `/fetch`,            
         ARTICLE_GET_ALL: `/fetch-all`,

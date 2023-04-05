@@ -18,14 +18,11 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO article_url (`
+            `INSERT INTO article_url (`,
 					`article_id, url,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,',
-					'?,?,?', 
-				')',
+            'VALUES ?'
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
@@ -68,14 +65,11 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO article_file (`
+            `INSERT INTO article_file (`,
 					`article_id, file_path,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,',
-					'?,?,?', 
-				')',
+            'VALUES ?'
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
@@ -118,14 +112,11 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO article_note (`
+            `INSERT INTO article_note (`,
 					`article_id, note,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,',
-					'?,?,?', 
-				')',
+            'VALUES ?'
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
@@ -168,16 +159,12 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO author (`
+            `INSERT INTO author (`,
 					`lecturer_id, article_id,`,
-					`first_name, last_name`,
+					`first_name, last_name,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,',
-					'?,?,',
-					'?,?,?', 
-				')',
+            'VALUES ?'
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
@@ -188,7 +175,7 @@ const queryConstants = require('../constants/queryConstants');
 
             return [
                 lecturerId, articleId,
-                author.first_name, author.last_name,
+                author.firstName, author.lastName,
                 now, now, is_deleted,
 		    ]
         });
@@ -226,23 +213,24 @@ const queryConstants = require('../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `INSERT INTO article_tag (`
+            `INSERT INTO article_tag (`,
 					`article_id, tag_id,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,',
-					'?,?,?', 
-				')',
+            'VALUES ?', 
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
-        const values = categories.map(cat => cat[1].map(tagId => [
-			cat[0].id, tagId,
-			now, now, is_deleted,
-		]));
+        let values = categories
+            .map(cat => cat[1].map(tagId => [
+                cat[0].id, tagId,
+                now, now, is_deleted,
+            ]));
 
+        //Reduce the level of array bracket, in values, by 1 level
+        values = [].concat.apply([], values);
+        
         //Using bulk insertion for better performance
         connection.query(query, [values], (error, result) => {
             if (error) {
@@ -285,15 +273,7 @@ const queryConstants = require('../constants/queryConstants');
 					`project_id, citation_key, general_note,`,
 					`created_at, updated_at, is_deleted`,
 				`)`, 
-            'VALUES (',
-					'?,?,?,?,?,?,?,?,?,',
-					'?,?,?,?,?,',
-					'?,',
-					'?,?,?,?,',
-					'?,?,?,?,',
-					'?,?,?,',
-					'?,?,?', 
-				')',
+            'VALUES (?)'
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
@@ -308,11 +288,7 @@ const queryConstants = require('../constants/queryConstants');
 			now, now, is_deleted
 		];
 
-        // console.log(article);
-        // console.log(query);
-        // console.log(values);
-
-        connection.query(query, [...values], (error, result) => {
+        connection.query(query, [values], (error, result) => {
             if (error) {
                 reject(error);
                 return;
