@@ -1,14 +1,14 @@
 const uuid = require('uuid');
 const path = require("path");
 
-const articleDAO = require('../daos/articleDAO');
-const articleHelper = require('../helpers/articleHelper');
-const urlConstants = require('../constants/urlConstants');
-const {ArticleFile} = require('../models/article/articleFile');
-const {ArticleUrl} = require('../models/article/articleUrl');
-const {ArticleNote} = require('../models/article/articleNote');
-const {Author} = require('../models/article/author');
-const {createTags} = require('../services/configurationServices');
+const articleDAO = require('../../daos/articleDAO');
+const articleHelper = require('../../helpers/articleHelper');
+const urlConstants = require('../../constants/urlConstants');
+const {ArticleFile} = require('../../models/article/articleFile');
+const {ArticleUrl} = require('../../models/article/articleUrl');
+const {ArticleNote} = require('../../models/article/articleNote');
+const {Author} = require('../../models/article/author');
+const {createTags} = require('../configurationServices');
 
 /**
  * create article files (save its data to filesystem + save metadata to database)
@@ -28,7 +28,7 @@ function createArticleFiles(article, articleFiles) {
         
         //Handling to save each article file to the directory
         const stringId = '' + article.id;    //cast articleId to string
-        const dirPath = path.join(__dirname, "..", "..", urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE, stringId, 'article_files');
+        const dirPath = path.join(__dirname, "..", "..", "..", urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE, stringId, 'article_files');
         const errors = [];
         const fileNames = [];
         
@@ -245,7 +245,7 @@ function createArticle(articleObject, articleFiles) {
                 createArticleUrls(article, articleObject.urls).catch(error => {console.log(error);}),
                 createAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
             ])
-            .then(() => {
+            .then((data) => {
                 return Promise.resolve(articleId);
             });
 

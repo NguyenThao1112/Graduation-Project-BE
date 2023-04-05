@@ -1,4 +1,4 @@
-const articleService = require('../services/articleServices');
+const articleService = require('../services/articleServices/createArticleServices');
 const messageConstants = require('../constants/messageConstants');
 const queryConstants = require('../constants/queryConstants');
 const validatorHelper = require('../helpers/validatorHelper');
