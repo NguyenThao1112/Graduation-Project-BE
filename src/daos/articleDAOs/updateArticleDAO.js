@@ -263,15 +263,7 @@ const queryConstants = require('../../constants/queryConstants');
     return new Promise(function (resolve, reject) {
         const query = 
         [
-            `UPDATE article (`,
-					`id, name, journal, year, page_from, page_to, volume, issue, city, abstract,`,
-					`institution, department, type, month, day,`,
-					`url_date_access,`,
-					`ArXivID, DOI, ISBN, ISSN,`,
-					`PMID, Scopus, PII, SGR,`,
-					`project_id, citation_key, general_note,`,
-					`created_at, updated_at, is_deleted`,
-				`)`,
+            `UPDATE INTO article`,
             `SET`,
                 `name = ?, journal = ?, year = ?, page_from = ?, page_to = ?, volume = ?, issue = ?, city = ?, abstract = ?,`,
                 `institution = ?, department = ?, type = ?, month = ?, day = ?,`,
