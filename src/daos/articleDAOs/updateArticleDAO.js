@@ -125,16 +125,7 @@ const queryConstants = require('../../constants/queryConstants');
                 return;
             }
 
-            //Get the id of the created ones
-            const size = result.affectedRows;
-            const firstId = result.insertId;
-            const aboveMaxId = firstId + size;
-            let ids = [];
-            for (let i = firstId; i < aboveMaxId; i++) {
-                ids.push(i);
-            }
-
-            resolve(ids);
+            resolve(articleNotes);
         });
     })
     
@@ -183,16 +174,7 @@ const queryConstants = require('../../constants/queryConstants');
                 return;
             }
 
-            //Get the id of the created ones
-            const size = result.affectedRows;
-            const firstId = result.insertId;
-            const aboveMaxId = firstId + size;
-            let ids = [];
-            for (let i = firstId; i < aboveMaxId; i++) {
-                ids.push(i);
-            }
-
-            resolve(ids);
+            resolve(authors);
         });
     })
     
@@ -276,7 +258,6 @@ const queryConstants = require('../../constants/queryConstants');
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
-        const is_deleted = false;
         const values = [
 			article.name, article.journal, article.year, article.pageFrom, article.pageTo, article.volume, article.issue, article.city, article.abstract,
 			article.institution, article.department, article.type, article.month, article.day,
