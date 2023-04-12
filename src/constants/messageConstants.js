@@ -127,4 +127,5 @@ module.exports = Object.freeze({
 	ARTICLE_UPDATED_NOT_EXISTS_CODE: 4,
 	ARTICLE_INVALID_MESSAGE: "Something went wrong from the backend",
 	ARTICLE_CREATE_SUCCESS_MESSAGE: "Save article successfully",
+	ARTICLE_UPDATE_SUCCESS_MESSAGE: "Update article successfully",
 });

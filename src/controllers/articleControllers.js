@@ -1,8 +1,7 @@
-const articleService = require('../services/articleServices/createArticleServices');
+const createArticleService = require('../services/articleServices/createArticleServices');
+const updateArticleService = require('../services/articleServices/updateArticleServices');
 const messageConstants = require('../constants/messageConstants');
-const queryConstants = require('../constants/queryConstants');
 const validatorHelper = require('../helpers/validatorHelper');
-const commonHelper = require('../helpers/commonHelper');
 
 
 /**
@@ -31,7 +30,7 @@ const commonHelper = require('../helpers/commonHelper');
         const {data} = request.body;
         const articleObject = JSON.parse(data);
 
-        articleService.createArticle(articleObject, uploadArticleFiles).then((articleId) => {
+        createArticleService.createArticle(articleObject, uploadArticleFiles).then((articleId) => {
 
                 //If there is a not empty id => change the response's data
                 if (null !== articleId) {
@@ -51,6 +50,52 @@ const commonHelper = require('../helpers/commonHelper');
     
 }
 
+/**
+ * Update an article
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function updateArticle(request, response) {
+    const uploadArticleFiles = request.files?? null;
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const articleObject = JSON.parse(data);
+
+        //Bind the id for the articleObject
+        articleObject.id = request.params.id;
+
+        updateArticleService.updateArticle(articleObject, uploadArticleFiles).then((successFlag) => {
+
+                if (successFlag) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_UPDATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
 module.exports = {
     createArticle,
+    updateArticle,
 }

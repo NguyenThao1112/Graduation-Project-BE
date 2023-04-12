@@ -15,4 +15,12 @@ router.post(
     articleController.createArticle
 );
 
+router.put(
+    `${urls.ARTICLE_UPDATE}`, 
+    fileUpload({createParentPath: true}),
+    uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),
+    uploadFileMiddlewares.checkFileSizeLimit,
+    articleController.updateArticle
+);
+
 module.exports = router;

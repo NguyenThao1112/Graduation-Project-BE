@@ -31,7 +31,7 @@ const queryConstants = require('../../constants/queryConstants');
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
         const values = articleUrls.map(url => [
-			url.article.id, url.url,
+			url.id, url.article.id, url.url,
 			now, now, is_deleted
 		]);
 
@@ -114,7 +114,7 @@ const queryConstants = require('../../constants/queryConstants');
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
         const is_deleted = false;
         const values = articleNotes.map(note => [
-			note.article.id, note.note,
+			note.id, note.article.id, note.note,
 			now, now, is_deleted
 		]);
 
@@ -161,7 +161,7 @@ const queryConstants = require('../../constants/queryConstants');
             const articleId = author.articleId ?? null;
 
             return [
-                lecturerId, articleId,
+                author.id, lecturerId, articleId,
                 author.firstName, author.lastName,
                 now, now, is_deleted,
 		    ]
@@ -269,7 +269,7 @@ const queryConstants = require('../../constants/queryConstants');
             article.id,
 		];
 
-        connection.query(query, [values], (error, result) => {
+        connection.query(query, [...values], (error, result) => {
             if (error) {
                 reject(error);
                 return;

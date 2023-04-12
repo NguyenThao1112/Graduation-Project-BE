@@ -20,7 +20,7 @@ const {createTags} = require('../configurationServices');
  * @return {Promise}
  *  
  */
-function updateArticleFiles(article, articleFileObj, articleFiles) {
+function updateArticleFiles(article, articleFileObjs, articleFiles) {
     return new Promise((resolve, reject) => {
 
         //If the user doesn't send the article files while creating article
@@ -83,8 +83,12 @@ function updateArticleFiles(article, articleFileObj, articleFiles) {
         
         return Promise.all([
             createArticleDAO.createArticleFiles(articleFileDtos).then((ids) => console.log(`Create new Article File with id: ${ids}`)),
-            deleteArticleDAO.deleteRecordInTable("article_file", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} records`)),
-        ]);
+            deleteArticleDAO.deleteRecordInTable("article_file", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} records for Article File`)),
+        ])
+        .then(() => {
+            resolve(true);
+            return Promise.resolve(true);
+        });
     }).catch(error => {
         console.log(error);
     });
@@ -105,9 +109,8 @@ function updateArticleFiles(article, articleFileObj, articleFiles) {
             return null;
         }
         
-        const updatedArticleUrlObjs = articleUrlObjs.filter((obj) => {
-            return obj.hasOwnProperty("id");
-        });
+        const updatedArticleUrlObjs = articleUrlObjs
+            .filter((obj) => obj.hasOwnProperty("id") && obj.hasOwnProperty("update") && (true === obj.update));
 
         const updateArticleUrlDtos = updatedArticleUrlObjs.map(obj => {
             const articleUrl = new ArticleUrl();
@@ -117,9 +120,8 @@ function updateArticleFiles(article, articleFileObj, articleFiles) {
             return articleUrl;
         });
 
-        const createArticleUrlObjs = articleUrlObjs.filter((obj) => {
-            return !obj.hasOwnProperty("id");
-        });
+        const createArticleUrlObjs = articleUrlObjs
+            .filter((obj) => !obj.hasOwnProperty("id") && obj.hasOwnProperty("create") && (true === obj.create));
         
         const createArticleUrlDtos = createArticleUrlObjs.map(obj => {
             const articleUrl = new ArticleUrl();
@@ -129,24 +131,22 @@ function updateArticleFiles(article, articleFileObj, articleFiles) {
         });
 
         const deleteIds = articleUrlObjs
-            .filter((obj) => {
-                return obj.hasOwnProperty("delete");
-            })
-            .map((obj) => {
-                return obj.id;
-            });
+            .filter((obj) => obj.hasOwnProperty("delete") && (true === obj.delete))
+            .map((obj) => obj.id);
 
         return Promise.all([
             createArticleDAO.createArticleUrls(createArticleUrlDtos).then((ids) => console.log(`Create new Article Url with id: ${ids}`)),
             updateArticleDAO.updateArticleUrls(updateArticleUrlDtos).then((updateUrls) => console.log(`Update Article Url with data: ${updateUrls}`)),
-            deleteArticleDAO.deleteRecordInTable("article_url", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} records`)),
-        ]);
+            deleteArticleDAO.deleteRecordInTable("article_url", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} records for Article Url`)),
+        ])
+        .then(() => {
+            resolve(true);
+            return Promise.resolve(true);
+        });
     }).catch(error => {
         console.log(error);
 
-    }).then(() => {
-        return Promise.resolve(true);
-    });;
+    });
  }
 
 /**
@@ -164,9 +164,8 @@ function updateArticleNotes(article, articleNoteObjs) {
             return null;
         }
         
-        const updatedArticleNoteObjs = articleNoteObjs.filter((articleNoteObj) => {
-            return articleNoteObj.hasOwnProperty("id");
-        });
+        const updatedArticleNoteObjs = articleNoteObjs
+            .filter((obj) => obj.hasOwnProperty("id") && obj.hasOwnProperty("update") && (true === obj.update));
 
         const updateArticleNoteDtos = updatedArticleNoteObjs.map(obj => {
             const articleNote = new ArticleNote();
@@ -176,9 +175,8 @@ function updateArticleNotes(article, articleNoteObjs) {
             return articleNote;
         });
 
-        const createArticleNoteObjs = articleNoteObjs.filter((articleNoteObj) => {
-            return !articleNoteObj.hasOwnProperty("id");
-        });
+        const createArticleNoteObjs = articleNoteObjs
+            .filter((obj) => !obj.hasOwnProperty("id") && obj.hasOwnProperty("create") && (true === obj.create));
         
         const createArticleNoteDtos = createArticleNoteObjs.map(obj => {
             const articleNote = new ArticleNote();
@@ -188,24 +186,22 @@ function updateArticleNotes(article, articleNoteObjs) {
         });
 
         const deleteIds = articleNoteObjs
-            .filter((articleNoteObj) => {
-                return articleNoteObj.hasOwnProperty("delete");
-            })
-            .map((obj) => {
-                return obj.id;
-            });
+            .filter((obj) => obj.hasOwnProperty("delete") && (true === obj.delete))
+            .map((obj) => obj.id);
 
         return Promise.all([
             createArticleDAO.createArticleNotes(createArticleNoteDtos).then((ids) => console.log(`Create new Article Note with id: ${ids}`)),
             updateArticleDAO.updateArticleNotes(updateArticleNoteDtos).then((updateNote) => console.log(`Update Article Note with data: ${updateNote}`)),
-            deleteArticleDAO.deleteRecordInTable("article_note", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record`)),
-        ]);
+            deleteArticleDAO.deleteRecordInTable("article_note", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record for Article Note`)),
+        ])
+        .then(() => {
+            resolve(true);
+            return Promise.resolve(true);
+        });
     }).catch(error => {
         console.log(error);
 
-    }).then(() => {
-        return Promise.resolve(true);
-    });
+    })
 }
 
 /**
@@ -242,11 +238,7 @@ function updateAuthors(article, authors) {
             });
 
         const createAuthorObjs = authors
-            .filter((authorObj) => {
-                return !authorObj.hasOwnProperty("id") &&
-                        authorObj.hasOwnProperty("create") && 
-                        (true === authorObj.create);
-            });
+            .filter((authorObj) => !authorObj.hasOwnProperty("id") && authorObj.hasOwnProperty("create") && (true === authorObj.create));
 
         const createAuthorDtos = createAuthorObjs
             .map(obj => {
@@ -254,7 +246,7 @@ function updateAuthors(article, authors) {
                 author.firstName = obj.firstName ?? null; 
                 author.lastName = obj.lastName ?? null;
                 author.articleId = article.id ?? null;
-                author.lecturerId = article.lecturerId ?? null;
+                author.lecturerId = obj.lecturerId ?? null;
                 return author;
             });
 
@@ -265,14 +257,15 @@ function updateAuthors(article, authors) {
         return Promise.all([
             createArticleDAO.createAuthors(createAuthorDtos).then((ids) => console.log(`Create new Author with id: ${ids}`)),
             updateArticleDAO.updateAuthors(updateAuthorDtos).then((authors) => console.log(`Update Authors with data: ${authors}`)),
-            deleteArticleDAO.deleteRecordInTable("author", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record`)),
-        ]);
+            deleteArticleDAO.deleteRecordInTable("author", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record for Author`)),
+        ])
+        .then(() => {
+            resolve(true);
+            return Promise.resolve(true);
+        });;
     }).catch(error => {
         console.log(error);
-
-    }).then(() => {
-        return Promise.resolve(true);
-    });
+    })
 }
 
 /**
@@ -292,12 +285,11 @@ function updateArticleCategories(article, articleCategories) {
         
         //Get all the category which doesn't have the '
         const unexistedTags = articleCategories
-            .filter(category => !category.hasOwnProperty('tag_id'))
+            .filter(category => !category.hasOwnProperty('tag_id') && (category.hasOwnProperty('create') && (true === category.create)))
             .map((category) => {
                 const tag = {
                     name: category.name,
                 }
-
                 return tag;
             });
         
@@ -308,7 +300,7 @@ function updateArticleCategories(article, articleCategories) {
             .then(tagIds => {
 
                 const existedTagIds = articleCategories
-                    .filter(category => category.hasOwnProperty('tag_id'))
+                    .filter(category => category.hasOwnProperty('tag_id') && (category.hasOwnProperty('create') && (true === category.create)))
                     .map(category => category.tag_id);
                 
                 const allTagIds = [...tagIds, ...existedTagIds];
@@ -318,16 +310,16 @@ function updateArticleCategories(article, articleCategories) {
                     .filter(category => category.hasOwnProperty('id') && category.hasOwnProperty('delete') && (true === category.delete))
                     .map(category => category.id);
 
-
                 return Promise.all([
                     createArticleDAO.createArticleCategories(articleCategory).then((ids) => console.log(`Create new Tag with id ${ids}`)),
-                    deleteArticleDAO.deleteRecordInTable("article_tag", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record`)),
+                    deleteArticleDAO.deleteRecordInTable("article_tag", deleteIds).then((deleteSize) => console.log(`Successfully delete ${deleteSize} record for Article Category`)),
                 ]);
 
             }).catch(error => {
                 console.log(error);
         
             }).then(() => {
+                resolve(true);
                 return Promise.resolve(true);
             });
     })
@@ -347,13 +339,11 @@ function updateArticle(articleObject, articleFiles) {
     builder.setBulk(articleObject);
     const article = builder.build();
 
-    return createArticleDAO.createArticle(article)
+    return updateArticleDAO.updateArticle(article)
         .catch(error => {
             console.log(error);
         })
-        .then(articleId => {
-
-            article.id = articleId;
+        .then(article => {
 
             return Promise.all([
                 updateArticleFiles(article, article.files, articleFiles).catch(error => {console.log(error);}),
@@ -363,15 +353,13 @@ function updateArticle(articleObject, articleFiles) {
                 updateAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
             ])
             .then((data) => {
-                return Promise.resolve(articleId);
+                return Promise.resolve(true);
             });
 
         })
 }
 
 module.exports = {
-    
     updateArticle,
-    createArticleFiles,
 }
 
