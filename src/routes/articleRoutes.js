@@ -23,4 +23,9 @@ router.put(
     articleController.updateArticle
 );
 
+router.delete(
+    `${urls.ARTICLE_DELETE}`, 
+    articleController.deleteArticles
+);
+
 module.exports = router;

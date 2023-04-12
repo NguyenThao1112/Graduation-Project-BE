@@ -1,5 +1,6 @@
 const createArticleService = require('../services/articleServices/createArticleServices');
 const updateArticleService = require('../services/articleServices/updateArticleServices');
+const deleteArticleService = require('../services/articleServices/deleteArticleServices');
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
 
@@ -95,7 +96,50 @@ const validatorHelper = require('../helpers/validatorHelper');
     
 }
 
+
+/**
+ * Delete multiple articles
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function deleteArticles(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const deleteIds = data.map(data => data.id);
+    
+        deleteArticleService.deleteArticles(deleteIds).then((successFlag) => {
+
+                if (successFlag) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_DELETE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
 module.exports = {
     createArticle,
     updateArticle,
+    deleteArticles,
 }
