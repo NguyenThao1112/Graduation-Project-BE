@@ -2,7 +2,6 @@ const accountService = require('../services/accountServices');
 const messageConstants = require('../constants/messageConstants');
 
 function getAccounts(request, response) {
-	console.log('vao next account');
 	return new Promise((resolve, reject) => {
 		let responseJson = {
 			code: messageConstants.AUTH_LOGIN_FAILED_CODE,

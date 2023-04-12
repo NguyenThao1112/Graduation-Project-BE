@@ -5,17 +5,16 @@ const cors = require('cors');
 const { logger } = require('./middleware/logEvents');
 const errorHandler = require('./middleware/errorHandler');
 
-//Constants
+// Constants
 const configs = require('./src/constants/configConstants');
 const urls = require('./src/constants/urlConstants');
 
-//Routes
+// Routes
 const authRoutes = require('./src/routes/authRoutes');
 const accountRoutes = require('./src/routes/accountRoutes');
 const lecturerRoutes = require('./src/routes/lecturerRoutes');
 const configurationRoutes = require('./src/routes/configurationRoutes');
 
-const PORT = process.env.APP_PORT || 3001;
 const rootUrl = urls.ROOT_API_URL;
 
 // custom middleware logger
@@ -41,6 +40,9 @@ app.use(express.urlencoded({ extended: false }));
 // built-in middleware for json
 app.use(express.json());
 
+app.use('/test', function (req, res) {
+	res.json('text successfully');
+});
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
 app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
 app.use(`${rootUrl}${urls.LECTURER_PREFIX_API_URL}`, lecturerRoutes);

@@ -51,7 +51,8 @@ module.exports = Object.freeze({
 	VAL_IS_NOT_EMAIL_MESSAGE: 'must have email format',
 	VAL_IS_NOT_MATCHED_MESSAGE: 'do not match',
 	VAL_IS_NOT_EXISTED: 'is not existed',
-	VAL_IS_NOT_POSTITIVE_INTEGER_GREATER_THAN_0: 'is not an positive integer greater than 0',
+	VAL_IS_NOT_POSTITIVE_INTEGER_GREATER_THAN_0:
+		'is not an positive integer greater than 0',
 
 	//Accounts
 	ACCOUNT_GET_ALL_SUCCESS_MESSAGE: 'Get accounts successfully!',
@@ -63,44 +64,61 @@ module.exports = Object.freeze({
 
 	//Get all lecturers API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
-	LECTURER_GET_ALL_INVALID_MESSAGE: "Something went wrong from the backend",
-	LECTURER_GET_ALL_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
+	LECTURER_GET_ALL_INVALID_MESSAGE: 'Something went wrong from the backend',
+	LECTURER_GET_ALL_SUCCESS_MESSAGE:
+		'Fetch the lecturer from database successfully',
+	LECTURER_CREATE_SUCCESS_MESSAGE: 'Create lecturer successfully!',
+	LECTURER_CREATE_FAILED_MESSAGE: 'Failed to create lecturer!',
+	LECTURER_UPDATE_FAILED_MESSAGE: 'Failed yo update lecturer!',
+	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
+	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
+	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
-	LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE: "Something went wrong from the backend",
-	LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE: "Fetch the lecturer from database successfully",
+	LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE:
+		'Something went wrong from the backend',
+	LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE:
+		'Fetch the lecturer from database successfully',
 
 	//Configuration APIs
 	//Contact type API
 	CONFIG_CONTACT_TYPE_INVALID_CODE: 1,
 	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_CODE: 2,
 	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_CODE: 2,
-	CONFIG_CONTACT_TYPE_INVALID_MESSAGE: "Something went wrong from the backend",
+	CONFIG_CONTACT_TYPE_INVALID_MESSAGE: 'Something went wrong from the backend',
 
-	CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE: "Get contact type successfully",
-	CONFIG_CONTACT_TYPE_DELETE_SUCCESS_MESSAGE: "Delete the contact types successfully",
-	CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE: "Save contact types successfully",
-	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE: "The updated contact type is not exists",
-	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+	CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE: 'Get contact type successfully',
+	CONFIG_CONTACT_TYPE_DELETE_SUCCESS_MESSAGE:
+		'Delete the contact types successfully',
+	CONFIG_CONTACT_TYPE_CREATE_SUCCESS_MESSAGE: 'Save contact types successfully',
+	CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE:
+		'The updated contact type is not exists',
+	CONFIG_CONTACT_TYPE_DELETED_NOT_ALL_MESSAGE:
+		'The number of deleted record is not equal to the input',
 
- 	//Academic rank API
+	//Academic rank API
 	CONFIG_ACADEMIC_RANK_INVALID_CODE: 1,
 	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_CODE: 2,
 	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_CODE: 2,
-	CONFIG_ACADEMIC_RANK_INVALID_MESSAGE: "Something went wrong from the backend",
+	CONFIG_ACADEMIC_RANK_INVALID_MESSAGE: 'Something went wrong from the backend',
 
-	CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE: "Get academic rank successfully",
-	CONFIG_ACADEMIC_RANK_DELETE_SUCCESS_MESSAGE: "Delete the academic ranks successfully",
-	CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE: "Save academic ranks successfully",
-	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic rank is not exists",
-	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+	CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE: 'Get academic rank successfully',
+	CONFIG_ACADEMIC_RANK_DELETE_SUCCESS_MESSAGE:
+		'Delete the academic ranks successfully',
+	CONFIG_ACADEMIC_RANK_CREATE_SUCCESS_MESSAGE:
+		'Save academic ranks successfully',
+	CONFIG_ACADEMIC_RANK_UPDATED_NOT_EXISTS_MESSAGE:
+		'The updated academic rank is not exists',
+	CONFIG_ACADEMIC_RANK_DELETED_NOT_ALL_MESSAGE:
+		'The number of deleted record is not equal to the input',
 
 	//Academic title API
 	CONFIG_ACADEMIC_TITLE_INVALID_CODE: 1,
 	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_CODE: 2,
 	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_CODE: 2,
-	CONFIG_ACADEMIC_TITLE_INVALID_MESSAGE: "Something went wrong from the backend",
+	CONFIG_ACADEMIC_TITLE_INVALID_MESSAGE:
+		'Something went wrong from the backend',
 
 	CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE: "Get academic title successfully",
 	CONFIG_ACADEMIC_TITLE_DELETE_SUCCESS_MESSAGE: "Delete the academic titles successfully",
@@ -119,4 +137,5 @@ module.exports = Object.freeze({
 	CONFIG_TAG_CREATE_SUCCESS_MESSAGE: "Save tags successfully",
 	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
 	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
 });
