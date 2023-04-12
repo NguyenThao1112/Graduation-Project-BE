@@ -1299,3 +1299,155 @@ Content-Type: application/pdf
     "message": "Upload failed. Only ${allowedExtensions} files allowed",
 }
 ```
+
+### Update an article
+
+```
+PUT /api/v1/articles/:id/update
+```
+
+```javascript
+PUT /api/v1/articles/94/update HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Length: 2231
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="data"
+
+{
+    "name": "TEST",
+    "journal": "TEST",
+    "year": 2023,
+    "pageFrom": 11,
+    "pageTo": 12,
+    "volume": 24,
+    "issue": 3,
+    "month":  3,
+    "day": 28,
+    "abstract": "TEST",
+    "urlAccessDate": "28/03/2023",
+    "ArXivID": "TEST",
+    "DOI": "TEST",
+    "ISBN": "TEST",
+    "ISSN": "TEST",
+    "PMID": "TEST",
+    "Scopus": "TEST",
+    "PII": "TEST",
+    "SGR": "TEST",
+    "projectId": "TEST",
+    "citationKey": "TEST",
+    "generalNote": "TEST",
+    "tags": [
+        {
+            "tag_id": 6,
+            "create": true
+        },
+        {
+            "id": 156,
+            "delete": true
+        },
+        {
+            "id": 153,
+            "delete": true
+        },
+        {
+            "name": "test tag 1",
+            "create": true
+        }
+    ],
+    "authors": [
+        {
+            "lecturerId": 1,
+            "create": true
+        },
+        {
+            "firstName": "first_keke",
+            "lastName": "last_keke",
+            "create": true
+        },
+        {
+            "id": 352,
+            "firstName": "first_352",
+            "lastName": "last_352",
+            "update": true
+        },
+        {
+            "id": 353,
+            "delete": true
+        }
+    ],
+    "urls": [
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql",
+            "create": true
+        },
+        {
+            "id": 227,
+            "url": "url_227",
+            "update": true
+        },
+        {
+            "id": 228,
+            "delete": true
+        }
+    ],
+    "notes": [
+        {
+            "note": "Sample note test CREATE",
+            "create": true
+        },
+        {
+            "id": 230,
+            "note": "Sample note test 230",
+            "update": true
+        },
+        {
+            "id": 229,
+            "delete": true
+        }
+    ],
+    "files": [
+        {
+            "id": 9,
+            "delete": true
+        }
+    ]
+}
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name=""; filename="test_file.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+```
+
+##### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Updade article successfully",
+}
+```
+##### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "Upload failed. ${overlimitFiles} ${'are' | 'is'} over the file size limit of ${MAX_FILE_SIZE} MB",
+}
+```
+
+```javascript
+{
+    "code": 3,
+    "message": "Upload failed. Only ${allowedExtensions} files allowed",
+}
+```
