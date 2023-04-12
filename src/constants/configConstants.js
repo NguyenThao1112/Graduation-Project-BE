@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = Object.freeze({
 	//App configs
-	APP_PORT: process.env.APP_PORT,
+	APP_PORT: process.env.APP_PORT || 3001,
 	APP_HOST: process.env.APP_HOST,
 
 	//DB configs
@@ -12,6 +12,8 @@ module.exports = Object.freeze({
 	DB_PASSWORD: process.env.DB_PASSWORD,
 	DB_NAME: process.env.DB_NAME,
 	DB_CONNECTION_LIMIT: process.env.DB_CONNECTION_LIMIT,
+	SSL: true,
+	SOCKET_PATH: process.env.SOCKET_PATH,
 
 	//JWT configs
 	JWT_SECRET: process.env.JWT_SECRET,

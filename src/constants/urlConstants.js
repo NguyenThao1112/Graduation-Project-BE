@@ -26,43 +26,48 @@ module.exports = Object.freeze({
 	LECTURER_PREFIX_API_URL: `/lecturers`,
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
-	//Resources url for lecturer API
+	LECTURER_CREATE_URL: '/create',
+	LECTURER_UPDATE_URL: '/update/:id',
+	LECTURER_DELETE_URL: '/delete',
+
+	//Resources url for lectureRr API
 	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
 
-    //Configuration API
-    CONFIG_PREFIX_API_URL: `/configs`,
+	//Configuration API
+	CONFIG_PREFIX_API_URL: `/configs`,
 
-        //Contact types API
-        CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,  
-        CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,            
-        CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
-        CONFIG_CONTACT_TYPE_CREATE: `/create`,
-        CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
-        CONFIG_CONTACT_TYPE_DELETE: `/delete`,
+	//Contact types API
+	CONFIG_CONTACT_TYPE_API_URL: `/contact-type`,
+	CONFIG_CONTACT_TYPE_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_CONTACT_TYPE_GET_ALL: `/fetch-all`,
+	CONFIG_CONTACT_TYPE_CREATE: `/create`,
+	CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
+	CONFIG_CONTACT_TYPE_DELETE: `/delete`,
 
-        //Academic ranks API
-        CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
-        CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
-        CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
-        CONFIG_ACADEMIC_RANK_CREATE: `/create`,
-        CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
-        CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
+    //Academic ranks API
+    CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
+    CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
+    CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
+    CONFIG_ACADEMIC_RANK_CREATE: `/create`,
+    CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
+    CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
 
-        //Academic titles API
-        CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,  
-        CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
-        CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
-        CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
-        CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
-        CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
+    //Academic titles API
+    CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,  
+    CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
+    CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
+    CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
+    CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
+    CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
 
-        //Tags API
-        CONFIG_TAG_API_URL: `/tag`,  
-        CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
-        CONFIG_TAG_GET_ALL: `/fetch-all`,
-        CONFIG_TAG_CREATE: `/create`,
-        CONFIG_TAG_UPDATE: `/:id/update`,
-        CONFIG_TAG_DELETE: `/delete`,
+
+    //Tags API
+    CONFIG_TAG_API_URL: `/tag`,  
+    CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
+    CONFIG_TAG_GET_ALL: `/fetch-all`,
+    CONFIG_TAG_CREATE: `/create`,
+    CONFIG_TAG_UPDATE: `/:id/update`,
+    CONFIG_TAG_DELETE: `/delete`,
 
     
     //Article API
@@ -76,4 +81,3 @@ module.exports = Object.freeze({
         ARTICLE_DELETE: `/delete`,
     
 })
-

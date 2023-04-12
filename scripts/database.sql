@@ -39,7 +39,7 @@ CREATE TABLE lecturer_information (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     -- for further exploration
-    expand_column VARCHAR(255),
+    expand_column VARCHAR(255) DEFAULT NULL,
 
     PRIMARY KEY(id)
 );

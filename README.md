@@ -22,6 +22,22 @@ JWT_EXPIRE=${your-data-here}\
 4. Run the command `npm install` to install all the component required
 5. Run the command `npm start` to start the server
 
+example configuration for env:
+
+```javascript
+APP_PORT=3001
+APP_HOST=localhost
+DB_PORT=3306
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=123456
+DB_NAME=nckh
+DB_CONNECTION_LIMIT=100
+SOCKET_PATH=/tmp/mysql.sock
+JWT_SECRET = secret
+JWT_EXPIRE = 24h
+```
+
 # API List (update reguraly)
 
 ## Authorization API
@@ -488,7 +504,9 @@ GET /api/v1/config/contact-type/fetch-all
 ```
 
 #### Create multiple contact types
-##### Request 
+
+##### Request
+
 ```http
 POST /api/v1/config/contact-type/create
 ```
@@ -497,23 +515,27 @@ POST /api/v1/config/contact-type/create
 {
     "data": [
         {
-            "name": "Email", 
+            "name": "Email",
         },
 
          {
-            "name": "Mobile phone", 
+            "name": "Mobile phone",
         },
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save contact type successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -522,7 +544,9 @@ POST /api/v1/config/contact-type/create
 ```
 
 #### Update a contact type
-##### Request 
+
+##### Request
+
 ```http
 PUT /api/v1/config/contact-type/:id/update
 ```
@@ -530,17 +554,21 @@ PUT /api/v1/config/contact-type/:id/update
 ```javascript
 {
     "id" : 1,
-    "name": "Email", 
+    "name": "Email",
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save contact type successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -556,7 +584,9 @@ PUT /api/v1/config/contact-type/:id/update
 ```
 
 #### Delete multiple contact types
-##### Request 
+
+##### Request
+
 ```http
 DELETE /api/v1/config/contact-type/delete
 ```
@@ -576,14 +606,18 @@ DELETE /api/v1/config/contact-type/delete
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Delete contact types successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -599,41 +633,46 @@ DELETE /api/v1/config/contact-type/delete
 ```
 
 ### Academic rank
+
 #### Get academic rank with pagination
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get academic rank successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -642,29 +681,35 @@ GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
 ```
 
 #### Get all academic rank
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/academic-rank/fetch-all
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get academic rank successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
+            "id": 1,
+            "name": "Test 0",
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
+            "id": 2,
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -672,9 +717,10 @@ GET /api/v1/config/academic-rank/fetch-all
 }
 ```
 
-
 #### Create multiple academic ranks
-##### Request 
+
+##### Request
+
 ```http
 POST /api/v1/config/academic-rank/create
 ```
@@ -683,23 +729,27 @@ POST /api/v1/config/academic-rank/create
 {
     "data": [
         {
-            "name": "Test 0", 
+            "name": "Test 0",
         },
 
          {
-            "name": "Test 1", 
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save academic rank successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -708,7 +758,9 @@ POST /api/v1/config/academic-rank/create
 ```
 
 #### Update a academic rank
-##### Request 
+
+##### Request
+
 ```http
 PUT /api/v1/config/academic-rank/:id/update
 ```
@@ -716,17 +768,21 @@ PUT /api/v1/config/academic-rank/:id/update
 ```javascript
 {
     "id" : 1,
-    "name": "Test 0", 
+    "name": "Test 0",
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save academic rank successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -742,7 +798,9 @@ PUT /api/v1/config/academic-rank/:id/update
 ```
 
 #### Delete multiple academic ranks
-##### Request 
+
+##### Request
+
 ```http
 DELETE /api/v1/config/academic-rank/delete
 ```
@@ -762,14 +820,18 @@ DELETE /api/v1/config/academic-rank/delete
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Delete academic ranks successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -784,43 +846,47 @@ DELETE /api/v1/config/academic-rank/delete
 }
 ```
 
-
 ### Academic title
+
 #### Get academic title with pagination
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get academic title successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -829,29 +895,35 @@ GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
 ```
 
 #### Get all academic title
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/academic-title/fetch-all
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get academic title successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
+            "id": 1,
+            "name": "Test 0",
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
+            "id": 2,
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -859,9 +931,10 @@ GET /api/v1/config/academic-title/fetch-all
 }
 ```
 
-
 #### Create multiple academic titles
-##### Request 
+
+##### Request
+
 ```http
 POST /api/v1/config/academic-title/create
 ```
@@ -870,23 +943,27 @@ POST /api/v1/config/academic-title/create
 {
     "data": [
         {
-            "name": "Test 0", 
+            "name": "Test 0",
         },
 
          {
-            "name": "Test 1", 
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save academic title successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -895,7 +972,9 @@ POST /api/v1/config/academic-title/create
 ```
 
 #### Update a academic title
-##### Request 
+
+##### Request
+
 ```http
 PUT /api/v1/config/academic-title/:id/update
 ```
@@ -903,17 +982,21 @@ PUT /api/v1/config/academic-title/:id/update
 ```javascript
 {
     "id" : 1,
-    "name": "Test 0", 
+    "name": "Test 0",
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save academic title successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -929,7 +1012,9 @@ PUT /api/v1/config/academic-title/:id/update
 ```
 
 #### Delete multiple academic titles
-##### Request 
+
+##### Request
+
 ```http
 DELETE /api/v1/config/academic-title/delete
 ```
@@ -949,14 +1034,18 @@ DELETE /api/v1/config/academic-title/delete
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Delete academic titles successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1128,13 +1217,9 @@ DELETE /api/v1/config/tag/delete
         },
         {
             "id": 2
-        },
-        {
-            "id": 3
         }
     ]
 }
-```
 ##### Success response
 ```javascript
 {
@@ -1154,6 +1239,129 @@ DELETE /api/v1/config/tag/delete
 {
     "code": 2,
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+
+### Lecturer
+#### Create multiple lecturers
+
+##### Request
+
+```http
+POST /api/v1/lecturers/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "account_id": 2,
+            "name": "test",
+            "gender": "male",
+            "avatar": null
+        }
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Create lecturer successfully!"
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Create lecturer failed!"
+}
+```
+
+#### Update one lecturer
+
+##### Request
+
+```http
+POST /api/v1/lecturers/update/1
+```
+
+```javascript
+{
+    "data":
+        {
+            "account_id": 4,
+            "name": "lecturer 3",
+            "gender": "male",
+            "avatar": null,
+            "date_of_birth": "2001-04-22",
+            "academic_rank_id": 1,
+            "academic_rank_gain_year": 2022,
+            "academic_title_id": 1,
+            "academic_title_gain_year": 2023,
+            "is_deleted": 0,
+            "expand_column": null
+        }
+
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Update lecturer successfully!"
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Update lecturer failed!"
+}
+```
+
+#### Delete one lecturer
+
+##### Request
+
+```http
+DELETE /api/v1/lecturers/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete lecturer successfully!"
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Delete lecturer failed!"
 }
 ```
 
