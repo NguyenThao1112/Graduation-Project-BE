@@ -1159,7 +1159,7 @@ DELETE /api/v1/config/tag/delete
 
 ## Article API
 ### Create an article
-
+#### Request 
 ```
 POST /api/v1/articles/create
 ```
@@ -1271,14 +1271,14 @@ Content-Type: application/pdf
 ----WebKitFormBoundary7MA4YWxkTrZu0gW
 ```
 
-##### Success response
+#### Success response
 ```javascript
 {
     "code": 0,
     "message": "Save article successfully,
 }
 ```
-##### Error response
+#### Error response
 ```javascript
 {
     "code": 1,
@@ -1301,7 +1301,7 @@ Content-Type: application/pdf
 ```
 
 ### Update an article
-
+#### Request 
 ```
 PUT /api/v1/articles/:id/update
 ```
@@ -1423,14 +1423,14 @@ Content-Type: application/pdf
 
 ```
 
-##### Success response
+#### Success response
 ```javascript
 {
     "code": 0,
     "message": "Updade article successfully",
 }
 ```
-##### Error response
+#### Error response
 ```javascript
 {
     "code": 1,
@@ -1449,5 +1449,42 @@ Content-Type: application/pdf
 {
     "code": 3,
     "message": "Upload failed. Only ${allowedExtensions} files allowed",
+}
+```
+
+### Update an article
+#### Request 
+```
+DELETE /api/v1/articles/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Delete article(s) successfully",
+}
+```
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
 }
 ```
