@@ -2,8 +2,8 @@ class Author {
     #id;            //string
     #firstName;     //string
     #lastName;      //string
-    #lecturer;      //Lecturer  
-    #article;       //Article
+    #lecturerId;    //number
+    #articleId;     //number
 
     //meta data
     #createdAt;     //datetime
@@ -14,8 +14,8 @@ class Author {
     get id() {return this.#id;}; 
     get firstName() {return this.#firstName;};
     get lastName() {return this.#lastName;};
-    get lecturer() {return this.#lecturer;}; 
-    get article() {return this.#article;};
+    get lecturerId() {return this.#lecturerId;}; 
+    get articleId() {return this.#articleId;};
     get createdAt() {return this.#createdAt;};
     get updatedAt() {return this.#updatedAt;}; 
     get isDeleted() {return this.#isDeleted;};
@@ -24,8 +24,8 @@ class Author {
     set id(id) {this.#id = id;};
     set firstName(firstName) {this.#firstName = firstName;};
     set lastName(lastName) {this.#lastName = lastName;};
-    set lecturer(lecturer) {this.#lecturer = lecturer;};
-    set article(article) {this.#article = article;};
+    set lecturerId(lecturerId) {this.#lecturerId = lecturerId;};
+    set articleId(articleId) {this.#articleId = articleId;};
     set createdAt(createdAt) {this.#createdAt = createdAt;};
     set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
     set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};

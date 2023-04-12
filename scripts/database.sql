@@ -85,6 +85,7 @@ CREATE TABLE academic_title (
 CREATE TABLE article (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
+    journal VARCHAR(255) DEFAULT NULL,
     year INT DEFAULT NULL,
     page_from INT DEFAULT NULL,
     page_to INT DEFAULT NULL,
@@ -147,6 +148,7 @@ CREATE TABLE article_file (
     article_id INT,
 
     file_path TEXT DEFAULT NULL,
+    original_file_name TEXT DEFAULT NULL,
 
     -- metadata stuffs
     created_at DATETIME,

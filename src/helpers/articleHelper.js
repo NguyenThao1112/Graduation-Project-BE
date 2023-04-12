@@ -1,9 +1,11 @@
-import {Article} from '../models/article/article';
+const {Article} = require('../models/article/article');
+const moment = require('moment');
 
 class ArticleBuilder {
 
     #id;            //number
     #name;          //string
+    #journal;       //string
     #year;          //number
     #pageFrom;      //number
     #pageTo;        //number
@@ -54,7 +56,11 @@ class ArticleBuilder {
     setName(name) {
         this.#name = name;
         return this;
-    };  
+    };
+    setJournal(journal) {
+        this.#journal = journal;
+        return this;
+    }  
     setYear(year) {
         this.#year = year;
         return this;
@@ -64,7 +70,7 @@ class ArticleBuilder {
         return this;
     }; 
     setPageTo(pageTo) {
-        this.#paseto = pageTo;
+        this.#pageTo = pageTo;
         return this;
     };   
     setVolume(volume) {
@@ -185,7 +191,8 @@ class ArticleBuilder {
     };
 
     setBulk(articleObject) {
-        this.#id = articleObject.id ?? null;                        
+        this.#id = articleObject.id ?? null;
+        this.#journal = articleObject.journal ?? null;                        
         this.#name = articleObject.name ?? null;                    
         this.#year = articleObject.year ?? null;                    
         this.#pageFrom = articleObject.pageFrom ?? null;            
@@ -199,7 +206,7 @@ class ArticleBuilder {
         this.#type = articleObject.type ?? null;                    
         this.#month = articleObject.month ?? null;                  
         this.#day = articleObject.day ?? null;                      
-        this.#urlAccessDate = articleObject.urlAccessDate ?? null;  
+        this.#urlAccessDate = articleObject.urlAccessDate ? moment(articleObject.urlAccessDate, "DD/MM/YYYY").format("YYYY/MM/DD"): null;
         this.#ArXivID = articleObject.ArXivID ?? null;              
         this.#DOI = articleObject.DOI ?? null;                      
         this.#ISBN = articleObject.ISBN ?? null;                    
@@ -218,12 +225,14 @@ class ArticleBuilder {
         this.#authors = articleObject.authors ?? null;              
         this.#urls = articleObject.urls ?? null;                    
         this.#files = articleObject.files ?? null;                  
-        this.#notes = articleObject.notes ?? null;         
+        this.#notes = articleObject.notes ?? null;  
+
     }
 
     reset() {
         this.#id = null;            
-        this.#name = null;          
+        this.#name = null;
+        this.#journal = null;          
         this.#year = null;          
         this.#pageFrom = null;      
         this.#pageTo = null;        
@@ -262,6 +271,7 @@ class ArticleBuilder {
         return new Article(
             this.#id,
             this.#name,
+            this.#journal,
             this.#year,
             this.#pageFrom,
             this.#pageTo,

@@ -138,4 +138,14 @@ module.exports = Object.freeze({
 	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
 	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 
+	//Article APIs
+	ARTICLE_INVALID_CODE: 1,
+	ARTICLE_SAVED_OVERLIMIT_FILE_SIZE_CODE: 2,
+	ARTICLE_SAVED_INVALID_EXTENSIONS_FILE: 3,
+	ARTICLE_UPDATED_NOT_EXISTS_CODE: 4,
+	ARTICLE_INVALID_MESSAGE: "Something went wrong from the backend",
+	ARTICLE_CREATE_SUCCESS_MESSAGE: "Save article successfully",
+	ARTICLE_UPDATE_SUCCESS_MESSAGE: "Update article successfully",
+	ARTICLE_DELETE_SUCCESS_MESSAGE: "Delete article(s) successfully",
+
 });

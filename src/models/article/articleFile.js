@@ -1,18 +1,20 @@
 class ArticleFile {
-    #id;            //string
-    #path;           //string
+    #id;                //string
+    #path;              //string
+    #originalFileName;  //string;
 
     //meta data
-    #createdAt;     //datetime
-    #updatedAt;     //datetime
-    #isDeleted;     //boolean
+    #createdAt;         //datetime
+    #updatedAt;         //datetime
+    #isDeleted;         //boolean
 
     //Association
     #article;
 
     //Getters
     get id() {return this.#id;};
-    get path() {return this.#path;};   
+    get path() {return this.#path;};
+    get originalFileName() {return this.#originalFileName;}   
     get createdAt() {return this.#createdAt;};
     get updatedAt() {return this.#updatedAt;}; 
     get isDeleted() {return this.#isDeleted;};
@@ -21,6 +23,7 @@ class ArticleFile {
     //Setters
     set id(id) {this.#id = id;};
     set path(path) {this.#path = path;};
+    set originalFileName(originalFileName) {this.#originalFileName = originalFileName;}
     set createdAt(createdAt) {this.#createdAt = createdAt;};
     set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
     set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};
