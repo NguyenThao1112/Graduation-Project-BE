@@ -34,4 +34,7 @@ module.exports = Object.freeze({
 	ARTICLE_FILE_UPLOAD_ALLOWED_EXT: [
 		".pdf",
 	],
+
+	API_KEY_GOOGLE_SCHOLAR: process.env.API_KEY_GOOGLE_SCHOLAR,
+
 });

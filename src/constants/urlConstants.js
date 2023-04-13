@@ -60,7 +60,6 @@ module.exports = Object.freeze({
     CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
     CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
 
-
     //Tags API
     CONFIG_TAG_API_URL: `/tag`,  
     CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
@@ -69,7 +68,6 @@ module.exports = Object.freeze({
     CONFIG_TAG_UPDATE: `/:id/update`,
     CONFIG_TAG_DELETE: `/delete`,
 
-    
     //Article API
     //Resources url for article API
 	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_PATH}/article/`,
@@ -80,4 +78,11 @@ module.exports = Object.freeze({
         ARTICLE_UPDATE: `/:id/update`,
         ARTICLE_DELETE: `/delete`,
     
+	// Report API
+	REPORT_PREFIX_API_URL: `/report`,
+	REPORT_SCOPUS_GET_ALL: `/scopus`,
+	SAVE_ONE_AUTHOR_GOOGLE_SCHOLAR: `/google-scholar/author`,
+	SAVE_ALL_CITATION_GOOGLE_SCHOLAR: `/google-scholar/citation`,
+	//Report types AP
 })
+
