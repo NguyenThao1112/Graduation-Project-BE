@@ -59,4 +59,11 @@ module.exports = Object.freeze({
 	CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
 	CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
 	CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
+
+	//report API
+	REPORT_PREFIX_API_URL: `/report`,
+	REPORT_SCOPUS_GET_ALL: `/scopus`,
+	SAVE_ONE_AUTHOR_GOOGLE_SCHOLAR: `/google-scholar/author`,
+	SAVE_ALL_CITATION_GOOGLE_SCHOLAR: `/google-scholar/citation`,
+	//Report types AP
 });

@@ -27,4 +27,6 @@ module.exports = Object.freeze({
 	//Forget password token expiration
 	FORGET_PASSWORD_TOKEN_EXPIRE: 10, //forget password token will expired in 10 minutes before creating,
 	LOGIN_TOKEN_EXPIRE: 1,
+
+	API_KEY_GOOGLE_SCHOLAR: process.env.API_KEY_GOOGLE_SCHOLAR,
 });
