@@ -308,3 +308,8 @@
 20230328	21:53:23	2368a20b-7750-49d2-939e-a9acc0618b97	DELETE	undefined	/api/v1/lecturers
 20230328	21:53:32	59de58f3-49a1-4bdd-85ab-886af77ed759	DELETE	undefined	/api/v1/lecturers
 20230328	21:54:38	f3675b13-ae58-470a-90f0-9fdfeb7eaf79	DELETE	undefined	/api/v1/lecturers/delete
+20230413	07:13:05	be01cc11-ba0e-44ff-8542-893126c19d0b	GET	undefined	/api/v1/report/google-scholar/author
+20230413	07:13:20	0eb58bd4-57d4-4acb-8c78-90960317d325	POST	undefined	/api/v1/report/google-scholar/author
+20230413	07:39:49	24013dea-438c-4742-8b5f-b1f858711f2e	POST	undefined	/api/v1/report/google-scholar/citation
+20230413	07:40:09	8dfb674f-4415-4922-a4df-9781cf966405	POST	undefined	/api/v1/report/google-scholar/citation
+20230413	07:40:37	cbf49f1e-1664-41b8-b454-13582af609cc	POST	undefined	/api/v1/report/google-scholar/citation
