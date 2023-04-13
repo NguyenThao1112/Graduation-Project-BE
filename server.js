@@ -14,6 +14,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const accountRoutes = require('./src/routes/accountRoutes');
 const lecturerRoutes = require('./src/routes/lecturerRoutes');
 const configurationRoutes = require('./src/routes/configurationRoutes');
+const articleRoutes = require('./src/routes/articleRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');
 
 const rootUrl = urls.ROOT_API_URL;
@@ -48,6 +49,7 @@ app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
 app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
 app.use(`${rootUrl}${urls.LECTURER_PREFIX_API_URL}`, lecturerRoutes);
 app.use(`${rootUrl}${urls.CONFIG_PREFIX_API_URL}`, configurationRoutes);
+app.use(`${rootUrl}${urls.ARTICLE_PREFIX_API_URL}`, articleRoutes);
 app.use(`${rootUrl}${urls.REPORT_PREFIX_API_URL}`, reportRoutes);
 
 app.all('*', (req, res) => {

@@ -120,13 +120,32 @@ module.exports = Object.freeze({
 	CONFIG_ACADEMIC_TITLE_INVALID_MESSAGE:
 		'Something went wrong from the backend',
 
-	CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE: 'Get academic title successfully',
-	CONFIG_ACADEMIC_TITLE_DELETE_SUCCESS_MESSAGE:
-		'Delete the academic titles successfully',
-	CONFIG_ACADEMIC_TITLE_CREATE_SUCCESS_MESSAGE:
-		'Save academic titles successfully',
-	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_MESSAGE:
-		'The updated academic title is not exists',
-	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_MESSAGE:
-		'The number of deleted record is not equal to the input',
+	CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE: "Get academic title successfully",
+	CONFIG_ACADEMIC_TITLE_DELETE_SUCCESS_MESSAGE: "Delete the academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_CREATE_SUCCESS_MESSAGE: "Save academic titles successfully",
+	CONFIG_ACADEMIC_TITLE_UPDATED_NOT_EXISTS_MESSAGE: "The updated academic title is not exists",
+	CONFIG_ACADEMIC_TITLE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+ 
+	//Tag API
+	CONFIG_TAG_INVALID_CODE: 1,
+	CONFIG_TAG_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_TAG_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_TAG_INVALID_MESSAGE: "Something went wrong from the backend",
+
+	CONFIG_TAG_SUCCESS_MESSAGE: "Get tag successfully",
+	CONFIG_TAG_DELETE_SUCCESS_MESSAGE: "Delete the tags successfully",
+	CONFIG_TAG_CREATE_SUCCESS_MESSAGE: "Save tags successfully",
+	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
+	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
+	//Article APIs
+	ARTICLE_INVALID_CODE: 1,
+	ARTICLE_SAVED_OVERLIMIT_FILE_SIZE_CODE: 2,
+	ARTICLE_SAVED_INVALID_EXTENSIONS_FILE: 3,
+	ARTICLE_UPDATED_NOT_EXISTS_CODE: 4,
+	ARTICLE_INVALID_MESSAGE: "Something went wrong from the backend",
+	ARTICLE_CREATE_SUCCESS_MESSAGE: "Save article successfully",
+	ARTICLE_UPDATE_SUCCESS_MESSAGE: "Update article successfully",
+	ARTICLE_DELETE_SUCCESS_MESSAGE: "Delete article(s) successfully",
+
 });

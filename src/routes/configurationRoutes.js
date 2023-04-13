@@ -3,6 +3,7 @@ const router = express.Router();
 
 const urls = require('../constants/urlConstants');
 const validators = require('../validators/commonValidators');
+const configurationValidators = require('../validators/configurationValidators');
 const configController = require('../controllers/configurationControllers');
 
 /****************************************************************
@@ -94,6 +95,39 @@ router.put(
 router.delete(
     `${urls.CONFIG_ACADEMIC_TITLE_API_URL}${urls.CONFIG_ACADEMIC_TITLE_DELETE}`,
     configController.deleteAcademicTitles,
+)
+
+
+/****************************************************************
+ *****************************TAG********************************
+ ****************************************************************/
+
+router.get(
+    `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_GET_WITH_PAGINATION}`, 
+    validators.getPaginationValidators(),
+    configController.getTagsWithPagination
+);
+
+router.get(
+    `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_GET_ALL}`, 
+    configController.getAllTags,
+);
+
+router.post(
+    `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_CREATE}`, 
+    configurationValidators.createTagValidators(),
+    configController.createTags,
+);
+
+router.put(
+    `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_UPDATE}`,
+    configurationValidators.updateTagValidators(),
+    configController.updateTag,
+)
+
+router.delete(
+    `${urls.CONFIG_TAG_API_URL}${urls.CONFIG_TAG_DELETE}`,
+    configController.deleteTags,
 )
 
 module.exports = router;
