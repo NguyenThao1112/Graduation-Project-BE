@@ -43,7 +43,9 @@ function getContactTypesWithPagination(request, response) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
 						messageConstants.CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE;
-					responseJson.data = JSON.stringify(contactTypes);
+					// responseJson.data = JSON.stringify(contactTypes);
+                    responseJson.data = contactTypes;
+
 				}
 			})
 			.catch((error) => {
@@ -78,7 +80,9 @@ function getAllContactTypes(request, response) {
                 if (contactTypes) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_CONTACT_TYPE_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(contactTypes);
+                    // responseJson.data = JSON.stringify(contactTypes);
+                    responseJson.data = contactTypes;
+
                 }
 
             })
@@ -279,7 +283,9 @@ function getAllContactTypes(request, response) {
                 if (academicRanks) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(academicRanks);
+                    // responseJson.data = JSON.stringify(academicRanks);
+                    responseJson.data = academicRanks;
+
                 }
 
             })
@@ -317,7 +323,8 @@ function getAllAcademicRanks(request, response) {
                 if (academicRanks) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_ACADEMIC_RANK_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(academicRanks);
+                    // responseJson.data = JSON.stringify(academicRanks);
+                    responseJson.data = academicRanks;
                 }
 
             })
@@ -519,7 +526,9 @@ function getAllAcademicRanks(request, response) {
                 if (academicTitles) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(academicTitles);
+                    // responseJson.data = JSON.stringify(academicTitles);
+                    responseJson.data = academicTitles;
+
                 }
 
             })
@@ -557,7 +566,9 @@ function getAllAcademicTitles(request, response) {
                 if (academicTitles) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_ACADEMIC_TITLE_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(academicTitles);
+                    // responseJson.data = JSON.stringify(academicTitles);
+                    responseJson.data = academicTitles;
+
                 }
 
             })
@@ -757,7 +768,9 @@ function getAllAcademicTitles(request, response) {
                 if (tags) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_TAG_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(tags);
+                    // responseJson.data = JSON.stringify(tags);
+                    responseJson.data = tags;
+
                 }
 
             })
@@ -795,7 +808,9 @@ function getAllTags(request, response) {
                 if (tags) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.CONFIG_TAG_SUCCESS_MESSAGE;
-                    responseJson.data = JSON.stringify(tags);
+                    // responseJson.data = JSON.stringify(tags);
+                    responseJson.data = tags;
+
                 }
 
             })

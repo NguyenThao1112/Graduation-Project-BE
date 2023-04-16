@@ -6,6 +6,14 @@ const urls = require('../constants/urlConstants');
 const articleController = require('../controllers/articleControllers');
 const uploadFileMiddlewares = require('../middlewares/uploadFileMiddlewares');
 const configConstants = require('../constants/configConstants');
+const commonValidators = require('../validators/commonValidators');
+
+
+router.get(
+    `${urls.ARTICLE_GET_WITH_PAGINATION}`, 
+    commonValidators.getPaginationValidators(),
+    articleController.getArticlesWithPagination
+);
 
 router.post(
     `${urls.ARTICLE_CREATE}`, 
