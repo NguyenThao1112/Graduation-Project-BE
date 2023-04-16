@@ -1366,6 +1366,186 @@ DELETE /api/v1/lecturers/delete
 ```
 
 ## Article API
+### Get Article with pagination with/without Article Name's keyword
+#### Request 
+```http
+GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
+```
+
+|   Param    |         Datatype         |                           Note                            |
+|------------| -------------------------| --------------------------------------------------------- |                  
+| pageOffset | integer greater than 0   | required, using 1-indexing                                |
+| limitSize  | integer greater than 0   | required, maximum number of records to return             |
+| keyword    | string                   | not require, the keyword to search the Article with its   |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get article successfully",
+    "data": [
+        {
+            "id": 96,
+            "name": "TEST",
+            "journal": "TEST",
+            "year": 2023,
+            "page_from": 11,
+            "page_to": 12,
+            "volume": 24,
+            "issue": 3,
+            "city": null,
+            "abstract": "TEST",
+            "url_date_accces": "2023-03-27T17:00:00.000Z",
+            "ArXivID": "TEST",
+            "DOI": "TEST",
+            "ISBN": "TEST",
+            "ISSN": "TEST",
+            "PMID": "TEST",
+            "Scopus": "TEST",
+            "PII": "TEST",
+            "SGR": "TEST",
+            "project_id": "TEST",
+            "citation_key": "TEST",
+            "general_note": "TEST",
+            "urls": [
+                {
+                    "id": 253,
+                    "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+                },
+                {
+                    "id": 254,
+                    "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+                },
+                {
+                    "id": 255,
+                    "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+                },
+                {
+                    "id": 256,
+                    "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+                }
+            ],
+            "files": [
+                {
+                    "id": 26,
+                    "path": "b43e3d29-516d-4811-b0a5-58820ec6df44.pdf",
+                    "original_file_name": "invoice9-12-01-2023.pdf"
+                },
+                {
+                    "id": 28,
+                    "path": "6f589192-7248-4b28-b8eb-54a940b3d4e4.pdf",
+                    "original_file_name": "test_file.pdf"
+                }
+            ],
+            "notes": [
+                {
+                    "id": 256,
+                    "note": "Sample note test 1"
+                },
+                {
+                    "id": 257,
+                    "note": "Sample note test 2"
+                },
+                {
+                    "id": 258,
+                    "note": "Sample note test CREATE"
+                },
+                {
+                    "id": 259,
+                    "note": "Sample note test CREATE"
+                }
+            ],
+            "tags": [
+                {
+                    "id": 188,
+                    "tag_id": 164,
+                    "name": "test tag 1"
+                },
+                {
+                    "id": 189,
+                    "tag_id": 4,
+                    "name": "test--1"
+                },
+                {
+                    "id": 190,
+                    "tag_id": 5,
+                    "name": "test1"
+                },
+                {
+                    "id": 191,
+                    "tag_id": 165,
+                    "name": "test tag 1"
+                },
+                {
+                    "id": 192,
+                    "tag_id": 6,
+                    "name": "test2"
+                },
+                {
+                    "id": 193,
+                    "tag_id": 166,
+                    "name": "test tag 1"
+                },
+                {
+                    "id": 194,
+                    "tag_id": 6,
+                    "name": "test2"
+                }
+            ],
+            "authors": [
+                {
+                    "id": 402,
+                    "firstName": "first0",
+                    "lastName": "last0"
+                },
+                {
+                    "id": 403,
+                    "firstName": "first1",
+                    "lastName": "last1"
+                },
+                {
+                    "id": 404,
+                    "firstName": "first2",
+                    "lastName": "last2"
+                },
+                {
+                    "id": 405,
+                    "lecturer_id": 2,
+                    "lecturer_name": null
+                },
+                {
+                    "id": 406,
+                    "lecturer_id": 1,
+                    "lecturer_name": null
+                },
+                {
+                    "id": 407,
+                    "firstName": "first_keke",
+                    "lastName": "last_keke"
+                },
+                {
+                    "id": 408,
+                    "lecturer_id": 1,
+                    "lecturer_name": null
+                },
+                {
+                    "id": 409,
+                    "firstName": "first_keke",
+                    "lastName": "last_keke"
+                }
+            ]
+        }
+    ]
+}
+```
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
 ### Create an article
 #### Request 
 ```
