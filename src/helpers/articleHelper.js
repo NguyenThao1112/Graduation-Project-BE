@@ -308,8 +308,112 @@ class ArticleBuilder {
     }
 }
 
+function mapArticleIdToDetailArticleData(articleId, map, mapValue) {
+    if (!map.has(articleId)) {
+        map.set(articleId, []);
+    } else {
+        map.get(articleId).push(mapValue);
+    }
+}
 
+function parseArticlePaginationQueryResultToResponseData(articleData, detailArticleData) {
+    const articles = [];
+
+    //Parse Article's Url data to map
+    const urlMap = new Map();
+    detailArticleData[0].forEach(url => {
+        const articleId = url.article_id;
+        const mapValue = {
+            id: url.id,
+            url: url.url,
+        }
+        mapArticleIdToDetailArticleData(articleId, urlMap, mapValue);
+    });
+
+    //Parse Article's Note data to map 
+    const noteMap = new Map();
+    detailArticleData[1].forEach(note => {
+        const articleId = note.article_id;
+        const mapValue = {
+            id: note.id,
+            note: note.note,
+        }
+        mapArticleIdToDetailArticleData(articleId, noteMap, mapValue);
+    });
+
+    //Parse Article's File data to map
+    const fileMap = new Map();
+    detailArticleData[2].forEach(file => {
+        const articleId = file.article_id;
+        const mapValue = {
+            id: file.id,
+            path: file.file_path,
+            original_file_name: file.original_file_name,
+        }
+        mapArticleIdToDetailArticleData(articleId, fileMap, mapValue);
+    });
+
+    const authorMap = new Map();
+    detailArticleData[3].forEach(author => {
+        const articleId = author.article_id;
+        const mapValue = {
+            id: author.id,
+            lecturer_id: author.lecturer_id ?? undefined,
+            lecturer_name: author.lecturer_id ? author.name: undefined,
+            firstName: author.first_name ?? undefined,
+            lastName: author.last_name ?? undefined,
+        }
+        mapArticleIdToDetailArticleData(articleId, authorMap, mapValue);
+    });
+
+    const categoryMap = new Map();
+    detailArticleData[4].forEach(category => {
+        const articleId = category.article_id;
+        const mapValue = {
+            id: category.id,
+            tag_id: category.tag_id,
+            name: category.name,
+        }
+        mapArticleIdToDetailArticleData(articleId, categoryMap, mapValue);
+    });
+
+    articleData.forEach(article => {
+        articles.push({
+            id: article.id,
+            name: article.name,
+            journal: article.journal,
+            year: article.year,
+            page_from: article.pageFrom,
+            page_to: article.pageTo,
+            volume: article.volume,
+            issue: article.issue,
+            city: article.city,
+            abstract: article.abstract,
+            url_date_accces: article.urlAccessDate,
+            ArXivID: article.ArXivID,
+            DOI: article.DOI,
+            ISBN: article.ISBN,
+            ISSN: article.ISSN,
+            PMID: article.PMID,
+            Scopus: article.Scopus,
+            PII: article.PII,
+            SGR: article.SGR,
+            project_id: article.projectId,
+            citation_key: article.citationKey,
+            general_note: article.generalNote,
+
+            urls: urlMap.get(article.id),
+            files: fileMap.get(article.id),
+            notes: noteMap.get(article.id),
+            tags: categoryMap.get(article.id),
+            authors: authorMap.get(article.id),
+        });
+    })
+
+    return articles;
+}
 
 module.exports = {
     ArticleBuilder,
+    parseArticlePaginationQueryResultToResponseData
 }

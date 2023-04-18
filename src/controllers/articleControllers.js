@@ -1,9 +1,10 @@
 const createArticleService = require('../services/articleServices/createArticleServices');
 const updateArticleService = require('../services/articleServices/updateArticleServices');
 const deleteArticleService = require('../services/articleServices/deleteArticleServices');
+const searchArticleService = require('../services/articleServices/searchArticleServices')
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
-
+const commonHelper = require('../helpers/commonHelper');
 
 /**
  * Create an article
@@ -138,7 +139,64 @@ const validatorHelper = require('../helpers/validatorHelper');
     
 }
 
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function getArticlesWithPagination(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.query.pageOffset, 
+                request.query.limitSize
+            );
+
+        const options = {
+            searchByKeyword: request.query.keyword ?? undefined,
+        }
+
+        //Try to get all the tags from the database
+        searchArticleService.getArticlesWithPagination(pageOffset, limitSize, options)
+            .then((articleDatas) => {
+
+                //If there is a not-null tags => change the response's data
+                if (articleDatas) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_SUCCESS_MESSAGE;
+                    responseJson.data = articleDatas;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
 module.exports = {
+    getArticlesWithPagination,
     createArticle,
     updateArticle,
     deleteArticles,
