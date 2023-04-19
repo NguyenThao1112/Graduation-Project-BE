@@ -1,3 +1,7 @@
+-- delete database if it exists
+DROP DATABASE IF EXISTS nckh;
+
+-- create database
 CREATE DATABASE nckh;
 USE nckh;
 
@@ -51,12 +55,13 @@ CREATE TABLE phd_thesis (
     phd_name VARCHAR(255) DEFAULT NULL,
     graduate_year INT DEFAULT NULL,
     note VARCHAR(255) DEFAULT NULL,
+    
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE book (
     id INT NOT NULL AUTO_INCREMENT,
@@ -72,7 +77,7 @@ CREATE TABLE book (
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE book_author(
     id INT NOT NULL AUTO_INCREMENT,
@@ -83,7 +88,7 @@ CREATE TABLE book_author(
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE contact_type (
     id INT NOT NULL AUTO_INCREMENT,
@@ -107,7 +112,7 @@ CREATE TABLE contact (
     is_deleted BOOLEAN DEFAULT FALSE,  
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
@@ -288,7 +293,7 @@ CREATE TABLE project (
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE university (
     id INT NOT NULL AUTO_INCREMENT,
@@ -300,7 +305,7 @@ CREATE TABLE university (
 
     PRIMARY KEY(id)
 
-)
+);
 
 CREATE TABLE current_discipline (
     id INT NOT NULL AUTO_INCREMENT,
@@ -314,7 +319,7 @@ CREATE TABLE current_discipline (
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE discipline (
     id INT NOT NULL AUTO_INCREMENT,
@@ -324,7 +329,7 @@ CREATE TABLE discipline (
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE department(
     id INT NOT NULL AUTO_INCREMENT,
@@ -335,7 +340,7 @@ CREATE TABLE department(
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE expertise (
     id INT NOT NULL AUTO_INCREMENT,
@@ -348,7 +353,7 @@ CREATE TABLE expertise (
     is_deleted BOOLEAN DEFAULT FALSE,
 
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE research_field (
     id INT NOT NULL AUTO_INCREMENT,
@@ -361,7 +366,7 @@ CREATE TABLE research_field (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE degree (
     id INT NOT NULL AUTO_INCREMENT,
@@ -377,7 +382,7 @@ CREATE TABLE degree (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE work_position (
     id INT NOT NULL AUTO_INCREMENT,
@@ -394,7 +399,7 @@ CREATE TABLE work_position (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE university_office (
     id INT NOT NULL AUTO_INCREMENT,
@@ -406,7 +411,7 @@ CREATE TABLE university_office (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE activity (
     id INT NOT NULL AUTO_INCREMENT,
@@ -422,7 +427,7 @@ CREATE TABLE activity (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE activity_type (
     id INT NOT NULL AUTO_INCREMENT,
@@ -433,4 +438,4 @@ CREATE TABLE activity_type (
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)
-)
+);
