@@ -1061,41 +1061,46 @@ DELETE /api/v1/config/academic-title/delete
 ```
 
 ### Tag
+
 #### Get tag with pagination
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get tag successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1104,29 +1109,35 @@ GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
 ```
 
 #### Get all tag
-##### Request 
+
+##### Request
+
 ```http
 GET /api/v1/config/tag/fetch-all
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get tag successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
+            "id": 1,
+            "name": "Test 0",
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
+            "id": 2,
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1134,9 +1145,10 @@ GET /api/v1/config/tag/fetch-all
 }
 ```
 
-
 #### Create multiple tags
-##### Request 
+
+##### Request
+
 ```http
 POST /api/v1/config/tag/create
 ```
@@ -1145,23 +1157,27 @@ POST /api/v1/config/tag/create
 {
     "data": [
         {
-            "name": "Test 0", 
+            "name": "Test 0",
         },
 
          {
-            "name": "Test 1", 
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save tag successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1170,7 +1186,9 @@ POST /api/v1/config/tag/create
 ```
 
 #### Update a tag
-##### Request 
+
+##### Request
+
 ```http
 PUT /api/v1/config/tag/:id/update
 ```
@@ -1178,17 +1196,21 @@ PUT /api/v1/config/tag/:id/update
 ```javascript
 {
     "id" : 1,
-    "name": "Test 0", 
+    "name": "Test 0",
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save tag successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1204,12 +1226,14 @@ PUT /api/v1/config/tag/:id/update
 ```
 
 #### Delete multiple tags
-##### Request 
+
+##### Request
+
 ```http
 DELETE /api/v1/config/tag/delete
 ```
 
-```javascript
+````javascript
 {
     "data": [
         {
@@ -1226,8 +1250,10 @@ DELETE /api/v1/config/tag/delete
     "code": 0,
     "message": "Delete tags successfully",
 }
-```
+````
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1235,7 +1261,7 @@ DELETE /api/v1/config/tag/delete
 }
 ```
 
-```javascript
+````javascript
 {
     "code": 2,
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
@@ -1248,7 +1274,7 @@ DELETE /api/v1/config/tag/delete
 
 ```http
 POST /api/v1/lecturers/create
-```
+````
 
 ```javascript
 {
@@ -1347,6 +1373,7 @@ DELETE /api/v1/lecturers/delete
     ]
 }
 ```
+
 ##### Success response
 
 ```javascript
@@ -1366,19 +1393,23 @@ DELETE /api/v1/lecturers/delete
 ```
 
 ## Article API
+
 ### Get Article with pagination with/without Article Name's keyword
-#### Request 
+
+#### Request
+
 ```http
 GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                           Note                            |
-|------------| -------------------------| --------------------------------------------------------- |                  
-| pageOffset | integer greater than 0   | required, using 1-indexing                                |
-| limitSize  | integer greater than 0   | required, maximum number of records to return             |
-| keyword    | string                   | not require, the keyword to search the Article with its   |
+| Param      | Datatype               | Note                                                    |
+| ---------- | ---------------------- | ------------------------------------------------------- |
+| pageOffset | integer greater than 0 | required, using 1-indexing                              |
+| limitSize  | integer greater than 0 | required, maximum number of records to return           |
+| keyword    | string                 | not require, the keyword to search the Article with its |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -1538,7 +1569,9 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
     ]
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1546,8 +1579,10 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
 }
 ```
 
-### Create an article
-#### Request 
+### Create an article (n-n lectuter)
+
+#### Request
+
 ```
 POST /api/v1/articles/create
 ```
@@ -1660,13 +1695,16 @@ Content-Type: application/pdf
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save article successfully,
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1689,7 +1727,9 @@ Content-Type: application/pdf
 ```
 
 ### Update an article
-#### Request 
+
+#### Request
+
 ```
 PUT /api/v1/articles/:id/update
 ```
@@ -1812,13 +1852,16 @@ Content-Type: application/pdf
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Updade article successfully",
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1841,7 +1884,9 @@ Content-Type: application/pdf
 ```
 
 ### Update an article
-#### Request 
+
+#### Request
+
 ```
 DELETE /api/v1/articles/delete
 ```
@@ -1863,13 +1908,16 @@ DELETE /api/v1/articles/delete
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Delete article(s) successfully",
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
