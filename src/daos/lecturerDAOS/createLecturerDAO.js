@@ -6,7 +6,7 @@ const connection = require('../../configs/database');
  * @param {Array<Object>} phdThesis
  * @returns {Promise}
  */
-function createPhdThesis(phdThesis) {
+function createPhdThesises(phdThesis) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO phd_thesis (`,
@@ -56,16 +56,12 @@ function createPhdThesis(phdThesis) {
 	});
 }
 
-function createBook(book) {
+function createBookAuthors(bookAuthor) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			`INSERT INTO book(`,
-			`name`,
-			`project_id`,
-			`'publisher_name`,
-			`public_year`,
-			`co_authors`,
-			`pseudonym`,
+			`INSERT INTO book_author(`,
+			`lecturer_id`,
+			`book_id`,
 			`created_at`,
 			`updated_at`,
 			`is_deleted`,
@@ -75,13 +71,9 @@ function createBook(book) {
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = book.map((ele) => [
-			ele.name,
-			ele.projectId,
-			ele.publisherName,
-			ele.publicYear,
-			ele.coAuthors,
-			ele.pseudonym,
+		const values = bookAuthor.allBookIds.map((ele) => [
+			bookAuthor.lecturer.id,
+			ele,
 			now,
 			now,
 			is_deleted,
@@ -106,7 +98,7 @@ function createBook(book) {
 	});
 }
 
-function createContact(contact) {
+function createContacts(contact) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO contact(`,
@@ -144,7 +136,7 @@ function createContact(contact) {
 	});
 }
 
-function createProject(project) {
+function createProjects(project) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO project (`,
@@ -250,7 +242,7 @@ function createCurrentDiscipline(currentDiscipline) {
 	});
 }
 
-function createExpertise(expertise) {
+function createExpertises(expertise) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO expertise(`,
@@ -293,7 +285,7 @@ function createExpertise(expertise) {
 	});
 }
 
-function createResearchField(researchField) {
+function createResearchFields(researchField) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO research_field(`,
@@ -336,7 +328,7 @@ function createResearchField(researchField) {
 	});
 }
 
-function createDegree(degree) {
+function createDegrees(degree) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO research_field(`,
@@ -385,7 +377,7 @@ function createDegree(degree) {
 	});
 }
 
-function createWorkPosition(workPosition) {
+function createWorkPositions(workPosition) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO work_position(`,
@@ -436,7 +428,7 @@ function createWorkPosition(workPosition) {
 	});
 }
 
-function createActivity(activity) {
+function createActivitys(activity) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO activity(`,
@@ -534,15 +526,15 @@ function createLecturer(lecturer) {
 }
 
 module.exports = {
-	createPhdThesis,
-	createBook,
-	createContact,
-	createProject,
+	createPhdThesises,
+	createBookAuthors,
+	createContacts,
+	createProjects,
 	createCurrentDiscipline,
-	createExpertise,
-	createResearchField,
-	createDegree,
-	createWorkPosition,
-	createActivity,
+	createExpertises,
+	createResearchFields,
+	createDegrees,
+	createWorkPositions,
+	createActivitys,
 	createLecturer,
 };

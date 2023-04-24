@@ -112,7 +112,7 @@ function createLecturers(request, response) {
 		);
 
 		lecturerServices
-			.createLecturers(data)
+			.createLecturer(data)
 			.then((lecturerId) => {
 				console.log('vao day', lecturerId);
 				//If there is a not empty id array => change the response's data

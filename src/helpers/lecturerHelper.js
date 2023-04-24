@@ -184,3 +184,7 @@ class LecturerBuilder {
 		);
 	}
 }
+
+module.exports = {
+	LecturerBuilder,
+};

@@ -1261,31 +1261,27 @@ DELETE /api/v1/config/tag/delete
 }
 ```
 
-````javascript
+```javascript
 {
     "code": 2,
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
+```
 
-### Lecturer
-#### Create multiple lecturers
+### Create an lecturer
 
 ##### Request
 
-```http
+```
 POST /api/v1/lecturers/create
-````
+```
 
 ```javascript
 {
-    "data": [
-        {
-            "account_id": 2,
-            "name": "test",
-            "gender": "male",
-            "avatar": null
-        }
-    ]
+    "accountId": "1",
+    "name": "Nguyen Van Vu",
+    "gender": "Nam",
+    "avatar": ""
 }
 ```
 
