@@ -73,7 +73,7 @@ module.exports = Object.freeze({
 	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_PATH}/article/`,
     ARTICLE_PREFIX_API_URL: `/articles`,
         ARTICLE_GET_WITH_PAGINATION: `/fetch`,            
-        ARTICLE_GET_ALL: `/fetch-all`,
+        ARTICLE_GET_ALL_WITH_LECTURER_ID: `/fetch-all/`,
         ARTICLE_CREATE: `/create`,
         ARTICLE_UPDATE: `/:id/update`,
         ARTICLE_DELETE: `/delete`,

@@ -16,6 +16,11 @@ router.get(
 );
 
 router.post(
+    `${urls.ARTICLE_GET_ALL_WITH_LECTURER_ID}`,
+    articleController.getArticlesByLecturerIds
+)
+
+router.post(
     `${urls.ARTICLE_CREATE}`, 
     fileUpload({createParentPath: true}),
     uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),

@@ -45,30 +45,26 @@ const connection = require('../../configs/database');
 }
 
 /**
- *  Query search Base Article with pagination
- * @param {int} offset which page, in 0-offset-indexing
- * @param {int} limitSize maximum number of record in a page
- * @param {Object} option query option           
+ *  Query search Base Article
+ * @param {Object {
+ * 
+ *  searchByKeyword?: string
+ * 
+ *  pagination?: {
+ *      offset: number,
+ *      limit: number,
+ *  },
+ * 
+ *  lecturerIds?: number[]
+ * }} option query option
+ * 
+ * 
+ *            
  * @return {Promise}
 */
-function getBaseArticlesWithPagination(offset, limitSize, option = null) {
+function getBaseArticles(option = null) {
     return new Promise((resolve, reject) => {
-        let whereStatement = 'WHERE a.is_deleted = false';
-        let bindingValues = [];
-        
-        if (null !== option) {
-            //Check if there is a keyword to search the article
-            if (option.hasOwnProperty('searchByKeyword') && (undefined !== option.searchByKeyword)) {
-                whereStatement = `${whereStatement} AND a.name LIKE ?`;
-                keyword = option.searchByKeyword;
-                bindingValues.push(`%${keyword}%`);
-            }
-        }
-        
-        [offset, limitSize].forEach(bindingValue => {
-            bindingValues.push(bindingValue);
-        })
-        const query = [
+        let selectStatement = [
             'SELECT',
                 'a.id as id,',
                 'a.name as name,',
@@ -91,11 +87,54 @@ function getBaseArticlesWithPagination(offset, limitSize, option = null) {
                 'a.SGR as SGR,',
                 'a.project_id as projectId,',
                 'a.citation_key as citationKey,',
-                'a.general_note as generalNote',
-            'FROM article as a',
-            `${whereStatement}`,
+                'a.general_note as generalNote'
+            ].join(' ');
+        let fromStatement = 'FROM article as a';
+        let whereStatement = 'WHERE a.is_deleted = false';
+        let paginationStatement = '';
+        let bindingValues = [];
+        
+        if (null !== option) {
+            //Check if there is a keyword to search the article
+            if (option.hasOwnProperty('searchByKeyword') && (undefined !== option.searchByKeyword)) {
+                whereStatement = `${whereStatement} AND a.name LIKE ?`;
+                keyword = option.searchByKeyword;
+                bindingValues.push(`%${keyword}%`);
+            }
+
+            //Check if there is search article with given lecturer ids
+            if (option.hasOwnProperty('lecturerIds') && (undefined !== option.lecturerIds)) {
+                selectStatement = `${selectStatement}, author.lecturer_id as lecturer_id`;
+                fromStatement = `${fromStatement} INNER JOIN author ON a.id = author.article_id`;
+                whereStatement = `${whereStatement} AND (author.lecturer_id IN (?))`;
+                const lecturerIds = option.lecturerIds;
+                bindingValues.push(lecturerIds);
+                
+            }
+
+            //Check if there is pagination option
+            if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
+
+                if ((option.hasOwnProperty('offset') && (undefined !== option.offset)) && 
+                    (option.hasOwnProperty('limit') && (undefined !== option.limit))) {
+
+                        const {offset, limitSize} = option.pagination;
+                        [offset, limitSize].forEach(bindingValue => {
+                            bindingValues.push(bindingValue);
+                        });
+
+                        paginationStatement = 'LIMIT ?, ?';
+                    } 
+
+            }
+        }
+        
+        const query = [
+            selectStatement,
+            fromStatement,
+            whereStatement,
             `ORDER BY a.id ASC`,
-            'LIMIT ?, ?',
+            paginationStatement,
         ].join(' ');
     
         let articles = null;
@@ -178,5 +217,5 @@ function getBaseArticlesWithPagination(offset, limitSize, option = null) {
 
 module.exports = {
     getDataOfSubtableJoningWithArticleByArticleId,
-    getBaseArticlesWithPagination,
+    getBaseArticles,
 };
