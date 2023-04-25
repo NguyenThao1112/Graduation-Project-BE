@@ -215,8 +215,9 @@ function getArticlesByLecturerIds(request, response) {
             message: messageConstants.ARTICLE_INVALID_MESSAGE,
         }
 
-        //Get the "lecturerIds" property
-        const {lecturerIds} = request.body;
+        //Get the "data" property
+        const {data} = request.body;
+        const lecturerIds = data.lecturerIds;
 
         //Try to get all the articles with the given lecturer's id from the database
         searchArticleService.getArticlesWithLecturerIds(lecturerIds)
