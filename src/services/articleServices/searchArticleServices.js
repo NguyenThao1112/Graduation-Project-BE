@@ -14,9 +14,16 @@ const articleHelper = require("../../helpers/articleHelper");
 
     //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
     const recordOffset = (pageOffset - 1) * limitSize;
+    options = {
+        ...options,
+        pagination: {
+            offset: recordOffset,
+            limit: limitSize,
+        }
+    }
 
     return new Promise((resolve, reject) => {
-        searchArticleDAO.getBaseArticlesWithPagination(recordOffset, limitSize, options)
+        searchArticleDAO.getBaseArticles(options)
             .catch(error => {reject(error);})
             .then(articles => {
                 const articleIds = articles.map(article => article.id);
@@ -52,34 +59,43 @@ const articleHelper = require("../../helpers/articleHelper");
 }
 
 /**
- * Search Article with keywords * 
- * @param {string} keyword //The aritcle name's keyword
- * @param {int} pageOffset which page, in 1-offset-indexing
- * @param {int} limitSize maximum number of record in a page
+ * Search Article which are authoring by lecturers, with the given ids 
+ * @param {Array<int>} lecturerIds //The lecturers who are the author of the articles
  * @return {Promise}
  *  
  */
- function searchArticleWithKeyword(keyword, pageOffset, limitSize) {
+ function getArticlesWithLecturerIds(lecturerIds) {
 
-    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
-    const recordOffset = (pageOffset - 1) * limitSize;
-    const option = {
-        searchByKeyword: keyword,
+    const options = {
+        lecturerIds,
     }
 
-    // return new Promise((resolve, reject) => {
-    //     searchArticleDAO.getBaseArticlesWithPagination(recordOffset, limitSize, option)
-    //         .then(resultData => {
-    //             resolve(resultData);
-    //         })
-    //         .catch(error => {
-    //             reject(error);
-    //         })
+    return new Promise((resolve, reject) => {
+        searchArticleDAO.getBaseArticles(options)
+            .then(resultData => {
 
-    // })
+                const lecturerArticleMap = {};
+                lecturerIds.forEach(lecturerId => {
+                    lecturerArticleMap[lecturerId] = [];
+                })
+                
+                resultData.forEach(article => {
+                    const lecturerId = article.lecturer_id;
+                    if (lecturerId) {
+                        lecturerArticleMap[lecturerId].push(article);
+                    }
+                })
+
+                resolve(lecturerArticleMap);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+    })
 }
 
 module.exports = {
     getArticlesWithPagination,
-    searchArticleWithKeyword,
+    getArticlesWithLecturerIds,
 }

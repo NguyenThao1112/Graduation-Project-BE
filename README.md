@@ -1579,8 +1579,117 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
 }
 ```
 
-### Create an article (n-n lectuter)
+### Get All Article with given Lecturers' id
+#### Request 
+```http
+POST /api/v1/articles/fetch-all
+```
+```javascript
+{
+    "data": {
+        "lecturerIds": [1, 2, 3, 4]
+    }
+}
+```
 
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get article successfully",
+    "data": {
+        "1": [
+            {
+                "id": 96,
+                "name": "TEST",
+                "journal": "TEST",
+                "year": 2023,
+                "pageFrom": 11,
+                "pageTo": 12,
+                "volume": 24,
+                "issue": 3,
+                "city": null,
+                "abstract": "TEST",
+                "urlAccessDate": "2023-03-27T17:00:00.000Z",
+                "ArXivID": "TEST",
+                "DOI": "TEST",
+                "ISBN": "TEST",
+                "ISSN": "TEST",
+                "PMID": "TEST",
+                "Scopus": "TEST",
+                "PII": "TEST",
+                "SGR": "TEST",
+                "projectId": "TEST",
+                "citationKey": "TEST",
+                "generalNote": "TEST",
+                "lecturer_id": 1
+            },
+            {
+                "id": 96,
+                "name": "TEST",
+                "journal": "TEST",
+                "year": 2023,
+                "pageFrom": 11,
+                "pageTo": 12,
+                "volume": 24,
+                "issue": 3,
+                "city": null,
+                "abstract": "TEST",
+                "urlAccessDate": "2023-03-27T17:00:00.000Z",
+                "ArXivID": "TEST",
+                "DOI": "TEST",
+                "ISBN": "TEST",
+                "ISSN": "TEST",
+                "PMID": "TEST",
+                "Scopus": "TEST",
+                "PII": "TEST",
+                "SGR": "TEST",
+                "projectId": "TEST",
+                "citationKey": "TEST",
+                "generalNote": "TEST",
+                "lecturer_id": 1
+            }
+        ],
+        "2": [
+            {
+                "id": 96,
+                "name": "TEST",
+                "journal": "TEST",
+                "year": 2023,
+                "pageFrom": 11,
+                "pageTo": 12,
+                "volume": 24,
+                "issue": 3,
+                "city": null,
+                "abstract": "TEST",
+                "urlAccessDate": "2023-03-27T17:00:00.000Z",
+                "ArXivID": "TEST",
+                "DOI": "TEST",
+                "ISBN": "TEST",
+                "ISSN": "TEST",
+                "PMID": "TEST",
+                "Scopus": "TEST",
+                "PII": "TEST",
+                "SGR": "TEST",
+                "projectId": "TEST",
+                "citationKey": "TEST",
+                "generalNote": "TEST",
+                "lecturer_id": 2
+            }
+        ]
+    }
+}
+
+```
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+### Create an article
 #### Request
 
 ```
