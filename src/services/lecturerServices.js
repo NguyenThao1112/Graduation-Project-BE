@@ -60,28 +60,21 @@ function createPhdThesis(lecturer, phdThesises) {
 			return null;
 		}
 
-		const lecturerPhdThesisesDTO = phdThesises.map((ele) => {
-			return {
-				...phdThesises,
-				lecturer,
-			};
-		});
-
 		return createLecturerDAO
-			.createPhdThesises(lecturerPhdThesisesDTO)
+			.createPhdThesises(phdThesises, lecturer)
 			.then((ids) => resolve(ids))
 			.catch((err) => console.log(err));
 	});
 }
 
-function createBooks(lecturer, book) {
+function createBooks(lecturer, books) {
 	return new Promise((resolve, reject) => {
-		if (!book) {
+		if (!books) {
 			resolve(null);
 			return null;
 		}
 
-		const unexistedBooks = book
+		const unexistedBooks = books
 			.filter((ele) => !ele.hasOwnProperty('book_id'))
 			.map((ele) => {
 				const book = {
@@ -90,6 +83,7 @@ function createBooks(lecturer, book) {
 					publisherName: ele.publisherName ?? null,
 					coAuthors: ele.coAuthors ?? null,
 					pseudonym: ele.pseudonym ?? null,
+					publicYear: ele.publicYear ?? null,
 				};
 				return book;
 			});
@@ -98,15 +92,14 @@ function createBooks(lecturer, book) {
 			.createBooks(unexistedBooks)
 			.catch((err) => console.log(err))
 			.then((bookIds) => {
-				const existBookIds = book
+				const existBookIds = books
 					.filter((ele) => ele.hasOwnProperty('book_id'))
 					.map((book) => book.book_id);
 
-				const allBookIds = [...bookIds, ...existBookIds];
-				const allbookAuthorIds = { allBookIds, lecturer };
+				const bookAuthors = [...bookIds, ...existBookIds];
 
 				return createLecturerDAO
-					.createBookAuthors(allbookAuthorIds)
+					.createBookAuthors(bookAuthors,lecturer)
 					.then((ids) => resolve(ids))
 					.catch((err) => console.log(err));
 			});

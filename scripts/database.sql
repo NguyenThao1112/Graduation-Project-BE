@@ -53,7 +53,8 @@ CREATE TABLE phd_thesis (
     lecturer_id INT NOT NULL,
     project_name VARCHAR(255) DEFAULT NULL,
     phd_name VARCHAR(255) DEFAULT NULL,
-    graduate_year INT DEFAULT NULL,
+    graduation_year INT DEFAULT NULL,
+    education_level VARCHAR(255) DEFAULT NULL,
     note VARCHAR(255) DEFAULT NULL,
     
     created_at DATETIME,
@@ -65,9 +66,8 @@ CREATE TABLE phd_thesis (
 
 CREATE TABLE book (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
     name VARCHAR(255) DEFAULT NULL,
-    project_id INT NOT NULL,
+    project_id INT DEFAULT NULL,
     publisher_name VARCHAR(255) DEFAULT NULL,
     public_year INT NOT NULL,
     co_authors VARCHAR(255) DEFAULT NULL,

@@ -1,5 +1,5 @@
 const { Lecturer } = require('../models/lecturer/lecturer');
-
+const moment = require('moment');
 class LecturerBuilder {
 	#id;
 	#accountId;
@@ -102,12 +102,13 @@ class LecturerBuilder {
 	}
 
 	setBulk(lecturerObject) {
-		this.#id = lecturerObject.id ?? null;
 		this.#accountId = lecturerObject.accountId ?? null;
 		this.#name = lecturerObject.name ?? null;
 		this.#gender = lecturerObject.gender ?? null;
 		this.#avatar = lecturerObject.avatar ?? null;
-		this.#dateOfBirth = lecturerObject.dateOfBirth ?? null;
+		this.#dateOfBirth = lecturerObject.dateOfBirth
+			? moment(lecturerObject.dateOfBirth, 'DD/MM/YYYY').format('YYYY/MM/DD')
+			: null;
 		this.#academicRankId = lecturerObject.academicRankId ?? null;
 		this.#academicRankGainYear = lecturerObject.academicRankGainYear ?? null;
 		this.#academicTitleId = lecturerObject.academicTitleId ?? null;

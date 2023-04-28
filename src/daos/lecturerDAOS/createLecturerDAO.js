@@ -3,33 +3,32 @@ const connection = require('../../configs/database');
 
 /**
  *
- * @param {Array<Object>} phdThesis
+ * @param {Array<Object>} phdThesises
  * @returns {Promise}
  */
-function createPhdThesises(phdThesis) {
+function createPhdThesises(phdThesises, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO phd_thesis (`,
-			`lecturer_id`,
-			`project_name`,
-			`phd_name`,
-			`graduate_year`,
-			`education_level`,
-			`note`,
-			`create_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`project_name,`,
+			`phd_name,`,
+			`graduation_year,`,
+			`education_level,`,
+			`note,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			'VALUES ?',
 		].join(' ');
-
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = phdThesis.map((ele) => [
-			ele.lecturer.id,
+		const values = phdThesises.map((ele) => [
+			lecturer.id,
 			ele.projectName,
-			ele.phdThesis,
-			ele.graduateYear,
+			ele.phdName,
+			ele.graduationYear,
 			ele.educationLevel,
 			ele.note,
 			now,
@@ -56,14 +55,14 @@ function createPhdThesises(phdThesis) {
 	});
 }
 
-function createBookAuthors(bookAuthor) {
+function createBookAuthors(bookAuthors, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO book_author(`,
-			`lecturer_id`,
-			`book_id`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`book_id,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -71,8 +70,8 @@ function createBookAuthors(bookAuthor) {
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = bookAuthor.allBookIds.map((ele) => [
-			bookAuthor.lecturer.id,
+		const values = bookAuthors.map((ele) => [
+			lecturer.id,
 			ele,
 			now,
 			now,
@@ -102,11 +101,11 @@ function createContacts(contact) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO contact(`,
-			`lecturer_id`,
-			`contact_type_id`,
-			`value`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`contact_type_id,`,
+			`value,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted )`,
 			`VALUES ?`,
 		].join(' ');
@@ -140,19 +139,19 @@ function createProjects(project) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO project (`,
-			`lecturer_id`,
-			`project_code`,
-			`from_date`,
-			`to_date`,
-			`expenditure`,
-			`project_role`,
-			`acceptance_date`,
-			`result`,
-			`organization`,
-			`note`,
-			`reference`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`project_code,`,
+			`from_date,`,
+			`to_date,`,
+			`expenditure,`,
+			`project_role,`,
+			`acceptance_date,`,
+			`result,`,
+			`organization,`,
+			`note,`,
+			`reference,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -199,14 +198,14 @@ function createCurrentDiscipline(currentDiscipline) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO current_discipline(`,
-			`lecturer_id`,
-			`discipline_id`,
-			`department_id`,
-			`university_id`,
-			`position`,
-			`created_at`,
-			`updated_at`,
-			`is_deleted`,
+			`lecturer_id,`,
+			`discipline_id,`,
+			`department_id,`,
+			`university_id,`,
+			`position,`,
+			`created_at,`,
+			`updated_at,`,
+			`is_deleted,`,
 			`)`,
 			`VALUES ?`,
 		].join(' ');
@@ -246,12 +245,12 @@ function createExpertises(expertise) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO expertise(`,
-			`lecturer_id`,
-			`title`,
-			`specialization`,
-			`created_at`,
-			`updated_at`,
-			`is_deleted`,
+			`lecturer_id,`,
+			`title,`,
+			`specialization,`,
+			`created_at,`,
+			`updated_at,`,
+			`is_deleted,`,
 			`)`,
 			`VALUES ?`,
 		].join(' ');
@@ -289,11 +288,11 @@ function createResearchFields(researchField) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO research_field(`,
-			`lecturer_id`,
-			`research_name`,
-			`note`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`research_name,`,
+			`note,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -332,14 +331,14 @@ function createDegrees(degree) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO research_field(`,
-			`lecturer_id`,
-			`discipline_id`,
-			`academic_title_id`,
-			`university_id`,
-			`graduation_thesis_name`,
-			`graduation_date`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`discipline_id,`,
+			`academic_title_id,`,
+			`university_id,`,
+			`graduation_thesis_name,`,
+			`graduation_date,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -381,15 +380,15 @@ function createWorkPositions(workPosition) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO work_position(`,
-			`lecturer_id`,
-			`university_id`,
-			`company`,
-			`position`,
-			`is_now`,
-			`from_date`,
-			`to_date`,
-			`created_at`,
-			`updated_at`,
+			`lecturer_id,`,
+			`university_id,`,
+			`company,`,
+			`position,`,
+			`is_now,`,
+			`from_date,`,
+			`to_date,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -432,13 +431,13 @@ function createActivitys(activity) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO activity(`,
-			`activity_type_id`,
-			`name`,
-			`content`,
-			`from_date`,
-			`to_date`,
-			`created_at`,
-			`updated_at`,
+			`activity_type_id,`,
+			`name,`,
+			`content,`,
+			`from_date,`,
+			`to_date,`,
+			`created_at,`,
+			`updated_at,`,
 			`is_deleted`,
 			`)`,
 			`VALUES ?`,
@@ -478,22 +477,8 @@ function createActivitys(activity) {
 
 function createLecturer(lecturer) {
 	return new Promise(function (resolve, reject) {
-		const query = [
-			`INSERT INTO lecturer_information (`,
-			`account_id`,
-			`name`,
-			`gender`,
-			`avatar`,
-			`date_of_birth`,
-			`academic_rank_id`,
-			`academic_rank_gain_year`,
-			`academic_title_id`,
-			`academic_title_gain_year`,
-			`expand_column`,
-			`created_at, updated_at, is_deleted`,
-			`)`,
-			'VALUES (?)',
-		].join(' ');
+		const query =
+			'INSERT INTO lecturer_information ( account_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
@@ -512,7 +497,6 @@ function createLecturer(lecturer) {
 			now,
 			is_deleted,
 		];
-
 		connection.query(query, [values], (error, result) => {
 			if (error) {
 				reject(error);

@@ -1268,7 +1268,7 @@ DELETE /api/v1/config/tag/delete
 }
 ```
 
-### Create an lecturer
+### Create a lecturer
 
 ##### Request
 
@@ -1278,10 +1278,40 @@ POST /api/v1/lecturers/create
 
 ```javascript
 {
-    "accountId": "1",
-    "name": "Nguyen Van Vu",
-    "gender": "Nam",
-    "avatar": ""
+    "data": {
+        "accountId": 1,
+        "name": "Nguyen Van Vu",
+        "gender": "male",
+        "avatar": "http://image",
+        "dateOfBirth" : "04/05/1977",
+        "academicRankId": 1,
+        "academicRankGainYear": "2010",
+        "academicTitleId": 1,
+        "academicTitleGainYear": "2022",
+        "expandColumn": null,
+        "phdThesises": [
+            {
+                "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile",
+                "phdName": "Trương Văn Thông",
+                "educationLevel": "tiến sĩ"
+            },
+            {
+                "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
+                "phdName": "Huỳnh Thị Phương Thủy",
+                "graduationYear": "2016",
+                "educationLevel": "Cao học",
+                "note": "102.03-2014.34"
+            }
+        ],
+        "books": [
+            {
+                "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian"
+            }
+        ]
+    }
 }
 ```
 
@@ -2018,6 +2048,139 @@ DELETE /api/v1/articles/delete
 {
     "code": 0,
     "message": "Delete article(s) successfully",
+}
+```
+
+### Create an article (n-n lectuter)
+
+#### Request
+
+```
+POST /api/v1/articles/create
+```
+
+```javascript
+POST /api/v1/articles/create HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Length: 3659
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="data"
+
+{
+    "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+    "journal": "ACM Transactions on Computing Education",
+    "year": 2020,
+    "pageFrom": 8,
+    "pageTo": 10,
+    "volume": 20,
+    "issue": 2,
+    "month":  2,
+    "day": 28,
+    "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+    "urlAccessDate": "28/02/2023",
+    "ArXivID": "test",
+    "DOI": "10.1145/3383456",
+    "ISBN": "testISBN",
+    "ISSN": "10.1145/3383456",
+    "PMID": "testPMID",
+    "Scopus": "2-s2.0-85085248397",
+    "PII": "testPII",
+    "SGR": "85085248397",
+    "projectId": "testProjectId",
+    "citationKey": "testCitationKey",
+    "generalNote": "This is the general note for testing",
+    "tags": [
+        {
+            "tag_id": 4
+        },
+        {
+            "tag_id": 5
+        },
+        {
+            "name": "test tag 0"
+        },
+        {
+            "name": "test tag 1"
+        }
+    ],
+    "authors": [
+        {
+            "lecturerId": 1
+        },
+        {
+            "firstName": "first0",
+            "lastName": "last0"
+        },
+                        {
+            "firstName": "first1",
+            "lastName": "last1"
+        },
+                        {
+            "firstName": "first2",
+            "lastName": "last2"
+        },
+        {
+            "lecturerId": 2
+        }
+    ],
+    "urls": [
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+        },
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+        },
+        {
+            "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+        }
+    ],
+    "notes": [
+        {
+            "note": "Sample note test 0"
+        },
+        {
+            "note": "Sample note test 1"
+        },
+        {
+            "note": "Sample note test 2"
+        }
+    ]
+}
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023-1.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save article successfully,
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
 }
 ```
 
