@@ -106,17 +106,12 @@ function createLecturers(request, response) {
 
 		//Get the "data" property
 		const { data } = request.body;
-		console.log(
-			'🚀 ~ file: lecturerControllers.js:105 ~ returnnewPromise ~ data:',
-			data
-		);
 
 		lecturerServices
-			.createLecturers(data)
+			.createLecturer(data)
 			.then((lecturerId) => {
-				console.log('vao day', lecturerId);
 				//If there is a not empty id array => change the response's data
-				if (lecturerId.length > 0) {
+				if (lecturerId) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
 						messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
