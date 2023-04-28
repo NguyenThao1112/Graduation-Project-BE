@@ -478,19 +478,6 @@ function getTagsByNames(tagNames) {
 	});
 }
 
-function createBooks(books) {
-	return new Promise((resolve, reject) => {
-		configurationDAO
-			.createBooks(books)
-			.then((bookIds) => {
-				resolve(bookIds);
-			})
-			.catch((error) => {
-				reject(error);
-			});
-	});
-}
-
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -522,5 +509,4 @@ module.exports = {
 	getTagsByNames,
 
 	//Books
-	createBooks,
 };

@@ -1,5 +1,6 @@
 const { getCurrentTimeFormat } = require('../../helpers/timeHelper');
 const connection = require('../../configs/database');
+const moment = require('moment');
 
 /**
  *
@@ -97,7 +98,7 @@ function createBookAuthors(bookAuthors, lecturer) {
 	});
 }
 
-function createContacts(contact) {
+function createContacts(contacts, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO contact(`,
@@ -112,9 +113,14 @@ function createContacts(contact) {
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = contact.map((ele) => {
-			ele.lecturer.id, ele.contactTypeId, ele.value, now, now, is_deleted;
-		});
+		const values = contacts.map((ele) => [
+			lecturer.id,
+			ele.contactTypeId,
+			ele.value,
+			now,
+			now,
+			is_deleted,
+		]);
 
 		connection.query(query, [values], (err, result) => {
 			if (err) {
@@ -135,11 +141,12 @@ function createContacts(contact) {
 	});
 }
 
-function createProjects(project) {
+function createProjects(project, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO project (`,
 			`lecturer_id,`,
+			`name,`,
 			`project_code,`,
 			`from_date,`,
 			`to_date,`,
@@ -158,22 +165,28 @@ function createProjects(project) {
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = project.map((ele) => [
-			ele.lecturer.id,
-			ele.projectCode,
-			ele.fromDate,
-			ele.toDate,
-			ele.expenditure,
-			ele.project_role,
-			ele.acceptance_date,
-			ele.result,
-			ele.organization,
-			ele.note,
-			ele.reference,
-			now,
-			now,
-			is_deleted,
-		]);
+		const values = project.map((ele) => {
+			const acceptanceDate = ele.acceptanceDate
+				? moment(ele.acceptanceDate, 'DD/MM/YYYY').format('YYYY/MM/DD')
+				: null;
+			return [
+				lecturer.id,
+				ele.name,
+				ele.projectCode,
+				ele.fromDate,
+				ele.toDate,
+				ele.expenditure,
+				ele.projectRole,
+				acceptanceDate,
+				ele.result,
+				ele.organization,
+				ele.note,
+				ele.reference,
+				now,
+				now,
+				is_deleted,
+			];
+		});
 
 		connection.query(query, [values], (err, result) => {
 			if (err) {
@@ -194,7 +207,7 @@ function createProjects(project) {
 	});
 }
 
-function createCurrentDiscipline(currentDiscipline) {
+function createCurrentDisciplines(currentDisciplines, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO current_discipline(`,
@@ -205,28 +218,22 @@ function createCurrentDiscipline(currentDiscipline) {
 			`position,`,
 			`created_at,`,
 			`updated_at,`,
-			`is_deleted,`,
+			`is_deleted`,
 			`)`,
 			`VALUES ?`,
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = [
-			currentDiscipline.lecturer.id,
-			currentDiscipline.discipline.id,
-			currentDiscipline.department.id,
-			currentDiscipline.toDate,
-			currentDiscipline.expenditure,
-			currentDiscipline.project_role,
-			currentDiscipline.acceptance_date,
-			currentDiscipline.result,
-			currentDiscipline.organization,
-			currentDiscipline.note,
-			currentDiscipline.reference,
+		const values = currentDisciplines.map((ele) => [
+			lecturer.id,
+			ele.disciplineId,
+			ele.departmentId,
+			ele.universityId,
+			ele.position,
 			now,
 			now,
 			is_deleted,
-		];
+		]);
 
 		connection.query(query, [values], (err, result) => {
 			if (err) {
@@ -241,7 +248,7 @@ function createCurrentDiscipline(currentDiscipline) {
 	});
 }
 
-function createExpertises(expertise) {
+function createExpertises(expertises, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO expertise(`,
@@ -250,16 +257,16 @@ function createExpertises(expertise) {
 			`specialization,`,
 			`created_at,`,
 			`updated_at,`,
-			`is_deleted,`,
+			`is_deleted`,
 			`)`,
 			`VALUES ?`,
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = expertise.map((ele) => [
-			expertise.lecturer.id,
-			expertise.title,
-			expertise.specialization,
+		const values = expertises.map((ele) => [
+			lecturer.id,
+			ele.title,
+			ele.specialization,
 			now,
 			now,
 			is_deleted,
@@ -284,7 +291,7 @@ function createExpertises(expertise) {
 	});
 }
 
-function createResearchFields(researchField) {
+function createResearchFields(researchFields, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO research_field(`,
@@ -299,8 +306,8 @@ function createResearchFields(researchField) {
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = researchField.map((ele) => [
-			ele.lecturer.id,
+		const values = researchFields.map((ele) => [
+			lecturer.id,
 			ele.researchName,
 			ele.note,
 			now,
@@ -327,14 +334,14 @@ function createResearchFields(researchField) {
 	});
 }
 
-function createDegrees(degree) {
+function createDegrees(degrees, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			`INSERT INTO research_field(`,
+			`INSERT INTO degree (`,
 			`lecturer_id,`,
-			`discipline_id,`,
 			`academic_title_id,`,
 			`university_id,`,
+			`specialization,`,
 			`graduation_thesis_name,`,
 			`graduation_date,`,
 			`created_at,`,
@@ -345,11 +352,11 @@ function createDegrees(degree) {
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = degree.map((ele) => [
-			ele.lecturer.id,
-			ele.discipline.id,
-			ele.academicTitle.id,
-			ele.university.id,
+		const values = degrees.map((ele) => [
+			lecturer.id,
+			ele.academicTitleId,
+			ele.universityId,
+			ele.specialization,
 			ele.graduationThesisName,
 			ele.graduationDate,
 			now,
@@ -376,7 +383,7 @@ function createDegrees(degree) {
 	});
 }
 
-function createWorkPositions(workPosition) {
+function createWorkPositions(workPositions, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO work_position(`,
@@ -395,9 +402,9 @@ function createWorkPositions(workPosition) {
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = workPosition.map((ele) => [
-			ele.lecturer.id,
-			ele.university.id,
+		const values = workPositions.map((ele) => [
+			lecturer.id,
+			ele.universityId,
 			ele.company,
 			ele.position,
 			ele.isNow,
@@ -427,13 +434,15 @@ function createWorkPositions(workPosition) {
 	});
 }
 
-function createActivitys(activity) {
+function createActivities(activities, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO activity(`,
+			`lecturer_id,`,
 			`activity_type_id,`,
 			`name,`,
-			`content,`,
+			`note,`,
+			`is_now,`,
 			`from_date,`,
 			`to_date,`,
 			`created_at,`,
@@ -444,11 +453,12 @@ function createActivitys(activity) {
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = activity.map((ele) => [
-			ele.lecturer.id,
-			ele.activityType.id,
+		const values = activities.map((ele) => [
+			lecturer.id,
+			ele.activityTypeId,
 			ele.name,
-			ele.content,
+			ele.note,
+			ele.isNow,
 			ele.fromDate,
 			ele.toDate,
 			now,
@@ -509,16 +519,128 @@ function createLecturer(lecturer) {
 	});
 }
 
+function createBooks(books) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`INSERT INTO book (name,project_id,publisher_name,public_year,co_authors,pseudonym,created_at, updated_at, is_deleted)`,
+			'VALUES ?',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = books.map((book) => [
+			book.name,
+			book.projectId,
+			book.publisherName,
+			book.publicYear,
+			book.coAuthors,
+			book.pseudonym,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+function createDisciplines(disciplines) {
+	return new Promise(function (resolve, reject) {
+		const query = `INSERT INTO discipline (name, created_at, updated_at, is_deleted) VALUES ?`;
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = disciplines.map((discipline) => [
+			discipline.name,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
+function createDepartments(departments) {
+	return new Promise(function (resolve, reject) {
+		const query = `INSERT INTO department (name, created_at, updated_at, is_deleted) VALUES ?`;
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = departments.map((department) => [
+			department.name,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
 module.exports = {
 	createPhdThesises,
 	createBookAuthors,
 	createContacts,
 	createProjects,
-	createCurrentDiscipline,
+	createCurrentDisciplines,
 	createExpertises,
 	createResearchFields,
 	createDegrees,
 	createWorkPositions,
-	createActivitys,
+	createActivities,
 	createLecturer,
+	createBooks,
+	createDisciplines,
+	createDepartments,
 };

@@ -277,12 +277,13 @@ CREATE TABLE author(
 CREATE TABLE project (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
     project_code VARCHAR(255) DEFAULT NULL,
-    from_date DATETIME DEFAULT NULL,
-    to_date DATETIME DEFAULT NULL,
+    from_date VARCHAR(7) DEFAULT NULL,
+    to_date VARCHAR(7) DEFAULT NULL,
     expenditure INT NOT NULL,
     project_role VARCHAR(255) DEFAULT NULL,
-    acceptance_date DATETIME,
+    acceptance_date DATE,
     result VARCHAR(255) DEFAULT NULL,
     organization VARCHAR(255) DEFAULT NULL,
     note VARCHAR(255) DEFAULT NULL,
@@ -297,7 +298,8 @@ CREATE TABLE project (
 
 CREATE TABLE university (
     id INT NOT NULL AUTO_INCREMENT,
-    university_name VARCHAR(255) DEFAULT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,
@@ -370,12 +372,12 @@ CREATE TABLE research_field (
 
 CREATE TABLE degree (
     id INT NOT NULL AUTO_INCREMENT,
-    discipline_id INT NOT NULL,
     lecturer_id INT NOT NULL,
     academic_title_id INT NOT NULL,
     university_id INT NOT NULL,
+    specialization VARCHAR(255) DEFAULT NULL,
     graduation_thesis_name  VARCHAR(255) DEFAULT NULL,
-    graduation_date DATETIME DEFAULT NULL,
+    graduation_date INT DEFAULT NULL,
     
     created_at DATETIME,
     updated_at DATETIME,
@@ -387,24 +389,12 @@ CREATE TABLE degree (
 CREATE TABLE work_position (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    university_id INT NOT NULL,
+    university_id INT DEFAULT NULL,
     company VARCHAR(255) DEFAULT NULL,
     position VARCHAR(255) DEFAULT NULL,
     is_now BOOLEAN DEFAULT FALSE,
-    from_date DATETIME DEFAULT NULL,
-    to_date DATETIME DEFAULT NULL,
-
-    created_at DATETIME,
-    updated_at DATETIME,
-    is_deleted BOOLEAN DEFAULT FALSE,
-    
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE university_office (
-    id INT NOT NULL AUTO_INCREMENT,
-    university_id INT NOT NULL,
-    address VARCHAR(255) DEFAULT NULL,
+    from_date INT DEFAULT NULL,
+    to_date INT DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,
@@ -415,12 +405,13 @@ CREATE TABLE university_office (
 
 CREATE TABLE activity (
     id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) DEFAULT NULL,
-    type_id INT NOT NULL,
     lecturer_id INT NOT NULL,
-    content VARCHAR(255) DEFAULT NULL,
-    from_date DATETIME,
-    to_date DATETIME,
+    activity_type_id INT NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    note VARCHAR(255) DEFAULT NULL,
+    is_now BOOLEAN DEFAULT FALSE,
+    from_date INT DEFAULT NULL,
+    to_date INT DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,

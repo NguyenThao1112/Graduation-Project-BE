@@ -1283,7 +1283,7 @@ POST /api/v1/lecturers/create
         "name": "Nguyen Van Vu",
         "gender": "male",
         "avatar": "http://image",
-        "dateOfBirth" : "04/05/1977",
+        "dateOfBirth": "04/05/1977",
         "academicRankId": 1,
         "academicRankGainYear": "2010",
         "academicTitleId": 1,
@@ -1305,10 +1305,125 @@ POST /api/v1/lecturers/create
         ],
         "books": [
             {
+                "book_id": "3"
+            },
+            {
                 "name": "IEEE International Symposium on High Assurance Systems Engineering",
                 "publisherName": "IEEE CPS, ISBN-13; 978",
                 "publicYear": "2018",
                 "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian"
+            }
+        ],
+        "contacts": [
+            {
+                "contactTypeId": 2,
+                "value": "288 Hai Ba Trung"
+            },
+            {
+                "contactTypeId": 3,
+                "value": "0962763170"
+            }
+        ],
+        "projects": [
+            {
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt"
+            }
+        ],
+        "currentDiscipline": {
+            "disciplineId": 1,
+            "departmentName": "Khoa công nghệ thông tin",
+            "universityName": "Đại học Khoa học tự nhiên",
+            "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+        },
+        "researchFields": [
+            {
+                "researchName": "Ước lượng phần mềm",
+                "note": "Software Estimation"
+            },
+            {
+                "researchName": "Quy trình phần mềm",
+                "note": "Software Processes"
+            }
+        ],
+        "expertises": [
+            {
+                "title": "Lĩnh vực",
+                "specialization": "Công nghệ thông tin"
+            },
+            {
+                "title": "Chuyên ngành",
+                "specialization": "Công nghệ phần mềm"
+            }
+        ],
+        "degrees": [
+            {
+                "academicTitleId": 1,
+                "universityName": "ĐH KHTN TP.HCM",
+                "specialization": "Công nghệ thông tin",
+                "graduationDate": 2019
+            },
+            {
+                "academicTitleName": "Tiến sỹ",
+                "universityName": "Đại học Nam California",
+                "specialization": "Khoa học máy tính",
+                "graduationDate": 2010,
+                "graduationThesisName": "Improved size and effor estimation models for Software Maintainance"
+            }
+        ],
+        "workPositions": [
+            {
+                "universityId": 2,
+                "position": "Phó trưởng khoa",
+                "isNow": true,
+                "fromDate": 2019
+            },
+            {
+                "company": "Công ty PSV (nay là công ty CSC Việt Nam)",
+                "position": "Kỹ sư công nghệ phần mềm",
+                "fromDate": 1999,
+                "toDate": 2004
+            },
+            {
+                "universityName": "Trường Đại học Nam California",
+                "position": "Nghiên cứu sinh, trợ giảng",
+                "fromDate": 2004,
+                "toDate": 2010
+            },
+            {
+                "universityName": "Trường Đại học Bắc California",
+                "position": "Nghiên cứu sinh, trợ giảng",
+                "fromDate": 2004,
+                "toDate": 2010
+            }
+        ],
+        "activities": [
+            {
+                "activityTypeId": 1,
+                "name": "Journal of Software: Evolution and Process",
+                "note": "Phản biện (reviewer)",
+                "fromDate": 2019,
+                "isNow": true
+            },
+            {
+                "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            },
+            {
+                "activityTypeName": "Tham gia làm việc tại trường Viện",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
             }
         ]
     }
@@ -1606,10 +1721,13 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
 ```
 
 ### Get All Article with given Lecturers' id
-#### Request 
+
+#### Request
+
 ```http
 POST /api/v1/articles/fetch-all
 ```
+
 ```javascript
 {
     "data": {
@@ -1619,6 +1737,7 @@ POST /api/v1/articles/fetch-all
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -1707,7 +1826,9 @@ POST /api/v1/articles/fetch-all
 }
 
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1716,6 +1837,7 @@ POST /api/v1/articles/fetch-all
 ```
 
 ### Create an article
+
 #### Request
 
 ```

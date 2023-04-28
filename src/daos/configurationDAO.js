@@ -777,22 +777,48 @@ function getTagsByNames(tagNames) {
 	});
 }
 
-function createBooks(books) {
+function createActivityTypes(activityTypes) {
 	return new Promise(function (resolve, reject) {
-		const query = [
-			`INSERT INTO book (name,project_id,publisher_name,public_year,co_authors,pseudonym,created_at, updated_at, is_deleted)`,
-			'VALUES ?',
-		].join(' ');
+		const query = `INSERT INTO activity_type (name, created_at, updated_at, is_deleted) VALUES ?`;
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = books.map((book) => [
-			book.name,
-			book.projectId,
-			book.publisherName,
-			book.publicYear,
-			book.coAuthors,
-			book.pseudonym,
+		const values = activityTypes.map((activityType) => [
+			activityType.name,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
+function createUniversities(universities) {
+	return new Promise(function (resolve, reject) {
+		const query = `INSERT INTO university (name, created_at, updated_at, is_deleted) VALUES ?`;
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = universities.map((university) => [
+			university.name,
 			now,
 			now,
 			is_deleted,
@@ -853,6 +879,9 @@ module.exports = {
 	deleteTags,
 	getTagsByNames,
 
-	//Books
-	createBooks,
+	//activityTypes
+	createActivityTypes,
+
+	//universities,
+	createUniversities,
 };
