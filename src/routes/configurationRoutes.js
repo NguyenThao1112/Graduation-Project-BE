@@ -130,4 +130,65 @@ router.delete(
     configController.deleteTags,
 )
 
+/****************************************************************
+ ***********************ACTIVITY TYPE****************************
+ ****************************************************************/
+
+ router.get(
+    `${urls.CONFIG_ACTIVITY_TYPE_API_URL}${urls.CONFIG_ACTIVITY_TYPE_GET_WITH_PAGINATION}`, 
+    validators.getPaginationValidators(),
+    configController.getActivityTypesWithPagination
+);
+
+router.get(
+    `${urls.CONFIG_ACTIVITY_TYPE_API_URL}${urls.CONFIG_ACTIVITY_TYPE_GET_ALL}`, 
+    configController.getAllActivityTypes,
+);
+
+router.post(
+    `${urls.CONFIG_ACTIVITY_TYPE_API_URL}${urls.CONFIG_ACTIVITY_TYPE_CREATE}`, 
+    configController.createActivityTypes,
+);
+
+router.put(
+    `${urls.CONFIG_ACTIVITY_TYPE_API_URL}${urls.CONFIG_ACTIVITY_TYPE_UPDATE}`,
+    configController.updateActivityType,
+)
+
+router.delete(
+    `${urls.CONFIG_ACTIVITY_TYPE_API_URL}${urls.CONFIG_ACTIVITY_TYPE_DELETE}`,
+    configController.deleteActivityTypes,
+)
+
+/****************************************************************
+ **************************UNIVERSITY****************************
+ ****************************************************************/
+
+ router.get(
+    `${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_WITH_PAGINATION}`, 
+    validators.getPaginationValidators(),
+    configController.getUniversitiesWithPagination
+);
+
+router.get(
+    `${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_ALL}`, 
+    configController.getAllUniversities,
+);
+
+router.post(
+    `${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_CREATE}`, 
+    configController.createUniversities,
+);
+
+router.put(
+    `${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_UPDATE}`,
+    configController.updateUniversity,
+)
+
+router.delete(
+    `${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_DELETE}`,
+    configController.deleteUniversities,
+)
+
+
 module.exports = router;

@@ -84,5 +84,22 @@ module.exports = Object.freeze({
 	SAVE_ONE_AUTHOR_GOOGLE_SCHOLAR: `/google-scholar/author`,
 	SAVE_ALL_CITATION_GOOGLE_SCHOLAR: `/google-scholar/citation`,
 	//Report types AP
+
+	//Activity type API
+	CONFIG_ACTIVITY_TYPE_API_URL: `/activity-type`,  
+	CONFIG_ACTIVITY_TYPE_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_ACTIVITY_TYPE_GET_ALL: `/fetch-all`,
+	CONFIG_ACTIVITY_TYPE_CREATE: `/create`,
+	CONFIG_ACTIVITY_TYPE_UPDATE: `/:id/update`,
+	CONFIG_ACTIVITY_TYPE_DELETE: `/delete`,
+
+	//University API
+	CONFIG_UNIVERSITY_API_URL: `/university`,  
+	CONFIG_UNIVERSITY_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_UNIVERSITY_GET_ALL: `/fetch-all`,
+	CONFIG_UNIVERSITY_CREATE: `/create`,
+	CONFIG_UNIVERSITY_UPDATE: `/:id/update`,
+	CONFIG_UNIVERSITY_DELETE: `/delete`,
+
 })
 
