@@ -998,7 +998,7 @@ function createActivityTypes(activityTypes) {
  function getAllUniversity() {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			`SELECT id, name, address`,
+			`SELECT id, name`,
 			'FROM university',
 			queryConstants.FILTER_DELETED_RECORD_QUERY,
 			`ORDER BY id ASC`,
