@@ -777,6 +777,150 @@ function getTagsByNames(tagNames) {
 	});
 }
 
+/****************************************************************
+ ***********************ACTIVITY TYPE****************************
+ ****************************************************************/
+/**
+ *  Query to get all the activity type
+ *  with offset and limit size for pagination
+ *
+ * @param {int} offset
+ * @param {int} limitSize
+ * @return {Promise}
+ */
+ function getActivityTypeWithPagination(offset, limitSize) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name, created_at, updated_at`,
+			'FROM activity_type',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+			'LIMIT ?, ?',
+		].join(' ');
+
+		let activityTypes = null;
+		connection.query(query, [offset, limitSize], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			activityTypes = results;
+			resolve(activityTypes);
+		});
+	});
+}
+
+/**
+ *  Query to get all the activity type
+ *
+ * @return {Promise}
+ */
+function getAllActivityType() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name`,
+			'FROM activity_type',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+		].join(' ');
+
+		let activityTypes = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			activityTypes = results;
+			resolve(activityTypes);
+		});
+	});
+}
+
+/**
+ *  Query to get an activity type by its id
+ * @param {number} id
+ * @return {Promise}
+ */
+function getActivityTypeById(id) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name`,
+			'FROM activity_type',
+			`WHERE id = ?`,
+			'LIMIT 1',
+		].join(' ');
+
+		let activityType = null;
+		connection.query(query, [id], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			activityType = results;
+			resolve(activityType);
+		});
+	});
+}
+
+
+/**
+ *  Query to update an activity type
+ * @param {Object{id: number, name: string, address: string}} activityType
+ * @return {Promise}
+ */
+ function updateActivityType(activityType) {
+	const { id, name } = activityType;
+
+	return new Promise(function (resolve, reject) {
+		const query = [
+			'UPDATE activity_type',
+			'SET name = ?, updated_at = ?',
+			'WHERE id = ?',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+
+		connection.query(query, [name, now, id], function (error, results, fields) {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(activityType);
+		});
+	});
+}
+
+/**
+ *  Query to delete multiple activity types at the same time with the given ids
+ *
+ * @param {Array<number>} ids
+ * @return {Promise}
+ */
+function deleteActivityTypes(ids) {
+	return new Promise(function (resolve, reject) {
+		//Using in to avoid n + 1 problem
+		const query = [
+			'UPDATE activity_type',
+			'SET is_deleted = ?, updated_at = ?',
+			'WHERE id IN (?)',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+
+		connection.query(query, [true, now, ids], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Number of records are deleted
+			const size = result.affectedRows;
+			resolve(size);
+		});
+	});
+}
+
 function createActivityTypes(activityTypes) {
 	return new Promise(function (resolve, reject) {
 		const query = `INSERT INTO activity_type (name, created_at, updated_at, is_deleted) VALUES ?`;
@@ -811,14 +955,160 @@ function createActivityTypes(activityTypes) {
 	});
 }
 
+/****************************************************************
+ **************************UNIVERSITY****************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the university
+ *  with offset and limit size for pagination
+ *
+ * @param {int} offset
+ * @param {int} limitSize
+ * @return {Promise}
+ */
+ function getUniversityWithPagination(offset, limitSize) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name, address, created_at, updated_at`,
+			'FROM university',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+			'LIMIT ?, ?',
+		].join(' ');
+
+		let universities = null;
+		connection.query(query, [offset, limitSize], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllUniversity() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name, address`,
+			'FROM university',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+		].join(' ');
+
+		let universities = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
+/**
+ *  Query to get an university by its id
+ * @param {number} id
+ * @return {Promise}
+ */
+function getUniversityById(id) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name, address`,
+			'FROM university',
+			`WHERE id = ?`,
+			'LIMIT 1',
+		].join(' ');
+
+		let university = null;
+		connection.query(query, [id], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			university = results;
+			resolve(university);
+		});
+	});
+}
+
+/**
+ *  Query to update an university
+ * @param {Object{id: number, name: string, address: string}} university
+ * @return {Promise}
+ */
+ function updateUniversity(university) {
+	const { id, name, address } = university;
+
+	return new Promise(function (resolve, reject) {
+		const query = [
+			'UPDATE university',
+			'SET name = ?, address = ? , updated_at = ?',
+			'WHERE id = ?',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+
+		connection.query(query, [name, address, now, id], function (error, results, fields) {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(university);
+		});
+	});
+}
+
+/**
+ *  Query to delete multiple universities at the same time with the given ids
+ *
+ * @param {Array<number>} ids
+ * @return {Promise}
+ */
+function deleteUniversities(ids) {
+	return new Promise(function (resolve, reject) {
+		//Using in to avoid n + 1 problem
+		const query = [
+			'UPDATE university',
+			'SET is_deleted = ?, updated_at = ?',
+			'WHERE id IN (?)',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+
+		connection.query(query, [true, now, ids], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Number of records are deleted
+			const size = result.affectedRows;
+			resolve(size);
+		});
+	});
+}
+
 function createUniversities(universities) {
 	return new Promise(function (resolve, reject) {
-		const query = `INSERT INTO university (name, created_at, updated_at, is_deleted) VALUES ?`;
+		const query = `INSERT INTO university (name, address, created_at, updated_at, is_deleted) VALUES ?`;
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
 		const values = universities.map((university) => [
 			university.name,
+			university.address,
 			now,
 			now,
 			is_deleted,
@@ -879,9 +1169,19 @@ module.exports = {
 	deleteTags,
 	getTagsByNames,
 
-	//activityTypes
+	//Activity types
+	getActivityTypeWithPagination,
+	getAllActivityType,
 	createActivityTypes,
+	getActivityTypeById,
+	updateActivityType,
+	deleteActivityTypes,
 
-	//universities,
+	//Universities,
+	getUniversityWithPagination,
+	getAllUniversity,
 	createUniversities,
+	getUniversityById,
+	updateUniversity,
+	deleteUniversities,
 };
