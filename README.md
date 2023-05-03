@@ -1268,6 +1268,437 @@ DELETE /api/v1/config/tag/delete
 }
 ```
 
+### Activity type
+
+#### Get activity type with pagination
+
+##### Request
+
+```http
+GET /api/v1/config/activity-type/fetch?pageOffset=1&limitSize=10
+```
+
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get activity type successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all activity type
+
+##### Request
+
+```http
+GET /api/v1/config/activity-type/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get activity type successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Create multiple activity types
+
+##### Request
+
+```http
+POST /api/v1/config/activity-type/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0",
+        },
+
+         {
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save activity type successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update an activity type
+
+##### Request
+
+```http
+PUT /api/v1/config/activity-type/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0",
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save activity type successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated activity type is not exists",
+}
+```
+
+#### Delete multiple activity types
+
+##### Request
+
+```http
+DELETE /api/v1/config/activity-type/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete activity types successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+
+### University
+
+#### Get university with pagination
+
+##### Request
+
+```http
+GET /api/v1/config/university/fetch?pageOffset=1&limitSize=10
+```
+
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all university
+
+##### Request
+
+```http
+GET /api/v1/config/university/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Create multiple universities
+
+##### Request
+
+```http
+POST /api/v1/config/university/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0",
+        },
+
+         {
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save university successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update an university
+
+##### Request
+
+```http
+PUT /api/v1/config/university/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0",
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save university successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated university is not exists",
+}
+```
+
+#### Delete multiple universities
+
+##### Request
+
+```http
+DELETE /api/v1/config/university/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete universities successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+## Lecturer API
+
 ### Create a lecturer
 
 ##### Request

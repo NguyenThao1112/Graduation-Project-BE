@@ -138,6 +138,30 @@ module.exports = Object.freeze({
 	CONFIG_TAG_UPDATED_NOT_EXISTS_MESSAGE: "The updated tag is not exists",
 	CONFIG_TAG_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
 
+	//Activity type API
+	CONFIG_ACTIVITY_TYPE_INVALID_CODE: 1,
+	CONFIG_ACTIVITY_TYPE_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_ACTIVITY_TYPE_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE: 'Something went wrong from the backend',
+
+	CONFIG_ACTIVITY_TYPE_SUCCESS_MESSAGE: "Get activity type successfully",
+	CONFIG_ACTIVITY_TYPE_DELETE_SUCCESS_MESSAGE: "Delete the activity types successfully",
+	CONFIG_ACTIVITY_TYPE_CREATE_SUCCESS_MESSAGE: "Save activity types successfully",
+	CONFIG_ACTIVITY_TYPE_UPDATED_NOT_EXISTS_MESSAGE: "The updated activity type is not exists",
+	CONFIG_ACTIVITY_TYPE_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
+	//University API
+	CONFIG_UNIVERSITY_INVALID_CODE: 1,
+	CONFIG_UNIVERSITY_UPDATED_NOT_EXISTS_CODE: 2,
+	CONFIG_UNIVERSITY_DELETED_NOT_ALL_CODE: 2,
+	CONFIG_UNIVERSITY_INVALID_MESSAGE: 'Something went wrong from the backend',
+
+	CONFIG_UNIVERSITY_SUCCESS_MESSAGE: "Get university successfully",
+	CONFIG_UNIVERSITY_DELETE_SUCCESS_MESSAGE: "Delete the universities successfully",
+	CONFIG_UNIVERSITY_CREATE_SUCCESS_MESSAGE: "Save universities successfully",
+	CONFIG_UNIVERSITY_UPDATED_NOT_EXISTS_MESSAGE: "The updated university is not exists",
+	CONFIG_UNIVERSITY_DELETED_NOT_ALL_MESSAGE: "The number of deleted record is not equal to the input",
+
 	//Article APIs
 	ARTICLE_INVALID_CODE: 1,
 	ARTICLE_SAVED_OVERLIMIT_FILE_SIZE_CODE: 2,

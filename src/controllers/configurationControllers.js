@@ -971,6 +971,494 @@ function getAllTags(request, response) {
     
 }
 
+
+/****************************************************************
+ ***********************ACTIVITY TYPE****************************
+ ****************************************************************/
+
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function getActivityTypesWithPagination(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_CODE,
+            message: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE,
+        }
+
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.query.pageOffset, 
+                request.query.limitSize
+            );
+
+        //Try to get all the activity types from the database
+        configurationService.getActivityTypeWithPagination(pageOffset, limitSize)
+            .then((activityTypes) => {
+
+                //If there is a not-null activity types => change the response's data
+                if (activityTypes) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_SUCCESS_MESSAGE;
+                    // responseJson.data = JSON.stringify(activityTypes);
+                    responseJson.data = activityTypes;
+
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getAllActivityTypes(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_CODE,
+            message: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE,
+        }
+
+        //Try to get all the activity types from the database
+        configurationService.getAllActivityType()
+            .then((activityTypes) => {
+
+                //If there is a not-null activity types => change the response's data
+                if (activityTypes) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_SUCCESS_MESSAGE;
+                    // responseJson.data = JSON.stringify(activityTypes);
+                    responseJson.data = activityTypes;
+
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Create multiple activity types at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function createActivityTypes(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_CODE,
+            message: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+
+        configurationService.createActivityTypes(data)
+            .then((activityTypeIds) => {
+
+                //If there is a not empty id array => change the response's data
+                if (activityTypeIds.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Update a activity type
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function updateActivityType(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_CODE,
+            message: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE,
+        }
+
+        const updatedActivityType = request.body;
+
+        configurationService.updateActivityType(updatedActivityType)
+            .then((activityType) => {
+
+                //If there is a not-null activity type => change the response's data
+                if (activityType) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                if (null === error) {
+                    responseJson.code = messageConstants.CONFIG_ACTIVITY_TYPE_UPDATED_NOT_EXISTS_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_UPDATED_NOT_EXISTS_MESSAGE;
+                    error = messageConstants.CONFIG_ACTIVITY_TYPE_UPDATED_NOT_EXISTS_MESSAGE;
+                }
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
+/**
+ * Delete multiple activity types at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function deleteActivityTypes(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_CODE,
+            message: messageConstants.CONFIG_ACTIVITY_TYPE_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const ids = data.map(data => data.id);
+
+        configurationService.deleteActivityTypes(ids)
+            .then((deleteCount) => {
+
+                const originalSize = data.length;
+
+                //If number of delete record is equal to the input size
+                if (deleteCount === originalSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_ACTIVITY_TYPE_DELETE_SUCCESS_MESSAGE;
+                } else {
+                    responseJson.code = messageConstants.CONFIG_ACTIVITY_TYPE_DELETED_NOT_ALL_CODE;
+                    responseJson.message =`${messageConstants.CONFIG_ACTIVITY_TYPE_DELETED_NOT_ALL_MESSAGE}: ${deleteCount}/${originalSize}`;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
+/****************************************************************
+ *************************UNIVERSITY*****************************
+ ****************************************************************/
+
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function getUniversitiesWithPagination(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+            message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+        }
+
+        const [pageOffset, limitSize] = 
+            commonHelper.normalizePaginationParam(
+                request.query.pageOffset, 
+                request.query.limitSize
+            );
+
+        //Try to get all the activity types from the database
+        configurationService.getUniversityWithPagination(pageOffset, limitSize)
+            .then((universities) => {
+
+                //If there is a not-null activity types => change the response's data
+                if (universities) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_SUCCESS_MESSAGE;
+                    // responseJson.data = JSON.stringify(universities);
+                    responseJson.data = universities;
+
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getAllUniversities(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+            message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+        }
+
+        //Try to get all the activity types from the database
+        configurationService.getAllUniversity()
+            .then((universities) => {
+
+                //If there is a not-null activity types => change the response's data
+                if (universities) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_SUCCESS_MESSAGE;
+                    // responseJson.data = JSON.stringify(universities);
+                    responseJson.data = universities;
+
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Create multiple activity types at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function createUniversities(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+            message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+
+        configurationService.createUniversities(data)
+            .then((universityIds) => {
+
+                //If there is a not empty id array => change the response's data
+                if (universityIds.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * Update a activity type
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function updateUniversity(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+            message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+        }
+
+        const updatedUniversity = request.body;
+
+        configurationService.updateUniversity(updatedUniversity)
+            .then((university) => {
+
+                //If there is a not-null activity type => change the response's data
+                if (university) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_CREATE_SUCCESS_MESSAGE;
+                }
+
+            })
+            .catch(error => {
+                if (null === error) {
+                    responseJson.code = messageConstants.CONFIG_UNIVERSITY_UPDATED_NOT_EXISTS_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_UPDATED_NOT_EXISTS_MESSAGE;
+                    error = messageConstants.CONFIG_UNIVERSITY_UPDATED_NOT_EXISTS_MESSAGE;
+                }
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+
+/**
+ * Delete multiple activity types at the same time
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+ function deleteUniversities(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+            message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const ids = data.map(data => data.id);
+
+        configurationService.deleteUniversities(ids)
+            .then((deleteCount) => {
+
+                const originalSize = data.length;
+
+                //If number of delete record is equal to the input size
+                if (deleteCount === originalSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.CONFIG_UNIVERSITY_DELETE_SUCCESS_MESSAGE;
+                } else {
+                    responseJson.code = messageConstants.CONFIG_UNIVERSITY_DELETED_NOT_ALL_CODE;
+                    responseJson.message =`${messageConstants.CONFIG_UNIVERSITY_DELETED_NOT_ALL_MESSAGE}: ${deleteCount}/${originalSize}`;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
 module.exports = {
 
     //Contact types
@@ -994,10 +1482,24 @@ module.exports = {
     updateAcademicTitle,
     deleteAcademicTitles,
 
-    //Academic titles
+    //Tags
     getTagsWithPagination,
     getAllTags,
     createTags,
     updateTag,
     deleteTags,
+
+    //Activity types
+    getActivityTypesWithPagination,
+    getAllActivityTypes,
+    createActivityTypes,
+    updateActivityType,
+    deleteActivityTypes,
+
+    //Universities
+    getUniversitiesWithPagination,
+    getAllUniversities,
+    createUniversities,
+    updateUniversity,
+    deleteUniversities,
 }
