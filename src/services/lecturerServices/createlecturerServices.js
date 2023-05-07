@@ -1,8 +1,7 @@
-const urlConstants = require('../constants/urlConstants');
-const createLecturerDAO = require('../daos/lecturerDAOS/createLecturerDAO');
-const configurationDAO = require('../daos/configurationDAO');
+const createLecturerDAO = require('../../daos/lecturerDAOS/createLecturerDAO');
+const configurationDAO = require('../../daos/configurationDAO');
 
-const lecturerHelper = require('../helpers/lecturerHelper');
+const lecturerHelper = require('../../helpers/lecturerHelper');
 /**
  * Get all the lecturers, with only usable column in the lecturer's base table (without join any table)
  * @return {Promise}
