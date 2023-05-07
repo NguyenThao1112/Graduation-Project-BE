@@ -1,3 +1,4 @@
+const { phdThesis, expertise } = require('../constants/tableQueryConstants');
 const { Lecturer } = require('../models/lecturer/lecturer');
 const moment = require('moment');
 class LecturerBuilder {
@@ -186,6 +187,131 @@ class LecturerBuilder {
 	}
 }
 
+function mapLecturerIdToExtraLecturerData(lecturerId, map, mapValue) {
+	if (!map.has(lecturerId)) {
+		map.set(lecturerId, []);
+	}
+	map.get(lecturerId).push(mapValue);
+}
+
+function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
+	//parse lecturer phdThesis to map
+	const phdThesises = new Map();
+	extraLecturerData[0].forEach((phdThesis) => {
+		const lecturerId = phdThesis.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, phdThesises, phdThesis);
+	});
+
+	//book-author + book
+	const books = new Map();
+	extraLecturerData[1].forEach((book) => {
+		const lecturerId = book.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, books, book);
+	});
+
+	//contact + contact type
+	const contacts = new Map();
+	extraLecturerData[2].forEach((contact) => {
+		const lecturerId = contact.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, contacts, contact);
+	});
+
+	//project
+	const projects = new Map();
+	extraLecturerData[3].forEach((project) => {
+		const lecturerId = project.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, projects, project);
+	});
+
+	//current_discipline
+	const currentDisciplines = new Map();
+	extraLecturerData[4].forEach((currentDiscipline) => {
+		const lecturerId = currentDiscipline.lecturerId;
+		mapLecturerIdToExtraLecturerData(
+			lecturerId,
+			currentDisciplines,
+			currentDiscipline
+		);
+	});
+
+	//academic_rank
+	const academicRanks = new Map();
+	extraLecturerData[5].forEach((academicRank) => {
+		const lecturerId = academicRank.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, academicRanks, academicRank);
+	});
+
+	//academic_title
+	const academicTitles = new Map();
+	extraLecturerData[6].forEach((academicTitle) => {
+		const lecturerId = academicTitle.lecturerId;
+		mapLecturerIdToExtraLecturerData(lecturerId, academicTitles, academicTitle);
+	});
+
+	//expertise
+	const expertises = new Map();
+	extraLecturerData[7].forEach((expertise) => {
+		mapLecturerIdToExtraLecturerData(
+			expertise.lecturerId,
+			expertises,
+			expertise
+		);
+	});
+
+	//researchFields
+	const researchFields = new Map();
+	extraLecturerData[8].forEach((researchField) => {
+		mapLecturerIdToExtraLecturerData(
+			researchField.lecturerId,
+			researchFields,
+			researchField
+		);
+	});
+
+	//degrees
+	const degrees = new Map();
+	extraLecturerData[9].forEach((degree) => {
+		mapLecturerIdToExtraLecturerData(degree.lecturerId, degrees, degree);
+	});
+
+	//workPositions
+	const workPositions = new Map();
+	extraLecturerData[10].forEach((workPosition) => {
+		mapLecturerIdToExtraLecturerData(
+			workPosition.lecturerId,
+			workPositions,
+			workPosition
+		);
+	});
+
+	//activities
+	const activities = new Map();
+	extraLecturerData[11].forEach((activity) => {
+		mapLecturerIdToExtraLecturerData(activity.lecturerId, activities, activity);
+	});
+
+	const completeLecturerData = lecturerData.map((ele) => {
+		return {
+			...ele,
+			phdThesises: phdThesises.get(ele.id),
+			books: books.get(ele.id),
+			contacts: contacts.get(ele.id),
+			projects: projects.get(ele.id),
+			currentDisciplines: currentDisciplines.get(ele.id),
+			academicRanks: academicRanks.get(ele.id),
+			academicTitles: academicTitles.get(ele.id),
+			expertises: expertises.get(ele.id),
+			researchFields: researchFields.get(ele.id),
+			degrees: degrees.get(ele.id),
+			workPositions: workPositions.get(ele.id),
+			activities: activities.get(ele.id),
+		};
+	});
+
+	return completeLecturerData;
+}
+
 module.exports = {
 	LecturerBuilder,
+	combineBaseAndExtraLecturerData,
 };

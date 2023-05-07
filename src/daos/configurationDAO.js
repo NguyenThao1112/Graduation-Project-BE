@@ -1,5 +1,5 @@
 const connection = require('../configs/database');
-const queryConstants = require('../constants/queryConstants');
+const queryConstants = require('../constants/messageQueryConstants');
 const moment = require('moment');
 const { getCurrentTimeFormat } = require('../helpers/timeHelper');
 
@@ -788,7 +788,7 @@ function getTagsByNames(tagNames) {
  * @param {int} limitSize
  * @return {Promise}
  */
- function getActivityTypeWithPagination(offset, limitSize) {
+function getActivityTypeWithPagination(offset, limitSize) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`SELECT id, name, created_at, updated_at`,
@@ -862,13 +862,12 @@ function getActivityTypeById(id) {
 	});
 }
 
-
 /**
  *  Query to update an activity type
  * @param {Object{id: number, name: string, address: string}} activityType
  * @return {Promise}
  */
- function updateActivityType(activityType) {
+function updateActivityType(activityType) {
 	const { id, name } = activityType;
 
 	return new Promise(function (resolve, reject) {
@@ -967,7 +966,7 @@ function createActivityTypes(activityTypes) {
  * @param {int} limitSize
  * @return {Promise}
  */
- function getUniversityWithPagination(offset, limitSize) {
+function getUniversityWithPagination(offset, limitSize) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`SELECT id, name, address, created_at, updated_at`,
@@ -989,13 +988,12 @@ function createActivityTypes(activityTypes) {
 	});
 }
 
-
 /**
  *  Query to get all the university
  *
  * @return {Promise}
  */
- function getAllUniversity() {
+function getAllUniversity() {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`SELECT id, name`,
@@ -1047,7 +1045,7 @@ function getUniversityById(id) {
  * @param {Object{id: number, name: string, address: string}} university
  * @return {Promise}
  */
- function updateUniversity(university) {
+function updateUniversity(university) {
 	const { id, name, address } = university;
 
 	return new Promise(function (resolve, reject) {
@@ -1059,14 +1057,18 @@ function getUniversityById(id) {
 
 		const now = getCurrentTimeFormat();
 
-		connection.query(query, [name, address, now, id], function (error, results, fields) {
-			if (error) {
-				reject(error);
-				return;
-			}
+		connection.query(
+			query,
+			[name, address, now, id],
+			function (error, results, fields) {
+				if (error) {
+					reject(error);
+					return;
+				}
 
-			resolve(university);
-		});
+				resolve(university);
+			}
+		);
 	});
 }
 
