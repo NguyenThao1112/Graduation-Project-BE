@@ -5,7 +5,7 @@ const {ArticleNote} = require('../../models/article/articleNote');
 const {Author} = require('../../models/article/author');
 const connection = require('../../configs/database');
 const moment = require('moment');
-const queryConstants = require('../../constants/queryConstants');
+const queryConstants = require('../../constants/messageQueryConstants');
 
 
 /**
