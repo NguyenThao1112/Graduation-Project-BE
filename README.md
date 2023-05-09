@@ -1698,7 +1698,7 @@ DELETE /api/v1/config/university/delete
 
 ## Lecturer API
 
-### Create a lecturer
+### Create lecturers
 
 ##### Request
 
@@ -1709,7 +1709,6 @@ POST /api/v1/lecturers/create
 ```javascript
 {
     "data": {
-        "accountId": 1,
         "name": "Nguyen Van Vu",
         "gender": "male",
         "avatar": "http://image",
@@ -2113,26 +2112,196 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-POST /api/v1/lecturers/update/1
+PUT /api/v1/lecturers/:id/update
 ```
 
 ```javascript
 {
     "data":
-        {
-            "account_id": 4,
-            "name": "lecturer 3",
+         {
+            "name": "Nguyen Van Vu",
             "gender": "male",
-            "avatar": null,
-            "date_of_birth": "2001-04-22",
-            "academic_rank_id": 1,
-            "academic_rank_gain_year": 2022,
-            "academic_title_id": 1,
-            "academic_title_gain_year": 2023,
-            "is_deleted": 0,
-            "expand_column": null
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "academicRankId": null,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022,
+            "phdThesises": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile",
+                    "phdName": "Trương Văn Thông",
+                    "graduationYear": "tiến sĩ",
+                    "note": null
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
+                    "phdName": "Huỳnh Thị Phương Thủy",
+                    "graduationYear": "Cao học",
+                    "note": "102.03-2014.34"
+                }
+            ],
+            "books": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                    "projectId": null,
+                    "publisherName": "IEEE CPS, ISBN-13; 978",
+                    "publicYear": 2018,
+                    "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                    "pseudonym": null
+                }
+            ],
+            "projects": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm",
+                    "projectCode": "B2013-18-01(ĐHQG HCM)",
+                    "fromDate": "03/2013",
+                    "toDate": "03/2016",
+                    "expenditure": 500,
+                    "projectRole": "Tham gia",
+                    "acceptanceDate": "2016-08-05T17:00:00.000Z",
+                    "result": "Đạt",
+                    "note": null,
+                    "reference": null
+                }
+            ],
+            "currentDisciplines": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "departmentName": "Khoa công nghệ thông tin",
+                    "universityName": "Đại học Khoa học tự nhiên",
+                    "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+                }
+            ],
+            "academicTitles": [
+                {
+                    "lecturerId": 1,
+                    "id": 1,
+                    "name": "Tiến sỹ"
+                }
+            ],
+            "expertises": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "title": "Lĩnh vực",
+                    "specialization": "Công nghệ thông tin"
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "title": "Chuyên ngành",
+                    "specialization": "Công nghệ phần mềm"
+                }
+            ],
+            "researchFields": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "researchName": "Ước lượng phần mềm",
+                    "note": "Software Estimation"
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "researchName": "Quy trình phần mềm",
+                    "note": "Software Processes"
+                }
+            ],
+            "degrees": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "academicTitleName": "Tiến sỹ",
+                    "universityName": "ĐH KHTN TP.HCM",
+                    "specialization": "Công nghệ thông tin",
+                    "graduationThesisName": null,
+                    "graduationDate": 2019
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "academicTitleName": "Tiến sỹ",
+                    "universityName": "Đại học Nam California",
+                    "specialization": "Khoa học máy tính",
+                    "graduationThesisName": "Improved size and effor estimation models for Software Maintainance",
+                    "graduationDate": 2010
+                }
+            ],
+            "workPositions": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "universityName": "ĐH KHTN TP.HCM",
+                    "company": null,
+                    "position": "Phó trưởng khoa",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 3,
+                    "lecturerId": 1,
+                    "universityName": "Trường Đại học Nam California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 1,
+                    "universityName": "Trường Đại học Bắc California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                }
+            ],
+            "activities": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Journal of Software: Evolution and Process",
+                    "note": "Phản biện (reviewer)",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                },
+                {
+                    "id": 3,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Viện",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                }
+            ]
         }
-
 }
 ```
 
