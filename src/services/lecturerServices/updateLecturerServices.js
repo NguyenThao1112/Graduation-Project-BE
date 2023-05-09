@@ -10,7 +10,7 @@ const lecturerHelper = require('../../helpers/lecturerHelper');
  * @return {Promise}
  *
  */
-function updatePhdThesis(phdThesisObject, lecturer) {
+function updatePhdThesises(phdThesisObject, lecturer) {
 	return new Promise((resolve, reject) => {
 		if (!phdThesisObject?.length) {
 			resolve(null);
@@ -51,53 +51,55 @@ function updatePhdThesis(phdThesisObject, lecturer) {
 	});
 }
 
-// /**
-//  *
-//  * @param {Object} book
-//  * @param {Object} lecturer
-//  * @return {Promise}
-//  *
-//  */
-// function updateBook(book, lecturer) {
-// 	return new Promise((resolve, reject) => {
-// 		if (!book?.length) {
-// 			resolve(null);
-// 			return;
-// 		}
+/**
+ *
+ * @param {Object} bookObject
+ * @param {Object} lecturer
+ * @return {Promise}
+ *
+ */
+function updateBooks(bookObject, lecturer) {
+	return new Promise((resolve, reject) => {
+		if (!bookObject?.length) {
+			return resolve(null);
+		}
 
-// 		const updateBookObject = book.filter(
-// 			(obj) =>
-// 				obj.hasOwnProperty('id') &&
-// 				obj.hasOwnProperty('update') &&
-// 				true === obj.update
-// 		);
+		const updateBookObject = bookObject.filter(
+			(obj) =>
+				obj.hasOwnProperty('id') &&
+				obj.hasOwnProperty('update') &&
+				true === obj.update
+		);
 
-// 		const createBookObject = book.filter(
-// 			(obj) => obj.hasOwnProperty('create') && true === obj.create
-// 		);
+		const createBookObject = bookObject.filter(
+			(obj) => obj.hasOwnProperty('create') && true === obj.create
+		);
 
-// 		const deleteIds = book
-// 			.filter((obj) => obj.hasOwnProperty('delete') && true === obj.delete)
-// 			.map((obj) => obj.id);
+		const deleteIds = bookObject
+			.filter((obj) => obj.hasOwnProperty('delete') && true === obj.delete)
+			.map((obj) => obj.id);
 
-// 		return Promise.all([
-// 			createLecturerDAO
-// 				.createPhdThesises(createPhdThesisObject, lecturer)
-// 				.then((ids) => {}),
-// 			updateLecturerDAO
-// 				.updatePhdThesises(updatePhdThesisObject, lecturer)
-// 				.then((updatePhdThesis) => {}),
-// 			deleteServiceDAO
-// 				.deleteRecordInTable('phd_thesis', deleteIds)
-// 				.then((deleteSize) => {}),
-// 		]).then(() => {
-// 			resolve(true);
-// 			return Promise.resolve(true);
-// 		});
-// 	}).catch((error) => {
-// 		console.log(error);
-// 	});
-// }
+		return Promise.all([
+			createLecturerDAO.createBooks(createBookObject).then((bookIds) => {
+				createLecturerDAO
+					.createBookAuthors(bookIds, lecturer)
+					.then((ids) => resolve(ids))
+					.catch((err) => console.log(err));
+			}),
+			updateLecturerDAO
+				.updateBooks(updateBookObject)
+				.then((updatePhdThesis) => {}),
+			deleteServiceDAO
+				.deleteRecordInTable('book', deleteIds)
+				.then((deleteSize) => {}),
+		]).then(() => {
+			resolve(true);
+			return Promise.resolve(true);
+		});
+	}).catch((error) => {
+		console.log(error);
+	});
+}
 
 /**
  * update a lecturer
@@ -118,7 +120,12 @@ function updateLecturer(lecturerObject) {
 		})
 		.then((lecturer) => {
 			return Promise.all([
-				updatePhdThesis(lecturerObject.phdThesises, lecturer).catch((error) => {
+				updatePhdThesises(lecturerObject.phdThesises, lecturer).catch(
+					(error) => {
+						console.log(error);
+					}
+				),
+				updateBooks(lecturerObject.books, lecturer).catch((error) => {
 					console.log(error);
 				}),
 			]).then((data) => {
@@ -128,6 +135,6 @@ function updateLecturer(lecturerObject) {
 }
 
 module.exports = {
-	updatePhdThesis,
+	updatePhdThesises,
 	updateLecturer,
 };
