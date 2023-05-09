@@ -156,8 +156,8 @@ function updateContacts(contacts, lecturer) {
 function updateProjects(projects, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			`INSERT INTO contact (`,
-			`id, lecturer_id,contact_type_id,value,created_at,updated_at,is_deleted)`,
+			`INSERT INTO project (`,
+			`id, lecturer_id,name,project_code,from_date,to_date,expenditure, project_role,acceptance_date,result,organization,note,reference)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
 			`contact_type_id = VALUES(contact_type_id)`,
