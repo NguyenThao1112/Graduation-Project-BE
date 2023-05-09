@@ -167,13 +167,13 @@ function createCurrentDiscipline(currentDiscipline, lecturer) {
 
 		promises.push(
 			...nonexistentDepartment.map((ele) => {
-				return createLecturerDAO.createDepartments(nonexistentDepartment);
+				return createLecturerDAO.createDepartments(ele);
 			})
 		);
 
 		promises.push(
 			...nonexistentUniversity.map((ele) => {
-				return configurationDAO.createUniversities(nonexistentUniversity);
+				return configurationDAO.createUniversities(ele);
 			})
 		);
 

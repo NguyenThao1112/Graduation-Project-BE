@@ -425,7 +425,7 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -471,7 +471,7 @@ GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch-all
+GET /api/v1/configs/contact-type/fetch-all
 ```
 
 ##### Success response
@@ -508,7 +508,7 @@ GET /api/v1/config/contact-type/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/contact-type/create
+POST /api/v1/configs/contact-type/create
 ```
 
 ```javascript
@@ -548,7 +548,7 @@ POST /api/v1/config/contact-type/create
 ##### Request
 
 ```http
-PUT /api/v1/config/contact-type/:id/update
+PUT /api/v1/configs/contact-type/:id/update
 ```
 
 ```javascript
@@ -588,7 +588,7 @@ PUT /api/v1/config/contact-type/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/contact-type/delete
+DELETE /api/v1/configs/contact-type/delete
 ```
 
 ```javascript
@@ -639,7 +639,7 @@ DELETE /api/v1/config/contact-type/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -685,7 +685,7 @@ GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch-all
+GET /api/v1/configs/academic-rank/fetch-all
 ```
 
 ##### Success response
@@ -722,7 +722,7 @@ GET /api/v1/config/academic-rank/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-rank/create
+POST /api/v1/configs/academic-rank/create
 ```
 
 ```javascript
@@ -762,7 +762,7 @@ POST /api/v1/config/academic-rank/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-rank/:id/update
+PUT /api/v1/configs/academic-rank/:id/update
 ```
 
 ```javascript
@@ -802,7 +802,7 @@ PUT /api/v1/config/academic-rank/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-rank/delete
+DELETE /api/v1/configs/academic-rank/delete
 ```
 
 ```javascript
@@ -853,7 +853,7 @@ DELETE /api/v1/config/academic-rank/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -899,7 +899,7 @@ GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch-all
+GET /api/v1/configs/academic-title/fetch-all
 ```
 
 ##### Success response
@@ -936,7 +936,7 @@ GET /api/v1/config/academic-title/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-title/create
+POST /api/v1/configs/academic-title/create
 ```
 
 ```javascript
@@ -976,7 +976,7 @@ POST /api/v1/config/academic-title/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-title/:id/update
+PUT /api/v1/configs/academic-title/:id/update
 ```
 
 ```javascript
@@ -1016,7 +1016,7 @@ PUT /api/v1/config/academic-title/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-title/delete
+DELETE /api/v1/configs/academic-title/delete
 ```
 
 ```javascript
@@ -1067,7 +1067,7 @@ DELETE /api/v1/config/academic-title/delete
 ##### Request
 
 ```http
-GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/tag/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1113,7 +1113,7 @@ GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/tag/fetch-all
+GET /api/v1/configs/tag/fetch-all
 ```
 
 ##### Success response
@@ -1150,7 +1150,7 @@ GET /api/v1/config/tag/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/tag/create
+POST /api/v1/configs/tag/create
 ```
 
 ```javascript
@@ -1190,7 +1190,7 @@ POST /api/v1/config/tag/create
 ##### Request
 
 ```http
-PUT /api/v1/config/tag/:id/update
+PUT /api/v1/configs/tag/:id/update
 ```
 
 ```javascript
@@ -1230,7 +1230,7 @@ PUT /api/v1/config/tag/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/tag/delete
+DELETE /api/v1/configs/tag/delete
 ```
 
 ````javascript
@@ -1275,7 +1275,7 @@ DELETE /api/v1/config/tag/delete
 ##### Request
 
 ```http
-GET /api/v1/config/activity-type/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/activity-type/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1321,7 +1321,7 @@ GET /api/v1/config/activity-type/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/activity-type/fetch-all
+GET /api/v1/configs/activity-type/fetch-all
 ```
 
 ##### Success response
@@ -1398,7 +1398,7 @@ POST /api/v1/config/activity-type/create
 ##### Request
 
 ```http
-PUT /api/v1/config/activity-type/:id/update
+PUT /api/v1/configs/activity-type/:id/update
 ```
 
 ```javascript
@@ -1438,7 +1438,7 @@ PUT /api/v1/config/activity-type/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/activity-type/delete
+DELETE /api/v1/configs/activity-type/delete
 ```
 
 ```javascript
@@ -1489,7 +1489,7 @@ DELETE /api/v1/config/activity-type/delete
 ##### Request
 
 ```http
-GET /api/v1/config/university/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/university/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1535,7 +1535,7 @@ GET /api/v1/config/university/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/university/fetch-all
+GET /api/v1/configs/university/fetch-all
 ```
 
 ##### Success response
@@ -1572,7 +1572,7 @@ GET /api/v1/config/university/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/university/create
+POST /api/v1/configs/university/create
 ```
 
 ```javascript
@@ -1612,7 +1612,7 @@ POST /api/v1/config/university/create
 ##### Request
 
 ```http
-PUT /api/v1/config/university/:id/update
+PUT /api/v1/configs/university/:id/update
 ```
 
 ```javascript
@@ -1652,7 +1652,7 @@ PUT /api/v1/config/university/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/university/delete
+DELETE /api/v1/configs/university/delete
 ```
 
 ```javascript
