@@ -1,6 +1,7 @@
 const { getCurrentTimeFormat } = require('../../helpers/timeHelper');
 const connection = require('../../configs/database');
 const moment = require('moment');
+const _ = require('lodash');
 
 /**
  *
@@ -9,6 +10,9 @@ const moment = require('moment');
  */
 function createPhdThesises(phdThesises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(phdThesises) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO phd_thesis (`,
 			`lecturer_id,`,
@@ -58,6 +62,9 @@ function createPhdThesises(phdThesises, lecturer) {
 
 function createBookAuthors(bookAuthors, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(bookAuthors) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO book_author(`,
 			`lecturer_id,`,
@@ -100,6 +107,9 @@ function createBookAuthors(bookAuthors, lecturer) {
 
 function createContacts(contacts, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(contacts) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO contact(`,
 			`lecturer_id,`,
@@ -143,6 +153,9 @@ function createContacts(contacts, lecturer) {
 
 function createProjects(project, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(project) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO project (`,
 			`lecturer_id,`,
@@ -209,6 +222,9 @@ function createProjects(project, lecturer) {
 
 function createCurrentDisciplines(currentDisciplines, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(currentDisciplines) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO current_discipline(`,
 			`lecturer_id,`,
@@ -250,6 +266,9 @@ function createCurrentDisciplines(currentDisciplines, lecturer) {
 
 function createExpertises(expertises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(expertises) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO expertise(`,
 			`lecturer_id,`,

@@ -1,16 +1,10 @@
 // @ts-nocheck
 const createLecturerServices = require('../services/lecturerServices/createlecturerServices');
 const searchLecturerServices = require('../services/lecturerServices/searchLecturerServices');
+const updateLecturerService = require('../services/lecturerServices/updateLecturerServices');
 
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
-// @ts-ignore
-const commonHelper = require('../helpers/commonHelper');
-const {
-	DEFAULT_PAGINATION_PAGEOFFSET,
-	DEFAULT_PAGINATION_LIMITSIZE,
-} = require('../constants/messageQueryConstants');
-
 // /**
 //  *
 //  * @param {Express.Request} request
@@ -188,98 +182,91 @@ function getLecturersWithPagination(request, response) {
 	});
 }
 
-// /**
-//  * Update a lecturer
-//  * @param {Express.Request} request
-//  * @param {Express.Response} response
-//  * @returns {Promise}
-//  */
-// function updateLecturer(request, response) {
-// 	return new Promise((resolve, reject) => {
-// 		//Check if the request is valid
-// 		const hasError = validatorHelper.verifyValidations(request, response);
-// 		if (hasError) {
-// 			return;
-// 		}
+/**
+ * Update a lecturer
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function updateLecturer(request, response) {
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
 
-// 		//Default response is error response
-// 		let responseJson = {
-// 			code: messageConstants.LECTURER_UPDATE_FAILED_MESSAGE,
-// 			message: messageConstants.FAILED_CODE,
-// 		};
-// 		const id = request.params.id;
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.LECTURER_UPDATE_FAILED_MESSAGE,
+			message: messageConstants.FAILED_CODE,
+		};
 
-// 		const { data } = request.body;
-// 		console.log(
-// 			'🚀 ~ file: lecturerControllers.js:156 ~ returnnewPromise ~ data:',
-// 			id,
-// 			data
-// 		);
+		const { data } = request.body;
+		data.id = request.params.id;
 
-// 		lecturerServices
-// 			.updateLecturer(id, data)
-// 			.then((lecturer) => {
-// 				//If there is a not-null contact type => change the response's data
-// 				if (lecturer) {
-// 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-// 					responseJson.message =
-// 						messageConstants.LECTURER_UPDATE_SUCCESS_MESSAGE;
-// 				}
-// 			})
-// 			.catch((error) => {
-// 				console.log(error);
-// 			})
-// 			.finally(() => {
-// 				response.json(responseJson);
-// 			});
-// 	});
-// }
+		updateLecturerService
+			.updateLecturer(data)
+			.then((lecturer) => {
+				//If there is a not-null contact type => change the response's data
+				if (lecturer) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_UPDATE_SUCCESS_MESSAGE;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
 
-// /**
-//  * Delete multiple contact types at the same time
-//  * @param {Express.Request} request
-//  * @param {Express.Response} response
-//  * @returns {Promise}
-//  */
-// function deleteLecturers(request, response) {
-// 	return new Promise((resolve, reject) => {
-// 		const hasError = validatorHelper.verifyValidations(request, response);
-// 		if (hasError) {
-// 			return;
-// 		}
+/**
+ * Delete multiple contact types at the same time
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function deleteLecturers(request, response) {
+	return new Promise((resolve, reject) => {
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
 
-// 		let responseJson = {
-// 			code: messageConstants.FAILED_CODE,
-// 			message: messageConstants.LECTURER_DELETE_FAILED_MESSAGE,
-// 		};
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_DELETE_FAILED_MESSAGE,
+		};
 
-// 		const { data } = request.body;
-// 		const ids = data.map((data) => data.id);
+		const { data } = request.body;
+		const ids = data.map((data) => data.id);
 
-// 		lecturerServices
-// 			.deleteLecturers(ids)
-// 			.then((deleteCount) => {
-// 				const originalSize = data.length;
+		lecturerServices
+			.deleteLecturers(ids)
+			.then((deleteCount) => {
+				const originalSize = data.length;
 
-// 				if (deleteCount === originalSize) {
-// 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-// 					responseJson.message = LECTURER_DELETE_SUCCESS_MESSAGE;
-// 				}
-// 			})
-// 			.catch((error) => {
-// 				console.log(error);
-// 			})
-// 			.finally(() => {
-// 				response.json(responseJson);
-// 			});
-// 	});
-// }
+				if (deleteCount === originalSize) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message = LECTURER_DELETE_SUCCESS_MESSAGE;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
 
 module.exports = {
-	// getAllLecturersWithBasicInformation,
-	// getAllLecturersWithPagination,
 	createLecturers,
 	getLecturersWithPagination,
-	// updateLecturer,
+	updateLecturer,
 	// deleteLecturers,
 };
