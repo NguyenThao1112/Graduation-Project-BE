@@ -1365,11 +1365,11 @@ POST /api/v1/config/activity-type/create
 {
     "data": [
         {
-            "name": "Test 0",
+            "name": "Tham gia viện nghiên cứu",
         },
 
          {
-            "name": "Test 1",
+            "name": "Giảng dạy ở trường Đại học",
         },
     ]
 }
@@ -1842,19 +1842,12 @@ POST /api/v1/lecturers/create
                 "isNow": true
             },
             {
-                "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                "activityTypeId": "2",
                 "name": "Sở khoa học và công nghệ, TPHCM",
                 "fromDate": 2020,
                 "toDate": 2022,
                 "note": "Thành viên tổ chuyên gia"
             },
-            {
-                "activityTypeName": "Tham gia làm việc tại trường Viện",
-                "name": "Sở khoa học và công nghệ, TPHCM",
-                "fromDate": 2020,
-                "toDate": 2022,
-                "note": "Thành viên tổ chuyên gia"
-            }
         ]
     }
 }
@@ -2144,18 +2137,6 @@ PUT /api/v1/lecturers/:id/update
                 "educationLevel": "tiến sĩ",
                 "update": true
             }
-            // {
-            //     "create": true,
-            //     "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
-            //     "phdName": "Huỳnh Thị Phương Thủy",
-            //     "graduationYear": "2016",
-            //     "educationLevel": "Cao học",
-            //     "note": "102.03-2014.34"
-            // },
-            // {
-            //     "id": 9,
-            //     "delete": true
-            // }
         ],
         "books": [
             {
