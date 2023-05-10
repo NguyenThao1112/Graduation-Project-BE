@@ -1,4 +1,7 @@
-const { getCurrentTimeFormat } = require('../../helpers/timeHelper');
+const {
+	getCurrentTimeFormat,
+	convertFormatDate,
+} = require('../../helpers/timeHelper');
 const connection = require('../../configs/database');
 const _ = require('lodash');
 /**
@@ -117,8 +120,8 @@ function updateContacts(contacts, lecturer) {
 			`id, lecturer_id,contact_type_id,value,created_at,updated_at,is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`contact_type_id = VALUES(contact_type_id)`,
-			`value = VALUES(value)`,
+			`contact_type_id = VALUES(contact_type_id),`,
+			`value = VALUES(value),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -158,40 +161,42 @@ function updateProjects(projects, lecturer) {
 			`id, lecturer_id,name,project_code,from_date,to_date,expenditure, project_role,acceptance_date,result,organization,note,reference, created_at,updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`name = VALUES(name)`,
-			`project_code = VALUES(project_code)`,
-			`from_date = VALUES(from_date)`,
-			`to_date = VALUES(to_date)`,
-			`expenditure = VALUES(expenditure)`,
-			`project_role = VALUES(project_role)`,
-			`acceptance_date = VALUES(acceptance_date)`,
-			`result = VALUES(result)`,
-			`organization = VALUES(organization)`,
-			`note = VALUES(note)`,
-			`reference = VALUES(reference)`,
+			`name = VALUES(name),`,
+			`project_code = VALUES(project_code),`,
+			`from_date = VALUES(from_date),`,
+			`to_date = VALUES(to_date),`,
+			`expenditure = VALUES(expenditure),`,
+			`project_role = VALUES(project_role),`,
+			`acceptance_date = VALUES(acceptance_date),`,
+			`result = VALUES(result),`,
+			`organization = VALUES(organization),`,
+			`note = VALUES(note),`,
+			`reference = VALUES(reference),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = projects.map((ele) => [
-			ele.id,
-			lecturer.id,
-			ele.name,
-			ele.projectCode,
-			ele.fromDate,
-			ele.toDate,
-			ele.expenditure,
-			ele.projectRole,
-			ele.acceptanceDate,
-			ele.result,
-			ele.organization,
-			ele.note,
-			ele.reference,
-			now,
-			now,
-			is_deleted,
-		]);
+		const values = projects.map((ele) => {
+			return [
+				ele.id,
+				lecturer.id,
+				ele.name,
+				ele.projectCode,
+				ele.fromDate,
+				ele.toDate,
+				ele.expenditure,
+				ele.projectRole,
+				convertFormatDate(ele.acceptanceDate),
+				ele.result,
+				ele.organization,
+				ele.note,
+				ele.reference,
+				now,
+				now,
+				is_deleted,
+			];
+		});
 
 		connection.query(query, [values], (error, result) => {
 			if (error) {
@@ -212,15 +217,18 @@ function updateProjects(projects, lecturer) {
  */
 function updateCurrentDiscipline(currentDisciplines, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!currentDisciplines.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO current_discipline (`,
-			`id, lecturer_id,discipline_id,department_id,university_id,position, created_at,updated_at, is_deleted)`,
+			`id,lecturer_id,discipline_id,department_id,university_id,position, created_at,updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`discipline_id = VALUES(discipline_id)`,
-			`department_id = VALUES(department_id)`,
-			`university_id = VALUES(university_id)`,
-			`position = VALUES(position)`,
+			`discipline_id = VALUES(discipline_id),`,
+			`department_id = VALUES(department_id),`,
+			`university_id = VALUES(university_id),`,
+			`position = VALUES(position),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -262,8 +270,8 @@ function updateResearchFields(researchFields, lecturer) {
 			`id, lecturer_id,research_name,note, created_at,updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`research_name = VALUES(research_name)`,
-			`note = VALUES(note)`,
+			`research_name = VALUES(research_name),`,
+			`note = VALUES(note),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -303,8 +311,8 @@ function updateExpertises(expertises, lecturer) {
 			`id, lecturer_id,title,specialization, created_at,updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`title = VALUES(title)`,
-			`specialization = VALUES(specialization)`,
+			`title = VALUES(title),`,
+			`specialization = VALUES(specialization),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -344,11 +352,11 @@ function updateDegrees(degrees, lecturer) {
 			`id, lecturer_id,academic_title_id,university_id, specialization,graduation_thesis_name, graduation_date, created_at, updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`academic_title_id = VALUES(academic_title_id)`,
-			`university_id = VALUES(university_id)`,
-			`specialization = VALUES(specialization)`,
-			`graduation_thesis_name = VALUES(graduation_thesis_name)`,
-			`graduation_date = VALUES(graduation_date)`,
+			`academic_title_id = VALUES(academic_title_id),`,
+			`university_id = VALUES(university_id),`,
+			`specialization = VALUES(specialization),`,
+			`graduation_thesis_name = VALUES(graduation_thesis_name),`,
+			`graduation_date = VALUES(graduation_date),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -391,12 +399,12 @@ function updateWorkPositions(workPositions, lecturer) {
 			`id, lecturer_id,university_id,company, position,is_now, from_date, to_date, created_at, updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`university_id = VALUES(university_id)`,
-			`company = VALUES(company)`,
-			`position = VALUES(position)`,
-			`is_now = VALUES(is_now)`,
-			`from_date = VALUES(from_date)`,
-			`to_date = VALUES(to_date)`,
+			`university_id = VALUES(university_id),`,
+			`company = VALUES(company),`,
+			`position = VALUES(position),`,
+			`is_now = VALUES(is_now),`,
+			`from_date = VALUES(from_date),`,
+			`to_date = VALUES(to_date),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 
@@ -440,12 +448,12 @@ function updateActivities(activities, lecturer) {
 			`id, lecturer_id,activity_type_id,name, note,is_now, from_date, to_date, created_at, updated_at, is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`activity_type_id = VALUES(activity_type_id)`,
-			`name = VALUES(name)`,
-			`note = VALUES(note)`,
-			`is_now = VALUES(is_now)`,
-			`from_date = VALUES(from_date)`,
-			`to_date = VALUES(to_date)`,
+			`activity_type_id = VALUES(activity_type_id),`,
+			`name = VALUES(name),`,
+			`note = VALUES(note),`,
+			`is_now = VALUES(is_now),`,
+			`from_date = VALUES(from_date),`,
+			`to_date = VALUES(to_date),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
 

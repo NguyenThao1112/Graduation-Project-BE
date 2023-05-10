@@ -1,57 +1,6 @@
 const createLecturerDAO = require('../../daos/lecturerDAOS/createLecturerDAO');
 const configurationDAO = require('../../daos/configurationDAO');
-
 const lecturerHelper = require('../../helpers/lecturerHelper');
-/**
- * Get all the lecturers, with only usable column in the lecturer's base table (without join any table)
- * @return {Promise}
- *
- */
-// function getAllLecturersWithBasicInformation() {
-// 	const resourcePath = urlConstants.LECTURER_RESOURCE_LECTURER_AVATAR;
-
-// 	return new Promise((resolve, reject) => {
-// 		creat
-// 			.getAllLecturersWithBasicInformation()
-// 			.then((lecturers) => {
-// 				//Add the full url for lecturer's avatar image
-// 				lecturers.forEach(function (lecturer, index) {
-// 					//Change the avatarFileName to the full path of resources url
-// 					const avatarFileName = lecturer[index].avatar;
-// 					this[index].avatar = `${resourcePath}/${avatarFileName}`;
-// 				}, lecturers);
-
-// 				resolve(lecturers);
-// 			})
-// 			.catch((error) => {
-// 				reject(error);
-// 			});
-// 	});
-// }
-
-// /**
-//  * Get all lecturers with pagination
-//  *
-//  * @param {number} pageOffset which page, in 1-offset-indexing
-//  * @param {number} limitSize maximum number of record in a page
-//  *
-//  * @return {Promise}
-//  *
-//  */
-// function getAllLecturersWithPagination(pageOffset, limitSize) {
-// 	const recordOffset = (pageOffset - 1) * limitSize;
-
-// 	return new Promise((resolve, reject) => {
-// 		lecturerDAO
-// 			.getAllLecturersWithPagination(recordOffset, limitSize)
-// 			.then((lecturer) => {
-// 				resolve(lecturer);
-// 			})
-// 			.catch((error) => {
-// 				reject(error);
-// 			});
-// 	});
-// }
 
 function createPhdThesis(phdThesises, lecturer) {
 	return new Promise((resolve, reject) => {
@@ -153,41 +102,28 @@ function createCurrentDiscipline(currentDiscipline, lecturer) {
 			? [{ name: currentDiscipline.departmentName }]
 			: [];
 
-		const nonexistentUniversity = !currentDiscipline.universityId
-			? [{ name: currentDiscipline.universityName }]
-			: [];
-
 		const promises = [];
 
-		promises.push(
-			...nonexistentDiscipline.map((ele) => {
-				return createLecturerDAO.createDisciplines(ele);
-			})
-		);
+		if (nonexistentDiscipline.length) {
+			promises.push(createLecturerDAO.createDisciplines(nonexistentDiscipline));
+		}
 
-		promises.push(
-			...nonexistentDepartment.map((ele) => {
-				return createLecturerDAO.createDepartments(ele);
-			})
-		);
-
-		promises.push(
-			...nonexistentUniversity.map((ele) => {
-				return configurationDAO.createUniversities(ele);
-			})
-		);
+		if (nonexistentDepartment.length) {
+			promises.push(createLecturerDAO.createDepartments(nonexistentDepartment));
+		}
 
 		Promise.all(promises)
-			.then((newIds) => {
+			.then((newIdsWithNull) => {
 				// Retrieve the new IDs from the resolved values
+				const newIds = newIdsWithNull.filter((ele) => {
+					if (ele) {
+						return ele;
+					}
+				});
 				const newDisciplineIds = newIds.slice(0, nonexistentDiscipline.length);
 				const newDepartmentIds = newIds.slice(
 					nonexistentDiscipline.length,
 					nonexistentDiscipline.length + nonexistentDepartment.length
-				);
-				const newUniversityIds = newIds.slice(
-					nonexistentDiscipline.length + nonexistentDepartment.length,
-					newIds.length
 				);
 
 				const newCurrentDiscipline = {
@@ -198,9 +134,7 @@ function createCurrentDiscipline(currentDiscipline, lecturer) {
 					departmentId: newDepartmentIds.length
 						? newDepartmentIds[0]
 						: currentDiscipline.departmentId,
-					universityId: newUniversityIds.length
-						? newUniversityIds[0]
-						: currentDiscipline.universityId,
+					universityId: currentDiscipline.universityId,
 				};
 
 				// Resolve the Promise with any value you want to return
@@ -256,65 +190,13 @@ function createDegrees(degrees, lecturer) {
 			return null;
 		}
 
-		const nonexistentAcademicTitle = degrees
-			.filter((ele) => !ele.hasOwnProperty('academicTitleId'))
-			.map((degree) => {
-				return { name: degree.academicTitleName };
-			});
-
-		const nonexistentUniversity = degrees
-			.filter((ele) => !ele.hasOwnProperty('universityId'))
-			.map((degree) => {
-				return { name: degree.universityName };
-			});
-
-		const promises = [];
-
-		if (nonexistentAcademicTitle) {
-			promises.push(
-				configurationDAO.createAcademicTitles(nonexistentAcademicTitle)
-			);
-		}
-
-		if (nonexistentUniversity) {
-			promises.push(configurationDAO.createUniversities(nonexistentUniversity));
-		}
-
-		Promise.all(promises)
-			.then((newIds) => {
-				// Retrieve the new IDs from the resolved values
-				const newAcademicTitleId = Object.values(
-					newIds.slice(0, nonexistentAcademicTitle.length)[0]
-				);
-				const newUniversityId = Object.values(
-					newIds.slice(
-						nonexistentAcademicTitle.length,
-						nonexistentAcademicTitle.length + nonexistentUniversity.length
-					)[0]
-				);
-				const newDegrees = degrees.map((ele, index) => {
-					const newDegree = ele;
-					newDegree.academicTitleId = ele.hasOwnProperty('academicTitleId')
-						? ele.academicTitleId
-						: newAcademicTitleId.shift();
-					newDegree.universityId = ele.hasOwnProperty('universityId')
-						? ele.universityId
-						: newUniversityId.shift();
-					return newDegree;
-				});
-
-				// Resolve the Promise with any value you want to return
-				createLecturerDAO
-					.createDegrees(newDegrees, lecturer)
-					.then((currentDisciplineId) => {
-						resolve(currentDisciplineId);
-					})
-					.catch((err) => console.log(err));
+		// Resolve the Promise with any value you want to return
+		createLecturerDAO
+			.createDegrees(degrees, lecturer)
+			.then((currentDisciplineId) => {
+				resolve(currentDisciplineId);
 			})
-			.catch((error) => {
-				// Handle any errors
-				console.log('error', error);
-			});
+			.catch((err) => console.log(err));
 	});
 }
 
@@ -455,40 +337,6 @@ function createLecturer(lecturerObject) {
 		});
 }
 
-// function updateLecturer(id, lecturer) {
-// 	return new Promise((resolve, reject) => {
-// 		lecturerDAO
-// 			.updateLecturer(id, lecturer)
-// 			.then((lecturer) => {
-// 				resolve(lecturer);
-// 			})
-// 			.catch((error) => {
-// 				reject(error);
-// 			});
-// 	});
-// }
-
-// function deleteLecturers(ids) {
-// 	console.log(
-// 		'🚀 ~ file: lecturerServices.js:84 ~ deleteLecturers ~ ids:',
-// 		ids
-// 	);
-// 	return new Promise((resolve, reject) => {
-// 		lecturerDAO
-// 			.deleteLecturers(ids)
-// 			.then((deleteCount) => {
-// 				resolve(deleteCount);
-// 			})
-// 			.catch((error) => {
-// 				reject(error);
-// 			});
-// 	});
-// }
-
 module.exports = {
-	// getAllLecturersWithBasicInformation,
-	// getAllLecturersWithPagination,
 	createLecturer,
-	// updateLecturer,
-	// deleteLecturers,
 };
