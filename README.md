@@ -2976,7 +2976,7 @@ Content-Type: application/pdf
 }
 ```
 
-### Update an article
+### Delete multiple articles
 
 #### Request
 

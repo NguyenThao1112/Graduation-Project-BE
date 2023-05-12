@@ -27,12 +27,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 				fromStatement,
 				'LEFT JOIN contact_type ON contact.contact_type_id = contact_type.id',
 			].join(' ');
-		} else if ('current_discipline' === tableName) {
+		} else if ('current_discipline cd' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'LEFT JOIN department ON department.id = current_discipline.department_id',
-				'LEFT JOIN discipline ON discipline.id = current_discipline.discipline_id',
-				'LEFT JOIN university ON university.id = current_discipline.university_id',
+				'LEFT JOIN department ON department.id = cd.department_id',
+				'LEFT JOIN discipline ON discipline.id = cd.discipline_id',
+				'LEFT JOIN university ON university.id = cd.university_id',
 			].join(' ');
 		} else if ('degree' === tableName) {
 			fromStatement = [
@@ -43,12 +43,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 		} else if ('work_position' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'JOIN university ON university.id = work_position.university_id',
+				'LEFT JOIN university ON university.id = work_position.university_id',
 			].join(' ');
 		} else if ('activity' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'JOIN activity_type ON activity.activity_type_id = activity_type.id',
+				'LEFT JOIN activity_type ON activity.activity_type_id = activity_type.id',
 			].join(' ');
 		}
 
