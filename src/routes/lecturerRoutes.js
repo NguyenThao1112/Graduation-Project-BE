@@ -16,8 +16,12 @@ router.get(
 	lecturerControllers.getLecturersWithPagination
 );
 
+<<<<<<< Updated upstream
+=======
 //get one lecturer base on its id
+router.get(urls.LECTURER_GET_ONE_LECTURER, lecturerControllers.getOneLecturer);
 
+>>>>>>> Stashed changes
 //create lecturers
 router.post(urls.LECTURER_CREATE_URL, lecturerControllers.createLecturers);
 

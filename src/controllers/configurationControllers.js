@@ -1,3 +1,4 @@
+// @ts-nocheck
 const configurationService = require('../services/configurationServices');
 const messageConstants = require('../constants/messageConstants');
 const queryConstants = require('../constants/messageQueryConstants');

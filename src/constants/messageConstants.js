@@ -64,6 +64,8 @@ module.exports = Object.freeze({
 
 	//Get all lecturers API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
+	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
+	LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE: 'Get one lecturer successfully!',
 	LECTURER_GET_ALL_INVALID_MESSAGE: 'Get lecturers failed',
 	LECTURER_GET_ALL_SUCCESS_MESSAGE:
 		'Fetch the lecturer from database successfully',
