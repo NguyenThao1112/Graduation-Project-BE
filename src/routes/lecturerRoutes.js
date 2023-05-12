@@ -16,6 +16,8 @@ router.get(
 	lecturerControllers.getLecturersWithPagination
 );
 
+//get one lecturer base on its id
+
 //create lecturers
 router.post(urls.LECTURER_CREATE_URL, lecturerControllers.createLecturers);
 
