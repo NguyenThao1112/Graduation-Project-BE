@@ -3,7 +3,7 @@ const configConstants = require('../constants/configConstants');
 const moment = require('moment');
 
 /**
- *
+ * get account corresponding to email address
  * @param {string} email
  * @return {Promise}
  */
@@ -22,8 +22,7 @@ function getAccountByEmail(email) {
 				reject(error);
 				return;
 			}
-			account = results;
-			resolve(account);
+			resolve(results);
 		});
 	});
 }

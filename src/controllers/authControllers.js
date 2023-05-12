@@ -1,3 +1,4 @@
+// @ts-nocheck
 const authService = require('../services/authServices');
 const authConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
@@ -25,26 +26,22 @@ function login(request, response) {
 				authService
 					.updateAccountTokenByEmail(email, token)
 					.then((account) => {
-						console.log(
-							'🚀 ~ file: authControllers.js:28 ~ .then ~ account:',
-							account
-						);
-
 						if (account) {
 							responseJson.code = authConstants.SUCCESSFUL_CODE;
 							responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
 							responseJson.token = account.token;
 							responseJson.expire = account.expire;
+							responseJson.accountId = account.id;
 						}
 						response.json(responseJson);
 					})
 					.catch((err) => {
-						reject(err);
+						response.json(responseJson);
 					});
 				//If authenticated success => change the response's data
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch((err) => {
+				response.json(responseJson);
 			});
 	});
 }

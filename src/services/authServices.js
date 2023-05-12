@@ -43,9 +43,10 @@ function authenticate(email, password) {
 							expiresIn: configConstants.JWT_EXPIRE,
 						});
 					}
+					resolve(jwt);
+				} else {
+					reject('Account not found');
 				}
-
-				resolve(jwt);
 			})
 			.catch((error) => {
 				reject(error);
