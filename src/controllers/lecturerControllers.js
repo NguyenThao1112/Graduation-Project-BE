@@ -5,83 +5,49 @@ const updateLecturerService = require('../services/lecturerServices/updateLectur
 
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
-// /**
-//  *
-//  * @param {Express.Request} request
-//  * @param {Express.Response} response
-//  * @returns {Promise}
-//  */
-// function getAllLecturersWithBasicInformation(request, response) {
-// 	return new Promise((resolve, reject) => {
-// 		let responseJson = {
-// 			code: messageConstants.LECTURER_GET_ALL_INVALID_CODE,
-// 			message: messageConstants.LECTURER_GET_ALL_INVALID_MESSAGE,
-// 		};
 
-// 		createLecturerServices
-// 			.getAllLecturersWithBasicInformation()
-// 			.then((lectures) => {
-// 				if (lectures) {
-// 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-// 					responseJson.message =
-// 						messageConstants.LECTURER_GET_ALL_SUCCESS_MESSAGE;
-// 					responseJson.data = JSON.stringify(lectures);
-// 				}
-// 			})
-// 			.catch((error) => {
-// 				console.log(error);
-// 			})
-// 			.finally(() => {
-// 				response?.json(responseJson);
-// 			});
-// 	});
-// }
+/**
+ * get one lecturer
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getOneLecturer(request, response) {
+	return new Promise((resolve, reject) => {
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
 
-// /**
-//  *
-//  * @param {Express.Request} request
-//  * @param {Express.Response} response
-//  * @returns {Promise}
-//  */
-// function getAllLecturersWithPagination(request, response) {
-// 	return new Promise((resolve, reject) => {
-// 		//Check if the request is valid
-// 		const hasError = validatorHelper.verifyValidations(request, response);
-// 		if (hasError) {
-// 			return;
-// 		}
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE,
+		};
 
-// 		//Default response is error response
-// 		let responseJson = {
-// 			code: messageConstants.LECTURER_GET_ALL_PAGINATION_INVALID_CODE,
-// 			message: messageConstants.LECTURER_GET_ALL_PAGINATION_INVALID_MESSAGE,
-// 		};
+		const id = request.params.id;
+		if (!id) {
+			response.json(responseJson);
+		}
 
-// 		const [pageOffset, limitSize] = commonHelper.normalizePaginationParam(
-// 			request.query.pageOffset,
-// 			request.query.limitSize
-// 		);
+		searchLecturerServices
+			.getOneLecturer(id)
+			.then((lecturerInformation) => {
+				if (lecturerInformation) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE;
+					responseJson.data = lecturerInformation;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
 
-// 		//Try to get all the lectures from the database
-// 		lecturerServices
-// 			.getAllLecturersWithPagination(pageOffset, limitSize)
-// 			.then((lectures) => {
-// 				//If there is a not-null lectures => change the response's data
-// 				if (lectures) {
-// 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-// 					responseJson.message =
-// 						messageConstants.LECTURER_GET_ALL_PAGINATION_SUCCESS_MESSAGE;
-// 					responseJson.data = JSON.stringify(lectures);
-// 				}
-// 			})
-// 			.catch((error) => {
-// 				console.log(error);
-// 			})
-// 			.finally(() => {
-// 				response.json(responseJson);
-// 			});
-// 	});
-// }
 /**
  * Create multiple lecturers at the same time
  * @param {Express.Request} request
@@ -265,6 +231,7 @@ function deleteLecturers(request, response) {
 }
 
 module.exports = {
+	getOneLecturer,
 	createLecturers,
 	getLecturersWithPagination,
 	updateLecturer,

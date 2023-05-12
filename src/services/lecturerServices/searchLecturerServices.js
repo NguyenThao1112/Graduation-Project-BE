@@ -117,6 +117,27 @@ function getLecturersWithPagination(pageOffset, limitSize, defaultOptions) {
 	});
 }
 
+/**
+ * Get One Lecturer with id
+ *
+ * @param {number} id
+ * @return {Promise}
+ *
+ */
+function getOneLecturer(id) {
+	return new Promise((resolve, reject) => {
+		searchLecturerDAO
+			.getOneLecturer(id)
+			.then((lecturerInfo) => {
+				resolve(lecturerInfo);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
+
 module.exports = {
 	getLecturersWithPagination,
+	getOneLecturer,
 };

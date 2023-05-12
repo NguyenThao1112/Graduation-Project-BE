@@ -181,7 +181,41 @@ function getBaseLecturers(option = null) {
 	});
 }
 
+/**
+ *  Query search Base Article
+ * @param {number} id
+ * @return {Promise}
+ */
+function getOneLecturer(id) {
+	return new Promise((resolve, reject) => {
+		let query = [
+			'SELECT',
+			'a.id as id,',
+			'a.name as name,',
+			'a.gender as gender,',
+			'a.avatar as avatar,',
+			'a.date_of_birth as dateOfBirth, ',
+			'a.bio as bio,',
+			'a.academic_rank_id as academicRankId, ',
+			'a.academic_rank_gain_year as academicRankGainYear,',
+			'a.academic_title_id as academicTitleId,',
+			'a.academic_title_gain_year as academicTitleGainYear',
+			'FROM lecturer_information as a',
+			'WHERE a.is_deleted = false and a.id = ?',
+		].join(' ');
+
+		connection.query(query, id, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(results);
+		});
+	});
+}
+
 module.exports = {
 	getDataOfSubtableJoningWithLecturerInformationByLecturerId,
 	getBaseLecturers,
+	getOneLecturer,
 };
