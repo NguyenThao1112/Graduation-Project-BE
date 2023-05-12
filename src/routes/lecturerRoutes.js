@@ -24,6 +24,6 @@ router.post(urls.LECTURER_CREATE_URL, lecturerControllers.createLecturers);
 
 router.put(urls.LECTURER_UPDATE_URL, lecturerControllers.updateLecturer);
 
-// router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
+router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
 
 module.exports = router;

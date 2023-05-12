@@ -2,6 +2,7 @@
 const createLecturerServices = require('../services/lecturerServices/createlecturerServices');
 const searchLecturerServices = require('../services/lecturerServices/searchLecturerServices');
 const updateLecturerService = require('../services/lecturerServices/updateLecturerServices');
+const deleteLecturerService = require('../services/lecturerServices/deleteLecturerServices');
 
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
@@ -191,7 +192,7 @@ function updateLecturer(request, response) {
 }
 
 /**
- * Delete multiple contact types at the same time
+ * Delete multiple lecturers
  * @param {Express.Request} request
  * @param {Express.Response} response
  * @returns {Promise}
@@ -211,15 +212,11 @@ function deleteLecturers(request, response) {
 		const { data } = request.body;
 		const ids = data.map((data) => data.id);
 
-		lecturerServices
+		deleteLecturerService
 			.deleteLecturers(ids)
-			.then((deleteCount) => {
-				const originalSize = data.length;
-
-				if (deleteCount === originalSize) {
-					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-					responseJson.message = LECTURER_DELETE_SUCCESS_MESSAGE;
-				}
+			.then(() => {
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message = messageConstants.LECTURER_DELETE_SUCCESS_MESSAGE;
 			})
 			.catch((error) => {
 				console.log(error);
@@ -235,5 +232,5 @@ module.exports = {
 	createLecturers,
 	getLecturersWithPagination,
 	updateLecturer,
-	// deleteLecturers,
+	deleteLecturers,
 };

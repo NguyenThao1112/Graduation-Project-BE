@@ -56,8 +56,6 @@ function getAccountByToken(token) {
 /**
  *
  * @param {Object} account
- * @param {string} account.email
- * @param {string} account.password
  * @return {Promise}
  */
 function createAccount(account) {
