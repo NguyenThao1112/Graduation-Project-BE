@@ -33,14 +33,17 @@ function login(request, response) {
 							responseJson.expire = account.expire;
 							responseJson.accountId = account.id;
 						}
+						resolve(account);
 					})
-					.catch(() => {});
+					.catch((err) => {
+						reject(err);
+					})
+					.finally(() => {
+						response.json(responseJson);
+					});
 				//If authenticated success => change the response's data
 			})
-			.catch(() => {})
-			.finally(() => {
-				response.json(responseJson);
-			});
+			.catch(() => {});
 	});
 }
 
