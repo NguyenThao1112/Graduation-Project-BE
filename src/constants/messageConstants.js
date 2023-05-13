@@ -183,4 +183,9 @@ module.exports = Object.freeze({
 	ARTICLE_UPDATE_SUCCESS_MESSAGE: 'Update article successfully',
 	ARTICLE_DELETE_SUCCESS_MESSAGE: 'Delete article(s) successfully',
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
+
+	//Scopus APIs
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE: "Not found any scopus author with the given first name and last name",
+
 });
