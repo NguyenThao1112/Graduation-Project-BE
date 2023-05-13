@@ -78,6 +78,7 @@ module.exports = Object.freeze({
 	ARTICLE_CREATE: `/create`,
 	ARTICLE_UPDATE: `/:id/update`,
 	ARTICLE_DELETE: `/delete`,
+	ARTICLE_PAGE_SIZE: `/page-size`,
 
 	// Report API
 	REPORT_PREFIX_API_URL: `/report`,

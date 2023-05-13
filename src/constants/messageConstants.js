@@ -185,4 +185,5 @@ module.exports = Object.freeze({
 	ARTICLE_UPDATE_SUCCESS_MESSAGE: 'Update article successfully',
 	ARTICLE_DELETE_SUCCESS_MESSAGE: 'Delete article(s) successfully',
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
+	ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
 });

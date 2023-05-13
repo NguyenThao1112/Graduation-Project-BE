@@ -1,4 +1,5 @@
 const connection = require('../../configs/database');
+const queryHelper = require('../../helpers/queryHelper');
 
 /**
  *  Query to get data of the table, which is join the Article table, by Article's id
@@ -215,7 +216,14 @@ function getBaseArticles(option = null) {
 //     })
 // }
 
+/**
+ * Query to count the number of available article
+ * @return {Promise<Number>}
+ */
+const getArticleCount = queryHelper.buildPagingCountDao("article", "name");
+
 module.exports = {
     getDataOfSubtableJoningWithArticleByArticleId,
     getBaseArticles,
+    getArticleCount,
 };
