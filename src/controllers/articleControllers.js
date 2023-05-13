@@ -242,10 +242,56 @@ function getArticlesByLecturerIds(request, response) {
     
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getArticlePagingSize(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        const limitSize = parseInt(request.query.limitSize);
+        const keyword = request.query.keyword ?? null;
+
+        //Try to get the number of page with paging size
+        searchArticleService.getArticlePagingSize(limitSize, keyword)
+            .then((pagingSize) => {
+
+                //If there is a not-null data => change the response's data
+                if (-1 !== pagingSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE;
+                    responseJson.data = pagingSize;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+    })
+}
+
 module.exports = {
     getArticlesWithPagination,
     getArticlesByLecturerIds,
     createArticle,
     updateArticle,
     deleteArticles,
+    getArticlePagingSize,
 }

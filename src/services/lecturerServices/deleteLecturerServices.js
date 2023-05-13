@@ -1,4 +1,4 @@
-const searchLecturerDAO = require('../../daos/lecturerDAOs/searchLecturerDAO');
+const searchLecturerDAO = require('../../daos/lecturerDAOS/searchLecturerDAO.js');
 const deleteServiceDAO = require('../../daos/deleteServiceDAO');
 /**
  * Delete the table's data, which join with the lecturer table

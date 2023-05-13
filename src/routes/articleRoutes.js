@@ -41,4 +41,10 @@ router.delete(
     articleController.deleteArticles
 );
 
+router.get(
+    `${urls.ARTICLE_PAGE_SIZE}`, 
+    commonValidators.getPageSizeValidator(),
+    articleController.getArticlePagingSize
+);
+
 module.exports = router;
