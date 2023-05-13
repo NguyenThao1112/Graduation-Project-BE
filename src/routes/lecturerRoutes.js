@@ -26,4 +26,12 @@ router.put(urls.LECTURER_UPDATE_URL, lecturerControllers.updateLecturer);
 
 router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
 
+//Get the page count, while on pagination process
+router.get(
+    `${urls.LECTURER_PAGE_SIZE}`, 
+    commonValidators.getPageSizeValidator(),
+    lecturerControllers.getLecturerPagingSize
+);
+
+
 module.exports = router;

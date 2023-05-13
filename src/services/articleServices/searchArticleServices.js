@@ -103,6 +103,7 @@ const articleHelper = require("../../helpers/articleHelper");
  * Get paging size, after pagination process
  * 
  * @param {int} limitSize maximum number of record in a page
+ * @param {string} keyword the keyword to search
  * @return {Promise<int>}
  *  
  */

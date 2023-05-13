@@ -8,6 +8,7 @@ const uploadFileMiddlewares = require('../middlewares/uploadFileMiddlewares');
 const configConstants = require('../constants/configConstants');
 const commonValidators = require('../validators/commonValidators');
 
+
 router.get(
     `${urls.ARTICLE_GET_WITH_PAGINATION}`, 
     commonValidators.getPaginationValidators(),
@@ -41,10 +42,9 @@ router.delete(
 );
 
 router.get(
-    `${urls.ARTICLE_PAGE_SIZE}`,
+    `${urls.ARTICLE_PAGE_SIZE}`, 
     commonValidators.getPageSizeValidator(),
-    articleController.getArticlePagingSize,
+    articleController.getArticlePagingSize
 );
-
 
 module.exports = router;

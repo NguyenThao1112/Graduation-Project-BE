@@ -1,5 +1,6 @@
 // @ts-nocheck
 const connection = require('../../configs/database');
+const queryHelper= require('../../helpers/queryHelper');
 const _ = require('lodash');
 
 //article_url
@@ -214,8 +215,15 @@ function getOneLecturer(id) {
 	});
 }
 
+/**
+ * Query to count the number of available lecturer
+ * @return {Promise<Number>}
+ */
+ const getLecturerCount = queryHelper.buildPagingCountDao("lecturer_information", "name");
+
 module.exports = {
 	getDataOfSubtableJoningWithLecturerInformationByLecturerId,
 	getBaseLecturers,
 	getOneLecturer,
+	getLecturerCount,
 };

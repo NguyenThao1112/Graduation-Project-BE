@@ -75,6 +75,8 @@ module.exports = Object.freeze({
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
+	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
+	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: "Get paging count failed",
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
