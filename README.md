@@ -2369,6 +2369,39 @@ DELETE /api/v1/lecturers/delete
 }
 ```
 
+
+### Get lecturer page size, while paging
+
+#### Request
+
+```http
+GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
+```
+
+| Param      | Datatype               | Note                                                          |
+| ---------- | ---------------------- | --------------------------------------------------------------|
+| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
+| keyword    | string                 | not require, the keyword to search the Lecturer with their id |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 0
+    }
+}
+```
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get paging count failed"
+}
+```
+
 ## Article API
 
 ### Get Article with pagination with/without Article Name's keyword
@@ -3142,11 +3175,34 @@ Content-Type: application/pdf
 }
 ```
 
-#### Error response
+### Get article page size, while paging
+
+#### Request
+
+```http
+GET /api/v1/articles/page-size?limitSize=10&keyword=test
+```
+
+| Param      | Datatype               | Note                                                          |
+| ---------- | ---------------------- | --------------------------------------------------------------|
+| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
+| keyword    | string                 | not require, the keyword to search the Articles with their id |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 4
+    }
+}
+```
+##### Error response
 
 ```javascript
 {
     "code": 1,
-    "message": "Something went wrong from the backend",
+    "message": "Something went wrong from the backend"
 }
 ```
