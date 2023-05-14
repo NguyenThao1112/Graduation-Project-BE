@@ -3208,6 +3208,143 @@ GET /api/v1/articles/page-size?limitSize=10&keyword=test
 ```
 
 
+### Get article by id
+
+#### Request
+
+```http
+GET /api/v1/articles/detail/:id
+```
+
+| Param      | Datatype               | Note                                                |
+| ---------- | ---------------------- | ----------------------------------------------------|
+| id         | integer greater than 0 | required, the id of the given article               |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get article by id successfully",
+    "data": {
+        "id": 3,
+        "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+        "journal": "ACM Transactions on Computing Education",
+        "year": 2020,
+        "page_from": 8,
+        "page_to": 10,
+        "volume": 20,
+        "issue": 2,
+        "city": null,
+        "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+        "url_date_accces": "2023-02-27T17:00:00.000Z",
+        "ArXivID": "test",
+        "DOI": "10.1145/3383456",
+        "ISBN": "testISBN",
+        "ISSN": "10.1145/3383456",
+        "PMID": "testPMID",
+        "Scopus": "2-s2.0-85085248397",
+        "PII": "testPII",
+        "SGR": "85085248397",
+        "project_id": "testProjectId",
+        "citation_key": "testCitationKey",
+        "general_note": "This is the general note for testing",
+        "urls": [
+            {
+                "id": 7,
+                "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+            },
+            {
+                "id": 8,
+                "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+            },
+            {
+                "id": 9,
+                "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+            }
+        ],
+        "notes": [
+            {
+                "id": 7,
+                "note": "Sample note test 0"
+            },
+            {
+                "id": 8,
+                "note": "Sample note test 1"
+            },
+            {
+                "id": 9,
+                "note": "Sample note test 2"
+            }
+        ],
+        "tags": [
+            {
+                "id": 9,
+                "tag_id": 5,
+                "name": "test tag 0"
+            },
+            {
+                "id": 10,
+                "tag_id": 6,
+                "name": "test tag 1"
+            },
+            {
+                "id": 11,
+                "tag_id": 4,
+                "name": "test tag 1"
+            },
+            {
+                "id": 12,
+                "tag_id": 5,
+                "name": "test tag 0"
+            }
+        ],
+        "authors": [
+            {
+                "id": 11,
+                "lecturer_id": 1,
+                "lecturer_name": null
+            },
+            {
+                "id": 12,
+                "firstName": "first0",
+                "lastName": "last0"
+            },
+            {
+                "id": 13,
+                "firstName": "first1",
+                "lastName": "last1"
+            },
+            {
+                "id": 14,
+                "firstName": "first2",
+                "lastName": "last2"
+            },
+            {
+                "id": 15,
+                "lecturer_id": 2,
+                "lecturer_name": null
+            }
+        ]
+    }
+}
+```
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend"
+}
+```
+
+```javascript
+{
+    "code": 5,
+    "message": "There is no article with the given id"
+}
+```
+
+
 ## Scopus API
 
 ### Retrieve Scopus Author by first name and last name

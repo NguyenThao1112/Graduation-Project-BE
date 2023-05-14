@@ -1,4 +1,4 @@
-const { query } = require('express-validator');
+const { query, param } = require('express-validator');
 const messageConstants = require('../constants/messageConstants');
 const urlConstants = require('../constants/urlConstants');
 
@@ -24,7 +24,18 @@ function getPageSizeValidator() {
 	]
 }
 
+function getIdValidator() {
+	return [
+		param(urlConstants.ID_PATH_VARIABLE)
+			.isInt({min: 1})
+			.withMessage(
+				`'${urlConstants.ID_PATH_VARIABLE}' ${messageConstants.VAL_IS_NOT_POSTITIVE_INTEGER_GREATER_THAN_0}`
+			),
+	]
+}
+
 module.exports = {
 	getPaginationValidators,
 	getPageSizeValidator,
+	getIdValidator,
 };

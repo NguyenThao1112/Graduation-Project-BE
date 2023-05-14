@@ -287,6 +287,49 @@ function getArticlePagingSize(request, response) {
     })
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getArticleById(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        //Get the "id" path variable
+        const articleId = parseInt(request.params.id)
+        const articleIds = [articleId]
+
+        searchArticleService.getArticleByIds(articleIds).then((articles) => {
+                if (articles.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_DETAIL_SUCCESS_MESSAGE;
+                    responseJson.data = articles[0]
+                } else if (0 === articles.length) {
+                    responseJson.code = messageConstants.ARTICLE_NOT_FOUND_CODE;
+                    responseJson.message = messageConstants.ARTICLE_NOT_FOUND_MESSAGE;
+                }
+
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+}
+
 module.exports = {
     getArticlesWithPagination,
     getArticlesByLecturerIds,
@@ -294,4 +337,5 @@ module.exports = {
     updateArticle,
     deleteArticles,
     getArticlePagingSize,
+    getArticleById,
 }

@@ -182,12 +182,15 @@ module.exports = Object.freeze({
 	ARTICLE_SAVED_OVERLIMIT_FILE_SIZE_CODE: 2,
 	ARTICLE_SAVED_INVALID_EXTENSIONS_FILE: 3,
 	ARTICLE_UPDATED_NOT_EXISTS_CODE: 4,
+	ARTICLE_NOT_FOUND_CODE: 5,
 	ARTICLE_INVALID_MESSAGE: 'Something went wrong from the backend',
 	ARTICLE_CREATE_SUCCESS_MESSAGE: 'Save article successfully',
 	ARTICLE_UPDATE_SUCCESS_MESSAGE: 'Update article successfully',
 	ARTICLE_DELETE_SUCCESS_MESSAGE: 'Delete article(s) successfully',
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
 	ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
+	ARTICLE_GET_DETAIL_SUCCESS_MESSAGE: "Get article by id successfully",
+	ARTICLE_NOT_FOUND_MESSAGE: "There is no article with the given id",
 
 	//Scopus APIs
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,

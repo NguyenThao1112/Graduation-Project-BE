@@ -10,6 +10,9 @@ module.exports = Object.freeze({
 	//Universal param
 	PAGINATION_PAGE_OFFSET_PARAM: 'pageOffset',
 	PAGINATION_LIMIT_SIZE_PARAM: 'limitSize',
+	
+	//Universal path variable
+	ID_PATH_VARIABLE: "id",
 
 	//All auth api (${API_URL}`) would be `${ROOT_API_URL}${AUTH_PREFIX_API_URL}${API_URL}`
 	AUTH_PREFIX_API_URL: `/auth`,
@@ -24,7 +27,7 @@ module.exports = Object.freeze({
 
 	//All lecturer api (${API_URL}`) would be `${ROOT_API_URL}${LECTURER_PREFIX_API_URL}${API_URL}`
 	LECTURER_PREFIX_API_URL: `/lecturers`,
-	LECTURER_GET_ONE_LECTURER: `/index/:id`,
+	LECTURER_GET_ONE_LECTURER: `/detail/:id`,
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
 	LECTURER_CREATE_URL: '/create',
@@ -74,6 +77,7 @@ module.exports = Object.freeze({
 	//Resources url for article API
 	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_PATH}/article/`,
 	ARTICLE_PREFIX_API_URL: `/articles`,
+	ARTICLE_GET_ONE_ARTICLE: `/detail/:id`,
 	ARTICLE_GET_WITH_PAGINATION: `/fetch`,
 	ARTICLE_GET_ALL_WITH_LECTURER_ID: `/fetch-all/`,
 	ARTICLE_CREATE: `/create`,
