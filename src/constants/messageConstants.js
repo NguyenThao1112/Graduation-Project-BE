@@ -188,4 +188,11 @@ module.exports = Object.freeze({
 	ARTICLE_DELETE_SUCCESS_MESSAGE: 'Delete article(s) successfully',
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
 	ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
+
+	//Scopus APIs
+	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE: "Something went wrong from the backend",
+	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE: 	"Retrieve author from scopus successfully",
+
 });

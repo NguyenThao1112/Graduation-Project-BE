@@ -3206,3 +3206,47 @@ GET /api/v1/articles/page-size?limitSize=10&keyword=test
     "message": "Something went wrong from the backend"
 }
 ```
+
+
+## Scopus API
+
+### Retrieve Scopus Author by first name and last name
+
+#### Request
+
+```http
+GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
+```
+
+| Param      | Datatype | Note     |
+| ---------- | ---------| -------- |
+| firstName  | string   | required |
+| lastName   | string   | required |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Retrieve author from scopus successfully",
+    "data": [
+        {
+            "surname": "Tran",
+            "givenName": "Hoang Quan",
+            "scopusId": "987654321"
+        },
+        {
+            "surname": "Tran",
+            "givenName": "Trung Quan",
+            "scopusId": "123456789"
+        }
+    ]
+}
+```
+
+#### Error response
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```

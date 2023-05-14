@@ -103,4 +103,9 @@ module.exports = Object.freeze({
 	CONFIG_UNIVERSITY_CREATE: `/create`,
 	CONFIG_UNIVERSITY_UPDATE: `/:id/update`,
 	CONFIG_UNIVERSITY_DELETE: `/delete`,
-});
+
+	//Scopus API
+	SCOPUS_PREFIX_API_URL: "/scopus",
+	SCOPUS_GET_AUTHORS_BY_NAME_URL: '/author',
+	SCOPUS_GET_DETAIL_AUTHOR_URL: '/author/:scopus_id/',
+})

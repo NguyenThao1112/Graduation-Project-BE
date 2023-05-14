@@ -16,6 +16,7 @@ const lecturerRoutes = require('./src/routes/lecturerRoutes');
 const configurationRoutes = require('./src/routes/configurationRoutes');
 const articleRoutes = require('./src/routes/articleRoutes');
 const reportRoutes = require('./src/routes/reportRoutes');
+const scopusRoutes = require('./src/routes/scopusRoutes');
 
 const rootUrl = urls.ROOT_API_URL;
 
@@ -55,7 +56,7 @@ app.use(`${rootUrl}${urls.LECTURER_PREFIX_API_URL}`, lecturerRoutes);
 app.use(`${rootUrl}${urls.CONFIG_PREFIX_API_URL}`, configurationRoutes);
 app.use(`${rootUrl}${urls.ARTICLE_PREFIX_API_URL}`, articleRoutes);
 app.use(`${rootUrl}${urls.REPORT_PREFIX_API_URL}`, reportRoutes);
-
+app.use(`${rootUrl}${urls.SCOPUS_PREFIX_API_URL}`, scopusRoutes);
 app.all('*', (req, res) => {
 	res.status(404);
 	if (req.accepts('html')) {
