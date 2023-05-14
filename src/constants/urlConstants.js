@@ -24,11 +24,13 @@ module.exports = Object.freeze({
 
 	//All lecturer api (${API_URL}`) would be `${ROOT_API_URL}${LECTURER_PREFIX_API_URL}${API_URL}`
 	LECTURER_PREFIX_API_URL: `/lecturers`,
+	LECTURER_GET_ONE_LECTURER: `/index/:id`,
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
 	LECTURER_CREATE_URL: '/create',
-	LECTURER_UPDATE_URL: '/update/:id',
+	LECTURER_UPDATE_URL: '/:id/update',
 	LECTURER_DELETE_URL: '/delete',
+	LECTURER_PAGE_SIZE: '/page-size',
 
 	//Resources url for lectureRr API
 	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,
@@ -44,40 +46,41 @@ module.exports = Object.freeze({
 	CONFIG_CONTACT_TYPE_UPDATE: `/:id/update`,
 	CONFIG_CONTACT_TYPE_DELETE: `/delete`,
 
-    //Academic ranks API
-    CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,  
-    CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
-    CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
-    CONFIG_ACADEMIC_RANK_CREATE: `/create`,
-    CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
-    CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
+	//Academic ranks API
+	CONFIG_ACADEMIC_RANK_API_URL: `/academic-rank`,
+	CONFIG_ACADEMIC_RANK_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_ACADEMIC_RANK_GET_ALL: `/fetch-all`,
+	CONFIG_ACADEMIC_RANK_CREATE: `/create`,
+	CONFIG_ACADEMIC_RANK_UPDATE: `/:id/update`,
+	CONFIG_ACADEMIC_RANK_DELETE: `/delete`,
 
-    //Academic titles API
-    CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,  
-    CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
-    CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
-    CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
-    CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
-    CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
+	//Academic titles API
+	CONFIG_ACADEMIC_TITLE_API_URL: `/academic-title`,
+	CONFIG_ACADEMIC_TITLE_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_ACADEMIC_TITLE_GET_ALL: `/fetch-all`,
+	CONFIG_ACADEMIC_TITLE_CREATE: `/create`,
+	CONFIG_ACADEMIC_TITLE_UPDATE: `/:id/update`,
+	CONFIG_ACADEMIC_TITLE_DELETE: `/delete`,
 
-    //Tags API
-    CONFIG_TAG_API_URL: `/tag`,  
-    CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
-    CONFIG_TAG_GET_ALL: `/fetch-all`,
-    CONFIG_TAG_CREATE: `/create`,
-    CONFIG_TAG_UPDATE: `/:id/update`,
-    CONFIG_TAG_DELETE: `/delete`,
+	//Tags API
+	CONFIG_TAG_API_URL: `/tag`,
+	CONFIG_TAG_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_TAG_GET_ALL: `/fetch-all`,
+	CONFIG_TAG_CREATE: `/create`,
+	CONFIG_TAG_UPDATE: `/:id/update`,
+	CONFIG_TAG_DELETE: `/delete`,
 
-    //Article API
-    //Resources url for article API
+	//Article API
+	//Resources url for article API
 	ARTICLE_RESOURCE_ARTICLE_FILE: `${process.env.RESOURCE_PATH}/article/`,
-    ARTICLE_PREFIX_API_URL: `/articles`,
-        ARTICLE_GET_WITH_PAGINATION: `/fetch`,            
-        ARTICLE_GET_ALL_WITH_LECTURER_ID: `/fetch-all/`,
-        ARTICLE_CREATE: `/create`,
-        ARTICLE_UPDATE: `/:id/update`,
-        ARTICLE_DELETE: `/delete`,
-    
+	ARTICLE_PREFIX_API_URL: `/articles`,
+	ARTICLE_GET_WITH_PAGINATION: `/fetch`,
+	ARTICLE_GET_ALL_WITH_LECTURER_ID: `/fetch-all/`,
+	ARTICLE_CREATE: `/create`,
+	ARTICLE_UPDATE: `/:id/update`,
+	ARTICLE_DELETE: `/delete`,
+	ARTICLE_PAGE_SIZE: `/page-size`,
+
 	// Report API
 	REPORT_PREFIX_API_URL: `/report`,
 	REPORT_SCOPUS_GET_ALL: `/scopus`,
@@ -86,7 +89,7 @@ module.exports = Object.freeze({
 	//Report types AP
 
 	//Activity type API
-	CONFIG_ACTIVITY_TYPE_API_URL: `/activity-type`,  
+	CONFIG_ACTIVITY_TYPE_API_URL: `/activity-type`,
 	CONFIG_ACTIVITY_TYPE_GET_WITH_PAGINATION: `/fetch`,
 	CONFIG_ACTIVITY_TYPE_GET_ALL: `/fetch-all`,
 	CONFIG_ACTIVITY_TYPE_CREATE: `/create`,
@@ -94,7 +97,7 @@ module.exports = Object.freeze({
 	CONFIG_ACTIVITY_TYPE_DELETE: `/delete`,
 
 	//University API
-	CONFIG_UNIVERSITY_API_URL: `/university`,  
+	CONFIG_UNIVERSITY_API_URL: `/university`,
 	CONFIG_UNIVERSITY_GET_WITH_PAGINATION: `/fetch`,
 	CONFIG_UNIVERSITY_GET_ALL: `/fetch-all`,
 	CONFIG_UNIVERSITY_CREATE: `/create`,
@@ -106,4 +109,3 @@ module.exports = Object.freeze({
 	SCOPUS_GET_AUTHORS_BY_NAME_URL: '/author',
 	SCOPUS_GET_DETAIL_AUTHOR_URL: '/author/:scopus_id/',
 })
-

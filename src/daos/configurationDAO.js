@@ -154,6 +154,9 @@ function deleteContactTypes(ids) {
  */
 function createContactTypes(contactTypes) {
 	return new Promise(function (resolve, reject) {
+		if (!contactTypes.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO contact_type (name, created_at, updated_at, is_deleted)`,
 			'VALUES ?',
@@ -528,6 +531,9 @@ function deleteAcademicTitles(ids) {
  */
 function createAcademicTitles(academicTitles) {
 	return new Promise(function (resolve, reject) {
+		if (!academicTitles.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO academic_title (name, created_at, updated_at, is_deleted)`,
 			'VALUES ?',
