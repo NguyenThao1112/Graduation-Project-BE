@@ -185,7 +185,10 @@ module.exports = Object.freeze({
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
 
 	//Scopus APIs
+	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
-	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE: "Not found any scopus author with the given first name and last name",
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE: "Something went wrong from the backend",
+	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE: 	"Retrieve author from scopus successfully",
+
 
 });
