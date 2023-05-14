@@ -1,6 +1,8 @@
 const { getCurrentTimeFormat } = require('../../helpers/timeHelper');
 const connection = require('../../configs/database');
 const moment = require('moment');
+const _ = require('lodash');
+const { currentDiscipline } = require('../../constants/tableQueryConstants');
 
 /**
  *
@@ -9,6 +11,9 @@ const moment = require('moment');
  */
 function createPhdThesises(phdThesises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(phdThesises) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO phd_thesis (`,
 			`lecturer_id,`,
@@ -58,6 +63,9 @@ function createPhdThesises(phdThesises, lecturer) {
 
 function createBookAuthors(bookAuthors, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(bookAuthors) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO book_author(`,
 			`lecturer_id,`,
@@ -100,6 +108,9 @@ function createBookAuthors(bookAuthors, lecturer) {
 
 function createContacts(contacts, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(contacts) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO contact(`,
 			`lecturer_id,`,
@@ -143,6 +154,9 @@ function createContacts(contacts, lecturer) {
 
 function createProjects(project, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(project) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO project (`,
 			`lecturer_id,`,
@@ -209,6 +223,9 @@ function createProjects(project, lecturer) {
 
 function createCurrentDisciplines(currentDisciplines, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(currentDisciplines) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO current_discipline(`,
 			`lecturer_id,`,
@@ -250,6 +267,9 @@ function createCurrentDisciplines(currentDisciplines, lecturer) {
 
 function createExpertises(expertises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (_.size(expertises) == 0) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO expertise(`,
 			`lecturer_id,`,
@@ -336,6 +356,9 @@ function createResearchFields(researchFields, lecturer) {
 
 function createDegrees(degrees, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!degrees.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO degree (`,
 			`lecturer_id,`,
@@ -385,6 +408,9 @@ function createDegrees(degrees, lecturer) {
 
 function createWorkPositions(workPositions, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!workPositions.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO work_position(`,
 			`lecturer_id,`,
@@ -436,6 +462,9 @@ function createWorkPositions(workPositions, lecturer) {
 
 function createActivities(activities, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!activities.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO activity(`,
 			`lecturer_id,`,
@@ -487,6 +516,9 @@ function createActivities(activities, lecturer) {
 
 function createLecturer(lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!lecturer) {
+			return resolve(null);
+		}
 		const query =
 			'INSERT INTO lecturer_information ( account_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';
 
@@ -521,6 +553,9 @@ function createLecturer(lecturer) {
 
 function createBooks(books) {
 	return new Promise(function (resolve, reject) {
+		if (!books.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO book (name,project_id,publisher_name,public_year,co_authors,pseudonym,created_at, updated_at, is_deleted)`,
 			'VALUES ?',
@@ -562,6 +597,9 @@ function createBooks(books) {
 }
 function createDisciplines(disciplines) {
 	return new Promise(function (resolve, reject) {
+		if (!disciplines.length) {
+			return resolve(null);
+		}
 		const query = `INSERT INTO discipline (name, created_at, updated_at, is_deleted) VALUES ?`;
 
 		const now = getCurrentTimeFormat();
@@ -596,6 +634,9 @@ function createDisciplines(disciplines) {
 
 function createDepartments(departments) {
 	return new Promise(function (resolve, reject) {
+		if (!departments.length) {
+			return resolve(null);
+		}
 		const query = `INSERT INTO department (name, created_at, updated_at, is_deleted) VALUES ?`;
 
 		const now = getCurrentTimeFormat();

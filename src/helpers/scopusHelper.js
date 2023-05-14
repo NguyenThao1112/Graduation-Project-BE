@@ -2,7 +2,6 @@ function parseDataFromGetAuthorFromNameResponse(scopusResponse) {
     
     const entries = scopusResponse["search-results"]["entry"];
     const authorData = [];
-    console.log(scopusResponse, entries);
     entries.forEach(entry => {
         if (
             entry.hasOwnProperty("dc:identifier") && 

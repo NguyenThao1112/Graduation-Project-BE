@@ -1,5 +1,6 @@
 // @ts-nocheck
 const connection = require('../../configs/database');
+const queryHelper= require('../../helpers/queryHelper');
 const _ = require('lodash');
 
 //article_url
@@ -27,12 +28,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 				fromStatement,
 				'LEFT JOIN contact_type ON contact.contact_type_id = contact_type.id',
 			].join(' ');
-		} else if ('current_discipline' === tableName) {
+		} else if ('current_discipline cd' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'LEFT JOIN department ON department.id = current_discipline.department_id',
-				'LEFT JOIN discipline ON discipline.id = current_discipline.discipline_id',
-				'LEFT JOIN university ON university.id = current_discipline.university_id',
+				'LEFT JOIN department ON department.id = cd.department_id',
+				'LEFT JOIN discipline ON discipline.id = cd.discipline_id',
+				'LEFT JOIN university ON university.id = cd.university_id',
 			].join(' ');
 		} else if ('degree' === tableName) {
 			fromStatement = [
@@ -43,12 +44,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 		} else if ('work_position' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'JOIN university ON university.id = work_position.university_id',
+				'LEFT JOIN university ON university.id = work_position.university_id',
 			].join(' ');
 		} else if ('activity' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'JOIN activity_type ON activity.activity_type_id = activity_type.id',
+				'LEFT JOIN activity_type ON activity.activity_type_id = activity_type.id',
 			].join(' ');
 		}
 
@@ -181,7 +182,48 @@ function getBaseLecturers(option = null) {
 	});
 }
 
+/**
+ *  Query search Base Article
+ * @param {number} id
+ * @return {Promise}
+ */
+function getOneLecturer(id) {
+	return new Promise((resolve, reject) => {
+		let query = [
+			'SELECT',
+			'a.id as id,',
+			'a.name as name,',
+			'a.gender as gender,',
+			'a.avatar as avatar,',
+			'a.date_of_birth as dateOfBirth, ',
+			'a.bio as bio,',
+			'a.academic_rank_id as academicRankId, ',
+			'a.academic_rank_gain_year as academicRankGainYear,',
+			'a.academic_title_id as academicTitleId,',
+			'a.academic_title_gain_year as academicTitleGainYear',
+			'FROM lecturer_information as a',
+			'WHERE a.is_deleted = false and a.id = ?',
+		].join(' ');
+
+		connection.query(query, id, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(results);
+		});
+	});
+}
+
+/**
+ * Query to count the number of available lecturer
+ * @return {Promise<Number>}
+ */
+ const getLecturerCount = queryHelper.buildPagingCountDao("lecturer_information", "name");
+
 module.exports = {
 	getDataOfSubtableJoningWithLecturerInformationByLecturerId,
 	getBaseLecturers,
+	getOneLecturer,
+	getLecturerCount,
 };

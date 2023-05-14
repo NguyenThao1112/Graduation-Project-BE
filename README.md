@@ -425,7 +425,7 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -471,7 +471,7 @@ GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch-all
+GET /api/v1/configs/contact-type/fetch-all
 ```
 
 ##### Success response
@@ -508,7 +508,7 @@ GET /api/v1/config/contact-type/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/contact-type/create
+POST /api/v1/configs/contact-type/create
 ```
 
 ```javascript
@@ -548,7 +548,7 @@ POST /api/v1/config/contact-type/create
 ##### Request
 
 ```http
-PUT /api/v1/config/contact-type/:id/update
+PUT /api/v1/configs/contact-type/:id/update
 ```
 
 ```javascript
@@ -588,7 +588,7 @@ PUT /api/v1/config/contact-type/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/contact-type/delete
+DELETE /api/v1/configs/contact-type/delete
 ```
 
 ```javascript
@@ -639,7 +639,7 @@ DELETE /api/v1/config/contact-type/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -685,7 +685,7 @@ GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch-all
+GET /api/v1/configs/academic-rank/fetch-all
 ```
 
 ##### Success response
@@ -722,7 +722,7 @@ GET /api/v1/config/academic-rank/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-rank/create
+POST /api/v1/configs/academic-rank/create
 ```
 
 ```javascript
@@ -762,7 +762,7 @@ POST /api/v1/config/academic-rank/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-rank/:id/update
+PUT /api/v1/configs/academic-rank/:id/update
 ```
 
 ```javascript
@@ -802,7 +802,7 @@ PUT /api/v1/config/academic-rank/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-rank/delete
+DELETE /api/v1/configs/academic-rank/delete
 ```
 
 ```javascript
@@ -853,7 +853,7 @@ DELETE /api/v1/config/academic-rank/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -899,7 +899,7 @@ GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch-all
+GET /api/v1/configs/academic-title/fetch-all
 ```
 
 ##### Success response
@@ -936,7 +936,7 @@ GET /api/v1/config/academic-title/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-title/create
+POST /api/v1/configs/academic-title/create
 ```
 
 ```javascript
@@ -976,7 +976,7 @@ POST /api/v1/config/academic-title/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-title/:id/update
+PUT /api/v1/configs/academic-title/:id/update
 ```
 
 ```javascript
@@ -1016,7 +1016,7 @@ PUT /api/v1/config/academic-title/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-title/delete
+DELETE /api/v1/configs/academic-title/delete
 ```
 
 ```javascript
@@ -1067,7 +1067,7 @@ DELETE /api/v1/config/academic-title/delete
 ##### Request
 
 ```http
-GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/tag/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1113,7 +1113,7 @@ GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/tag/fetch-all
+GET /api/v1/configs/tag/fetch-all
 ```
 
 ##### Success response
@@ -1150,7 +1150,7 @@ GET /api/v1/config/tag/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/tag/create
+POST /api/v1/configs/tag/create
 ```
 
 ```javascript
@@ -1190,7 +1190,7 @@ POST /api/v1/config/tag/create
 ##### Request
 
 ```http
-PUT /api/v1/config/tag/:id/update
+PUT /api/v1/configs/tag/:id/update
 ```
 
 ```javascript
@@ -1230,7 +1230,7 @@ PUT /api/v1/config/tag/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/tag/delete
+DELETE /api/v1/configs/tag/delete
 ```
 
 ````javascript
@@ -1275,7 +1275,7 @@ DELETE /api/v1/config/tag/delete
 ##### Request
 
 ```http
-GET /api/v1/config/activity-type/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/activity-type/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1321,7 +1321,7 @@ GET /api/v1/config/activity-type/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/activity-type/fetch-all
+GET /api/v1/configs/activity-type/fetch-all
 ```
 
 ##### Success response
@@ -1365,11 +1365,11 @@ POST /api/v1/config/activity-type/create
 {
     "data": [
         {
-            "name": "Test 0",
+            "name": "Tham gia viện nghiên cứu",
         },
 
          {
-            "name": "Test 1",
+            "name": "Giảng dạy ở trường Đại học",
         },
     ]
 }
@@ -1398,7 +1398,7 @@ POST /api/v1/config/activity-type/create
 ##### Request
 
 ```http
-PUT /api/v1/config/activity-type/:id/update
+PUT /api/v1/configs/activity-type/:id/update
 ```
 
 ```javascript
@@ -1438,7 +1438,7 @@ PUT /api/v1/config/activity-type/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/activity-type/delete
+DELETE /api/v1/configs/activity-type/delete
 ```
 
 ```javascript
@@ -1489,7 +1489,7 @@ DELETE /api/v1/config/activity-type/delete
 ##### Request
 
 ```http
-GET /api/v1/config/university/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/university/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -1535,7 +1535,7 @@ GET /api/v1/config/university/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/university/fetch-all
+GET /api/v1/configs/university/fetch-all
 ```
 
 ##### Success response
@@ -1572,7 +1572,7 @@ GET /api/v1/config/university/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/university/create
+POST /api/v1/configs/university/create
 ```
 
 ```javascript
@@ -1612,7 +1612,7 @@ POST /api/v1/config/university/create
 ##### Request
 
 ```http
-PUT /api/v1/config/university/:id/update
+PUT /api/v1/configs/university/:id/update
 ```
 
 ```javascript
@@ -1652,7 +1652,7 @@ PUT /api/v1/config/university/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/university/delete
+DELETE /api/v1/configs/university/delete
 ```
 
 ```javascript
@@ -1698,7 +1698,7 @@ DELETE /api/v1/config/university/delete
 
 ## Lecturer API
 
-### Create a lecturer
+### Create lecturers
 
 ##### Request
 
@@ -1769,7 +1769,7 @@ POST /api/v1/lecturers/create
         "currentDiscipline": {
             "disciplineId": 1,
             "departmentName": "Khoa công nghệ thông tin",
-            "universityName": "Đại học Khoa học tự nhiên",
+            "universityId": 1,
             "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
         },
         "researchFields": [
@@ -1842,19 +1842,12 @@ POST /api/v1/lecturers/create
                 "isNow": true
             },
             {
-                "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                "activityTypeId": "2",
                 "name": "Sở khoa học và công nghệ, TPHCM",
                 "fromDate": 2020,
                 "toDate": 2022,
                 "note": "Thành viên tổ chuyên gia"
             },
-            {
-                "activityTypeName": "Tham gia làm việc tại trường Viện",
-                "name": "Sở khoa học và công nghệ, TPHCM",
-                "fromDate": 2020,
-                "toDate": 2022,
-                "note": "Thành viên tổ chuyên gia"
-            }
         ]
     }
 }
@@ -2113,26 +2106,209 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-POST /api/v1/lecturers/update/1
+PUT /api/v1/lecturers/:id/update
 ```
 
 ```javascript
 {
-    "data":
-        {
-            "account_id": 4,
-            "name": "lecturer 3",
-            "gender": "male",
-            "avatar": null,
-            "date_of_birth": "2001-04-22",
-            "academic_rank_id": 1,
-            "academic_rank_gain_year": 2022,
-            "academic_title_id": 1,
-            "academic_title_gain_year": 2023,
-            "is_deleted": 0,
-            "expand_column": null
-        }
-
+    "data": {
+        "id": 1,
+        "name": "Nguyen Van Vu1",
+        "gender": "male",
+        "avatar": "http://image",
+        "dateOfBirth": "04/05/1977",
+        "academicRankId": 1,
+        "academicRankGainYear": "2010",
+        "academicTitleId": 1,
+        "academicTitleGainYear": "2022",
+        "expandColumn": null,
+        "phdThesises": [
+            {
+                "id": "1",
+                "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile - update",
+                "phdName": "Trương Văn Thông - update",
+                "educationLevel": "tiến sĩ",
+                "update": true
+            },
+            {
+                "id": "2",
+                "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo - update",
+                "phdName": "Huỳnh Thị Phương Thủy- update",
+                "educationLevel": "tiến sĩ",
+                "update": true
+            }
+        ],
+        "books": [
+            {
+                "id": "1",
+                "name": "IEEE International Symposium on High Assurance Systems Engineering - update",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                "update": true
+            },
+            {
+                "create": true,
+                "name": "IEEE International Symposium on High Assurance Systems Engineering - new",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian"
+            }
+        ],
+        "contacts": [
+            {
+                "id": 1,
+                "contactTypeId": 2,
+                "value": "288 Hai Ba Trung - update",
+                "update": true
+            },
+            {
+                "contactTypeId": 4,
+                "value": "0962763170",
+                "create": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "projects": [
+            {
+                "id": 1,
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm - update",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt",
+                "update": true
+            },
+            {
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm - create",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt",
+                "create": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "currentDiscipline": {
+            "id": 2,
+            "disciplineId": 2,
+            "departmentName": "Khoa công nghệ thông tin",
+            "universityId": 2,
+            "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+        },
+        "researchFields": [
+            {
+                "id": 1,
+                "update": true,
+                "researchName": "Ước lượng phần mềm - update",
+                "note": "Software Estimation"
+            },
+            {
+                "create": true,
+                "researchName": "Quy trình phần mềm - create",
+                "note": "Software Processes"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "expertises": [
+            {
+                "create": true,
+                "title": "Lĩnh vực",
+                "specialization": "Công nghệ thông tin - create"
+            },
+            {
+                "id": 1,
+                "title": "Chuyên ngành",
+                "specialization": "Công nghệ phần mềm - update",
+                "update": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "degrees": [
+            {
+                "id": 1,
+                "update": true,
+                "academicTitleId": 2,
+                "universityId": 2,
+                "specialization": "Công nghệ thông tin- update",
+                "graduationDate": 2019
+            },
+            {
+                "create": true,
+                "academicTitleId": 3,
+                "universityId": 3,
+                "specialization": "Khoa học máy tính",
+                "graduationDate": 2010,
+                "graduationThesisName": "Improved size and effor estimation models for Software Maintainance - create"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "workPositions": [
+            {
+                "id": 1,
+                "update":true,
+                "universityId": 3,
+                "position": "Phó trưởng khoa - update",
+                "isNow": true,
+                "fromDate": 2019
+            },
+            {
+                "create": true,
+                "company": "Công ty PSV (nay là công ty CSC Việt Nam) - create",
+                "position": "Kỹ sư công nghệ phần mềm",
+                "fromDate": 1999,
+                "toDate": 2004
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "activities": [
+            {
+                "id": 1,
+                "update": true,
+                "activityTypeId": 2,
+                "name": "Journal of Software: Evolution and Process - update",
+                "note": "Phản biện (reviewer)",
+                "fromDate": 2019,
+                "isNow": true
+            },
+            {
+                "create": true,
+                "activityTypeId": "3",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ]
+    }
 }
 ```
 
@@ -2190,6 +2366,39 @@ DELETE /api/v1/lecturers/delete
 {
     "code": 1,
     "message": "Delete lecturer failed!"
+}
+```
+
+
+### Get lecturer page size, while paging
+
+#### Request
+
+```http
+GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
+```
+
+| Param      | Datatype               | Note                                                          |
+| ---------- | ---------------------- | --------------------------------------------------------------|
+| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
+| keyword    | string                 | not require, the keyword to search the Lecturer with their id |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 0
+    }
+}
+```
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get paging count failed"
 }
 ```
 
@@ -2800,7 +3009,7 @@ Content-Type: application/pdf
 }
 ```
 
-### Update an article
+### Delete multiple articles
 
 #### Request
 
@@ -2966,12 +3175,35 @@ Content-Type: application/pdf
 }
 ```
 
-#### Error response
+### Get article page size, while paging
+
+#### Request
+
+```http
+GET /api/v1/articles/page-size?limitSize=10&keyword=test
+```
+
+| Param      | Datatype               | Note                                                          |
+| ---------- | ---------------------- | --------------------------------------------------------------|
+| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
+| keyword    | string                 | not require, the keyword to search the Articles with their id |
+
+#### Success response
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 4
+    }
+}
+```
+##### Error response
 
 ```javascript
 {
     "code": 1,
-    "message": "Something went wrong from the backend",
+    "message": "Something went wrong from the backend"
 }
 ```
 

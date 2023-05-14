@@ -18,16 +18,16 @@ class LecturerBuilder {
 	#expandColumn;
 
 	//foreign key
-	#phdThesis;
-	#book;
-	#contact;
-	#project;
+	#phdThesises;
+	#books;
+	#contacts;
+	#projects;
 	#currentDiscipline;
-	#expertise;
-	#researchField;
-	#degree;
-	#workPosition;
-	#activity;
+	#expertises;
+	#researchFields;
+	#degrees;
+	#workPositions;
+	#activities;
 
 	set id(id) {
 		this.#id = id;
@@ -71,38 +71,39 @@ class LecturerBuilder {
 	set expandColumn(expandColumn) {
 		this.#expandColumn = expandColumn;
 	}
-	set phdThesis(phdThesis) {
-		this.#phdThesis = phdThesis;
+	set phdThesises(phdThesises) {
+		this.#phdThesises = phdThesises;
 	}
-	set book(book) {
-		this.#book = book;
+	set books(books) {
+		this.#books = books;
 	}
-	set contact(contact) {
-		this.#contact = contact;
+	set contacts(contacts) {
+		this.#contacts = contacts;
 	}
-	set project(project) {
-		this.#project = project;
+	set projects(projects) {
+		this.#projects = projects;
 	}
 	set currentDiscipline(currentDiscipline) {
 		this.#currentDiscipline = currentDiscipline;
 	}
-	set expertise(expertise) {
-		this.#expertise = expertise;
+	set expertises(expertises) {
+		this.#expertises = expertises;
 	}
-	set researchField(researchField) {
-		this.#researchField = researchField;
+	set researchFields(researchFields) {
+		this.#researchFields = researchFields;
 	}
-	set degree(degree) {
-		this.#degree = degree;
+	set degrees(degrees) {
+		this.#degrees = degrees;
 	}
-	set workPosition(workPosition) {
-		this.#workPosition = workPosition;
+	set workPositions(workPositions) {
+		this.#workPositions = workPositions;
 	}
-	set activity(activity) {
-		this.#activity = activity;
+	set activities(activities) {
+		this.#activities = activities;
 	}
 
 	setBulk(lecturerObject) {
+		this.#id = lecturerObject.id ?? null;
 		this.#accountId = lecturerObject.accountId ?? null;
 		this.#name = lecturerObject.name ?? null;
 		this.#gender = lecturerObject.gender ?? null;
@@ -118,16 +119,16 @@ class LecturerBuilder {
 		this.#updatedAt = lecturerObject.updatedAt ?? null;
 		this.#isDeleted = lecturerObject.isDeleted ?? null;
 		this.#expandColumn = lecturerObject.expandColumn ?? null;
-		this.#phdThesis = lecturerObject.phdThesis ?? null;
-		this.#book = lecturerObject.book ?? null;
-		this.#contact = lecturerObject.contact ?? null;
-		this.#project = lecturerObject.project ?? null;
+		this.#phdThesises = lecturerObject.phdThesises ?? null;
+		this.#books = lecturerObject.books ?? null;
+		this.#contacts = lecturerObject.contacts ?? null;
+		this.#projects = lecturerObject.projects ?? null;
 		this.#currentDiscipline = lecturerObject.currentDiscipline ?? null;
-		this.#expertise = lecturerObject.expertise ?? null;
-		this.#researchField = lecturerObject.researchField ?? null;
-		this.#degree = lecturerObject.degree ?? null;
-		this.#workPosition = lecturerObject.workPosition ?? null;
-		this.#activity = lecturerObject.activity ?? null;
+		this.#expertises = lecturerObject.expertises ?? null;
+		this.#researchFields = lecturerObject.researchFields ?? null;
+		this.#degrees = lecturerObject.degrees ?? null;
+		this.#workPositions = lecturerObject.workPositions ?? null;
+		this.#activities = lecturerObject.activities ?? null;
 	}
 
 	reset() {
@@ -145,16 +146,16 @@ class LecturerBuilder {
 		this.#updatedAt = null;
 		this.#isDeleted = null;
 		this.#expandColumn = null;
-		this.#phdThesis = null;
-		this.#book = null;
-		this.#contact = null;
-		this.#project = null;
+		this.#phdThesises = null;
+		this.#books = null;
+		this.#contacts = null;
+		this.#projects = null;
 		this.#currentDiscipline = null;
-		this.#expertise = null;
-		this.#researchField = null;
-		this.#degree = null;
-		this.#workPosition = null;
-		this.#activity = null;
+		this.#expertises = null;
+		this.#researchFields = null;
+		this.#degrees = null;
+		this.#workPositions = null;
+		this.#activities = null;
 	}
 
 	build() {
@@ -173,16 +174,16 @@ class LecturerBuilder {
 			this.#updatedAt,
 			this.#isDeleted,
 			this.#expandColumn,
-			this.#phdThesis,
-			this.#book,
-			this.#contact,
-			this.#project,
+			this.#phdThesises,
+			this.#books,
+			this.#contacts,
+			this.#projects,
 			this.#currentDiscipline,
-			this.#expertise,
-			this.#researchField,
-			this.#degree,
-			this.#workPosition,
-			this.#activity
+			this.#expertises,
+			this.#researchFields,
+			this.#degrees,
+			this.#workPositions,
+			this.#activities
 		);
 	}
 }
@@ -195,28 +196,28 @@ function mapLecturerIdToExtraLecturerData(lecturerId, map, mapValue) {
 }
 
 function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
-	//parse lecturer phdThesis to map
+	//parse lecturer phdThesises to map
 	const phdThesises = new Map();
 	extraLecturerData[0].forEach((phdThesis) => {
 		const lecturerId = phdThesis.lecturerId;
 		mapLecturerIdToExtraLecturerData(lecturerId, phdThesises, phdThesis);
 	});
 
-	//book-author + book
+	//books-author + books
 	const books = new Map();
 	extraLecturerData[1].forEach((book) => {
 		const lecturerId = book.lecturerId;
 		mapLecturerIdToExtraLecturerData(lecturerId, books, book);
 	});
 
-	//contact + contact type
+	//contacts + contact type
 	const contacts = new Map();
 	extraLecturerData[2].forEach((contact) => {
 		const lecturerId = contact.lecturerId;
 		mapLecturerIdToExtraLecturerData(lecturerId, contacts, contact);
 	});
 
-	//project
+	//projects
 	const projects = new Map();
 	extraLecturerData[3].forEach((project) => {
 		const lecturerId = project.lecturerId;
@@ -248,7 +249,7 @@ function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
 		mapLecturerIdToExtraLecturerData(lecturerId, academicTitles, academicTitle);
 	});
 
-	//expertise
+	//expertises
 	const expertises = new Map();
 	extraLecturerData[7].forEach((expertise) => {
 		mapLecturerIdToExtraLecturerData(

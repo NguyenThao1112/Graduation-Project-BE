@@ -27,6 +27,7 @@ CREATE TABLE lecturer_information (
     gender VARCHAR(10) DEFAULT NULL,
     avatar VARCHAR(255) DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
+    bio VARCHAR(255) DEFAULT NULL,
 
     -- academic rank stuffs
     academic_rank_id INT DEFAULT NULL,
@@ -320,7 +321,7 @@ CREATE TABLE current_discipline (
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(id,lecturer_id)
 );
 
 CREATE TABLE discipline (
