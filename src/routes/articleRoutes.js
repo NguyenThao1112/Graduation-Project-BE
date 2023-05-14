@@ -47,4 +47,10 @@ router.get(
     articleController.getArticlePagingSize
 );
 
+router.get(
+    `${urls.ARTICLE_GET_ONE_ARTICLE}`,
+    commonValidators.getIdValidator(),
+    articleController.getArticleById
+)
+
 module.exports = router;

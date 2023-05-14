@@ -1,27 +1,13 @@
 const searchArticleDAO = require("../../daos/articleDAOs/searchArticleDAO");
 const articleHelper = require("../../helpers/articleHelper");
 
+
 /**
- * Get Article with pagination
  * 
- * @param {int} pageOffset which page, in 1-offset-indexing
- * @param {int} limitSize maximum number of record in a page
- * @param {object} options addition option for querying
- * @return {Promise}
- *  
+ * @param {Object} options 
+ * @returns {Promise}
  */
- function getArticlesWithPagination(pageOffset, limitSize, options) {
-
-    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
-    const recordOffset = (pageOffset - 1) * limitSize;
-    options = {
-        ...options,
-        pagination: {
-            offset: recordOffset,
-            limit: limitSize,
-        }
-    }
-
+function getArticlesWithOptions(options) {
     return new Promise((resolve, reject) => {
         searchArticleDAO.getBaseArticles(options)
             .catch(error => {reject(error);})
@@ -60,6 +46,30 @@ const articleHelper = require("../../helpers/articleHelper");
             .catch(error => {reject(error);})
 
     });
+}
+
+/**
+ * Get Article with pagination
+ * 
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * @param {object} options addition option for querying
+ * @return {Promise}
+ *  
+ */
+ function getArticlesWithPagination(pageOffset, limitSize, options) {
+
+    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+    const recordOffset = (pageOffset - 1) * limitSize;
+    options = {
+        ...options,
+        pagination: {
+            offset: recordOffset,
+            limit: limitSize,
+        }
+    }
+
+    return getArticlesWithOptions(options);
 }
 
 /**
@@ -131,9 +141,25 @@ function getArticlePagingSize(limitSize, keyword = null) {
 
     });
 }
+
+/**
+ * Get detail information of an article, by given id
+ * @param {Array<Number>} articleIds
+ * 
+ * @return {Promise<Array<Object>>} articles
+ */
+function getArticleByIds(articleIds) {
+
+    const options = {
+        articleIds
+    }
+
+    return getArticlesWithOptions(options);
+}
  
 module.exports = {
     getArticlesWithPagination,
     getArticlesWithLecturerIds,
     getArticlePagingSize,
+    getArticleByIds,
 }

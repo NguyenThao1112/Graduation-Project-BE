@@ -113,6 +113,13 @@ function getBaseArticles(option = null) {
                 
             }
 
+            //Check if there is search article with given article ids
+            if (option.hasOwnProperty('articleIds') && (undefined !== option.articleIds)) {
+                whereStatement = `${whereStatement} AND (id IN (?))`;
+                const articleIds = option.articleIds;
+                bindingValues.push(articleIds);
+            }
+
             //Check if there is pagination option
             if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
 
