@@ -50,6 +50,43 @@ function getOneLecturer(request, response) {
 }
 
 /**
+ * get one lecturer
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getAllLecturers(request, response) {
+	return new Promise((resolve, reject) => {
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_GET_ALL_INVALID_MESSAGE,
+		};
+
+		searchLecturerServices
+			.getAllLecturers()
+			.then((lecturerInformation) => {
+				if (lecturerInformation) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_GET_ALL_SUCCESS_MESSAGE;
+					responseJson.data = lecturerInformation;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
  * Create multiple lecturers at the same time
  * @param {Express.Request} request
  * @param {Express.Response} response
@@ -228,54 +265,54 @@ function deleteLecturers(request, response) {
 }
 
 /**
- * 
- * @param {Express.Request} request 
- * @param {Express.Response} response 
- * @returns {Promise}  
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
  */
- function getLecturerPagingSize(request, response) {
-    return new Promise((resolve, reject) => {
-
-        //Check if the request is valid
+function getLecturerPagingSize(request, response) {
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
 		const hasError = validatorHelper.verifyValidations(request, response);
 		if (hasError) {
 			return;
 		}
-        
-        //Default response is error response
-        let responseJson = {
-            code: messageConstants.FAILED_CODE,
-            message: messageConstants.LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE
-        }
 
-        const limitSize = parseInt(request.query.limitSize);
-        const keyword = request.query.keyword ?? null;
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE,
+		};
 
-        //Try to get the number of page with paging size
-        searchLecturerServices.getLecturerPagingSize(limitSize, keyword)
-            .then((pagingSize) => {
+		const limitSize = parseInt(request.query.limitSize);
+		const keyword = request.query.keyword ?? null;
 
-                //If there is a not-null data => change the response's data
-                if (-1 !== pagingSize) {
-                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
-                    responseJson.message = messageConstants.LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE;
-                    responseJson.data = pagingSize;
-                }
-
-            })
-            .catch(error => {
-                console.log(error);
-            })
-            .finally(() => {
-                response.json(responseJson);
-            });
-    })
+		//Try to get the number of page with paging size
+		searchLecturerServices
+			.getLecturerPagingSize(limitSize, keyword)
+			.then((pagingSize) => {
+				//If there is a not-null data => change the response's data
+				if (-1 !== pagingSize) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE;
+					responseJson.data = pagingSize;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
 }
 
 module.exports = {
 	getOneLecturer,
-	createLecturers,
+	getAllLecturers,
 	getLecturersWithPagination,
+	createLecturers,
 	updateLecturer,
 	deleteLecturers,
 	getLecturerPagingSize,

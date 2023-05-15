@@ -139,40 +139,60 @@ function getOneLecturer(id) {
 
 /**
  * Get paging size, after pagination process
- * 
- * @param {int} limitSize maximum number of record in a page
+ *
+ * @param {number} limitSize maximum number of record in a page
  * @param {string} keyword the keyword to search
- * @return {Promise<int>}
- *  
+ * @return {Promise<>}
+ *
  */
- function getLecturerPagingSize(limitSize, keyword = null) {
-    
-    let options = null;
-    if (null !== keyword) {
-        options = {
-            searchByKeyword: keyword
-        }
-    }
+function getLecturerPagingSize(limitSize, keyword = '') {
+	let options = null;
+	if (null !== keyword) {
+		options = {
+			searchByKeyword: keyword,
+		};
+	}
 
-    return new Promise((resolve, reject) => {
-        searchLecturerDAO.getLecturerCount(options)
-            .then(count => {
-                count = parseInt(count);
-                const divideValue = Math.floor(count / limitSize);
-                const numberOfPage = (0 === (count % limitSize)) ? divideValue : divideValue + 1;
-                const data = {
-                    number_of_page: numberOfPage,
-                }
-                resolve(data);
-            })
-            .catch(error => {reject(error);})
-
-    });
+	return new Promise((resolve, reject) => {
+		searchLecturerDAO
+			.getLecturerCount(options)
+			.then((count) => {
+				count = parseInt(count);
+				const divideValue = Math.floor(count / limitSize);
+				const numberOfPage =
+					0 === count % limitSize ? divideValue : divideValue + 1;
+				const data = {
+					number_of_page: numberOfPage,
+				};
+				resolve(data);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
- 
+/**
+ * Get One Lecturer with id
+ *
+ * @return {Promise}
+ *
+ */
+function getAllLecturers() {
+	return new Promise((resolve, reject) => {
+		searchLecturerDAO
+			.getAllLecturers()
+			.then((lecturerInfo) => {
+				resolve(lecturerInfo);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
 
 module.exports = {
 	getLecturersWithPagination,
 	getOneLecturer,
 	getLecturerPagingSize,
+	getAllLecturers,
 };
