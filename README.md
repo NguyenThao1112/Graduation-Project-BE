@@ -1713,6 +1713,7 @@ POST /api/v1/lecturers/create
         "name": "Nguyen Van Vu",
         "gender": "male",
         "avatar": "http://image",
+        "bio": "Đang là giảng viên trường Đại học Khoa học Tự Nhiên HCMUS",
         "dateOfBirth": "04/05/1977",
         "academicRankId": 1,
         "academicRankGainYear": "2010",
@@ -1795,13 +1796,13 @@ POST /api/v1/lecturers/create
         "degrees": [
             {
                 "academicTitleId": 1,
-                "universityName": "ĐH KHTN TP.HCM",
+                "universityId": 1,
                 "specialization": "Công nghệ thông tin",
                 "graduationDate": 2019
             },
             {
-                "academicTitleName": "Tiến sỹ",
-                "universityName": "Đại học Nam California",
+                "academicTitleId": 2,
+                "universityId": 2,
                 "specialization": "Khoa học máy tính",
                 "graduationDate": 2010,
                 "graduationThesisName": "Improved size and effor estimation models for Software Maintainance"
@@ -1842,12 +1843,19 @@ POST /api/v1/lecturers/create
                 "isNow": true
             },
             {
-                "activityTypeId": "2",
+                "activityTypeName": "Tham gia làm việc tại trường Đại học",
                 "name": "Sở khoa học và công nghệ, TPHCM",
                 "fromDate": 2020,
                 "toDate": 2022,
                 "note": "Thành viên tổ chuyên gia"
             },
+            {
+                "activityTypeName": "Tham gia làm việc tại trường Viện",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            }
         ]
     }
 }
@@ -2101,6 +2109,60 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 }
 ```
 
+#### Get all lecturers without pagination
+
+#### Request
+
+```http
+GET /api/v1/lecturers/fetch-all
+```
+
+#### Success Response
+
+```javascript
+{
+    "code": 0,
+    "message": "Fetch the lecturer from database successfully",
+    "data": [
+        {
+            "id": 1,
+            "accountId": 1,
+            "name": "Nguyen Van Vu-1",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "bio": "Đang là giảng viên trường Đại học Khoa học Tự Nhiên HCMUS",
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022
+        },
+        {
+            "id": 2,
+            "accountId": 1,
+            "name": "Nguyen Van Vu",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "bio": null,
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022
+        }
+    ]
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get lecturers failed"
+}
+```
+
 #### Update one lecturer
 
 ##### Request
@@ -2342,10 +2404,7 @@ DELETE /api/v1/lecturers/delete
 {
     "data": [
         {
-            "id": 2
-        },
-        {
-            "id": 3
+            "id": 1
         }
     ]
 }
@@ -2369,7 +2428,6 @@ DELETE /api/v1/lecturers/delete
 }
 ```
 
-
 ### Get lecturer page size, while paging
 
 #### Request
@@ -2378,12 +2436,13 @@ DELETE /api/v1/lecturers/delete
 GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
 ```
 
-| Param      | Datatype               | Note                                                          |
-| ---------- | ---------------------- | --------------------------------------------------------------|
-| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
-| keyword    | string                 | not require, the keyword to search the Lecturer with their id |
+| Param     | Datatype               | Note                                                          |
+| --------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize | integer greater than 0 | required, maximum number of records to return                 |
+| keyword   | string                 | not require, the keyword to search the Lecturer with their id |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -2393,6 +2452,7 @@ GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
     }
 }
 ```
+
 ##### Error response
 
 ```javascript
@@ -3183,12 +3243,13 @@ Content-Type: application/pdf
 GET /api/v1/articles/page-size?limitSize=10&keyword=test
 ```
 
-| Param      | Datatype               | Note                                                          |
-| ---------- | ---------------------- | --------------------------------------------------------------|
-| limitSize  | integer greater than 0 | required, maximum number of records to return                 |
-| keyword    | string                 | not require, the keyword to search the Articles with their id |
+| Param     | Datatype               | Note                                                          |
+| --------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize | integer greater than 0 | required, maximum number of records to return                 |
+| keyword   | string                 | not require, the keyword to search the Articles with their id |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -3198,6 +3259,7 @@ GET /api/v1/articles/page-size?limitSize=10&keyword=test
     }
 }
 ```
+
 ##### Error response
 
 ```javascript
@@ -3207,7 +3269,6 @@ GET /api/v1/articles/page-size?limitSize=10&keyword=test
 }
 ```
 
-
 ### Get article by id
 
 #### Request
@@ -3216,11 +3277,12 @@ GET /api/v1/articles/page-size?limitSize=10&keyword=test
 GET /api/v1/articles/detail/:id
 ```
 
-| Param      | Datatype               | Note                                                |
-| ---------- | ---------------------- | ----------------------------------------------------|
-| id         | integer greater than 0 | required, the id of the given article               |
+| Param | Datatype               | Note                                  |
+| ----- | ---------------------- | ------------------------------------- |
+| id    | integer greater than 0 | required, the id of the given article |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -3328,6 +3390,7 @@ GET /api/v1/articles/detail/:id
     }
 }
 ```
+
 ##### Error response
 
 ```javascript
@@ -3344,7 +3407,6 @@ GET /api/v1/articles/detail/:id
 }
 ```
 
-
 ## Scopus API
 
 ### Retrieve Scopus Author by first name and last name
@@ -3355,12 +3417,13 @@ GET /api/v1/articles/detail/:id
 GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```
 
-| Param      | Datatype | Note     |
-| ---------- | ---------| -------- |
-| firstName  | string   | required |
-| lastName   | string   | required |
+| Param     | Datatype | Note     |
+| --------- | -------- | -------- |
+| firstName | string   | required |
+| lastName  | string   | required |
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
@@ -3381,6 +3444,7 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```
 
 #### Error response
+
 ```javascript
 {
     "code": 1,

@@ -1,6 +1,6 @@
 // @ts-nocheck
 const connection = require('../../configs/database');
-const queryHelper= require('../../helpers/queryHelper');
+const queryHelper = require('../../helpers/queryHelper');
 const _ = require('lodash');
 
 //article_url
@@ -218,12 +218,51 @@ function getOneLecturer(id) {
 /**
  * Query to count the number of available lecturer
  * @return {Promise<Number>}
+ *
  */
- const getLecturerCount = queryHelper.buildPagingCountDao("lecturer_information", "name");
+const getLecturerCount = queryHelper.buildPagingCountDao(
+	'lecturer_information',
+	'name'
+);
+
+/**
+ *  Query get all lecturers
+ *
+ * @return {Promise}
+ */
+function getAllLecturers() {
+	return new Promise((resolve, reject) => {
+		let query = [
+			'SELECT',
+			'a.id as id,',
+			'a.account_id as accountId,',
+			'a.name as name,',
+			'a.gender as gender,',
+			'a.avatar as avatar,',
+			'a.date_of_birth as dateOfBirth, ',
+			'a.bio as bio,',
+			'a.academic_rank_id as academicRankId, ',
+			'a.academic_rank_gain_year as academicRankGainYear,',
+			'a.academic_title_id as academicTitleId,',
+			'a.academic_title_gain_year as academicTitleGainYear',
+			'FROM lecturer_information as a',
+			'WHERE a.is_deleted = false',
+		].join(' ');
+
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve(results);
+		});
+	});
+}
 
 module.exports = {
 	getDataOfSubtableJoningWithLecturerInformationByLecturerId,
 	getBaseLecturers,
 	getOneLecturer,
 	getLecturerCount,
+	getAllLecturers,
 };

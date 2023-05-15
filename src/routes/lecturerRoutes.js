@@ -16,6 +16,9 @@ router.get(
 	lecturerControllers.getLecturersWithPagination
 );
 
+//get all lecturers
+router.get(urls.LECTURER_GET_ALL_URL, lecturerControllers.getAllLecturers);
+
 //get one lecturer base on its id
 router.get(urls.LECTURER_GET_ONE_LECTURER, lecturerControllers.getOneLecturer);
 
