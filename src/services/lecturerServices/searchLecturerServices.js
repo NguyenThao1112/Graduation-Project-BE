@@ -1,3 +1,4 @@
+//@ts-nocheck
 const {
 	phdThesis,
 	book,
@@ -16,27 +17,18 @@ const searchLecturerDAO = require('../../daos/lecturerDAOS/searchLecturerDAO');
 const lecturerHelper = require('../../helpers/lecturerHelper');
 
 /**
- * Get Article with pagination
+ * Get Lecturer with option
  *
- * @param {number} pageOffset which page, in 1-offset-indexing
- * @param {number} limitSize maximum number of record in a page
- * @param {object} defaultOptions addition option for querying
+ * @param {object} option addition option for querying
  * @return {Promise}
  *
  */
-function getLecturersWithPagination(pageOffset, limitSize, defaultOptions) {
+function getLecturersWithOption(option) {
 	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
-	const recordOffset = (pageOffset - 1) * limitSize;
-
-	const options = {
-		...defaultOptions,
-		recordOffset: recordOffset,
-		limitSize: limitSize,
-	};
 
 	return new Promise((resolve, reject) => {
 		searchLecturerDAO
-			.getBaseLecturers(options)
+			.getBaseLecturers(option)
 			.catch((error) => {
 				reject(error);
 			})
@@ -118,23 +110,41 @@ function getLecturersWithPagination(pageOffset, limitSize, defaultOptions) {
 }
 
 /**
+ * Get Lecturer with pagination
+ *
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ * @param {object} options addition option for querying
+ * @return {Promise}
+ *
+ */
+function getLecturersWithPagination(pageOffset, limitSize, options) {
+	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+	const recordOffset = (pageOffset - 1) * limitSize;
+	options = {
+		...options,
+		pagination: {
+			offset: recordOffset,
+			limit: limitSize,
+		},
+	};
+
+	return getLecturersWithOption(options);
+}
+
+/**
  * Get One Lecturer with id
  *
  * @param {number} id
  * @return {Promise}
  *
  */
-function getOneLecturer(id) {
-	return new Promise((resolve, reject) => {
-		searchLecturerDAO
-			.getOneLecturer(id)
-			.then((lecturerInfo) => {
-				resolve(lecturerInfo);
-			})
-			.catch((err) => {
-				reject(err);
-			});
-	});
+function getOneLecturer(lecturerIds) {
+	const option = {
+		lecturerIds,
+	};
+
+	return getLecturersWithOption(option);
 }
 
 /**

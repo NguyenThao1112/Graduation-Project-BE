@@ -124,8 +124,8 @@ function getBaseLecturers(option = null) {
 		].join(' ');
 		let fromStatement = 'FROM lecturer_information as a';
 		let whereStatement = 'WHERE a.is_deleted = false';
-		let paginationStatement = '';
 		let bindingValues = [];
+		let numberOfRecordStatement = '';
 
 		if (null !== option) {
 			//Check if there is a keyword to search the article
@@ -143,7 +143,7 @@ function getBaseLecturers(option = null) {
 				option.hasOwnProperty('lecturerIds') &&
 				undefined !== option.lecturerIds
 			) {
-				whereStatement = `${whereStatement} AND id IN ?`;
+				whereStatement = `${whereStatement} AND id IN (?)`;
 				const lecturerIds = option.lecturerIds;
 				bindingValues.push(lecturerIds);
 			}
