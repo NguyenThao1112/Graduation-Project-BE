@@ -28,12 +28,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 				fromStatement,
 				'LEFT JOIN contact_type ON contact.contact_type_id = contact_type.id',
 			].join(' ');
-		} else if ('current_discipline cd' === tableName) {
+		} else if ('current_discipline' === tableName) {
 			fromStatement = [
 				fromStatement,
-				'LEFT JOIN department ON department.id = cd.department_id',
-				'LEFT JOIN discipline ON discipline.id = cd.discipline_id',
-				'LEFT JOIN university ON university.id = cd.university_id',
+				'LEFT JOIN department ON department.id = current_discipline.department_id',
+				'LEFT JOIN discipline ON discipline.id = current_discipline.discipline_id',
+				'LEFT JOIN university ON university.id = current_discipline.university_id',
 			].join(' ');
 		} else if ('degree' === tableName) {
 			fromStatement = [
@@ -209,6 +209,10 @@ function getOneLecturer(id) {
 			if (error) {
 				reject(error);
 				return;
+			}
+			// if lecturer doesn't exist throw error
+			if (!results.length) {
+				reject(results);
 			}
 			resolve(results);
 		});

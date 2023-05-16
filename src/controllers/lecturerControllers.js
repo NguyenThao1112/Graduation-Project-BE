@@ -25,9 +25,11 @@ function getOneLecturer(request, response) {
 			message: messageConstants.LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE,
 		};
 
-		const id = request.params.id;
+		let id = request.params.id;
 		if (!id) {
 			response.json(responseJson);
+		} else {
+			id = parseInt(id);
 		}
 
 		searchLecturerServices
