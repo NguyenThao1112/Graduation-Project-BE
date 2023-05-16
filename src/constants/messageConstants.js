@@ -62,7 +62,7 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
-	//Get all lecturers API
+	//Get one lecturer API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
 	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
 	LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE: 'Get one lecturer successfully!',
@@ -75,8 +75,8 @@ module.exports = Object.freeze({
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
-	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
-	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: "Get paging count failed",
+	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: 'Get paging size successfully',
+	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: 'Get paging count failed',
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
@@ -188,14 +188,15 @@ module.exports = Object.freeze({
 	ARTICLE_UPDATE_SUCCESS_MESSAGE: 'Update article successfully',
 	ARTICLE_DELETE_SUCCESS_MESSAGE: 'Delete article(s) successfully',
 	ARTICLE_GET_SUCCESS_MESSAGE: 'Get article successfully',
-	ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE: "Get paging size successfully",
-	ARTICLE_GET_DETAIL_SUCCESS_MESSAGE: "Get article by id successfully",
-	ARTICLE_NOT_FOUND_MESSAGE: "There is no article with the given id",
+	ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE: 'Get paging size successfully',
+	ARTICLE_GET_DETAIL_SUCCESS_MESSAGE: 'Get article by id successfully',
+	ARTICLE_NOT_FOUND_MESSAGE: 'There is no article with the given id',
 
 	//Scopus APIs
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
-	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE: "Something went wrong from the backend",
-	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE: 	"Retrieve author from scopus successfully",
-
+	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE:
+		'Something went wrong from the backend',
+	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE:
+		'Retrieve author from scopus successfully',
 });

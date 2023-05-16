@@ -2163,6 +2163,48 @@ GET /api/v1/lecturers/fetch-all
 }
 ```
 
+### Get one lecturer
+
+##### Request
+
+```
+GET /api/v1/lecturers/detail/:id
+```
+
+##### Success response
+
+```javascript
+{
+    {
+    "code": 0,
+    "message": "Get one lecturer successfully!",
+    "data": [
+        {
+            "id": 1,
+            "name": "Nguyen Van Vu-1",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "bio": "Đang là giảng viên trường Đại học Khoa học Tự Nhiên HCMUS",
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022
+        }
+    ]
+}
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get one lecturer failed!"
+}
+```
+
 #### Update one lecturer
 
 ##### Request
