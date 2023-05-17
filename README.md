@@ -2183,6 +2183,7 @@ GET /api/v1/lecturers/detail/:id
             "name": "Nguyen Van Vu",
             "gender": "male",
             "avatar": "http://image",
+            "bio": null,
             "dateOfBirth": "1977-05-03T17:00:00.000Z",
             "academicRankId": 1,
             "academicRankGainYear": 2010,

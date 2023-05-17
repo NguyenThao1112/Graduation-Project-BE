@@ -116,6 +116,7 @@ function getBaseLecturers(option = null) {
 			'a.name as name,',
 			'a.gender as gender,',
 			'a.avatar as avatar,',
+			'a.bio as bio,',
 			'a.date_of_birth as dateOfBirth, ',
 			'a.academic_rank_id as academicRankId, ',
 			'a.academic_rank_gain_year as academicRankGainYear,',
