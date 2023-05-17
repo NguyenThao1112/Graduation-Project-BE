@@ -2229,6 +2229,20 @@ GET /api/v1/lecturers/detail/:id
                     "pseudonym": null
                 }
             ],
+            "contacts": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "value": "288 Hai Ba Trung",
+                    "contactTypeName": null
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "value": "0962763170",
+                    "contactTypeName": null
+                }
+            ],
             "projects": [
                 {
                     "id": 2,
