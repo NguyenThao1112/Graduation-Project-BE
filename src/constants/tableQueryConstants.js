@@ -19,7 +19,12 @@ const book = [
 	'book.pseudonym',
 ];
 
-const contact = ['contact.id as id', 'lecturer_id', 'value', 'name'];
+const contact = [
+	'contact.id as id',
+	'lecturer_id as lecturerId',
+	'value',
+	'name as contactTypeName',
+];
 
 const project = [
 	'id',
