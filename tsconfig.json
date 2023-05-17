@@ -1,4 +1,10 @@
 {
-	"compilerOptions": { "checkJs": false },
-	"exclude": ["node_modules", "*.js"]
+	"compilerOptions": {
+		"outDir": "./built",
+		"checkJs": false,
+		"typeRoots": ["./typings", "node_modules/@types"],
+		"allowJs": true
+	},
+	"include": ["./**/*"],
+	"exclude": ["node_modules", "*.js", "./built/**/*"]
 }

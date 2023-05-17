@@ -10,9 +10,9 @@ module.exports = Object.freeze({
 	//Universal param
 	PAGINATION_PAGE_OFFSET_PARAM: 'pageOffset',
 	PAGINATION_LIMIT_SIZE_PARAM: 'limitSize',
-	
+
 	//Universal path variable
-	ID_PATH_VARIABLE: "id",
+	ID_PATH_VARIABLE: 'id',
 
 	//All auth api (${API_URL}`) would be `${ROOT_API_URL}${AUTH_PREFIX_API_URL}${API_URL}`
 	AUTH_PREFIX_API_URL: `/auth`,
@@ -109,7 +109,7 @@ module.exports = Object.freeze({
 	CONFIG_UNIVERSITY_DELETE: `/delete`,
 
 	//Scopus API
-	SCOPUS_PREFIX_API_URL: "/scopus",
+	SCOPUS_PREFIX_API_URL: '/scopus',
 	SCOPUS_GET_AUTHORS_BY_NAME_URL: '/author',
-	SCOPUS_GET_DETAIL_AUTHOR_URL: '/author/:scopus_id/',
-})
+	SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL: '/author/:scopus_author_id/',
+});
