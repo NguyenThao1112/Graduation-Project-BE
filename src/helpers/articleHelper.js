@@ -317,7 +317,8 @@ function mapArticleIdToDetailArticleData(articleId, map, mapValue) {
 
 function parseArticlePaginationQueryResultToResponseData(
 	articleData,
-	detailArticleData
+	detailArticleData,
+	options = null
 ) {
 	const articles = [];
 
@@ -380,7 +381,8 @@ function parseArticlePaginationQueryResultToResponseData(
 	});
 
 	articleData.forEach((article) => {
-		articles.push({
+
+		const articleDto = {
 			id: article.id,
 			name: article.name,
 			journal: article.journal,
@@ -409,7 +411,14 @@ function parseArticlePaginationQueryResultToResponseData(
 			notes: noteMap.get(article.id),
 			tags: categoryMap.get(article.id),
 			authors: authorMap.get(article.id),
-		});
+		}
+
+		if (null !== options && options.hasOwnProperty('lecturerIds') && (undefined !== options.lecturerIds)) {
+			articleDto.lecturer_id = article.lecturer_id;
+		}
+
+
+		articles.push(articleDto);
 	});
 
 	return articles;

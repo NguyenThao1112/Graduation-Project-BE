@@ -36,7 +36,7 @@ function getArticlesWithOptions(options) {
                             
                     ]).then(articleDetails => {
 
-                        const articleDtos = articleHelper.parseArticlePaginationQueryResultToResponseData(articles, articleDetails);
+                        const articleDtos = articleHelper.parseArticlePaginationQueryResultToResponseData(articles, articleDetails, options);
                         resolve(articleDtos);
                     })
                 } else {
@@ -85,9 +85,8 @@ function getArticlesWithOptions(options) {
     }
 
     return new Promise((resolve, reject) => {
-        searchArticleDAO.getBaseArticles(options)
+        getArticlesWithOptions(options)
             .then(resultData => {
-
                 const lecturerArticleMap = {};
                 lecturerIds.forEach(lecturerId => {
                     lecturerArticleMap[lecturerId] = [];
@@ -105,8 +104,8 @@ function getArticlesWithOptions(options) {
             .catch(error => {
                 reject(error);
             })
-
-    })
+    });
+    
 }
 
 /**
