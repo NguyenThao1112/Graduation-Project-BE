@@ -9,7 +9,7 @@ const commonHelper = require('../helpers/commonHelper');
  ***********************CONTACT TYPE*****************************
  ****************************************************************/
 
-/**
+/**x
  *
  * @param {Express.Request} request
  * @param {Express.Response} response
@@ -171,10 +171,7 @@ function updateContactType(request, response) {
 						messageConstants.CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_CODE;
 					responseJson.message =
 						messageConstants.CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE;
-					error =
-						messageConstants.CONFIG_CONTACT_TYPE_UPDATED_NOT_EXISTS_MESSAGE;
 				}
-				console.log(error);
 			})
 			.finally(() => {
 				response.json(responseJson);
