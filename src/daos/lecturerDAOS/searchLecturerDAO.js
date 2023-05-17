@@ -178,6 +178,9 @@ function getBaseLecturers(option = null) {
 				reject(error);
 				return;
 			}
+			if (!results.length) {
+				reject('Empty lecturer');
+			}
 			resolve(results);
 		});
 	});
