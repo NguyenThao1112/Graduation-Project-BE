@@ -1,5 +1,8 @@
-//@ts-nocheck
 const messageConstants = require('../constants/messageConstants');
+const {
+	getAuthorById,
+	updateAuthorProfile,
+} = require('../services/scopusServices/getAuthorByIdService');
 const {
 	getBaseLecturerByName,
 } = require('../services/scopusServices/getBaseLecturerService');
@@ -42,6 +45,7 @@ async function getScopusAuthorByName(request, response) {
 async function getAuthorByScopusId(request, response) {
 	//Get the query params
 	const scopusAuthorId = request.params.scopus_author_id;
+	const accountId = request.params.account_id;
 
 	//Default response is error response
 	let responseJson = {
@@ -49,7 +53,11 @@ async function getAuthorByScopusId(request, response) {
 		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
 	};
 
-	scopusResponse = await getBaseLecturerByName(scopusAuthorId);
+	const scopusAuthorData = await getAuthorById(scopusAuthorId);
+	const updateAuthorProfileData = await updateAuthorProfile(
+		scopusAuthorData,
+		accountId
+	);
 	if (scopusResponse) {
 		responseJson = {
 			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,
