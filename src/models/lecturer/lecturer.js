@@ -6,6 +6,7 @@ class Lecturer {
 	#gender;
 	#avatar;
 	#dateOfBirth;
+	#bio;
 	#academicRankId;
 	#academicRankGainYear;
 	#academicTitleId;
@@ -34,6 +35,7 @@ class Lecturer {
 		gender,
 		avatar,
 		dateOfBirth,
+		bio,
 		academicRankId,
 		academicRankGainYear,
 		academicTitleId,
@@ -59,6 +61,7 @@ class Lecturer {
 		this.#gender = gender;
 		this.#avatar = avatar;
 		this.#dateOfBirth = dateOfBirth;
+		this.#bio = bio;
 		this.#academicRankId = academicRankId;
 		this.#academicRankGainYear = academicRankGainYear;
 		this.#academicTitleId = academicTitleId;
@@ -97,6 +100,9 @@ class Lecturer {
 	}
 	get dateOfBirth() {
 		return this.#dateOfBirth;
+	}
+	get bio() {
+		return this.#bio;
 	}
 	get academicRankId() {
 		return this.#academicRankId;
@@ -171,6 +177,9 @@ class Lecturer {
 	}
 	set dateOfBirth(dateOfBirth) {
 		this.#dateOfBirth = dateOfBirth;
+	}
+	set bio(bio) {
+		this.#bio = bio;
 	}
 	set academicRankId(academicRankId) {
 		this.#academicRankId = academicRankId;

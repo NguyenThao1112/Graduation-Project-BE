@@ -2427,6 +2427,7 @@ PUT /api/v1/lecturers/:id/update
         "gender": "male",
         "avatar": "http://image",
         "dateOfBirth": "04/05/1977",
+        "bio": "Giao su truong khoa hoc tu nhien"
         "academicRankId": 1,
         "academicRankGainYear": "2010",
         "academicTitleId": 1,
