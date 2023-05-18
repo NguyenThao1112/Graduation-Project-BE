@@ -8,6 +8,7 @@ class LecturerBuilder {
 	#gender;
 	#avatar;
 	#dateOfBirth;
+	#bio;
 	#academicRankId;
 	#academicRankGainYear;
 	#academicTitleId;
@@ -46,6 +47,9 @@ class LecturerBuilder {
 	}
 	set dateOfBirth(dateOfBirth) {
 		this.#dateOfBirth = dateOfBirth;
+	}
+	set bio(bio) {
+		this.#bio = bio;
 	}
 	set academicRankId(academicRankId) {
 		this.#academicRankId = academicRankId;
@@ -111,6 +115,7 @@ class LecturerBuilder {
 		this.#dateOfBirth = lecturerObject.dateOfBirth
 			? moment(lecturerObject.dateOfBirth, 'DD/MM/YYYY').format('YYYY/MM/DD')
 			: null;
+		this.#bio = lecturerObject.bio ?? null;
 		this.#academicRankId = lecturerObject.academicRankId ?? null;
 		this.#academicRankGainYear = lecturerObject.academicRankGainYear ?? null;
 		this.#academicTitleId = lecturerObject.academicTitleId ?? null;
@@ -138,6 +143,7 @@ class LecturerBuilder {
 		this.#gender = null;
 		this.#avatar = null;
 		this.#dateOfBirth = null;
+		this.#bio = null;
 		this.#academicRankId = null;
 		this.#academicRankGainYear = null;
 		this.#academicTitleId = null;
@@ -166,6 +172,7 @@ class LecturerBuilder {
 			this.#gender,
 			this.#avatar,
 			this.#dateOfBirth,
+			this.#bio,
 			this.#academicRankId,
 			this.#academicRankGainYear,
 			this.#academicTitleId,

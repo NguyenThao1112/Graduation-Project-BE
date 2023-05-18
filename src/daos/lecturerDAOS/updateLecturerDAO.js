@@ -495,7 +495,7 @@ function updateLecturer(lecturer) {
 		const query = [
 			`UPDATE lecturer_information`,
 			`SET`,
-			`name = ?, gender = ?, avatar = ?,date_of_birth = ?,academic_rank_id = ?, academic_rank_gain_year = ?,academic_title_id = ?, academic_title_gain_year = ?, expand_column = ?,`,
+			`name = ?, gender = ?, avatar = ?,date_of_birth = ?,bio = ?,academic_rank_id = ?, academic_rank_gain_year = ?,academic_title_id = ?, academic_title_gain_year = ?, expand_column = ?,`,
 			`updated_at = ?`,
 			`WHERE id = ?`,
 		].join(' ');
@@ -506,6 +506,7 @@ function updateLecturer(lecturer) {
 			lecturer.gender,
 			lecturer.avatar,
 			lecturer.dateOfBirth,
+			lecturer.bio,
 			lecturer.academicRankId,
 			lecturer.academicRankGainYear,
 			lecturer.academicTitleId,
