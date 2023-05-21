@@ -1,3 +1,4 @@
+//@ts-nocheck
 const messageConstants = require('../constants/messageConstants');
 const {
 	getAuthorById,
@@ -54,15 +55,14 @@ async function getAuthorByScopusId(request, response) {
 	};
 
 	const scopusAuthorData = await getAuthorById(scopusAuthorId);
-	const updateAuthorProfileData = await updateAuthorProfile(
-		scopusAuthorData,
-		accountId
-	);
-	if (scopusResponse) {
+	const newLecturerId = await updateAuthorProfile(scopusAuthorData, accountId);
+	if (newLecturerId) {
 		responseJson = {
 			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,
 			message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE,
-			data: scopusResponse,
+			data: {
+				lecturerId: newLecturerId,
+			},
 		};
 		return response.status(200).json(responseJson);
 	}

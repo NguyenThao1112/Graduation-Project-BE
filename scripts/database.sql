@@ -313,9 +313,9 @@ CREATE TABLE university (
 CREATE TABLE current_discipline (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    discipline_id INT NOT NULL,
-    department_id INT NOT NULL,
-    university_id INT NOT NULL,
+    discipline_id INT,
+    department_id INT,
+    university_id INT,
     position VARCHAR(255) DEFAULT NULL,
     created_at DATETIME,
     updated_at DATETIME,
