@@ -53,10 +53,8 @@ async function updateAuthorProfile(scopusProfile, accountId) {
 			authorResponse['author-profile']['publication-range']['@start'] +
 			'-' +
 			authorResponse['author-profile']['publication-range']['@end'];
-		const citationCount =
-			authorResponse['author-profile']['coredata']['citation-count'];
-		const citedByCount =
-			authorResponse['author-profile']['coredata']['cited-by-count'];
+		const citationCount = authorResponse['coredata']['citation-count'];
+		const citedByCount = authorResponse['coredata']['cited-by-count'];
 		const expandColumn = JSON.stringify({
 			publicationRange: publicationRange,
 			citationCount: citationCount,

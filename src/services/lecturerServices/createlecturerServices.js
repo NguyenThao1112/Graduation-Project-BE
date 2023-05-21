@@ -95,11 +95,15 @@ function createCurrentDiscipline(currentDiscipline, lecturer) {
 		}
 
 		const nonexistentDiscipline = !currentDiscipline.disciplineId
-			? [{ name: currentDiscipline.disciplineName }]
+			? currentDiscipline.disciplineName
+				? [{ name: currentDiscipline.disciplineName }]
+				: []
 			: [];
 
 		const nonexistentDepartment = !currentDiscipline.departmentId
-			? [{ name: currentDiscipline.departmentName }]
+			? currentDiscipline.departmentName
+				? [{ name: currentDiscipline.departmentName }]
+				: []
 			: [];
 
 		const promises = [];
