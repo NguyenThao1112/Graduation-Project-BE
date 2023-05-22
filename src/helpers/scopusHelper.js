@@ -46,7 +46,7 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			volume: entry["prism:volume"] ?? null,
 			
 			ISSN: entry["prism:issn"] ?? null,
-			ISBN: entry["prism:isbn"] ? entry["prism:isbn"]["$"] : null,
+			ISBN: entry["prism:isbn"] ? entry["prism:isbn"][0]["$"] : null,
 			DOI: entry["prism:doi"] ?? null,
 			PII: entry["pii"]?? null,
 			Scopus: scopusId,
@@ -151,14 +151,52 @@ async function buildTagDataForArticle(tagObject) {
 async function addComplexInformationForArticle(articleObject, axiosData) {
 	const bodyData = axiosData["abstracts-retrieval-response"];
 	const coreData = bodyData.coredata;
+	const itemData = bodyData.item;
+	const bibrecord = itemData.bibrecord;
+	const bibrecordHeadSource = bibrecord.head.source;
+	const publicationDate = bibrecordHeadSource.publicationdate;
 	
 	articleObject.pageFrom = coreData["prism:startingPage"];
 	articleObject.pageTo = coreData["prism:endingPage"];
 	articleObject.abstract = coreData["dc:description"];
-	articleObject.authors = await buildAuthorDataForArticle(bodyData.authors.author);
-	articleObject.tags = await buildTagDataForArticle(bodyData.authkeywords["author-keyword"]);
+
+	try {
+		articleObject.authors = await buildAuthorDataForArticle(bodyData.authors.author);
+	} catch (error) {
+		//do nothing
+	}
+
+	try {
+		articleObject.tags = await buildTagDataForArticle(bodyData.authkeywords["author-keyword"]);
+	} catch (error) {
+		//do nothing
+	}
 	
-	console.log(articleObject);
+	//Add date for article
+	if (publicationDate) {
+		articleObject.year = publicationDate.year ?? null;
+		articleObject.month = publicationDate.month ?? null;
+		articleObject.day = publicationDate.day ?? null;
+	}
+
+	//Add some ID for the article
+	if (bibrecord.hasOwnProperty('item-info') && bibrecord['item-info']) {
+		const itemInfo =  bibrecord['item-info'];
+		if (itemInfo.hasOwnProperty('itemidlist') && itemInfo.itemidlist) {
+			const itemIdList = itemInfo.itemidlist;
+			const itemIds = itemIdList.itemid ?? null;
+
+			//Get each id
+			if (itemIds) {
+				const SGR = itemIds.filter(idType => 'SGR' === idType['idType']);
+
+				if (SGR.length) {
+					articleObject.SGR = SGR['$'] ?? null;
+				}
+			}
+		}
+
+	}
 
 	return articleObject;
 }

@@ -64,6 +64,7 @@ async function getAuthorByScopusId(request, response) {
 	// 	accountId
 	// );
 	const testData = await getBaseArticleByAuthorScopusId(scopusAuthorId);
+	console.log(testData);
 
 	if (scopusResponse) {
 		responseJson = {
