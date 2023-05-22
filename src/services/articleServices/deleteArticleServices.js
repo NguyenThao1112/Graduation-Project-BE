@@ -15,7 +15,7 @@ const searchArticleDAO = require('../../daos/articleDAOs/searchArticleDAO');
             return null;
         }
         
-        const selectColumns = ["id"];
+        const selectColumns = [`${tableName}.id AS id`];
         return searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(tableName, selectColumns, articleIds)
         .then(queryResult => {
             const deleteIds = queryResult.map(resultData => resultData.id);

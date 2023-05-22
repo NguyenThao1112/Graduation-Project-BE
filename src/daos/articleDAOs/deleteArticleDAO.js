@@ -16,11 +16,17 @@ const queryConstants = require('../../constants/queryConstants');
  */
 function deleteRecordInTable(tableName, deletedIds) {
     return new Promise(function (resolve, reject) {
+        
+        let whereStatement = "WHERE id IN (?)";
+        if (0 === deletedIds.length) {
+            whereStatement = "WHERE true = false";
+        }
+
         const query = 
         [
             `UPDATE ${tableName}`,
             'SET is_deleted = ?, updated_at = ?',
-            'WHERE id IN (?)',
+            whereStatement,
         ].join(' ');
 
         const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
