@@ -1,3 +1,4 @@
+//@ts-nocheck
 const axios = require('axios');
 const scopusHelper = require('../../helpers/scopusHelper');
 const scopusConstants = require('../../constants/scopusConstants');
@@ -31,7 +32,7 @@ async function updateAuthorProfile(scopusProfile, accountId) {
 		const currentUniversityObject = [
 			{
 				name: currentUniversity['afdispname'],
-				address: scopusHelper.combineAddress(currentUniversity['address']),
+				address: scopusHelper.modifyAddress(currentUniversity['address']),
 			},
 		];
 		const affiliationHistory =
@@ -40,11 +41,18 @@ async function updateAuthorProfile(scopusProfile, accountId) {
 		for (let i = 0; i < affiliationHistory.length; i++) {
 			historyUniversityList.push({
 				name: affiliationHistory[i]['ip-doc']['afdispname'],
-				address: affiliationHistory[i]['ip-doc']['address'],
+				address: scopusHelper.modifyAddress(
+					affiliationHistory[i]['ip-doc']['address']
+				),
 			});
 		}
-		const universityIds = await createUniversities(currentUniversityObject);
-		currentUniversityObject[0].id = universityIds.pop();
+		const currentUniversityIds = await createUniversities(
+			currentUniversityObject
+		);
+		const historyUniversityIds = await createUniversities(
+			historyUniversityList
+		);
+		currentUniversityObject[0].id = currentUniversityIds.pop();
 		const name =
 			authorResponse['author-profile']['preferred-name']['surname'] +
 			' ' +
@@ -67,7 +75,11 @@ async function updateAuthorProfile(scopusProfile, accountId) {
 			currentDiscipline: {
 				universityId: currentUniversityObject[0].id,
 			},
-			workPosition: historyUniversityList,
+			workPositions: historyUniversityIds.map((ele) => {
+				return {
+					universityId: ele,
+				};
+			}),
 		};
 
 		const lecturerIds = await createLecturer(lecturerInformationObject);

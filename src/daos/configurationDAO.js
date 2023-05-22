@@ -1110,6 +1110,9 @@ function deleteUniversities(ids) {
 
 function createUniversities(universities) {
 	return new Promise(function (resolve, reject) {
+		if (!universities.length) {
+			resolve([]);
+		}
 		const query = `INSERT INTO university (name, address, created_at, updated_at, is_deleted) VALUES ?`;
 
 		const now = getCurrentTimeFormat();
