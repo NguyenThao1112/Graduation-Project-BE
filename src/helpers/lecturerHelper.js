@@ -1,6 +1,7 @@
 const { phdThesis, expertise } = require('../constants/tableQueryConstants');
 const { Lecturer } = require('../models/lecturer/lecturer');
 const moment = require('moment');
+const { DAYS_TO_YEAR_FORMAT } = require('../constants/timeConstants');
 class LecturerBuilder {
 	#id;
 	#accountId;
@@ -30,78 +31,103 @@ class LecturerBuilder {
 	#workPositions;
 	#activities;
 
+	// @ts-ignore
 	set id(id) {
 		this.#id = id;
 	}
+	// @ts-ignore
 	set accountId(accountId) {
 		this.#accountId = accountId;
 	}
+	// @ts-ignore
 	set name(name) {
 		this.#name = name;
 	}
+	// @ts-ignore
 	set gender(gender) {
 		this.#gender = gender;
 	}
+	// @ts-ignore
 	set avatar(avatar) {
 		this.#avatar = avatar;
 	}
+	// @ts-ignore
 	set dateOfBirth(dateOfBirth) {
 		this.#dateOfBirth = dateOfBirth;
 	}
+	// @ts-ignore
 	set bio(bio) {
 		this.#bio = bio;
 	}
+	// @ts-ignore
 	set academicRankId(academicRankId) {
 		this.#academicRankId = academicRankId;
 	}
+	// @ts-ignore
 	set academicRankGainYear(academicRankGainYear) {
 		this.#academicRankGainYear;
 	}
+	// @ts-ignore
 	set academicTitleId(academicTitleId) {
 		this.#academicTitleId = academicTitleId;
 	}
+	// @ts-ignore
 	set academicTitleGainYear(academicTitleGainYear) {
 		this.#academicTitleGainYear = academicTitleGainYear;
 	}
+	// @ts-ignore
 	set createdAt(createdAt) {
 		this.#createdAt = createdAt;
 	}
+	// @ts-ignore
 	set updatedAt(updatedAt) {
 		this.#updatedAt = updatedAt;
 	}
+	// @ts-ignore
 	set isDeleted(isDeleted) {
 		this.#isDeleted = isDeleted;
 	}
+	// @ts-ignore
 	set expandColumn(expandColumn) {
 		this.#expandColumn = expandColumn;
 	}
+	// @ts-ignore
 	set phdThesises(phdThesises) {
 		this.#phdThesises = phdThesises;
 	}
+	// @ts-ignore
 	set books(books) {
 		this.#books = books;
 	}
+	// @ts-ignore
 	set contacts(contacts) {
 		this.#contacts = contacts;
 	}
+	// @ts-ignore
 	set projects(projects) {
 		this.#projects = projects;
 	}
+	// @ts-ignore
 	set currentDiscipline(currentDiscipline) {
 		this.#currentDiscipline = currentDiscipline;
 	}
+	// @ts-ignore
 	set expertises(expertises) {
 		this.#expertises = expertises;
 	}
+	// @ts-ignore
 	set researchFields(researchFields) {
 		this.#researchFields = researchFields;
 	}
+	// @ts-ignore
 	set degrees(degrees) {
 		this.#degrees = degrees;
 	}
+	// @ts-ignore
 	set workPositions(workPositions) {
 		this.#workPositions = workPositions;
 	}
+	// @ts-ignore
 	set activities(activities) {
 		this.#activities = activities;
 	}
@@ -301,6 +327,7 @@ function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
 	const completeLecturerData = lecturerData.map((ele) => {
 		return {
 			...ele,
+			dateOfBirth: moment(ele.dateOfBirth).format(DAYS_TO_YEAR_FORMAT),
 			phdThesises: phdThesises.get(ele.id),
 			books: books.get(ele.id),
 			contacts: contacts.get(ele.id),
