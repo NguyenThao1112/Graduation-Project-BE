@@ -121,7 +121,7 @@ function getBaseLecturers(option = null) {
 			'a.academic_rank_id as academicRankId, ',
 			'a.academic_rank_gain_year as academicRankGainYear,',
 			'a.academic_title_id as academicTitleId,',
-			'a.academic_title_gain_year as academicTitleGainYear',
+			'a.academic_title_gain_year as academicTitleGainYear,',
 			'a.scopus_id as scopusId',
 		].join(' ');
 		let fromStatement = 'FROM lecturer_information as a';
@@ -171,7 +171,7 @@ function getBaseLecturers(option = null) {
 				option.scopusIds.length > 0) {
 					
 				const scopusIds = option.scopusIds;
-				whereStatement = `${whereStatement} AND scopusId IN (?)`;
+				whereStatement = `${whereStatement} AND a.scopus_id IN (?)`;
 				bindingValues.push(scopusIds);
 			}
 		}

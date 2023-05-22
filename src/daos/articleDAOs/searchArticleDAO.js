@@ -34,7 +34,6 @@ const queryHelper = require('../../helpers/queryHelper');
         ].join(' ');
 
         let data = null;
-        console.log(query);
         connection.query(query, [articleIds], (error, results, fields) => {
             if (error) {
                 reject(error);

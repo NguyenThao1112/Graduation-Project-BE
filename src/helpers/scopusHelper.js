@@ -3,6 +3,9 @@ const {Article} = require('../models/article/article');
 const {
 	getLecturerByScopusIds
 } = require('../services/lecturerServices/searchLecturerServices');
+const {
+	getTagsByNames
+} = require('../services/configurationServices');
 
 function parseDataFromGetAuthorFromNameResponse(scopusResponse) {
 	const entries = scopusResponse['search-results']['entry'];
@@ -73,24 +76,24 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 	return articleObjects;
 }
 
-function buildAuthorDataForArticle(scopusAuthorDataResponse) {
+async function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 	const authorsHasScopusId = scopusAuthorDataResponse
-								.authors
-								.author
 								.filter(author => author["author-url"]);
 	const authorScopusIds = authorsHasScopusId
 							.map(author => author["author-url"].substring('https://api.elsevier.com/content/author/author_id/'.length));
 
 	//Get Id from the the lecturer has the exists on the system
-	const alreadyExistAuthorMap = getLecturerByScopusIds(authorScopusIds, ["id"]);
-	
+	let alreadyExistAuthorMap = new Map(); //init 
+	try {
+		alreadyExistAuthorMap = await getLecturerByScopusIds(authorScopusIds, ["id"]);
+	} catch (error) {
+		//do nothing
+	}
 	const alreadyExistAuthorScopusId = new Set([...alreadyExistAuthorMap.keys()]);	//using set for better performance
 	const notExistAuthorScopusId = new Set(authorScopusIds.filter(scopusId => !alreadyExistAuthorScopusId.has(scopusId)));
 	
 	//Get the author to create later
 	const createNewAuthors = scopusAuthorDataResponse
-		.authors
-		.author
 		.filter(author => {
 			if (!author["author-url"]) {
 				return true;
@@ -110,28 +113,52 @@ function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 	}));
 
 	const authors = createNewAuthors.concat(noNeedToCreateAuthors);
-
 	return authors;
 }
 
-function buildTagDataForArticle(tagObject) {
+async function buildTagDataForArticle(tagObject) {
 	const tagNames = tagObject.filter(obj => obj["$"]).map(obj => obj["$"]);
-	// ...
+
+	//Get the already tag which is exist
+	let existTags = [];
+	try {
+		existTags = await getTagsByNames(tagNames);
+	} catch (error) {
+		//do nothing
+	}
+	
+	//Using Set for better performance
+	const existTagSet = new Set(existTags.map(tag => tag.name));
+
+	//Get the name of the not exist tag
+	const notExistTag = tagNames.filter(tag => !existTagSet.has(tag));
+
+	//Build the return value
+	const existTagIds = existTags.map(tag => ({
+		"tag_id": tag.id,
+	}))
+	const notExistTagNames = notExistTag.map(tag => ({
+		"name": tag,
+	}));
+
+	const tags = existTagIds.concat(notExistTagNames);
+
+	return tags;
+
+
 }
 
-function addComplexInformationForArticle(articleObject, axiosData) {
+async function addComplexInformationForArticle(articleObject, axiosData) {
 	const bodyData = axiosData["abstracts-retrieval-response"];
 	const coreData = bodyData.coredata;
-	// console.log(idxtermsData);
-	// console.log(bodyData);
-	console.log(bodyData.authkeywords);
-
+	
 	articleObject.pageFrom = coreData["prism:startingPage"];
 	articleObject.pageTo = coreData["prism:endingPage"];
 	articleObject.abstract = coreData["dc:description"];
-	// articleObject.authors = buildAuthorDataForArticle(bodyData.authors.author);
-	// articleObject.tags = buildTagDataForArticle(bodyData.authkeywords["author-keyword"]);
+	articleObject.authors = await buildAuthorDataForArticle(bodyData.authors.author);
+	articleObject.tags = await buildTagDataForArticle(bodyData.authkeywords["author-keyword"]);
 	
+	console.log(articleObject);
 
 	return articleObject;
 }

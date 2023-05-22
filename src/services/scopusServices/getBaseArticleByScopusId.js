@@ -8,8 +8,8 @@ async function addComplexInformationForArticle(articleObject) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_ABSTRACT_BY_ARTICLE_ID}/${articleObject.Scopus}`;
 	try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
-		articleObject = scopusHelper.addComplexInformationForArticle(articleObject, axiosResponse.data);
-		console.log(articleObject);
+		articleObject = await scopusHelper.addComplexInformationForArticle(articleObject, axiosResponse.data);
+		// console.log(articleObject);
 
 		return articleObject;
 	} catch (error) {
