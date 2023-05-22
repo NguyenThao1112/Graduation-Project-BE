@@ -7,37 +7,34 @@ const validators = require('../validators/commonValidators');
 const urls = require('../constants/urlConstants');
 const lecturerControllers = require('../controllers/lecturerControllers');
 const { authGuard } = require('../middlewares/authMiddlewares');
+const commonValidators = require('../validators/commonValidators');
 
-router.get(
-	urls.LECTURER_GET_ALL_URL,
-	authGuard,
-	lecturerControllers.getAllLecturersWithBasicInformation
-);
-
+//get all lecturers with pagination
 router.get(
 	urls.LECTURER_GET_ALL_PAGINATION_URL,
-	authGuard,
 	validators.getPaginationValidators(),
-	lecturerControllers.getAllLecturersWithPagination
+	lecturerControllers.getLecturersWithPagination
 );
+
+//get all lecturers
+router.get(urls.LECTURER_GET_ALL_URL, lecturerControllers.getAllLecturers);
+
+//get one lecturer base on its id
+router.get(urls.LECTURER_GET_ONE_LECTURER, lecturerControllers.getOneLecturer);
 
 //create lecturers
-router.post(
-	urls.LECTURER_CREATE_URL,
-	authGuard,
-	lecturerControllers.createLecturers
+router.post(urls.LECTURER_CREATE_URL, lecturerControllers.createLecturers);
+
+router.put(urls.LECTURER_UPDATE_URL, lecturerControllers.updateLecturer);
+
+router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
+
+//Get the page count, while on pagination process
+router.get(
+    `${urls.LECTURER_PAGE_SIZE}`, 
+    commonValidators.getPageSizeValidator(),
+    lecturerControllers.getLecturerPagingSize
 );
 
-router.put(
-	urls.LECTURER_UPDATE_URL,
-	authGuard,
-	lecturerControllers.updateLecturer
-);
-
-router.delete(
-	urls.LECTURER_DELETE_URL,
-	authGuard,
-	lecturerControllers.deleteLecturers
-);
 
 module.exports = router;

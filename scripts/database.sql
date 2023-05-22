@@ -1,3 +1,7 @@
+-- delete database if it exists
+DROP DATABASE IF EXISTS nckh;
+
+-- create database
 CREATE DATABASE nckh;
 USE nckh;
 
@@ -23,6 +27,7 @@ CREATE TABLE lecturer_information (
     gender VARCHAR(10) DEFAULT NULL,
     avatar VARCHAR(255) DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
+    bio VARCHAR(255) DEFAULT NULL,
 
     -- academic rank stuffs
     academic_rank_id INT DEFAULT NULL,
@@ -44,6 +49,48 @@ CREATE TABLE lecturer_information (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE phd_thesis (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    project_name VARCHAR(255) DEFAULT NULL,
+    phd_name VARCHAR(255) DEFAULT NULL,
+    graduation_year INT DEFAULT NULL,
+    education_level VARCHAR(255) DEFAULT NULL,
+    note VARCHAR(255) DEFAULT NULL,
+    
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE book (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL,
+    project_id INT DEFAULT NULL,
+    publisher_name VARCHAR(255) DEFAULT NULL,
+    public_year INT NOT NULL,
+    co_authors VARCHAR(255) DEFAULT NULL,
+    pseudonym VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE book_author(
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id int NOT NULL,
+    book_id int NOT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE contact_type (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) DEFAULT NULL,
@@ -56,11 +103,23 @@ CREATE TABLE contact_type (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE contact (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    contact_type_id INT NOT NULL,
+    value VARCHAR(255) NOT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,  
+
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) DEFAULT NULL,
 
-     -- metadata stuffs
+    -- metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
@@ -214,4 +273,161 @@ CREATE TABLE author(
     is_deleted BOOLEAN DEFAULT FALSE,
     
     PRIMARY KEY(id)  
+);
+
+CREATE TABLE project (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    project_code VARCHAR(255) DEFAULT NULL,
+    from_date VARCHAR(7) DEFAULT NULL,
+    to_date VARCHAR(7) DEFAULT NULL,
+    expenditure INT NOT NULL,
+    project_role VARCHAR(255) DEFAULT NULL,
+    acceptance_date DATE,
+    result VARCHAR(255) DEFAULT NULL,
+    organization VARCHAR(255) DEFAULT NULL,
+    note VARCHAR(255) DEFAULT NULL,
+    reference VARCHAR(255) DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE university (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL,
+    address VARCHAR(255) DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+
+);
+
+CREATE TABLE current_discipline (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    discipline_id INT,
+    department_id INT,
+    university_id INT,
+    position VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id,lecturer_id)
+);
+
+CREATE TABLE discipline (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL,
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE department(
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE expertise (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    specialization VARCHAR(255) NOT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE research_field (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    research_name VARCHAR(255) NOT NULL,
+    note VARCHAR(255) NOT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE degree (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    academic_title_id INT NOT NULL,
+    university_id INT NOT NULL,
+    specialization VARCHAR(255) DEFAULT NULL,
+    graduation_thesis_name  VARCHAR(255) DEFAULT NULL,
+    graduation_date INT DEFAULT NULL,
+    
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE work_position (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    university_id INT DEFAULT NULL,
+    company VARCHAR(255) DEFAULT NULL,
+    position VARCHAR(255) DEFAULT NULL,
+    is_now BOOLEAN DEFAULT FALSE,
+    from_date INT DEFAULT NULL,
+    to_date INT DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE activity (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT NOT NULL,
+    activity_type_id INT NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
+    note VARCHAR(255) DEFAULT NULL,
+    is_now BOOLEAN DEFAULT FALSE,
+    from_date INT DEFAULT NULL,
+    to_date INT DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE activity_type (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)
 );

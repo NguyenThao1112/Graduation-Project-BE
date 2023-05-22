@@ -171,11 +171,11 @@ const commonHelper = require('../helpers/commonHelper');
             searchByKeyword: request.query.keyword ?? undefined,
         }
 
-        //Try to get all the tags from the database
+        //Try to get all the article with pagination from the database
         searchArticleService.getArticlesWithPagination(pageOffset, limitSize, options)
             .then((articleDatas) => {
 
-                //If there is a not-null tags => change the response's data
+                //If there is a not-null data => change the response's data
                 if (articleDatas) {
                     responseJson.code = messageConstants.SUCCESSFUL_CODE;
                     responseJson.message = messageConstants.ARTICLE_GET_SUCCESS_MESSAGE;
@@ -194,10 +194,148 @@ const commonHelper = require('../helpers/commonHelper');
     
 }
 
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getArticlesByLecturerIds(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        //Get the "data" property
+        const {data} = request.body;
+        const lecturerIds = data.lecturerIds;
+
+        //Try to get all the articles with the given lecturer's id from the database
+        searchArticleService.getArticlesWithLecturerIds(lecturerIds)
+            .then((articleDatas) => {
+
+                //If there is a not-null data => change the response's data
+                if (articleDatas) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_SUCCESS_MESSAGE;
+                    responseJson.data = articleDatas;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+    
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getArticlePagingSize(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        const limitSize = parseInt(request.query.limitSize);
+        const keyword = request.query.keyword ?? null;
+
+        //Try to get the number of page with paging size
+        searchArticleService.getArticlePagingSize(limitSize, keyword)
+            .then((pagingSize) => {
+
+                //If there is a not-null data => change the response's data
+                if (-1 !== pagingSize) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_PAGING_SIZE_SUCCESS_MESSAGE;
+                    responseJson.data = pagingSize;
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+    })
+}
+
+/**
+ * 
+ * @param {Express.Request} request 
+ * @param {Express.Response} response 
+ * @returns {Promise}  
+ */
+function getArticleById(request, response) {
+    return new Promise((resolve, reject) => {
+
+        //Check if the request is valid
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+        
+        //Default response is error response
+        let responseJson = {
+            code: messageConstants.ARTICLE_INVALID_CODE,
+            message: messageConstants.ARTICLE_INVALID_MESSAGE,
+        }
+
+        //Get the "id" path variable
+        const articleId = parseInt(request.params.id)
+        const articleIds = [articleId]
+
+        searchArticleService.getArticleByIds(articleIds).then((articles) => {
+                if (articles.length > 0) {
+                    responseJson.code = messageConstants.SUCCESSFUL_CODE;
+                    responseJson.message = messageConstants.ARTICLE_GET_DETAIL_SUCCESS_MESSAGE;
+                    responseJson.data = articles[0]
+                } else if (0 === articles.length) {
+                    responseJson.code = messageConstants.ARTICLE_NOT_FOUND_CODE;
+                    responseJson.message = messageConstants.ARTICLE_NOT_FOUND_MESSAGE;
+                }
+
+            })
+            .finally(() => {
+                response.json(responseJson);
+            });
+
+    });
+}
 
 module.exports = {
     getArticlesWithPagination,
+    getArticlesByLecturerIds,
     createArticle,
     updateArticle,
     deleteArticles,
+    getArticlePagingSize,
+    getArticleById,
 }

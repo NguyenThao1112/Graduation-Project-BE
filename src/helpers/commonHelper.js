@@ -1,4 +1,4 @@
-const queryConstants = require('../constants/queryConstants');
+const queryConstants = require('../constants/messageQueryConstants');
 
 function convertRowsDataToArray(data) {
 	return Object.values(JSON.parse(JSON.stringify(data)));
@@ -6,14 +6,14 @@ function convertRowsDataToArray(data) {
 
 /**
  * Normalize the query parameter to int or default value when using pagination feature
- * 
+ *
  * @param {int|string} pageOffsetRaw
  * @param {int|string} limitSizeRaw
  * @return {[int, int]} results
  */
 function normalizePaginationParam(pageOffsetRaw, limitSizeRaw) {
 	let pageOffset = parseInt(pageOffsetRaw);
-	let limitSize =  parseInt(limitSizeRaw);
+	let limitSize = parseInt(limitSizeRaw);
 
 	if (!pageOffset) {
 		pageOffset = queryConstants.DEFAULT_PAGINATION_PAGEOFFSET;

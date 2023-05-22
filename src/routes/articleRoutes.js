@@ -16,6 +16,11 @@ router.get(
 );
 
 router.post(
+    `${urls.ARTICLE_GET_ALL_WITH_LECTURER_ID}`,
+    articleController.getArticlesByLecturerIds
+)
+
+router.post(
     `${urls.ARTICLE_CREATE}`, 
     fileUpload({createParentPath: true}),
     uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),
@@ -35,5 +40,17 @@ router.delete(
     `${urls.ARTICLE_DELETE}`, 
     articleController.deleteArticles
 );
+
+router.get(
+    `${urls.ARTICLE_PAGE_SIZE}`, 
+    commonValidators.getPageSizeValidator(),
+    articleController.getArticlePagingSize
+);
+
+router.get(
+    `${urls.ARTICLE_GET_ONE_ARTICLE}`,
+    commonValidators.getIdValidator(),
+    articleController.getArticleById
+)
 
 module.exports = router;

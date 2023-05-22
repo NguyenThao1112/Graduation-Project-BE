@@ -351,133 +351,358 @@ function deleteAcademicTitles(academicTitleIds) {
 
 /**
  * Get tag with pagination
- * 
+ *
  * @param {int} pageOffset which page, in 1-offset-indexing
  * @param {int} limitSize maximum number of record in a page
- * 
+ *
  * @return {Promise}
- *  
+ *
  */
 function getTagWithPagination(pageOffset, limitSize) {
+	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+	const recordOffset = (pageOffset - 1) * limitSize;
 
-    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
-    const recordOffset = (pageOffset - 1) * limitSize;
-
-    return new Promise((resolve, reject) => {
-        configurationDAO.getTagWithPagination(recordOffset, limitSize)
-            .then(tags => {
-                resolve(tags);
-            })
-            .catch(error => {
-                reject(error);
-            })
-
-    })
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getTagWithPagination(recordOffset, limitSize)
+			.then((tags) => {
+				resolve(tags);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * Get all the tag, but with only its id and name
- * 
+ *
  * @return {Promise}
- *  
+ *
  */
 function getAllTag() {
-
-    return new Promise((resolve, reject) => {
-        configurationDAO.getAllTag()
-            .then(tags => {
-                resolve(tags);
-            })
-            .catch(error => {
-                reject(error);
-            })
-
-    })
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllTag()
+			.then((tags) => {
+				resolve(tags);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * create multiple tags at the same time
  * @param {Array<Object{name: string}>} tags
  * @return {Promise}
- *  
+ *
  */
- function createTags(tags) {
-
-    return new Promise((resolve, reject) => {
-        configurationDAO.createTags(tags)
-            .then(tagIds => {
-                resolve(tagIds);
-            })
-            .catch(error => {
-                reject(error);
-            })
-    })
+function createTags(tags) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.createTags(tags)
+			.then((tagIds) => {
+				resolve(tagIds);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * Update a tag
  * @param {Object{id: number, name: string}} tag
  * @return {Promise}
- *  
+ *
  */
- function updateTag(tag) {
+function updateTag(tag) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getTagById(tag.id, false)
+			.then((foundTag) => {
+				//The updated tag is not existed
+				//  => throw error
+				if (foundTag.length <= 0) {
+					reject(null);
+					return;
+				}
 
-    return new Promise((resolve, reject) => {
-        configurationDAO.getTagById(tag.id, false)
-            .then(foundTag => {
-
-                //The updated tag is not existed
-                //  => throw error
-                if(foundTag.length <= 0) {
-                    reject(null);
-                    return
-                }
-
-                return configurationDAO.updateTag(tag);
-            })
-            .catch(error => {
-                reject(error);
-            })
-            .then(updatedTag => {
-                resolve(updatedTag);
-            })
-
-    })
+				return configurationDAO.updateTag(tag);
+			})
+			.catch((error) => {
+				reject(error);
+			})
+			.then((updatedTag) => {
+				resolve(updatedTag);
+			});
+	});
 }
-
 
 /**
  * delete multiple tags at the same time with tags' ids
  * @param {Array<number>} tagIds
  * @return {Promise}
- *  
+ *
  */
- function deleteTags(tagIds) {
-
-    return new Promise((resolve, reject) => {
-        configurationDAO.deleteTags(tagIds)
-            .then(deleteCount => {
-                resolve(deleteCount);
-            })
-            .catch(error => {
-                reject(error);
-            })
-
-    })
+function deleteTags(tagIds) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.deleteTags(tagIds)
+			.then((deleteCount) => {
+				resolve(deleteCount);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
-
 
 /**
  * Get tags by its name
  * @param {Array<String>} tagNames
  * @return {Promise}
  */
- function getTagsByNames(tagNames) {
+function getTagsByNames(tagNames) {
 	return new Promise((resolve, reject) => {
 		configurationDAO
 			.getTagsByNames(tagNames)
 			.then((tags) => {
 				resolve(tags);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+
+/****************************************************************
+ ***********************ACTIVITY TYPE****************************
+ ****************************************************************/
+
+/**
+ * Get activity type with pagination
+ *
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ *
+ * @return {Promise}
+ *
+ */
+ function getActivityTypeWithPagination(pageOffset, limitSize) {
+	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+	const recordOffset = (pageOffset - 1) * limitSize;
+
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getActivityTypeWithPagination(recordOffset, limitSize)
+			.then((activityTypes) => {
+				resolve(activityTypes);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Get all the activity type, but with only its id and name
+ *
+ * @return {Promise}
+ *
+ */
+function getAllActivityType() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllActivityType()
+			.then((activityTypes) => {
+				resolve(activityTypes);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * create multiple activity types at the same time
+ * @param {Array<Object{name: string}>} activityTypes
+ * @return {Promise}
+ *
+ */
+function createActivityTypes(activityTypes) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.createActivityTypes(activityTypes)
+			.then((activityTypeIds) => {
+				resolve(activityTypeIds);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Update a activity type
+ * @param {Object{id: number, name: string}} activityType
+ * @return {Promise}
+ *
+ */
+function updateActivityType(activityType) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getActivityTypeById(activityType.id)
+			.then((foundActivityType) => {
+				//The updated activity type is not existed
+				//  => throw error
+				if (foundActivityType.length <= 0) {
+					reject(null);
+					return;
+				}
+
+				return configurationDAO.updateActivityType(activityType);
+			})
+			.catch((error) => {
+				reject(error);
+			})
+			.then((updatedActivityType) => {
+				resolve(updatedActivityType);
+			});
+	});
+}
+
+/**
+ * delete multiple activity types at the same time with activity types' ids
+ * @param {Array<number>} activityTypeIds
+ * @return {Promise}
+ *
+ */
+function deleteActivityTypes(activityTypeIds) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.deleteActivityTypes(activityTypeIds)
+			.then((deleteCount) => {
+				resolve(deleteCount);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+
+/****************************************************************
+ **************************UNIVERSITY****************************
+ ****************************************************************/
+
+/**
+ * Get university with pagination
+ *
+ * @param {int} pageOffset which page, in 1-offset-indexing
+ * @param {int} limitSize maximum number of record in a page
+ *
+ * @return {Promise}
+ *
+ */
+ function getUniversityWithPagination(pageOffset, limitSize) {
+	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+	const recordOffset = (pageOffset - 1) * limitSize;
+
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getUniversityWithPagination(recordOffset, limitSize)
+			.then((universities) => {
+				resolve(universities);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Get all the university
+ *
+ * @return {Promise}
+ *
+ */
+function getAllUniversity() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllUniversity()
+			.then((universities) => {
+				resolve(universities);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * create multiple universities at the same time
+ * @param {Array<Object{name: string}>} universities
+ * @return {Promise}
+ *
+ */
+function createUniversities(universities) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.createUniversities(universities)
+			.then((universityIds) => {
+				resolve(universityIds);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Update a university
+ * @param {Object{id: number, name: string}} university
+ * @return {Promise}
+ *
+ */
+function updateUniversity(university) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getUniversityById(university.id)
+			.then((foundUniversity) => {
+				//The updated university is not existed
+				//  => throw error
+				if (foundUniversity.length <= 0) {
+					reject(null);
+					return;
+				}
+
+				return configurationDAO.updateUniversity(university);
+			})
+			.catch((error) => {
+				reject(error);
+			})
+			.then((updatedUniversity) => {
+				resolve(updatedUniversity);
+			});
+	});
+}
+
+/**
+ * delete multiple universities at the same time with universities' ids
+ * @param {Array<number>} universityIds
+ * @return {Promise}
+ *
+ */
+function deleteUniversities(universityIds) {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.deleteUniversities(universityIds)
+			.then((deleteCount) => {
+				resolve(deleteCount);
 			})
 			.catch((error) => {
 				reject(error);
@@ -500,19 +725,34 @@ module.exports = {
 	updateAcademicRank,
 	deleteAcademicRanks,
 
-    //Academic titles
-    getAcademicTitleWithPagination,
-    getAllAcademicTitle,
-    createAcademicTitles,
-    updateAcademicTitle,
-    deleteAcademicTitles,
+	//Academic titles
+	getAcademicTitleWithPagination,
+	getAllAcademicTitle,
+	createAcademicTitles,
+	updateAcademicTitle,
+	deleteAcademicTitles,
 
-    //Tags
-    getTagWithPagination,
-    getAllTag,
-    createTags,
-    updateTag,
-    deleteTags,
-    getTagsByNames
-}
+	//Tags
+	getTagWithPagination,
+	getAllTag,
+	createTags,
+	updateTag,
+	deleteTags,
+	getTagsByNames,
 
+	//Activity types
+	getActivityTypeWithPagination,
+	getAllActivityType,
+	createActivityTypes,
+	updateActivityType,
+	deleteActivityTypes,
+
+	//Universities
+	getUniversityWithPagination,
+	getAllUniversity,
+	createUniversities,
+	updateUniversity,
+	deleteUniversities,
+	
+	//Books
+};

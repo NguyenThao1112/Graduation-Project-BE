@@ -425,7 +425,7 @@ GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/contact-type/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -471,7 +471,7 @@ GET /api/v1/config/contact-type/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/contact-type/fetch-all
+GET /api/v1/configs/contact-type/fetch-all
 ```
 
 ##### Success response
@@ -508,7 +508,7 @@ GET /api/v1/config/contact-type/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/contact-type/create
+POST /api/v1/configs/contact-type/create
 ```
 
 ```javascript
@@ -548,7 +548,7 @@ POST /api/v1/config/contact-type/create
 ##### Request
 
 ```http
-PUT /api/v1/config/contact-type/:id/update
+PUT /api/v1/configs/contact-type/:id/update
 ```
 
 ```javascript
@@ -588,7 +588,7 @@ PUT /api/v1/config/contact-type/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/contact-type/delete
+DELETE /api/v1/configs/contact-type/delete
 ```
 
 ```javascript
@@ -639,7 +639,7 @@ DELETE /api/v1/config/contact-type/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-rank/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -685,7 +685,7 @@ GET /api/v1/config/academic-rank/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-rank/fetch-all
+GET /api/v1/configs/academic-rank/fetch-all
 ```
 
 ##### Success response
@@ -722,18 +722,18 @@ GET /api/v1/config/academic-rank/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-rank/create
+POST /api/v1/configs/academic-rank/create
 ```
 
 ```javascript
 {
     "data": [
         {
-            "name": "Test 0",
+            "name": "Tiến sĩ",
         },
 
          {
-            "name": "Test 1",
+            "name": "Phó giáo sư",
         },
     ]
 }
@@ -762,7 +762,7 @@ POST /api/v1/config/academic-rank/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-rank/:id/update
+PUT /api/v1/configs/academic-rank/:id/update
 ```
 
 ```javascript
@@ -802,7 +802,7 @@ PUT /api/v1/config/academic-rank/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-rank/delete
+DELETE /api/v1/configs/academic-rank/delete
 ```
 
 ```javascript
@@ -853,7 +853,7 @@ DELETE /api/v1/config/academic-rank/delete
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/academic-title/fetch?pageOffset=1&limitSize=10
 ```
 
 | Param      | Datatype               | Note                                |
@@ -899,7 +899,7 @@ GET /api/v1/config/academic-title/fetch?pageOffset=1&limitSize=10
 ##### Request
 
 ```http
-GET /api/v1/config/academic-title/fetch-all
+GET /api/v1/configs/academic-title/fetch-all
 ```
 
 ##### Success response
@@ -911,12 +911,12 @@ GET /api/v1/config/academic-title/fetch-all
     "data": [
         {
             "id": 1,
-            "name": "Test 0",
+            "name": "Cử nhân",
         },
 
          {
             "id": 2,
-            "name": "Test 1",
+            "name": "Kỹ sư",
         },
     ]
 }
@@ -936,7 +936,7 @@ GET /api/v1/config/academic-title/fetch-all
 ##### Request
 
 ```http
-POST /api/v1/config/academic-title/create
+POST /api/v1/configs/academic-title/create
 ```
 
 ```javascript
@@ -976,7 +976,7 @@ POST /api/v1/config/academic-title/create
 ##### Request
 
 ```http
-PUT /api/v1/config/academic-title/:id/update
+PUT /api/v1/configs/academic-title/:id/update
 ```
 
 ```javascript
@@ -1016,7 +1016,7 @@ PUT /api/v1/config/academic-title/:id/update
 ##### Request
 
 ```http
-DELETE /api/v1/config/academic-title/delete
+DELETE /api/v1/configs/academic-title/delete
 ```
 
 ```javascript
@@ -1061,41 +1061,46 @@ DELETE /api/v1/config/academic-title/delete
 ```
 
 ### Tag
+
 #### Get tag with pagination
-##### Request 
+
+##### Request
+
 ```http
-GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
+GET /api/v1/configs/tag/fetch?pageOffset=1&limitSize=10
 ```
 
-|   Param    |         Datatype         |                   Note                |
-|------------| -------------------------| ------------------------------------- |                  
-| pageOffset | integer greater than 0   | using 1-indexing                      |
-| limitSize  | integer greater than 0   | maximum number of records to return   |
-
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
 
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get tag successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
-            "created_at": "hh:mm:ss", (Example: "23:59:59"), 
-            "updated_at": "hh:mm:ss", (Example: "23:59:59"), 
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1104,29 +1109,35 @@ GET /api/v1/config/tag/fetch?pageOffset=1&limitSize=10
 ```
 
 #### Get all tag
-##### Request 
+
+##### Request
+
 ```http
-GET /api/v1/config/tag/fetch-all
+GET /api/v1/configs/tag/fetch-all
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Get tag successfully",
     "data": [
         {
-            "id": 1, 
-            "name": "Test 0", 
+            "id": 1,
+            "name": "Test 0",
         },
 
          {
-            "id": 2, 
-            "name": "Test 1", 
+            "id": 2,
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1134,34 +1145,39 @@ GET /api/v1/config/tag/fetch-all
 }
 ```
 
-
 #### Create multiple tags
-##### Request 
+
+##### Request
+
 ```http
-POST /api/v1/config/tag/create
+POST /api/v1/configs/tag/create
 ```
 
 ```javascript
 {
     "data": [
         {
-            "name": "Test 0", 
+            "name": "Test 0",
         },
 
          {
-            "name": "Test 1", 
+            "name": "Test 1",
         },
     ]
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save tag successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1170,25 +1186,31 @@ POST /api/v1/config/tag/create
 ```
 
 #### Update a tag
-##### Request 
+
+##### Request
+
 ```http
-PUT /api/v1/config/tag/:id/update
+PUT /api/v1/configs/tag/:id/update
 ```
 
 ```javascript
 {
     "id" : 1,
-    "name": "Test 0", 
+    "name": "Test 0",
 }
 ```
+
 ##### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save tag successfully",
 }
 ```
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1204,12 +1226,14 @@ PUT /api/v1/config/tag/:id/update
 ```
 
 #### Delete multiple tags
-##### Request 
+
+##### Request
+
 ```http
-DELETE /api/v1/config/tag/delete
+DELETE /api/v1/configs/tag/delete
 ```
 
-```javascript
+````javascript
 {
     "data": [
         {
@@ -1226,8 +1250,10 @@ DELETE /api/v1/config/tag/delete
     "code": 0,
     "message": "Delete tags successfully",
 }
-```
+````
+
 ##### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1240,26 +1266,598 @@ DELETE /api/v1/config/tag/delete
     "code": 2,
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
+```
 
-### Lecturer
-#### Create multiple lecturers
+### Activity type
+
+#### Get activity type with pagination
 
 ##### Request
 
 ```http
-POST /api/v1/lecturers/create
+GET /api/v1/configs/activity-type/fetch?pageOffset=1&limitSize=10
+```
+
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get activity type successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all activity type
+
+##### Request
+
+```http
+GET /api/v1/configs/activity-type/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get activity type successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Create multiple activity types
+
+##### Request
+
+```http
+POST /api/v1/config/activity-type/create
 ```
 
 ```javascript
 {
     "data": [
         {
-            "account_id": 2,
-            "name": "test",
-            "gender": "male",
-            "avatar": null
+            "name": "Tham gia viện nghiên cứu",
+        },
+
+         {
+            "name": "Giảng dạy ở trường Đại học",
+        },
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save activity type successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update an activity type
+
+##### Request
+
+```http
+PUT /api/v1/configs/activity-type/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0",
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save activity type successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated activity type is not exists",
+}
+```
+
+#### Delete multiple activity types
+
+##### Request
+
+```http
+DELETE /api/v1/configs/activity-type/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
         }
     ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete activity types successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+### University
+
+#### Get university with pagination
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch?pageOffset=1&limitSize=10
+```
+
+| Param      | Datatype               | Note                                |
+| ---------- | ---------------------- | ----------------------------------- |
+| pageOffset | integer greater than 0 | using 1-indexing                    |
+| limitSize  | integer greater than 0 | maximum number of records to return |
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+            "created_at": "hh:mm:ss", (Example: "23:59:59"),
+            "updated_at": "hh:mm:ss", (Example: "23:59:59"),
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all university
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Create multiple universities
+
+##### Request
+
+```http
+POST /api/v1/configs/university/create
+```
+
+```javascript
+{
+    "data": [
+        {
+            "name": "Test 0",
+        },
+
+         {
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save university successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Update an university
+
+##### Request
+
+```http
+PUT /api/v1/configs/university/:id/update
+```
+
+```javascript
+{
+    "id" : 1,
+    "name": "Test 0",
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save university successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The updated university is not exists",
+}
+```
+
+#### Delete multiple universities
+
+##### Request
+
+```http
+DELETE /api/v1/configs/university/delete
+```
+
+```javascript
+{
+    "data": [
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ]
+}
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Delete universities successfully",
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+```javascript
+{
+    "code": 2,
+    "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
+}
+```
+
+## Lecturer API
+
+### Create lecturers
+
+##### Request
+
+```
+POST /api/v1/lecturers/create
+```
+
+```javascript
+{
+    "data": {
+        "accountId": 1,
+        "name": "Nguyen Van Vu",
+        "gender": "male",
+        "avatar": "http://image",
+        "bio": "Đang là giảng viên trường Đại học Khoa học Tự Nhiên HCMUS",
+        "dateOfBirth": "04/05/1977",
+        "academicRankId": 1,
+        "academicRankGainYear": "2010",
+        "academicTitleId": 1,
+        "academicTitleGainYear": "2022",
+        "expandColumn": null,
+        "phdThesises": [
+            {
+                "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile",
+                "phdName": "Trương Văn Thông",
+                "educationLevel": "tiến sĩ"
+            },
+            {
+                "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
+                "phdName": "Huỳnh Thị Phương Thủy",
+                "graduationYear": "2016",
+                "educationLevel": "Cao học",
+                "note": "102.03-2014.34"
+            }
+        ],
+        "books": [
+            {
+                "book_id": "3"
+            },
+            {
+                "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian"
+            }
+        ],
+        "contacts": [
+            {
+                "contactTypeId": 2,
+                "value": "288 Hai Ba Trung"
+            },
+            {
+                "contactTypeId": 3,
+                "value": "0962763170"
+            }
+        ],
+        "projects": [
+            {
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt"
+            }
+        ],
+        "currentDiscipline": {
+            "disciplineId": 1,
+            "departmentName": "Khoa công nghệ thông tin",
+            "universityId": 1,
+            "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+        },
+        "researchFields": [
+            {
+                "researchName": "Ước lượng phần mềm",
+                "note": "Software Estimation"
+            },
+            {
+                "researchName": "Quy trình phần mềm",
+                "note": "Software Processes"
+            }
+        ],
+        "expertises": [
+            {
+                "title": "Lĩnh vực",
+                "specialization": "Công nghệ thông tin"
+            },
+            {
+                "title": "Chuyên ngành",
+                "specialization": "Công nghệ phần mềm"
+            }
+        ],
+        "degrees": [
+            {
+                "academicTitleId": 1,
+                "universityId": 1,
+                "specialization": "Công nghệ thông tin",
+                "graduationDate": 2019
+            },
+            {
+                "academicTitleId": 2,
+                "universityId": 2,
+                "specialization": "Khoa học máy tính",
+                "graduationDate": 2010,
+                "graduationThesisName": "Improved size and effor estimation models for Software Maintainance"
+            }
+        ],
+        "workPositions": [
+            {
+                "universityId": 2,
+                "position": "Phó trưởng khoa",
+                "isNow": true,
+                "fromDate": 2019
+            },
+            {
+                "company": "Công ty PSV (nay là công ty CSC Việt Nam)",
+                "position": "Kỹ sư công nghệ phần mềm",
+                "fromDate": 1999,
+                "toDate": 2004
+            },
+            {
+                "universityName": "Trường Đại học Nam California",
+                "position": "Nghiên cứu sinh, trợ giảng",
+                "fromDate": 2004,
+                "toDate": 2010
+            },
+            {
+                "universityName": "Trường Đại học Bắc California",
+                "position": "Nghiên cứu sinh, trợ giảng",
+                "fromDate": 2004,
+                "toDate": 2010
+            }
+        ],
+        "activities": [
+            {
+                "activityTypeId": 1,
+                "name": "Journal of Software: Evolution and Process",
+                "note": "Phản biện (reviewer)",
+                "fromDate": 2019,
+                "isNow": true
+            },
+            {
+                "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            },
+            {
+                "activityTypeName": "Tham gia làm việc tại trường Viện",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            }
+        ]
+    }
 }
 ```
 
@@ -1281,31 +1879,747 @@ POST /api/v1/lecturers/create
 }
 ```
 
+### Get lecturer with pagination with/without lecturer Name's keyword
+
+#### Request
+
+```http
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
+```
+
+| Param      | Datatype               | Note                                                    |
+| ---------- | ---------------------- | ------------------------------------------------------- |
+| pageOffset | integer greater than 0 | required, using 1-indexing                              |
+| limitSize  | integer greater than 0 | required, maximum number of records to return           |
+| keyword    | string                 | not require, the keyword to search the Article with its |
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get lecturers successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Nguyen Van Vu",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "academicRankId": null,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022,
+            "phdThesises": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile",
+                    "phdName": "Trương Văn Thông",
+                    "graduationYear": "tiến sĩ",
+                    "note": null
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
+                    "phdName": "Huỳnh Thị Phương Thủy",
+                    "graduationYear": "Cao học",
+                    "note": "102.03-2014.34"
+                }
+            ],
+            "books": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                    "projectId": null,
+                    "publisherName": "IEEE CPS, ISBN-13; 978",
+                    "publicYear": 2018,
+                    "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                    "pseudonym": null
+                }
+            ],
+            "projects": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm",
+                    "projectCode": "B2013-18-01(ĐHQG HCM)",
+                    "fromDate": "03/2013",
+                    "toDate": "03/2016",
+                    "expenditure": 500,
+                    "projectRole": "Tham gia",
+                    "acceptanceDate": "2016-08-05T17:00:00.000Z",
+                    "result": "Đạt",
+                    "note": null,
+                    "reference": null
+                }
+            ],
+            "currentDisciplines": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "departmentName": "Khoa công nghệ thông tin",
+                    "universityName": "Đại học Khoa học tự nhiên",
+                    "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+                }
+            ],
+            "academicTitles": [
+                {
+                    "lecturerId": 1,
+                    "id": 1,
+                    "name": "Tiến sỹ"
+                }
+            ],
+            "expertises": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "title": "Lĩnh vực",
+                    "specialization": "Công nghệ thông tin"
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "title": "Chuyên ngành",
+                    "specialization": "Công nghệ phần mềm"
+                }
+            ],
+            "researchFields": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "researchName": "Ước lượng phần mềm",
+                    "note": "Software Estimation"
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "researchName": "Quy trình phần mềm",
+                    "note": "Software Processes"
+                }
+            ],
+            "degrees": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "academicTitleName": "Tiến sỹ",
+                    "universityName": "ĐH KHTN TP.HCM",
+                    "specialization": "Công nghệ thông tin",
+                    "graduationThesisName": null,
+                    "graduationDate": 2019
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "academicTitleName": "Tiến sỹ",
+                    "universityName": "Đại học Nam California",
+                    "specialization": "Khoa học máy tính",
+                    "graduationThesisName": "Improved size and effor estimation models for Software Maintainance",
+                    "graduationDate": 2010
+                }
+            ],
+            "workPositions": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "universityName": "ĐH KHTN TP.HCM",
+                    "company": null,
+                    "position": "Phó trưởng khoa",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 3,
+                    "lecturerId": 1,
+                    "universityName": "Trường Đại học Nam California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 1,
+                    "universityName": "Trường Đại học Bắc California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                }
+            ],
+            "activities": [
+                {
+                    "id": 1,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Journal of Software: Evolution and Process",
+                    "note": "Phản biện (reviewer)",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 2,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                },
+                {
+                    "id": 3,
+                    "lecturerId": 1,
+                    "activityTypeName": "Tham gia làm việc tại trường Viện",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Nguyen Van Vu",
+            "gender": null,
+            "avatar": null,
+            "dateOfBirth": null,
+            "academicRankId": null,
+            "academicRankGainYear": null,
+            "academicTitleId": null,
+            "academicTitleGainYear": null
+        }
+    ]
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+#### Get all lecturers without pagination
+
+#### Request
+
+```http
+GET /api/v1/lecturers/fetch-all
+```
+
+#### Success Response
+
+```javascript
+{
+    "code": 0,
+    "message": "Fetch the lecturer from database successfully",
+    "data": [
+        {
+            "id": 1,
+            "accountId": 1,
+            "name": "Nguyen Van Vu-1",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "bio": "Đang là giảng viên trường Đại học Khoa học Tự Nhiên HCMUS",
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022
+        },
+        {
+            "id": 2,
+            "accountId": 1,
+            "name": "Nguyen Van Vu",
+            "gender": "male",
+            "avatar": "http://image",
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "bio": null,
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022
+        }
+    ]
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get lecturers failed"
+}
+```
+
+### Get one lecturer
+
+##### Request
+
+```
+GET /api/v1/lecturers/detail/:id
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get one lecturer successfully!",
+    "data": [
+        {
+            "id": 2,
+            "name": "Nguyen Van Vu",
+            "gender": "male",
+            "avatar": "http://image",
+            "bio": null,
+            "dateOfBirth": "1977-05-03T17:00:00.000Z",
+            "academicRankId": 1,
+            "academicRankGainYear": 2010,
+            "academicTitleId": 1,
+            "academicTitleGainYear": 2022,
+            "phdThesises": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile",
+                    "phdName": "Trương Văn Thông",
+                    "graduationYear": "tiến sĩ",
+                    "note": null
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo",
+                    "phdName": "Huỳnh Thị Phương Thủy",
+                    "graduationYear": "Cao học",
+                    "note": "102.03-2014.34"
+                }
+            ],
+            "books": [
+                {
+                    "id": 2,
+                    "lecturerId": 2,
+                    "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                    "projectId": null,
+                    "publisherName": "IEEE CPS, ISBN-13; 978",
+                    "publicYear": 2018,
+                    "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                    "pseudonym": null
+                },
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "name": "IEEE International Symposium on High Assurance Systems Engineering",
+                    "projectId": null,
+                    "publisherName": "IEEE CPS, ISBN-13; 978",
+                    "publicYear": 2018,
+                    "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                    "pseudonym": null
+                }
+            ],
+            "contacts": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "value": "288 Hai Ba Trung",
+                    "contactTypeName": null
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "value": "0962763170",
+                    "contactTypeName": null
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2,
+                    "lecturerId": 2,
+                    "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm",
+                    "projectCode": "B2013-18-01(ĐHQG HCM)",
+                    "fromDate": "03/2013",
+                    "toDate": "03/2016",
+                    "expenditure": 500,
+                    "projectRole": "Tham gia",
+                    "acceptanceDate": "2016-08-05T17:00:00.000Z",
+                    "result": "Đạt",
+                    "note": null,
+                    "reference": null
+                }
+            ],
+            "currentDisciplines": [
+                {
+                    "id": 2,
+                    "lecturerId": 2,
+                    "departmentName": "Khoa công nghệ thông tin",
+                    "universityName": "Trường Đại học Nam California",
+                    "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+                }
+            ],
+            "academicTitles": [
+                {
+                    "lecturerId": 2,
+                    "id": 1,
+                    "name": "tiến sĩ"
+                }
+            ],
+            "expertises": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "title": "Lĩnh vực",
+                    "specialization": "Công nghệ thông tin"
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "title": "Chuyên ngành",
+                    "specialization": "Công nghệ phần mềm"
+                }
+            ],
+            "researchFields": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "researchName": "Ước lượng phần mềm",
+                    "note": "Software Estimation"
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "researchName": "Quy trình phần mềm",
+                    "note": "Software Processes"
+                }
+            ],
+            "degrees": [
+                {
+                    "id": 3,
+                    "lecturerId": 2,
+                    "academicTitleName": "tiến sĩ",
+                    "universityName": "Trường Đại học Nam California",
+                    "specialization": "Công nghệ thông tin",
+                    "graduationThesisName": null,
+                    "graduationDate": 2019
+                },
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "academicTitleName": null,
+                    "universityName": "Trường Đại học Bắc California",
+                    "specialization": "Khoa học máy tính",
+                    "graduationThesisName": "Improved size and effor estimation models for Software Maintainance",
+                    "graduationDate": 2010
+                }
+            ],
+            "workPositions": [
+                {
+                    "id": 5,
+                    "lecturerId": 2,
+                    "universityName": "Trường Đại học Bắc California",
+                    "company": null,
+                    "position": "Phó trưởng khoa",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 6,
+                    "lecturerId": 2,
+                    "universityName": null,
+                    "company": "Công ty PSV (nay là công ty CSC Việt Nam)",
+                    "position": "Kỹ sư công nghệ phần mềm",
+                    "isNow": null,
+                    "fromDate": 1999,
+                    "toDate": 2004
+                },
+                {
+                    "id": 7,
+                    "lecturerId": 2,
+                    "universityName": "Trường Đại học Nam California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                },
+                {
+                    "id": 8,
+                    "lecturerId": 2,
+                    "universityName": "Trường Đại học Bắc California",
+                    "company": null,
+                    "position": "Nghiên cứu sinh, trợ giảng",
+                    "isNow": null,
+                    "fromDate": 2004,
+                    "toDate": 2010
+                }
+            ],
+            "activities": [
+                {
+                    "id": 4,
+                    "lecturerId": 2,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Journal of Software: Evolution and Process",
+                    "note": "Phản biện (reviewer)",
+                    "isNow": 1,
+                    "fromDate": 2019,
+                    "toDate": null
+                },
+                {
+                    "id": 5,
+                    "lecturerId": 2,
+                    "activityTypeName": "Tham gia làm việc tại trường Đại học",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                },
+                {
+                    "id": 6,
+                    "lecturerId": 2,
+                    "activityTypeName": "Tham gia làm việc tại trường Viện",
+                    "activityName": "Sở khoa học và công nghệ, TPHCM",
+                    "note": "Thành viên tổ chuyên gia",
+                    "isNow": null,
+                    "fromDate": 2020,
+                    "toDate": 2022
+                }
+            ]
+        }
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get one lecturer failed!"
+}
+```
+
 #### Update one lecturer
 
 ##### Request
 
 ```http
-POST /api/v1/lecturers/update/1
+PUT /api/v1/lecturers/:id/update
 ```
 
 ```javascript
 {
-    "data":
-        {
-            "account_id": 4,
-            "name": "lecturer 3",
-            "gender": "male",
-            "avatar": null,
-            "date_of_birth": "2001-04-22",
-            "academic_rank_id": 1,
-            "academic_rank_gain_year": 2022,
-            "academic_title_id": 1,
-            "academic_title_gain_year": 2023,
-            "is_deleted": 0,
-            "expand_column": null
-        }
-
+    "data": {
+        "id": 1,
+        "name": "Nguyen Van Vu1",
+        "gender": "male",
+        "avatar": "http://image",
+        "dateOfBirth": "04/05/1977",
+        "bio": "Giao su truong khoa hoc tu nhien"
+        "academicRankId": 1,
+        "academicRankGainYear": "2010",
+        "academicTitleId": 1,
+        "academicTitleGainYear": "2022",
+        "expandColumn": null,
+        "phdThesises": [
+            {
+                "id": "1",
+                "projectName": "Ước lượng công nghệ phần mềm cho các dự án Agile - update",
+                "phdName": "Trương Văn Thông - update",
+                "educationLevel": "tiến sĩ",
+                "update": true
+            },
+            {
+                "id": "2",
+                "projectName": "Xác định tập dữ liệu huấn luyện phù hợp nhằm hiệu chỉnh mô hình cocomo - update",
+                "phdName": "Huỳnh Thị Phương Thủy- update",
+                "educationLevel": "tiến sĩ",
+                "update": true
+            }
+        ],
+        "books": [
+            {
+                "id": "1",
+                "name": "IEEE International Symposium on High Assurance Systems Engineering - update",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
+                "update": true
+            },
+            {
+                "create": true,
+                "name": "IEEE International Symposium on High Assurance Systems Engineering - new",
+                "publisherName": "IEEE CPS, ISBN-13; 978",
+                "publicYear": "2018",
+                "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian"
+            }
+        ],
+        "contacts": [
+            {
+                "id": 1,
+                "contactTypeId": 2,
+                "value": "288 Hai Ba Trung - update",
+                "update": true
+            },
+            {
+                "contactTypeId": 4,
+                "value": "0962763170",
+                "create": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "projects": [
+            {
+                "id": 1,
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm - update",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt",
+                "update": true
+            },
+            {
+                "name": "Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm - create",
+                "projectCode": "B2013-18-01(ĐHQG HCM)",
+                "fromDate": "03/2013",
+                "toDate": "03/2016",
+                "expenditure": "500",
+                "projectRole": "Tham gia",
+                "acceptanceDate": "06/08/2016",
+                "result": "Đạt",
+                "create": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "currentDiscipline": {
+            "id": 2,
+            "disciplineId": 2,
+            "departmentName": "Khoa công nghệ thông tin",
+            "universityId": 2,
+            "position": "Phó khoa CNTT, trưởng bộ môn CNPM, khoa CNTT, trường ĐHKHTN-ĐHQG-HCM"
+        },
+        "researchFields": [
+            {
+                "id": 1,
+                "update": true,
+                "researchName": "Ước lượng phần mềm - update",
+                "note": "Software Estimation"
+            },
+            {
+                "create": true,
+                "researchName": "Quy trình phần mềm - create",
+                "note": "Software Processes"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "expertises": [
+            {
+                "create": true,
+                "title": "Lĩnh vực",
+                "specialization": "Công nghệ thông tin - create"
+            },
+            {
+                "id": 1,
+                "title": "Chuyên ngành",
+                "specialization": "Công nghệ phần mềm - update",
+                "update": true
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "degrees": [
+            {
+                "id": 1,
+                "update": true,
+                "academicTitleId": 2,
+                "universityId": 2,
+                "specialization": "Công nghệ thông tin- update",
+                "graduationDate": 2019
+            },
+            {
+                "create": true,
+                "academicTitleId": 3,
+                "universityId": 3,
+                "specialization": "Khoa học máy tính",
+                "graduationDate": 2010,
+                "graduationThesisName": "Improved size and effor estimation models for Software Maintainance - create"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "workPositions": [
+            {
+                "id": 1,
+                "update":true,
+                "universityId": 3,
+                "position": "Phó trưởng khoa - update",
+                "isNow": true,
+                "fromDate": 2019
+            },
+            {
+                "create": true,
+                "company": "Công ty PSV (nay là công ty CSC Việt Nam) - create",
+                "position": "Kỹ sư công nghệ phần mềm",
+                "fromDate": 1999,
+                "toDate": 2004
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ],
+        "activities": [
+            {
+                "id": 1,
+                "update": true,
+                "activityTypeId": 2,
+                "name": "Journal of Software: Evolution and Process - update",
+                "note": "Phản biện (reviewer)",
+                "fromDate": 2019,
+                "isNow": true
+            },
+            {
+                "create": true,
+                "activityTypeId": "3",
+                "name": "Sở khoa học và công nghệ, TPHCM",
+                "fromDate": 2020,
+                "toDate": 2022,
+                "note": "Thành viên tổ chuyên gia"
+            },
+            {
+                "id": 2,
+                "delete": true
+            }
+        ]
+    }
 }
 ```
 
@@ -1339,14 +2653,12 @@ DELETE /api/v1/lecturers/delete
 {
     "data": [
         {
-            "id": 2
-        },
-        {
-            "id": 3
+            "id": 1
         }
     ]
 }
 ```
+
 ##### Success response
 
 ```javascript
@@ -1365,20 +2677,58 @@ DELETE /api/v1/lecturers/delete
 }
 ```
 
-## Article API
-### Get Article with pagination with/without Article Name's keyword
-#### Request 
+### Get lecturer page size, while paging
+
+#### Request
+
 ```http
-GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
 ```
 
-|   Param    |         Datatype         |                           Note                            |
-|------------| -------------------------| --------------------------------------------------------- |                  
-| pageOffset | integer greater than 0   | required, using 1-indexing                                |
-| limitSize  | integer greater than 0   | required, maximum number of records to return             |
-| keyword    | string                   | not require, the keyword to search the Article with its   |
+| Param     | Datatype               | Note                                                          |
+| --------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize | integer greater than 0 | required, maximum number of records to return                 |
+| keyword   | string                 | not require, the keyword to search the Lecturer with their id |
 
 #### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 0
+    }
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get paging count failed"
+}
+```
+
+## Article API
+
+### Get Article with pagination with/without Article Name's keyword
+
+#### Request
+
+```http
+GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
+```
+
+| Param      | Datatype               | Note                                                    |
+| ---------- | ---------------------- | ------------------------------------------------------- |
+| pageOffset | integer greater than 0 | required, using 1-indexing                              |
+| limitSize  | integer greater than 0 | required, maximum number of records to return           |
+| keyword    | string                 | not require, the keyword to search the Article with its |
+
+#### Success response
+
 ```javascript
 {
     "code": 0,
@@ -1538,7 +2888,253 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
     ]
 }
 ```
+
 #### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+### Get All Article with given Lecturers' id
+
+#### Request
+
+```http
+POST /api/v1/articles/fetch-all
+```
+
+```javascript
+{
+    "data": {
+        "lecturerIds": [1, 2, 3, 4]
+    }
+}
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get article successfully",
+    "data": {
+        "1": [
+            {
+                "id": 1,
+                "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+                "journal": "ACM Transactions on Computing Education",
+                "year": 2020,
+                "page_from": 8,
+                "page_to": 10,
+                "volume": 20,
+                "issue": 2,
+                "city": null,
+                "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+                "url_date_accces": "2023-02-27T17:00:00.000Z",
+                "ArXivID": "test",
+                "DOI": "10.1145/3383456",
+                "ISBN": "testISBN",
+                "ISSN": "10.1145/3383456",
+                "PMID": "testPMID",
+                "Scopus": "2-s2.0-85085248397",
+                "PII": "testPII",
+                "SGR": "85085248397",
+                "project_id": "testProjectId",
+                "citation_key": "testCitationKey",
+                "general_note": "This is the general note for testing",
+                "urls": [
+                    {
+                        "id": 1,
+                        "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+                    },
+                    {
+                        "id": 2,
+                        "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+                    },
+                    {
+                        "id": 3,
+                        "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+                    }
+                ],
+                "notes": [
+                    {
+                        "id": 1,
+                        "note": "Sample note test 0"
+                    },
+                    {
+                        "id": 2,
+                        "note": "Sample note test 1"
+                    },
+                    {
+                        "id": 3,
+                        "note": "Sample note test 2"
+                    }
+                ],
+                "tags": [
+                    {
+                        "id": 1,
+                        "tag_id": 1,
+                        "name": "test tag 0"
+                    },
+                    {
+                        "id": 2,
+                        "tag_id": 2,
+                        "name": "test tag 1"
+                    },
+                    {
+                        "id": 3,
+                        "tag_id": 4,
+                        "name": "test tag 1"
+                    },
+                    {
+                        "id": 4,
+                        "tag_id": 5,
+                        "name": "test tag 0"
+                    }
+                ],
+                "authors": [
+                    {
+                        "id": 1,
+                        "lecturer_id": 1,
+                        "lecturer_name": null
+                    },
+                    {
+                        "id": 2,
+                        "firstName": "first0",
+                        "lastName": "last0"
+                    },
+                    {
+                        "id": 3,
+                        "firstName": "first1",
+                        "lastName": "last1"
+                    },
+                    {
+                        "id": 4,
+                        "firstName": "first2",
+                        "lastName": "last2"
+                    },
+                    {
+                        "id": 5,
+                        "lecturer_id": 2,
+                        "lecturer_name": null
+                    }
+                ],
+                "lecturer_id": 1
+            },
+        ],
+        "2": [
+            {
+                "id": 1,
+                "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+                "journal": "ACM Transactions on Computing Education",
+                "year": 2020,
+                "page_from": 8,
+                "page_to": 10,
+                "volume": 20,
+                "issue": 2,
+                "city": null,
+                "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+                "url_date_accces": "2023-02-27T17:00:00.000Z",
+                "ArXivID": "test",
+                "DOI": "10.1145/3383456",
+                "ISBN": "testISBN",
+                "ISSN": "10.1145/3383456",
+                "PMID": "testPMID",
+                "Scopus": "2-s2.0-85085248397",
+                "PII": "testPII",
+                "SGR": "85085248397",
+                "project_id": "testProjectId",
+                "citation_key": "testCitationKey",
+                "general_note": "This is the general note for testing",
+                "urls": [
+                    {
+                        "id": 1,
+                        "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+                    },
+                    {
+                        "id": 2,
+                        "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+                    },
+                    {
+                        "id": 3,
+                        "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+                    }
+                ],
+                "notes": [
+                    {
+                        "id": 1,
+                        "note": "Sample note test 0"
+                    },
+                    {
+                        "id": 2,
+                        "note": "Sample note test 1"
+                    },
+                    {
+                        "id": 3,
+                        "note": "Sample note test 2"
+                    }
+                ],
+                "tags": [
+                    {
+                        "id": 1,
+                        "tag_id": 1,
+                        "name": "test tag 0"
+                    },
+                    {
+                        "id": 2,
+                        "tag_id": 2,
+                        "name": "test tag 1"
+                    },
+                    {
+                        "id": 3,
+                        "tag_id": 4,
+                        "name": "test tag 1"
+                    },
+                    {
+                        "id": 4,
+                        "tag_id": 5,
+                        "name": "test tag 0"
+                    }
+                ],
+                "authors": [
+                    {
+                        "id": 1,
+                        "lecturer_id": 1,
+                        "lecturer_name": null
+                    },
+                    {
+                        "id": 2,
+                        "firstName": "first0",
+                        "lastName": "last0"
+                    },
+                    {
+                        "id": 3,
+                        "firstName": "first1",
+                        "lastName": "last1"
+                    },
+                    {
+                        "id": 4,
+                        "firstName": "first2",
+                        "lastName": "last2"
+                    },
+                    {
+                        "id": 5,
+                        "lecturer_id": 2,
+                        "lecturer_name": null
+                    }
+                ],
+                "lecturer_id": 2
+            },
+        ]
+    }
+}
+```
+
+#### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1547,7 +3143,9 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10
 ```
 
 ### Create an article
-#### Request 
+
+#### Request
+
 ```
 POST /api/v1/articles/create
 ```
@@ -1660,13 +3258,16 @@ Content-Type: application/pdf
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Save article successfully,
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1689,7 +3290,9 @@ Content-Type: application/pdf
 ```
 
 ### Update an article
-#### Request 
+
+#### Request
+
 ```
 PUT /api/v1/articles/:id/update
 ```
@@ -1812,13 +3415,16 @@ Content-Type: application/pdf
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Updade article successfully",
 }
 ```
+
 #### Error response
+
 ```javascript
 {
     "code": 1,
@@ -1840,8 +3446,10 @@ Content-Type: application/pdf
 }
 ```
 
-### Update an article
-#### Request 
+### Delete multiple articles
+
+#### Request
+
 ```
 DELETE /api/v1/articles/delete
 ```
@@ -1863,13 +3471,357 @@ DELETE /api/v1/articles/delete
 ```
 
 #### Success response
+
 ```javascript
 {
     "code": 0,
     "message": "Delete article(s) successfully",
 }
 ```
+
+### Create an article (n-n lectuter)
+
+#### Request
+
+```
+POST /api/v1/articles/create
+```
+
+```javascript
+POST /api/v1/articles/create HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Length: 3659
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="data"
+
+{
+    "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+    "journal": "ACM Transactions on Computing Education",
+    "year": 2020,
+    "pageFrom": 8,
+    "pageTo": 10,
+    "volume": 20,
+    "issue": 2,
+    "month":  2,
+    "day": 28,
+    "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+    "urlAccessDate": "28/02/2023",
+    "ArXivID": "test",
+    "DOI": "10.1145/3383456",
+    "ISBN": "testISBN",
+    "ISSN": "10.1145/3383456",
+    "PMID": "testPMID",
+    "Scopus": "2-s2.0-85085248397",
+    "PII": "testPII",
+    "SGR": "85085248397",
+    "projectId": "testProjectId",
+    "citationKey": "testCitationKey",
+    "generalNote": "This is the general note for testing",
+    "tags": [
+        {
+            "tag_id": 4
+        },
+        {
+            "tag_id": 5
+        },
+        {
+            "name": "test tag 0"
+        },
+        {
+            "name": "test tag 1"
+        }
+    ],
+    "authors": [
+        {
+            "lecturerId": 1
+        },
+        {
+            "firstName": "first0",
+            "lastName": "last0"
+        },
+                        {
+            "firstName": "first1",
+            "lastName": "last1"
+        },
+                        {
+            "firstName": "first2",
+            "lastName": "last2"
+        },
+        {
+            "lecturerId": 2
+        }
+    ],
+    "urls": [
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+        },
+        {
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+        },
+        {
+            "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+        }
+    ],
+    "notes": [
+        {
+            "note": "Sample note test 0"
+        },
+        {
+            "note": "Sample note test 1"
+        },
+        {
+            "note": "Sample note test 2"
+        }
+    ]
+}
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="invoice-9-12-01-2023-1.pdf"
+Content-Type: application/pdf
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save article successfully,
+}
+```
+
 #### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+### Get article page size, while paging
+
+#### Request
+
+```http
+GET /api/v1/articles/page-size?limitSize=10&keyword=test
+```
+
+| Param     | Datatype               | Note                                                          |
+| --------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize | integer greater than 0 | required, maximum number of records to return                 |
+| keyword   | string                 | not require, the keyword to search the Articles with their id |
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get paging size successfully",
+    "data": {
+        "number_of_page": 4
+    }
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend"
+}
+```
+
+### Get one article by id
+
+#### Request
+
+```http
+GET /api/v1/articles/detail/:id
+```
+
+| Param | Datatype               | Note                                  |
+| ----- | ---------------------- | ------------------------------------- |
+| id    | integer greater than 0 | required, the id of the given article |
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get article by id successfully",
+    "data": {
+        "id": 3,
+        "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
+        "journal": "ACM Transactions on Computing Education",
+        "year": 2020,
+        "page_from": 8,
+        "page_to": 10,
+        "volume": 20,
+        "issue": 2,
+        "city": null,
+        "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+        "url_date_accces": "2023-02-27T17:00:00.000Z",
+        "ArXivID": "test",
+        "DOI": "10.1145/3383456",
+        "ISBN": "testISBN",
+        "ISSN": "10.1145/3383456",
+        "PMID": "testPMID",
+        "Scopus": "2-s2.0-85085248397",
+        "PII": "testPII",
+        "SGR": "85085248397",
+        "project_id": "testProjectId",
+        "citation_key": "testCitationKey",
+        "general_note": "This is the general note for testing",
+        "urls": [
+            {
+                "id": 7,
+                "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
+            },
+            {
+                "id": 8,
+                "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
+            },
+            {
+                "id": 9,
+                "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
+            }
+        ],
+        "notes": [
+            {
+                "id": 7,
+                "note": "Sample note test 0"
+            },
+            {
+                "id": 8,
+                "note": "Sample note test 1"
+            },
+            {
+                "id": 9,
+                "note": "Sample note test 2"
+            }
+        ],
+        "tags": [
+            {
+                "id": 9,
+                "tag_id": 5,
+                "name": "test tag 0"
+            },
+            {
+                "id": 10,
+                "tag_id": 6,
+                "name": "test tag 1"
+            },
+            {
+                "id": 11,
+                "tag_id": 4,
+                "name": "test tag 1"
+            },
+            {
+                "id": 12,
+                "tag_id": 5,
+                "name": "test tag 0"
+            }
+        ],
+        "authors": [
+            {
+                "id": 11,
+                "lecturer_id": 1,
+                "lecturer_name": null
+            },
+            {
+                "id": 12,
+                "firstName": "first0",
+                "lastName": "last0"
+            },
+            {
+                "id": 13,
+                "firstName": "first1",
+                "lastName": "last1"
+            },
+            {
+                "id": 14,
+                "firstName": "first2",
+                "lastName": "last2"
+            },
+            {
+                "id": 15,
+                "lecturer_id": 2,
+                "lecturer_name": null
+            }
+        ]
+    }
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend"
+}
+```
+
+```javascript
+{
+    "code": 5,
+    "message": "There is no article with the given id"
+}
+```
+
+## Scopus API
+
+### Retrieve Scopus Author by first name and last name
+
+#### Request
+
+```http
+GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
+```
+
+| Param     | Datatype | Note     |
+| --------- | -------- | -------- |
+| firstName | string   | required |
+| lastName  | string   | required |
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Retrieve author from scopus successfully",
+    "data": [
+        {
+            "surname": "Tran",
+            "givenName": "Hoang Quan",
+            "scopusId": "987654321"
+        },
+        {
+            "surname": "Tran",
+            "givenName": "Trung Quan",
+            "scopusId": "123456789"
+        }
+    ]
+}
+```
+
+#### Error response
+
 ```javascript
 {
     "code": 1,

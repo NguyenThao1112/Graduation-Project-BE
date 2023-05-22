@@ -39,13 +39,15 @@ function authenticate(email, password) {
 							key: authHelper.getRandomNumber(),
 							role: account[0].role,
 						};
+						// @ts-ignore
 						jwt = sign(jwtPayload, configConstants.JWT_SECRET, {
 							expiresIn: configConstants.JWT_EXPIRE,
 						});
 					}
+					resolve(jwt);
+				} else {
+					reject('Account not found');
 				}
-
-				resolve(jwt);
 			})
 			.catch((error) => {
 				reject(error);
@@ -142,7 +144,7 @@ function createTokenForForgetPassword(email) {
 			.then((token) => {
 				//Send the token to email
 				mailServices.sendTokenToUserMail(email, token);
-				resolve();
+				resolve(token);
 			});
 	});
 }
@@ -181,6 +183,7 @@ function verifyForgetPasswordToken(token) {
 				}
 
 				//The token is valid
+				// @ts-ignore
 				errorCode = messageConstants.SUCCESSFUL_CODE;
 				resolve(errorCode);
 			});
@@ -214,6 +217,7 @@ function changePasswordViaToken(token, password) {
 				const now = moment().utc(true);
 				const isExpired = now.isAfter(expireMoment);
 				if (isExpired) {
+					// @ts-ignore
 					errorCode =
 						messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_CODE;
 					return Promise.reject(errorCode);
@@ -236,7 +240,7 @@ function changePasswordViaToken(token, password) {
 			})
 			.then(() => {
 				//The token is valid
-				errorCode = messageConstants.SUCCESSFUL_CODE;
+				const errorCode = messageConstants.SUCCESSFUL_CODE;
 				resolve(errorCode);
 			});
 	});
