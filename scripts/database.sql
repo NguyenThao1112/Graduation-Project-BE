@@ -1,10 +1,11 @@
--- delete database if it exists
+--   delete database if it exists
 DROP DATABASE IF EXISTS nckh;
 
--- create database
+--   create database
 CREATE DATABASE nckh;
 USE nckh;
 
+--   tai khoan
 CREATE TABLE account (
     id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -18,37 +19,39 @@ CREATE TABLE account (
     PRIMARY KEY(id)
 );
 
+--   thong tin giang vien
 CREATE TABLE lecturer_information (
     id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
     
-    -- base info
+    --   base info
     name VARCHAR(255) DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
     avatar VARCHAR(255) DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
     bio VARCHAR(255) DEFAULT NULL,
 
-    -- academic rank stuffs
+    --  academic rank stuffs
     academic_rank_id INT DEFAULT NULL,
     academic_rank_gain_year INT DEFAULT NULL,
 
 
-    -- academic title stuffs
+    --  academic title stuffs
     academic_title_id INT DEFAULT NULL,
     academic_title_gain_year INT DEFAULT NULL, 
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
 
-    -- for further exploration
+    --  for further exploration
     expand_column VARCHAR(255) DEFAULT NULL,
 
     PRIMARY KEY(id)
 );
 
+--  nghiên cứu sinh
 CREATE TABLE phd_thesis (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -65,6 +68,7 @@ CREATE TABLE phd_thesis (
     PRIMARY KEY(id)
 );
 
+--  bài báo, sách
 CREATE TABLE book (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
@@ -80,6 +84,7 @@ CREATE TABLE book (
     PRIMARY KEY(id)
 );
 
+--  tác giả bài báo, sách
 CREATE TABLE book_author(
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id int NOT NULL,
@@ -91,11 +96,12 @@ CREATE TABLE book_author(
     PRIMARY KEY(id)
 );
 
+-- kiểu liên lạc ( email, phone, ...)
 CREATE TABLE contact_type (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) DEFAULT NULL,
 
-     -- metadata stuffs
+     --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
@@ -103,6 +109,7 @@ CREATE TABLE contact_type (
     PRIMARY KEY(id)
 );
 
+--  dữ liệu liên lạc tương ứng ( a@gmail.com, 0972621328)
 CREATE TABLE contact (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -115,11 +122,12 @@ CREATE TABLE contact (
     PRIMARY KEY(id)
 );
 
+--  học vị (Học vị có nhiều cấp bậc như: Tốt nghiệp trung học phổ thông; cử nhân; thạc sỹ; Tiến sỹ)
 CREATE TABLE academic_rank (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
@@ -127,11 +135,12 @@ CREATE TABLE academic_rank (
     PRIMARY KEY(id)
 );
 
+--  học hàm ( 2 cấp phó giáo sư và giáo sư)
 CREATE TABLE academic_title (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) DEFAULT NULL,
 
-     -- metadata stuffs
+     --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
@@ -139,8 +148,7 @@ CREATE TABLE academic_title (
     PRIMARY KEY(id)
 );
 
--- Article stuffs
-
+--  các bài báo
 CREATE TABLE article (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
@@ -153,7 +161,7 @@ CREATE TABLE article (
     city VARCHAR(50),
     abstract LONGTEXT DEFAULT NULL,
 
-    -- Incase thesis 
+    --  Incase thesis 
     institution VARCHAR(50) DEFAULT NULL,
     department VARCHAR(50) DEFAULT NULL,
     type VARCHAR(50) DEFAULT NULL,
@@ -162,7 +170,7 @@ CREATE TABLE article (
 
     url_date_access DATE DEFAULT NULL,
 
-    -- Identitifiers
+    --  Identitifiers
     ArXivID VARCHAR(20) DEFAULT NULL,
     DOI     VARCHAR(20) DEFAULT NULL,
     ISBN    VARCHAR(20) DEFAULT NULL,
@@ -172,15 +180,15 @@ CREATE TABLE article (
     PII     VARCHAR(20) DEFAULT NULL,
     SGR     VARCHAR(255) DEFAULT NULL,
     
-    -- for Vietnamese project
+    --  for Vietnamese project
     project_id VARCHAR(50) DEFAULT NULL,
 
-    -- for BibTeX
+    --  for BibTeX
     citation_key VARCHAR(50) DEFAULT NULL,
 
     general_note TEXT DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
@@ -188,13 +196,14 @@ CREATE TABLE article (
     PRIMARY KEY(id)
 );
 
+--  link article
 CREATE TABLE article_url (
     id INT NOT NULL AUTO_INCREMENT,
     article_id INT,
 
     url TEXT DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -202,6 +211,7 @@ CREATE TABLE article_url (
     PRIMARY KEY(id)  
 );
 
+--  file article
 CREATE TABLE article_file (
     id INT NOT NULL AUTO_INCREMENT,
     article_id INT,
@@ -209,7 +219,7 @@ CREATE TABLE article_file (
     file_path TEXT DEFAULT NULL,
     original_file_name TEXT DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -223,7 +233,7 @@ CREATE TABLE article_note (
 
     note TEXT DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -231,12 +241,13 @@ CREATE TABLE article_note (
     PRIMARY KEY(id)  
 );
 
+-- cac loai tag
 CREATE TABLE tag (
     id INT NOT NULL AUTO_INCREMENT,
     
     name VARCHAR(50) DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -251,7 +262,7 @@ CREATE TABLE article_tag(
     article_id INT,
     tag_id INT,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -259,6 +270,7 @@ CREATE TABLE article_tag(
     PRIMARY KEY(id)  
 );
 
+-- tac gia
 CREATE TABLE author(
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT DEFAULT NULL,
@@ -267,7 +279,7 @@ CREATE TABLE author(
     first_name VARCHAR(30) DEFAULT NULL,
     last_name VARCHAR(30) DEFAULT NULL,
 
-    -- metadata stuffs
+    --  metadata stuffs
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -275,6 +287,7 @@ CREATE TABLE author(
     PRIMARY KEY(id)  
 );
 
+--  cac du an ( vi du : Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm")
 CREATE TABLE project (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -297,6 +310,7 @@ CREATE TABLE project (
     PRIMARY KEY(id)
 );
 
+--  trương đại học
 CREATE TABLE university (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
@@ -310,6 +324,7 @@ CREATE TABLE university (
 
 );
 
+--  nơi làm việc hiện tại
 CREATE TABLE current_discipline (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -324,6 +339,7 @@ CREATE TABLE current_discipline (
     PRIMARY KEY(id,lecturer_id)
 );
 
+--  môn học 
 CREATE TABLE discipline (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
@@ -334,6 +350,7 @@ CREATE TABLE discipline (
     PRIMARY KEY(id)
 );
 
+--  khoa
 CREATE TABLE department(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
@@ -345,6 +362,7 @@ CREATE TABLE department(
     PRIMARY KEY(id)
 );
 
+--  lĩnh vực và chuyên ngành
 CREATE TABLE expertise (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -358,6 +376,7 @@ CREATE TABLE expertise (
     PRIMARY KEY(id)
 );
 
+--  hướng nghiên cứu
 CREATE TABLE research_field (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -371,6 +390,7 @@ CREATE TABLE research_field (
     PRIMARY KEY(id)
 );
 
+-- bằng cấp
 CREATE TABLE degree (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -387,6 +407,7 @@ CREATE TABLE degree (
     PRIMARY KEY(id)
 );
 
+--  lịch sử các địa điểm làm việ
 CREATE TABLE work_position (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -404,6 +425,7 @@ CREATE TABLE work_position (
     PRIMARY KEY(id)
 );
 
+-- chi tiết các hoạt động đã tham gia
 CREATE TABLE activity (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
@@ -421,6 +443,7 @@ CREATE TABLE activity (
     PRIMARY KEY(id)
 );
 
+-- các loại hoạt động ( ví dụ tham dự hội thảo)
 CREATE TABLE activity_type (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) DEFAULT NULL,
