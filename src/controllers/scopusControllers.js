@@ -3,9 +3,14 @@ const {
 	getAuthorById,
 	updateAuthorProfile,
 } = require('../services/scopusServices/getAuthorByIdService');
+
 const {
 	getBaseLecturerByName,
 } = require('../services/scopusServices/getBaseLecturerService');
+
+const {
+	getBaseArticleByAuthorScopusId,
+} = require("../services/scopusServices/getBaseArticleByScopusId");
 
 /**
  * @param {Express.Request} request
@@ -53,11 +58,13 @@ async function getAuthorByScopusId(request, response) {
 		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
 	};
 
-	const scopusAuthorData = await getAuthorById(scopusAuthorId);
-	const updateAuthorProfileData = await updateAuthorProfile(
-		scopusAuthorData,
-		accountId
-	);
+	// const scopusAuthorData = await getAuthorById(scopusAuthorId);
+	// const updateAuthorProfileData = await updateAuthorProfile(
+	// 	scopusAuthorData,
+	// 	accountId
+	// );
+	const testData = await getBaseArticleByAuthorScopusId(scopusAuthorId);
+
 	if (scopusResponse) {
 		responseJson = {
 			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,

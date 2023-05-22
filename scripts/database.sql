@@ -45,6 +45,7 @@ CREATE TABLE lecturer_information (
 
     -- for further exploration
     expand_column VARCHAR(255) DEFAULT NULL,
+    scopus_id VARCHAR(255) DEFAULT NULL,
 
     PRIMARY KEY(id)
 );
