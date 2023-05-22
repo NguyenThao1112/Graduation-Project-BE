@@ -27,7 +27,7 @@ CREATE TABLE lecturer_information (
     --   base info
     name VARCHAR(255) DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
-    avatar VARCHAR(1000) DEFAULT NULL,
+    avatar BLOB DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
     bio VARCHAR(255) DEFAULT NULL,
 
