@@ -25,8 +25,11 @@ function parseDataFromGetAuthorFromNameResponse(scopusResponse) {
 	return authorData;
 }
 
-function combineAddress(address) {
+function modifyAddress(address) {
 	let finalAddress = '';
+	if (!address) {
+		return finalAddress;
+	}
 	for (const key of Object.keys(address)) {
 		if (!key.includes('@')) finalAddress += address[key] + ' ';
 	}
@@ -36,5 +39,5 @@ function combineAddress(address) {
 
 module.exports = {
 	parseDataFromGetAuthorFromNameResponse,
-	combineAddress,
+	modifyAddress,
 };
