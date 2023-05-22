@@ -2,7 +2,7 @@
 const connection = require('../../configs/database');
 const queryHelper = require('../../helpers/queryHelper');
 const _ = require('lodash');
-
+const moment = require('moment');
 //article_url
 /**
  *  Query to get data of the table, which is join the Article table, by Article's id
