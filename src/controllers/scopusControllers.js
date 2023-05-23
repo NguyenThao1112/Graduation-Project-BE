@@ -11,9 +11,9 @@ const {
 
 const {
 	getArticleByAuthorScopusId,
-} = require("../services/scopusServices/getBaseArticleByScopusId");
+} = require('../services/scopusServices/getBaseArticleByScopusId');
 
-const createArticleService = require("../services/articleServices/createArticleServices");
+const createArticleService = require('../services/articleServices/createArticleServices');
 
 /**
  * @param {Express.Request} request
@@ -50,7 +50,7 @@ async function getScopusAuthorByName(request, response) {
  * @param {Express.Response} response
  * @returns {Promise}
  */
- async function getAuthorByScopusId(request, response) {
+async function getAuthorByScopusId(request, response) {
 	//Get the query params
 	const scopusAuthorId = request.params.scopus_author_id;
 	const accountId = request.params.account_id;
@@ -62,7 +62,11 @@ async function getScopusAuthorByName(request, response) {
 	};
 
 	const scopusAuthorData = await getAuthorById(scopusAuthorId);
-	const newLecturerId = await updateAuthorProfile(scopusAuthorData, accountId);
+	const newLecturerId = await updateAuthorProfile(
+		scopusAuthorData,
+		scopusAuthorId,
+		accountId
+	);
 	if (newLecturerId) {
 		responseJson = {
 			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,
@@ -83,7 +87,6 @@ async function getScopusAuthorByName(request, response) {
  * @returns {Promise}
  */
 async function saveArticleByAuthorScopusId(request, response) {
-
 	//Get the query params
 	const scopusAuthorId = request.params.scopus_author_id;
 	const accountId = request.params.account_id;
@@ -96,17 +99,18 @@ async function saveArticleByAuthorScopusId(request, response) {
 	};
 
 	const articles = await getArticleByAuthorScopusId(scopusAuthorId);
-	const createArticlePromises = articles.map(article => createArticleService.createArticle(article, null));
+	const createArticlePromises = articles.map((article) =>
+		createArticleService.createArticle(article, null)
+	);
 	try {
 		const articleIds = await Promise.all(createArticlePromises);
 		responseJson.code = messageConstants.SUCCESSFUL_CODE;
 		responseJson.message = `Add ${articleIds.length} article(s) via scopus successfully`;
 		statusCode = 200;
-
 	} catch (errors) {
 		statusCode = 500;
-	} 
-	
+	}
+
 	return response.status(statusCode).json(responseJson);
 }
 

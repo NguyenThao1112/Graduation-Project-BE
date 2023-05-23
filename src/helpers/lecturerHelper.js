@@ -5,6 +5,7 @@ const { DAYS_TO_YEAR_FORMAT } = require('../constants/timeConstants');
 class LecturerBuilder {
 	#id;
 	#accountId;
+	#scopusId;
 	#name;
 	#gender;
 	#avatar;
@@ -38,6 +39,9 @@ class LecturerBuilder {
 	// @ts-ignore
 	set accountId(accountId) {
 		this.#accountId = accountId;
+	}
+	set scopusId(scopusId) {
+		this.#scopusId = scopusId;
 	}
 	// @ts-ignore
 	set name(name) {
@@ -135,6 +139,7 @@ class LecturerBuilder {
 	setBulk(lecturerObject) {
 		this.#id = lecturerObject.id ?? null;
 		this.#accountId = lecturerObject.accountId ?? null;
+		this.#scopusId = lecturerObject.scopusId ?? null;
 		this.#name = lecturerObject.name ?? null;
 		this.#gender = lecturerObject.gender ?? null;
 		this.#avatar = lecturerObject.avatar ?? null;
@@ -165,6 +170,7 @@ class LecturerBuilder {
 	reset() {
 		this.#id = null;
 		this.#accountId = null;
+		this.#scopusId = null;
 		this.#name = null;
 		this.#gender = null;
 		this.#avatar = null;
@@ -194,6 +200,7 @@ class LecturerBuilder {
 		return new Lecturer(
 			this.#id,
 			this.#accountId,
+			this.#scopusId,
 			this.#name,
 			this.#gender,
 			this.#avatar,

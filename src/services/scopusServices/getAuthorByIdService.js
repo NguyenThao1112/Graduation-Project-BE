@@ -21,7 +21,7 @@ async function getAuthorById(scopusAuthorId) {
 	}
 }
 
-async function updateAuthorProfile(scopusProfile, accountId) {
+async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 	try {
 		const authorResponse =
 			scopusProfile['data']['author-retrieval-response'][0];
@@ -70,6 +70,7 @@ async function updateAuthorProfile(scopusProfile, accountId) {
 		});
 		const lecturerInformationObject = {
 			accountId: accountId,
+			scopusId: scopusAuthorId,
 			name: name,
 			expandColumn: expandColumn,
 			currentDiscipline: {

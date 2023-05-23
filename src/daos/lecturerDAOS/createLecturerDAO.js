@@ -520,12 +520,13 @@ function createLecturer(lecturer) {
 			return resolve(null);
 		}
 		const query =
-			'INSERT INTO lecturer_information ( account_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';
+			'INSERT INTO lecturer_information ( account_id, scopus_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
 		const values = [
 			lecturer.accountId,
+			lecturer.scopusId,
 			lecturer.name,
 			lecturer.gender,
 			lecturer.avatar,

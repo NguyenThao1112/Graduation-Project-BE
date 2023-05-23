@@ -2,6 +2,7 @@ class Lecturer {
 	// property
 	#id;
 	#accountId;
+	#scopusId;
 	#name;
 	#gender;
 	#avatar;
@@ -31,6 +32,7 @@ class Lecturer {
 	constructor(
 		id,
 		accountId,
+		scopusId,
 		name,
 		gender,
 		avatar,
@@ -57,6 +59,7 @@ class Lecturer {
 	) {
 		this.#id = id;
 		this.#accountId = accountId;
+		this.#scopusId = scopusId;
 		this.#name = name;
 		this.#gender = gender;
 		this.#avatar = avatar;
@@ -88,6 +91,9 @@ class Lecturer {
 	}
 	get accountId() {
 		return this.#accountId;
+	}
+	get scopusId() {
+		return this.#scopusId;
 	}
 	get name() {
 		return this.#name;
@@ -165,6 +171,9 @@ class Lecturer {
 	}
 	set accountId(accountId) {
 		this.#accountId = accountId;
+	}
+	set scopusId(scopusId) {
+		this.#scopusId = scopusId;
 	}
 	set name(name) {
 		this.#name = name;

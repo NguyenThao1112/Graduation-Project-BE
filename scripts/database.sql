@@ -23,8 +23,9 @@ CREATE TABLE account (
 CREATE TABLE lecturer_information (
     id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
-    
+
     --   base info
+    scopus_id VARCHAR(255) DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
     avatar BLOB DEFAULT NULL,
@@ -47,7 +48,6 @@ CREATE TABLE lecturer_information (
 
     --  for further exploration
     expand_column VARCHAR(255) DEFAULT NULL,
-    scopus_id VARCHAR(255) DEFAULT NULL,
 
     PRIMARY KEY(id)
 );
@@ -456,4 +456,4 @@ CREATE TABLE activity_type (
     PRIMARY KEY(id)
 );
 
-ALTER TABLE article CONVERT TO CHARACTER SET utf8;
+ALTER TABLE article CONVERT TO CHARACTER SET utf8mb4;
