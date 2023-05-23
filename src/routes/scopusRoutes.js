@@ -11,7 +11,7 @@ router.get(
 
 router.get(
 	urls.SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL,
-	scopusController.getAuthorByScopusId
+	scopusController.saveArticleByAuthorScopusId
 );
 
 module.exports = router;

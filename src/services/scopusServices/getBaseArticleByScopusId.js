@@ -26,15 +26,14 @@ async function addComplexInformationForArticle(articleObject) {
  * @param {string} scopusId 
  * @returns Promise<any> 
  */
-async function getBaseArticleByAuthorScopusId(scopusId) {
+async function getArticleByAuthorScopusId(scopusId) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_BASE_ARTICLE_BY_AUTHOR_ID}?query=AU-ID(${scopusId})`;
 	try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
 		let articles = scopusHelper.parseBaseArticleFromScopusResponse(axiosResponse.data);
 		articles =  await Promise.all(articles.map(article => addComplexInformationForArticle(article)));
-		const response = articles;
 
-		return response;
+		return articles;
 	} catch (error) {
 		// handle any errors here
 		console.error(error);
@@ -44,5 +43,5 @@ async function getBaseArticleByAuthorScopusId(scopusId) {
 }
 
 module.exports = {
-	getBaseArticleByAuthorScopusId
+	getArticleByAuthorScopusId
 };

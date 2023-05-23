@@ -9,8 +9,10 @@ const {
 } = require('../services/scopusServices/getBaseLecturerService');
 
 const {
-	getBaseArticleByAuthorScopusId,
+	getArticleByAuthorScopusId,
 } = require("../services/scopusServices/getBaseArticleByScopusId");
+
+const createArticleService = require("../services/articleServices/createArticleServices");
 
 /**
  * @param {Express.Request} request
@@ -47,38 +49,34 @@ async function getScopusAuthorByName(request, response) {
  * @param {Express.Response} response
  * @returns {Promise}
  */
-async function getAuthorByScopusId(request, response) {
+async function saveArticleByAuthorScopusId(request, response) {
 	//Get the query params
 	const scopusAuthorId = request.params.scopus_author_id;
 	const accountId = request.params.account_id;
 
 	//Default response is error response
+	let statusCode = 500;
 	let responseJson = {
 		code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE,
 		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
 	};
 
-	// const scopusAuthorData = await getAuthorById(scopusAuthorId);
-	// const updateAuthorProfileData = await updateAuthorProfile(
-	// 	scopusAuthorData,
-	// 	accountId
-	// );
-	const testData = await getBaseArticleByAuthorScopusId(scopusAuthorId);
-	console.log(testData);
+	const articles = await getArticleByAuthorScopusId(scopusAuthorId);
+	const createArticlePromises = articles.map(article => createArticleService.createArticle(article, null));
+	try {
+		const articleIds = await Promise.all(createArticlePromises);
+		responseJson.code = messageConstants.SUCCESSFUL_CODE;
+		responseJson.message = `Add ${articleIds.length} article(s) via scopus successfully`;
+		statusCode = 200;
 
-	if (scopusResponse) {
-		responseJson = {
-			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,
-			message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE,
-			data: scopusResponse,
-		};
-		return response.status(200).json(responseJson);
-	}
-
-	return response.status(500).json(responseJson);
+	} catch (errors) {
+		statusCode = 500;
+	} 
+	
+	return response.status(statusCode).json(responseJson);
 }
 
 module.exports = {
 	getScopusAuthorByName,
-	getAuthorByScopusId,
+	saveArticleByAuthorScopusId,
 };

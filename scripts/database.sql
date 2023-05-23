@@ -147,8 +147,8 @@ CREATE TABLE article (
     name VARCHAR(255) DEFAULT NULL,
     journal VARCHAR(255) DEFAULT NULL,
     year INT DEFAULT NULL,
-    page_from INT DEFAULT NULL,
-    page_to INT DEFAULT NULL,
+    page_from VARCHAR(10) DEFAULT NULL,
+    page_to VARCHAR(10) DEFAULT NULL,
     volume INT DEFAULT NULL,
     issue INT DEFAULT NULL,
     city VARCHAR(50),
@@ -165,7 +165,7 @@ CREATE TABLE article (
 
     -- Identitifiers
     ArXivID VARCHAR(20) DEFAULT NULL,
-    DOI     VARCHAR(20) DEFAULT NULL,
+    DOI     VARCHAR(50) DEFAULT NULL,
     ISBN    VARCHAR(20) DEFAULT NULL,
     ISSN    VARCHAR(20) DEFAULT NULL,
     PMID    VARCHAR(20) DEFAULT NULL,
@@ -432,3 +432,5 @@ CREATE TABLE activity_type (
     
     PRIMARY KEY(id)
 );
+
+ALTER TABLE article CONVERT TO CHARACTER SET utf8;
