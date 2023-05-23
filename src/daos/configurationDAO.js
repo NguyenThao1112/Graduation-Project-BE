@@ -735,6 +735,11 @@ function createTags(tags) {
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 		const is_deleted = false;
 		const values = tags.map((tag) => [tag.name, now, now, is_deleted]);
+		if (values.length < 4) {
+			resolve([]);
+			return;
+		}
+
 
 		//Using bulk insertion for better performance
 		connection.query(query, [values], (error, result) => {

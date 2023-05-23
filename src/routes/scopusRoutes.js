@@ -10,6 +10,11 @@ router.get(
 );
 
 router.get(
+	"/author/:scopus_author_id/test0",
+	scopusController.saveArticleByAuthorScopusId
+);
+
+router.get(
 	urls.SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL,
 	scopusController.getAuthorByScopusId
 );

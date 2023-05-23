@@ -7,8 +7,8 @@ module.exports = Object.freeze({
 		'https://api.elsevier.com/content/author/author_id/',
 	SCOPUS_SEARCH_BASE_ARTICLE_BY_AUTHOR_ID:
 		'https://api.elsevier.com/content/search/scopus',
-	SCOPUS_SEARCH_ABSTRCT_BY_ARTICLE_ID:
-		'https://api.elsevier.com/content/abstract/scopus_id/',
+	SCOPUS_SEARCH_ABSTRACT_BY_ARTICLE_ID:
+		'https://api.elsevier.com/content/abstract/scopus_id',
 
 	SCOPUS_API_KEY: process.env.SCOPUS_API_KEY,
 	SCOPUS_INSTITUTION_TOKEN: process.env.SCOPUS_INSTITUTION_TOKEN,
