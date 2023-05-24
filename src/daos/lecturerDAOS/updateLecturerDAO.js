@@ -117,10 +117,9 @@ function updateContacts(contacts, lecturer) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO contact (`,
-			`id, lecturer_id,contact_type_id,value,created_at,updated_at,is_deleted)`,
+			`id, lecturer_id,value,created_at,updated_at,is_deleted)`,
 			`VALUES ?`,
 			`ON DUPLICATE KEY UPDATE`,
-			`contact_type_id = VALUES(contact_type_id),`,
 			`value = VALUES(value),`,
 			`updated_at = VALUES(updated_at)`,
 		].join(' ');
@@ -130,7 +129,6 @@ function updateContacts(contacts, lecturer) {
 		const values = contacts.map((ele) => [
 			ele.id,
 			lecturer.id,
-			ele.contactTypeId,
 			ele.value,
 			now,
 			now,

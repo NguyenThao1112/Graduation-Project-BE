@@ -28,7 +28,7 @@ CREATE TABLE lecturer_information (
     scopus_id VARCHAR(255) DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
-    avatar BLOB DEFAULT NULL,
+    avatar VARCHAR(255) DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
     bio VARCHAR(255) DEFAULT NULL,
 
@@ -114,8 +114,8 @@ CREATE TABLE contact_type (
 CREATE TABLE contact (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    contact_type_id INT NOT NULL,
-    value VARCHAR(255) NOT NULL,
+    contact_type_id INT DEFAULT NULL,
+    value VARCHAR(255) DEFAULT NULL,
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,  
