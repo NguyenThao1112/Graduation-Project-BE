@@ -3828,3 +3828,37 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
     "message": "Something went wrong from the backend",
 }
 ```
+
+
+### Save Author profile by Scopus Id and Account Id
+
+#### Request
+
+```http
+POST /api/v1/scopus/author/save
+```
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save author successfully",
+    "data": {
+        "lecturerId": 1,
+        "articleIds": [
+            13,
+            15,
+            14
+        ]
+    }
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
