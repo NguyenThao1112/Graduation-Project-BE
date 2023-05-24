@@ -1,6 +1,7 @@
 const axios = require('axios');
 const scopusHelper = require('../../helpers/scopusHelper');
 const scopusConstants = require('../../constants/scopusConstants');
+const createArticleService = require('../../services/articleServices/createArticleServices');
 const { SCOPUS_CONFIG } = require('../../constants/configConstants');
 
 async function addComplexInformationForArticle(articleObject) {
@@ -24,7 +25,7 @@ async function addComplexInformationForArticle(articleObject) {
 /**
  * 
  * @param {string} scopusId 
- * @returns Promise<any> 
+ * @returns {Promise<any>} 
  */
 async function getArticleByAuthorScopusId(scopusId) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_BASE_ARTICLE_BY_AUTHOR_ID}?query=AU-ID(${scopusId})`;
@@ -42,6 +43,29 @@ async function getArticleByAuthorScopusId(scopusId) {
 	}
 }
 
+/**
+ * 
+ * @param {string} authorScopusId 
+ * @returns {Promise<Number>} articleIds;
+ * 
+ */
+async function saveArticleByAuthorScopusId(authorScopusId) {
+	const articles = await getArticleByAuthorScopusId(authorScopusId);
+	const createArticlePromises = articles.map((article) =>
+		createArticleService.createArticle(article, null)
+	);
+	let articleIds = [];
+
+	try {
+		articleIds = await Promise.all(createArticlePromises);
+	} catch (errors) {
+		console.log(errors);
+		articleIds = [];
+	}
+
+	return articleIds;
+}
+
 module.exports = {
-	getArticleByAuthorScopusId
+	saveArticleByAuthorScopusId
 };

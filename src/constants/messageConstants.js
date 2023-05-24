@@ -206,4 +206,8 @@ module.exports = Object.freeze({
 		'Something went wrong from the backend',
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE:
 		'Retrieve author by id from scopus successfully',
+
+	SCOPUS_SAVE_AUTHOR_NOT_FOUND_CODE: 1,
+	SCOPUS_SAVE_AUTHOR_NOT_FOUND_MESSAGE: 'Something went wrong from the backend',
+	SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE: 'Save author successfully',
 });
