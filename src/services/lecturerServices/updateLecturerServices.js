@@ -120,19 +120,11 @@ function updateContacts(contactObject, lecturer) {
 				obj.hasOwnProperty('update') &&
 				true === obj.update
 		);
-
-		const createContactObject = contactObject.filter(
-			(obj) => obj.hasOwnProperty('create') && true === obj.create
-		);
-
 		const deleteIds = contactObject
 			.filter((obj) => obj.hasOwnProperty('delete') && true === obj.delete)
 			.map((obj) => obj.id);
 
 		return Promise.all([
-			createLecturerDAO
-				.createContacts(createContactObject, lecturer)
-				.then((ids) => {}),
 			updateLecturerDAO
 				.updateContacts(updateContactObject, lecturer)
 				.then((updatePhdThesis) => {}),

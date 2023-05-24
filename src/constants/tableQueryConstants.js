@@ -23,6 +23,7 @@ const contact = [
 	'contact.id as id',
 	'lecturer_id as lecturerId',
 	'value',
+	'contact_type.id as contactTypeId',
 	'name as contactTypeName',
 ];
 
