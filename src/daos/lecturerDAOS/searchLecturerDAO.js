@@ -55,26 +55,33 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 
 		let query = null;
 
-		if (tableName !== 'academic_title' && tableName !== 'academic_rank') {
+		if (tableName === 'academic_title') {
 			query = [
-				`SELECT`,
-				columnNames.join(', '),
-				fromStatement,
-				`WHERE ${tableName}.is_deleted = false AND lecturer_id IN (?)`,
-			].join(' ');
-		} else if (tableName === 'academic_title') {
-			query = [
-				`SELECT`,
+				`SELECT DISTINCT`,
 				columnNames.join(', '),
 				`${fromStatement} JOIN lecturer_information ON lecturer_information.academic_title_id = academic_title.id`,
 				`WHERE ${tableName}.is_deleted = false AND lecturer_information.id IN (?)`,
 			].join(' ');
 		} else if (tableName === 'academic_rank') {
 			query = [
-				`SELECT`,
+				`SELECT DISTINCT`,
 				columnNames.join(', '),
 				`${fromStatement} JOIN lecturer_information ON lecturer_information.academic_rank_id = academic_rank.id`,
 				`WHERE ${tableName}.is_deleted = false AND lecturer_information.id IN (?)`,
+			].join(' ');
+		} else if (tableName === 'book_author') {
+			query = [
+				`SELECT DISTINCT`,
+				columnNames.join(', '),
+				fromStatement,
+				`WHERE ${tableName}.is_deleted = false AND book.is_deleted = false AND lecturer_id IN (?)`,
+			].join(' ');
+		} else {
+			query = [
+				`SELECT DISTINCT`,
+				columnNames.join(', '),
+				fromStatement,
+				`WHERE ${tableName}.is_deleted = false AND lecturer_id IN (?)`,
 			].join(' ');
 		}
 
@@ -166,10 +173,11 @@ function getBaseLecturers(option = null) {
 			}
 
 			//Check if trying to search by scopus_id
-			if (option.hasOwnProperty('scopusIds') && 
-				Array.isArray(option.scopusIds) && 
-				option.scopusIds.length > 0) {
-					
+			if (
+				option.hasOwnProperty('scopusIds') &&
+				Array.isArray(option.scopusIds) &&
+				option.scopusIds.length > 0
+			) {
 				const scopusIds = option.scopusIds;
 				whereStatement = `${whereStatement} AND a.scopus_id IN (?)`;
 				bindingValues.push(scopusIds);
