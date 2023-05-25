@@ -115,6 +115,9 @@ function updateBooks(books) {
  */
 function updateContacts(contacts, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!contacts.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO contact (`,
 			`id, lecturer_id,value,created_at,updated_at,is_deleted)`,
@@ -154,6 +157,9 @@ function updateContacts(contacts, lecturer) {
  */
 function updateProjects(projects, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!projects.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO project (`,
 			`id, lecturer_id,name,project_code,from_date,to_date,expenditure, project_role,acceptance_date,result,organization,note,reference, created_at,updated_at, is_deleted)`,
@@ -263,6 +269,9 @@ function updateCurrentDiscipline(currentDisciplines, lecturer) {
  */
 function updateResearchFields(researchFields, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!researchFields.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO research_field (`,
 			`id, lecturer_id,research_name,note, created_at,updated_at, is_deleted)`,
@@ -345,6 +354,9 @@ function updateExpertises(expertises, lecturer) {
  */
 function updateDegrees(degrees, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!degrees.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO degree (`,
 			`id, lecturer_id,academic_title_id,university_id, specialization,graduation_thesis_name, graduation_date, created_at, updated_at, is_deleted)`,
@@ -441,6 +453,9 @@ function updateWorkPositions(workPositions, lecturer) {
  */
 function updateActivities(activities, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!activities.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO activity (`,
 			`id, lecturer_id,activity_type_id,name, note,is_now, from_date, to_date, created_at, updated_at, is_deleted)`,
@@ -490,6 +505,9 @@ function updateActivities(activities, lecturer) {
  */
 function updateLecturer(lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!lecturer) {
+			return resolve(null);
+		}
 		const query = [
 			`UPDATE lecturer_information`,
 			`SET`,

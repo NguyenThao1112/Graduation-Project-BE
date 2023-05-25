@@ -313,6 +313,9 @@ function createExpertises(expertises, lecturer) {
 
 function createResearchFields(researchFields, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!researchFields.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO research_field(`,
 			`lecturer_id,`,

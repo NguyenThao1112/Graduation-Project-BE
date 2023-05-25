@@ -292,7 +292,7 @@ CREATE TABLE author(
 CREATE TABLE project (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) DEFAULT NULL,
     project_code VARCHAR(255) DEFAULT NULL,
     from_date VARCHAR(7) DEFAULT NULL,
     to_date VARCHAR(7) DEFAULT NULL,
@@ -395,8 +395,8 @@ CREATE TABLE research_field (
 CREATE TABLE degree (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    academic_title_id INT NOT NULL,
-    university_id INT NOT NULL,
+    academic_title_id INT DEFAULT NULL,
+    university_id INT DEFAULT NULL,
     specialization VARCHAR(255) DEFAULT NULL,
     graduation_thesis_name  VARCHAR(255) DEFAULT NULL,
     graduation_date INT DEFAULT NULL,
@@ -430,7 +430,7 @@ CREATE TABLE work_position (
 CREATE TABLE activity (
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT NOT NULL,
-    activity_type_id INT NOT NULL,
+    activity_type_id INT DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     note VARCHAR(255) DEFAULT NULL,
     is_now BOOLEAN DEFAULT FALSE,
