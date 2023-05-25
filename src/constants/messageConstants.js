@@ -71,7 +71,7 @@ module.exports = Object.freeze({
 		'Fetch the lecturer from database successfully',
 	LECTURER_CREATE_SUCCESS_MESSAGE: 'Create lecturer successfully!',
 	LECTURER_CREATE_FAILED_MESSAGE: 'Failed to create lecturer!',
-	LECTURER_UPDATE_FAILED_MESSAGE: 'Failed yo update lecturer!',
+	LECTURER_UPDATE_FAILED_MESSAGE: 'Failed to update lecturer!',
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
