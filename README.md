@@ -2421,13 +2421,14 @@ PUT /api/v1/lecturers/:id/update
 
 ```javascript
 {
+
     "data": {
         "id": 1,
         "name": "Nguyen Van Vu1",
         "gender": "male",
         "avatar": "http://image",
         "dateOfBirth": "04/05/1977",
-        "bio": "Giao su truong khoa hoc tu nhien"
+        "bio": "Giao su truong khoa hoc tu nhien - update1",
         "academicRankId": 1,
         "academicRankGainYear": "2010",
         "academicTitleId": 1,
@@ -2456,7 +2457,7 @@ PUT /api/v1/lecturers/:id/update
                 "publisherName": "IEEE CPS, ISBN-13; 978",
                 "publicYear": "2018",
                 "coAuthors": "Dongjin Yu, Vu Nguyen, Confeng Jian",
-                "update": true
+                "delete": true
             },
             {
                 "create": true,
@@ -2469,18 +2470,13 @@ PUT /api/v1/lecturers/:id/update
         "contacts": [
             {
                 "id": 1,
-                "contactTypeId": 2,
-                "value": "288 Hai Ba Trung - update",
+                "value": "288 Hai Ba Trung1 - update",
                 "update": true
             },
             {
-                "contactTypeId": 4,
-                "value": "0962763170",
-                "create": true
-            },
-            {
                 "id": 2,
-                "delete": true
+                "value": "09627631701 - update",
+                "update": true
             }
         ],
         "projects": [

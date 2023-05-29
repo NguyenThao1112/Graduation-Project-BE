@@ -201,29 +201,30 @@ function getAllLecturers() {
 }
 
 /**
- * 
- * @param {Array<Number>} scopusIds 
+ *
+ * @param {Array<Number>} scopusIds
  * @param {Array<String>} filterColumns
  * @return {Map<Number, any>} resultMap
- * 
+ *
  */
 function getLecturerByScopusIds(scopusIds, filterColumns) {
 	const options = {
 		scopusIds,
-	}
+	};
 	return new Promise((resolve, reject) => {
-		searchLecturerDAO.getBaseLecturers(options)
+		searchLecturerDAO
+			.getBaseLecturers(options)
 			.then((lecturerInfor) => {
-				const scopusIdLecturerMap = new Map(lecturerInfor.map(
-					lecturer => [lecturer.scopus_id, lecturer.id]
-				));
+				const scopusIdLecturerMap = new Map(
+					lecturerInfor.map((lecturer) => [lecturer.scopus_id, lecturer.id])
+				);
 
 				resolve(scopusIdLecturerMap);
 			})
 			.catch((err) => {
 				reject(err);
 			});
-	})
+	});
 }
 
 module.exports = {

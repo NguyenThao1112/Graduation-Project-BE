@@ -2,6 +2,7 @@ const updateLecturerDAO = require('../../daos/lecturerDAOS/updateLecturerDAO');
 const createLecturerDAO = require('../../daos/lecturerDAOS/createLecturerDAO');
 const deleteServiceDAO = require('../../daos/deleteServiceDAO');
 const lecturerHelper = require('../../helpers/lecturerHelper');
+const { getOneLecturer } = require('./searchLecturerServices');
 
 /**
  *
@@ -120,19 +121,11 @@ function updateContacts(contactObject, lecturer) {
 				obj.hasOwnProperty('update') &&
 				true === obj.update
 		);
-
-		const createContactObject = contactObject.filter(
-			(obj) => obj.hasOwnProperty('create') && true === obj.create
-		);
-
 		const deleteIds = contactObject
 			.filter((obj) => obj.hasOwnProperty('delete') && true === obj.delete)
 			.map((obj) => obj.id);
 
 		return Promise.all([
-			createLecturerDAO
-				.createContacts(createContactObject, lecturer)
-				.then((ids) => {}),
 			updateLecturerDAO
 				.updateContacts(updateContactObject, lecturer)
 				.then((updatePhdThesis) => {}),
@@ -486,6 +479,22 @@ function updateActivities(activityObject, lecturer) {
 	});
 }
 
+function checkExistLecturer(lecturerObject) {
+	return new Promise((resolve, reject) => {
+		getOneLecturer(lecturerObject.id)
+			.then((lecturer) => {
+				if (!lecturer) {
+					resolve(false);
+				} else {
+					resolve(true);
+				}
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
+
 /**
  * update a lecturer
  * @param {Object} lecturerObject
@@ -493,61 +502,78 @@ function updateActivities(activityObject, lecturer) {
  *
  */
 function updateLecturer(lecturerObject) {
-	const builder = new lecturerHelper.LecturerBuilder();
-	builder.reset();
-	builder.setBulk(lecturerObject);
-	const lecturer = builder.build();
+	return new Promise((resolve, reject) => {
+		checkExistLecturer(lecturerObject)
+			.then(() => {
+				const builder = new lecturerHelper.LecturerBuilder();
+				builder.reset();
+				builder.setBulk(lecturerObject);
+				const lecturer = builder.build();
 
-	return updateLecturerDAO
-		.updateLecturer(lecturer)
-		.catch((error) => {
-			console.log(error);
-		})
-		.then((lecturer) => {
-			return Promise.all([
-				updatePhdThesises(lecturerObject.phdThesises, lecturer).catch(
-					(error) => {
-						console.log(error);
-					}
-				),
-				updateBooks(lecturerObject.books, lecturer).catch((error) => {
-					console.log(error);
-				}),
-				updateContacts(lecturerObject.contacts, lecturer).catch((error) => {
-					console.log(error);
-				}),
-				updateProjects(lecturerObject.projects, lecturer).catch((error) => {
-					console.log(error);
-				}),
-				updateCurrentDiscipline(
-					lecturerObject.currentDiscipline,
-					lecturer
-				).catch((error) => {
-					console.log(error);
-				}),
-				updateResearchFields(lecturerObject.researchFields, lecturer).catch(
-					(err) => {
-						console.log(err);
-					}
-				),
-				updateExpertises(lecturerObject.expertises, lecturer).catch((err) => {
-					console.log(err);
-				}),
-				updateDegrees(lecturerObject.degrees, lecturer).catch((err) => {
-					console.log(err);
-				}),
-				updateWorkPositions(lecturerObject.workPositions, lecturer).catch(
-					(err) => {
-						console.log(err);
-					}
-				),
-				updateActivities(lecturerObject.activities, lecturer).catch((err) => {
-					console.log(err);
-				}),
-			]).then((data) => {
-				return Promise.resolve(true);
+				return updateLecturerDAO
+					.updateLecturer(lecturer)
+					.then((lecturer) => {
+						return Promise.all([
+							updatePhdThesises(lecturerObject.phdThesises, lecturer).catch(
+								(error) => {
+									console.log(error);
+								}
+							),
+							updateBooks(lecturerObject.books, lecturer).catch((error) => {
+								console.log(error);
+							}),
+							updateContacts(lecturerObject.contacts, lecturer).catch(
+								(error) => {
+									console.log(error);
+								}
+							),
+							updateProjects(lecturerObject.projects, lecturer).catch(
+								(error) => {
+									console.log(error);
+								}
+							),
+							updateCurrentDiscipline(
+								lecturerObject.currentDiscipline,
+								lecturer
+							).catch((error) => {
+								console.log(error);
+							}),
+							updateResearchFields(
+								lecturerObject.researchFields,
+								lecturer
+							).catch((err) => {
+								console.log(err);
+							}),
+							updateExpertises(lecturerObject.expertises, lecturer).catch(
+								(err) => {
+									console.log(err);
+								}
+							),
+							updateDegrees(lecturerObject.degrees, lecturer).catch((err) => {
+								console.log(err);
+							}),
+							updateWorkPositions(lecturerObject.workPositions, lecturer).catch(
+								(err) => {
+									console.log(err);
+								}
+							),
+							updateActivities(lecturerObject.activities, lecturer).catch(
+								(err) => {
+									console.log(err);
+								}
+							),
+						]).then((data) => {
+							return resolve(data);
+						});
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			})
+			.catch((err) => {
+				reject(err);
 			});
-		});
+	});
 }
 
 module.exports = {

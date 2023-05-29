@@ -71,7 +71,7 @@ module.exports = Object.freeze({
 		'Fetch the lecturer from database successfully',
 	LECTURER_CREATE_SUCCESS_MESSAGE: 'Create lecturer successfully!',
 	LECTURER_CREATE_FAILED_MESSAGE: 'Failed to create lecturer!',
-	LECTURER_UPDATE_FAILED_MESSAGE: 'Failed yo update lecturer!',
+	LECTURER_UPDATE_FAILED_MESSAGE: 'Failed to update lecturer!',
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
@@ -196,18 +196,25 @@ module.exports = Object.freeze({
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Retrieve author by name failed',
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE:
 		'Retrieve author by name from scopus successfully',
 
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Something author by id from scopus failed',
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE:
 		'Retrieve author by id from scopus successfully',
 
 	SCOPUS_SAVE_AUTHOR_NOT_FOUND_CODE: 1,
 	SCOPUS_SAVE_AUTHOR_NOT_FOUND_MESSAGE: 'Something went wrong from the backend',
 	SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE: 'Save author successfully',
+
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_CODE: 0,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_MESSAGE:
+		'Retrieve conference rank failed',
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE:
+		'Retrieve conference rank successfully',
 });
