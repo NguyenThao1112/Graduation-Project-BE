@@ -11,7 +11,8 @@ const {
 
 const {
 	getArticleByAuthorScopusId,
-} = require('../services/scopusServices/getBaseArticleByScopusId');
+	getArticleByDOI,
+} = require('../services/scopusServices/getArticleWithScopusService');
 
 const createArticleService = require('../services/articleServices/createArticleServices');
 
@@ -87,6 +88,7 @@ async function getAuthorByScopusId(request, response) {
  * @returns {Promise}
  */
 async function saveArticleByAuthorScopusId(request, response) {
+
 	//Get the query params
 	const scopusAuthorId = request.params.scopus_author_id;
 	const accountId = request.params.account_id;
@@ -114,8 +116,42 @@ async function saveArticleByAuthorScopusId(request, response) {
 	return response.status(statusCode).json(responseJson);
 }
 
+
+/**
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+async function findArticleByDOI(request, response) {
+	
+	//Get the DOI from body
+	const {data} = request.body;
+	const doi = data.doi;
+
+	//Default response is error response
+	let statusCode = 500;
+	let responseJson = {
+		code: messageConstants.SCOPUS_FIND_ARTICLE_BY_DOI_NOT_FOUND_CODE,
+		message: messageConstants.SCOPUS_FIND_ARTICLE_BY_DOI_NOT_FOUND_MESSAGE,
+	};
+
+	const article = await getArticleByDOI(doi);
+	try {
+		responseJson.code = messageConstants.SUCCESSFUL_CODE;
+		responseJson.message = `Found article with DOI = ${doi} successfully!`;
+		responseJson.data = article;
+		statusCode = 200;
+	} catch (errors) {
+		statusCode = 500;
+	}
+
+	return response.status(statusCode).json(responseJson);
+}
+
+
 module.exports = {
 	getScopusAuthorByName,
 	saveArticleByAuthorScopusId,
 	getAuthorByScopusId,
+	findArticleByDOI,
 };

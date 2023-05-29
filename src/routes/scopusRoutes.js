@@ -19,4 +19,9 @@ router.get(
 	scopusController.getAuthorByScopusId
 );
 
+router.post(
+	urls.SCOPUS_GET_ARTICLE_BY_DOI_URL,
+	scopusController.findArticleByDOI
+);
+
 module.exports = router;
