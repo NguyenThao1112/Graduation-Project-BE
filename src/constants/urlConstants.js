@@ -112,4 +112,5 @@ module.exports = Object.freeze({
 	SCOPUS_PREFIX_API_URL: '/scopus',
 	SCOPUS_GET_AUTHORS_BY_NAME_URL: '/author',
 	SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL: '/author/:scopus_author_id/:account_id',
+	SCOPUS_GET_CONFERENCE_RANK_BY_NAME: '/conference',
 });

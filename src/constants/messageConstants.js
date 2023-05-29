@@ -196,14 +196,21 @@ module.exports = Object.freeze({
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Retrieve author by name failed',
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE:
 		'Retrieve author by name from scopus successfully',
 
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Something author by id from scopus failed',
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE:
 		'Retrieve author by id from scopus successfully',
+
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_CODE: 0,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_MESSAGE:
+		'Retrieve conference rank failed',
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE:
+		'Retrieve conference rank successfully',
 });
