@@ -10,13 +10,18 @@ router.get(
 );
 
 router.get(
-	"/author/:scopus_author_id/test0",
+	'/author/:scopus_author_id/test0',
 	scopusController.saveArticleByAuthorScopusId
 );
 
 router.get(
 	urls.SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL,
 	scopusController.getAuthorByScopusId
+);
+
+router.get(
+	urls.SCOPUS_GET_CONFERENCE_RANK_BY_NAME,
+	scopusController.getConferenceRankByName
 );
 
 module.exports = router;

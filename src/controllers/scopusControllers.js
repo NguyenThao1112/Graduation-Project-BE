@@ -11,7 +11,9 @@ const {
 
 const {
 	getArticleByAuthorScopusId,
-} = require('../services/scopusServices/getBaseArticleByScopusId');
+} = require('../services/scopusServices/getBaseArticleByScopusIdService');
+
+const getConferenceRankByNameService = require('../services/getConferenceRankByNameService');
 
 const createArticleService = require('../services/articleServices/createArticleServices');
 
@@ -87,10 +89,6 @@ async function getAuthorByScopusId(request, response) {
  * @returns {Promise}
  */
 async function saveArticleByAuthorScopusId(request, response) {
-	//Get the query params
-	const scopusAuthorId = request.params.scopus_author_id;
-	const accountId = request.params.account_id;
-
 	//Default response is error response
 	let statusCode = 500;
 	let responseJson = {
@@ -98,17 +96,60 @@ async function saveArticleByAuthorScopusId(request, response) {
 		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
 	};
 
-	const articles = await getArticleByAuthorScopusId(scopusAuthorId);
-	const createArticlePromises = articles.map((article) =>
-		createArticleService.createArticle(article, null)
-	);
+	//Get the query params
+	const scopusAuthorId = request.params.scopus_author_id;
+	const accountId = request.params.account_id;
+
+	if (scopusAuthorId && accountId) {
+		const articles = await getArticleByAuthorScopusId(scopusAuthorId);
+		const createArticlePromises = articles.map((article) =>
+			createArticleService.createArticle(article, null)
+		);
+		try {
+			const articleIds = await Promise.all(createArticlePromises);
+			responseJson.code = messageConstants.SUCCESSFUL_CODE;
+			responseJson.message = `Add ${articleIds.length} article(s) via scopus successfully`;
+			statusCode = 200;
+		} catch (errors) {
+			statusCode = 500;
+		}
+	}
+
+	return response.status(statusCode).json(responseJson);
+}
+
+/**
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+async function getConferenceRankByName(request, response) {
+	//Default response is error response
+	let statusCode = 500;
+	let responseJson = {
+		code: messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_CODE,
+		message:
+			messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_MESSAGE,
+	};
 	try {
-		const articleIds = await Promise.all(createArticlePromises);
-		responseJson.code = messageConstants.SUCCESSFUL_CODE;
-		responseJson.message = `Add ${articleIds.length} article(s) via scopus successfully`;
-		statusCode = 200;
-	} catch (errors) {
+		const conferenceName = request.query.conferenceName;
+
+		if (conferenceName) {
+			const conferenceData =
+				await getConferenceRankByNameService.getConferenceRankByName(
+					conferenceName
+				);
+			statusCode = 200;
+			responseJson = {
+				code: messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_CODE,
+				message:
+					messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE,
+				data: conferenceData,
+			};
+		}
+	} catch (err) {
 		statusCode = 500;
+		responseJson.message = err;
 	}
 
 	return response.status(statusCode).json(responseJson);
@@ -118,4 +159,5 @@ module.exports = {
 	getScopusAuthorByName,
 	saveArticleByAuthorScopusId,
 	getAuthorByScopusId,
+	getConferenceRankByName,
 };
