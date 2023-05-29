@@ -32,7 +32,10 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			];
 		const currentUniversityObject = [
 			{
-				name: currentUniversity['afdispname'],
+				name:
+					currentUniversity && currentUniversity['afdispname']
+						? currentUniversity['afdispname']
+						: null,
 				address: scopusHelper.modifyAddress(currentUniversity['address']),
 			},
 		];
@@ -92,9 +95,9 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 }
 
 /**
- * 
- * @param {String} scopusAuthorId 
- * @param {String} accountId 
+ *
+ * @param {String} scopusAuthorId
+ * @param {String} accountId
  * @returns {Number | undefined} lecturerId
  */
 async function saveLecturerWithScopus(scopusAuthorId, accountId) {
@@ -103,11 +106,11 @@ async function saveLecturerWithScopus(scopusAuthorId, accountId) {
 		scopusAuthorData,
 		scopusAuthorId,
 		accountId
-	)
+	);
 
 	return lecturerId;
 }
 
 module.exports = {
-	saveLecturerWithScopus
+	saveLecturerWithScopus,
 };

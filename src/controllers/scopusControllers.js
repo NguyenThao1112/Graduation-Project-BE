@@ -114,7 +114,6 @@ async function getScopusAuthorByName(request, response) {
  * @returns {Promise}
  */
 async function saveAuthorWithScopus(request, response) {
-	
 	const { data } = request.body;
 
 	//Get the query params
@@ -129,16 +128,18 @@ async function saveAuthorWithScopus(request, response) {
 	};
 
 	try {
-		const resultData = await saveAuthorWithScopusInfo(scopusAuthorId, accountId);
+		const resultData = await saveAuthorWithScopusInfo(
+			scopusAuthorId,
+			accountId
+		);
 
 		statusCode = 200;
-		responseJson.code = messageConstants.SUCCESSFUL_CODE;	
+		responseJson.code = messageConstants.SUCCESSFUL_CODE;
 		responseJson.message = messageConstants.SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE;
 		responseJson.data = {
 			lecturerId: resultData[0],
 			articleIds: resultData[1],
-		}
-
+		};
 	} catch (errors) {
 		//do nothing
 	}
