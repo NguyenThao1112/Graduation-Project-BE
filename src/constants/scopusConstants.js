@@ -12,4 +12,6 @@ module.exports = Object.freeze({
 
 	SCOPUS_API_KEY: process.env.SCOPUS_API_KEY,
 	SCOPUS_INSTITUTION_TOKEN: process.env.SCOPUS_INSTITUTION_TOKEN,
+
+	SCOPUS_API_BATCH_SIZE: 10,
 });

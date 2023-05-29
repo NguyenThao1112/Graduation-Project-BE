@@ -229,6 +229,12 @@ function createArticleCategories(categories) {
 		//Reduce the level of array bracket, in values, by 1 level
 		values = [].concat.apply([], values);
 
+		//Empty check
+		if (values.length < 1) {
+			resolve([]);
+			return;
+		}
+
 		//Using bulk insertion for better performance
 		connection.query(query, [values], (error, result) => {
 			if (error) {

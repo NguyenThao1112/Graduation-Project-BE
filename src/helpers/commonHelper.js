@@ -26,7 +26,20 @@ function normalizePaginationParam(pageOffsetRaw, limitSizeRaw) {
 	return [pageOffset, limitSize];
 }
 
+function chunkArray(array, chunkSize) {
+
+	const batchArray = [];
+	const arraySize = array.length;
+	for (let i = 0; i < arraySize; i += chunkSize) {
+		const chunk = array.slice(i, i + chunkSize);
+		batchArray.push(chunk);
+	}
+
+	return batchArray;
+}
+
 module.exports = {
 	convertRowsDataToArray,
 	normalizePaginationParam,
+	chunkArray,
 };
