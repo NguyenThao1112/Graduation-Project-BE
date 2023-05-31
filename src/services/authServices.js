@@ -62,13 +62,14 @@ function authenticate(email, password) {
  * @param {string} password
  * @return {Promise}
  */
-function accountRegistrate(email, password) {
+function accountRegistrate(email, password, role) {
 	return new Promise(function (resolve, reject) {
 		const hashPassword = authHelper.hashPassword(password);
 		accountDAO
 			.createAccount({
 				email: email,
 				password: hashPassword,
+				role: role,
 				is_deleted: false,
 			})
 			.catch((error) => {
