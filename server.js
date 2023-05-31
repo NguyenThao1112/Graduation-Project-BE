@@ -72,6 +72,6 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(configs.APP_PORT, () => {
+app.listen(process.env.PORT || 3001, () => {
 	console.log(`Server is serving on port ${configs.APP_PORT}`);
 });
