@@ -49,6 +49,8 @@ app.use(
 // built-in middleware for json
 app.use(express.json({ limit: '50mb' }));
 
+const PORT = process.env.PORT || 3001;
+
 app.use('/test', function (req, res) {
 	res.json('text successfully');
 });
@@ -72,6 +74,6 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(PORT, () => {
 	console.log(`Server is serving on port ${configs.APP_PORT}`);
 });
