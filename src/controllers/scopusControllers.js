@@ -74,12 +74,11 @@ async function saveAuthorWithScopus(request, response) {
 			articleIds: resultData[1],
 		};
 	} catch (errors) {
-		//do nothing
+		console.log(errors);
 	}
 
 	return response.status(statusCode).json(responseJson);
 }
-
 
 /**
  * @param {Express.Request} request

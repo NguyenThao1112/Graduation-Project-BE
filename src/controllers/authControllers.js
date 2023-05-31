@@ -11,39 +11,42 @@ const validatorHelper = require('../helpers/validatorHelper');
  */
 function login(request, response) {
 	return new Promise((resolve, reject) => {
-		const { email, password } = request.body;
-
-		//Default response is login failed
 		let responseJson = {
 			code: authConstants.AUTH_LOGIN_FAILED_CODE,
 			message: authConstants.AUTH_LOGIN_FAILED_MESSAGE,
 		};
 
-		//Check if authenticate successfully
-		authService
-			.authenticate(email, password)
-			.then((token) => {
-				authService
-					.updateAccountTokenByEmail(email, token)
-					.then((account) => {
-						if (account) {
-							responseJson.code = authConstants.SUCCESSFUL_CODE;
-							responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
-							responseJson.token = account.token;
-							responseJson.expire = account.expire;
-							responseJson.accountId = account.id;
-						}
-						resolve(account);
-					})
-					.catch((err) => {
-						reject(err);
-					})
-					.finally(() => {
-						response.json(responseJson);
-					});
-				//If authenticated success => change the response's data
-			})
-			.catch(() => {});
+		try {
+			const { email, password } = request.body;
+
+			// Check if authenticate successfully
+			authService
+				.authenticate(email, password)
+				.then((token) => {
+					// Update account token by email
+					return authService.updateAccountTokenByEmail(email, token);
+				})
+				.then((account) => {
+					if (account) {
+						responseJson.code = authConstants.SUCCESSFUL_CODE;
+						responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
+						responseJson.token = account.token;
+						responseJson.expire = account.expire;
+						responseJson.accountId = account.id;
+					}
+					response.json(responseJson);
+					resolve(); // Resolve the promise after sending the response
+				})
+				.catch((err) => {
+					console.log(err);
+					response.json(responseJson);
+					resolve(); // Resolve the promise after sending the response
+				});
+		} catch (err) {
+			console.log(err);
+			response.json(responseJson);
+			resolve(); // Resolve the promise after sending the response
+		}
 	});
 }
 

@@ -49,6 +49,9 @@ app.use(
 // built-in middleware for json
 app.use(express.json({ limit: '50mb' }));
 
+if (process.env.NODE_ENV === 'develop') {
+	require('dotenv').config({ path: '.env.development' });
+}
 app.use('/test', function (req, res) {
 	res.json('text successfully');
 });
@@ -74,4 +77,5 @@ app.use(errorHandler);
 
 app.listen(configs.APP_PORT, () => {
 	console.log(`Server is serving on port ${configs.APP_PORT}`);
+	console.log(`Node env`, process.env.NODE_ENV);
 });

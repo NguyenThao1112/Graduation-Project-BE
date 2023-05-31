@@ -50,6 +50,7 @@ function authenticate(email, password) {
 				}
 			})
 			.catch((error) => {
+				console.log(error);
 				reject(error);
 			});
 	});
