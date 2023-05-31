@@ -33,6 +33,7 @@ function login(request, response) {
 						responseJson.token = account.token;
 						responseJson.expire = account.expire;
 						responseJson.accountId = account.id;
+						responseJson.role = account.role;
 					}
 					response.json(responseJson);
 					resolve(); // Resolve the promise after sending the response
@@ -64,7 +65,7 @@ function signUp(request, response) {
 			return;
 		}
 
-		const { email, password } = request.body;
+		const { email, password, role } = request.body;
 
 		//Default response is sign up failed
 		let responseJson = {
@@ -74,7 +75,7 @@ function signUp(request, response) {
 
 		//Check if registrating successfully
 		authService
-			.accountRegistrate(email, password)
+			.accountRegistrate(email, password, role)
 			.then(() => {
 				//if then => successfully case
 				responseJson.code = authConstants.SUCCESSFUL_CODE;
