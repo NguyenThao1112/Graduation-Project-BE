@@ -3833,6 +3833,16 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```http
 POST /api/v1/scopus/author/save
 ```
+
+```javascript
+{
+    "data": {
+        "scopusAuthorId": 35176729700,
+        "accountId": 1
+    }
+}
+```
+
 #### Success response
 
 ```javascript
