@@ -3,6 +3,10 @@ const connection = require('../../configs/database');
 const queryHelper = require('../../helpers/queryHelper');
 const _ = require('lodash');
 const moment = require('moment');
+const {
+	convertBinaryToBase64,
+	convertBlobToBase64,
+} = require('../../helpers/util');
 //article_url
 /**
  *  Query to get data of the table, which is join the Article table, by Article's id
@@ -115,49 +119,42 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
  *
  * @return {Promise}
  */
-function getBaseLecturers(option = null) {
-	return new Promise((resolve, reject) => {
-		let selectStatement = [
-			'SELECT',
-			'a.id as id,',
-			'a.name as name,',
-			'a.gender as gender,',
-			'a.avatar as avatar,',
-			'a.bio as bio,',
-			'a.date_of_birth as dateOfBirth, ',
-			'a.academic_rank_id as academicRankId, ',
-			'a.academic_rank_gain_year as academicRankGainYear,',
-			'a.academic_title_id as academicTitleId,',
-			'a.academic_title_gain_year as academicTitleGainYear,',
-			'a.scopus_id as scopusId',
-		].join(' ');
-		let fromStatement = 'FROM lecturer_information as a';
-		let whereStatement = 'WHERE a.is_deleted = false';
-		let bindingValues = [];
-		let numberOfRecordStatement = '';
+async function getBaseLecturers(option = null) {
+	try {
+		const selectStatement = `SELECT
+        a.id as id,
+        a.name as name,
+        a.gender as gender,
+        a.avatar as avatar,
+        a.bio as bio,
+        a.date_of_birth as dateOfBirth,
+        a.academic_rank_id as academicRankId,
+        a.academic_rank_gain_year as academicRankGainYear,
+        a.academic_title_id as academicTitleId,
+        a.academic_title_gain_year as academicTitleGainYear,
+        a.scopus_id as scopusId
+      FROM lecturer_information as a
+      WHERE a.is_deleted = false`;
 
-		if (null !== option) {
-			//Check if there is a keyword to search the article
+		const bindingValues = [];
+		let query = selectStatement;
+
+		if (option !== null) {
 			if (
 				option.hasOwnProperty('searchByKeyword') &&
-				undefined !== option.searchByKeyword
+				option.searchByKeyword !== undefined
 			) {
-				whereStatement = `${whereStatement} AND a.name LIKE ?`;
-				keyword = option.searchByKeyword;
-				bindingValues.push(`%${keyword}%`);
+				query += ' AND a.name LIKE ?';
+				bindingValues.push(`%${option.searchByKeyword}%`);
 			}
 
-			//Check if there is search article with given lecturer ids
 			if (
 				option.hasOwnProperty('lecturerIds') &&
-				undefined !== option.lecturerIds
+				option.lecturerIds !== undefined
 			) {
-				whereStatement = `${whereStatement} AND id IN (?)`;
-				const lecturerIds = option.lecturerIds;
-				bindingValues.push(lecturerIds);
+				query += ' AND id IN (?)';
+				bindingValues.push(option.lecturerIds);
 			}
-
-			//Check if there is pagination option
 
 			if (
 				option.hasOwnProperty('recordOffset') &&
@@ -166,43 +163,45 @@ function getBaseLecturers(option = null) {
 				_.isNumber(option.limitSize)
 			) {
 				const { recordOffset, limitSize } = option;
-
+				query += ' LIMIT ? OFFSET ?';
 				bindingValues.push(limitSize, recordOffset);
-
-				numberOfRecordStatement = 'LIMIT ? OFFSET ?';
 			}
 
-			//Check if trying to search by scopus_id
 			if (
 				option.hasOwnProperty('scopusIds') &&
 				Array.isArray(option.scopusIds) &&
 				option.scopusIds.length > 0
 			) {
-				const scopusIds = option.scopusIds;
-				whereStatement = `${whereStatement} AND a.scopus_id IN (?)`;
-				bindingValues.push(scopusIds);
+				query += ' AND a.scopus_id IN (?)';
+				bindingValues.push(option.scopusIds);
 			}
 		}
 
-		const query = [
-			selectStatement,
-			fromStatement,
-			whereStatement,
-			`ORDER BY a.id ASC`,
-			numberOfRecordStatement,
-		].join(' ');
-
-		connection.query(query, bindingValues, (error, results, fields) => {
-			if (error) {
-				reject(error);
-				return;
-			}
-			if (!results.length) {
-				reject('Empty lecturer');
-			}
-			resolve(results);
+		const results = await new Promise((resolve, reject) => {
+			connection.query(query, bindingValues, (error, results, fields) => {
+				if (error) {
+					reject(error);
+				} else {
+					resolve(results);
+				}
+			});
 		});
-	});
+
+		const processedResults = await Promise.all(
+			results.map(async (result) => {
+				result.avatar = await convertBlobToBase64(result.avatar);
+				return result;
+			})
+		);
+
+		if (processedResults.length === 0) {
+			throw new Error('Empty lecturer');
+		}
+
+		return processedResults;
+	} catch (error) {
+		throw error;
+	}
 }
 
 /**
@@ -233,6 +232,9 @@ function getOneLecturer(id) {
 				reject(error);
 				return;
 			}
+			results.forEach((result) => {
+				result.avatar = convertBinaryToBase64(result.avatar);
+			});
 			// if lecturer doesn't exist throw error
 			if (!results.length) {
 				reject(results);
@@ -281,6 +283,10 @@ function getAllLecturers() {
 				reject(error);
 				return;
 			}
+
+			results.forEach((result) => {
+				result.avatar = convertBinaryToBase64(result.avatar);
+			});
 			resolve(results);
 		});
 	});
@@ -310,6 +316,9 @@ function getAccountScopusId(account) {
 				reject(error);
 				return;
 			}
+			results.forEach((result) => {
+				result.avatar = convertBinaryToBase64(result.avatar);
+			});
 			resolve({ ...account, lecturerInfo: results[0] });
 		});
 	});
