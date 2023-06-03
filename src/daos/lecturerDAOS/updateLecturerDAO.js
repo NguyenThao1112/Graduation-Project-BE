@@ -4,6 +4,7 @@ const {
 } = require('../../helpers/timeHelper');
 const connection = require('../../configs/database');
 const _ = require('lodash');
+const { convertBase64ToBlob } = require('../../helpers/util');
 /**
  *  Query to create an article
  *
@@ -508,38 +509,44 @@ function updateLecturer(lecturer) {
 		if (!lecturer) {
 			return resolve(null);
 		}
-		const query = [
-			`UPDATE lecturer_information`,
-			`SET`,
-			`name = ?, gender = ?, avatar = ?,date_of_birth = ?,bio = ?,academic_rank_id = ?, academic_rank_gain_year = ?,academic_title_id = ?, academic_title_gain_year = ?, expand_column = ?,`,
-			`updated_at = ?`,
-			`WHERE id = ?`,
-		].join(' ');
+		convertBase64ToBlob(lecturer.avatar)
+			.then((blob) => {
+				const query = [
+					`UPDATE lecturer_information`,
+					`SET`,
+					`name = ?, gender = ?, avatar = ?,date_of_birth = ?,bio = ?,academic_rank_id = ?, academic_rank_gain_year = ?,academic_title_id = ?, academic_title_gain_year = ?, expand_column = ?,`,
+					`updated_at = ?`,
+					`WHERE id = ?`,
+				].join(' ');
 
-		const now = getCurrentTimeFormat();
-		const values = [
-			lecturer.name,
-			lecturer.gender,
-			lecturer.avatar,
-			lecturer.dateOfBirth,
-			lecturer.bio,
-			lecturer.academicRankId,
-			lecturer.academicRankGainYear,
-			lecturer.academicTitleId,
-			lecturer.academicTitleGainYear,
-			lecturer.expandColumn,
-			now,
-			lecturer.id,
-		];
+				const now = getCurrentTimeFormat();
+				const values = [
+					lecturer.name,
+					lecturer.gender,
+					blob,
+					lecturer.dateOfBirth,
+					lecturer.bio,
+					lecturer.academicRankId,
+					lecturer.academicRankGainYear,
+					lecturer.academicTitleId,
+					lecturer.academicTitleGainYear,
+					lecturer.expandColumn,
+					now,
+					lecturer.id,
+				];
 
-		connection.query(query, [...values], (error, result) => {
-			if (error) {
+				connection.query(query, values, (error, result) => {
+					if (error) {
+						reject(error);
+						return;
+					}
+
+					resolve(lecturer);
+				});
+			})
+			.catch(function (error) {
 				reject(error);
-				return;
-			}
-
-			resolve(lecturer);
-		});
+			});
 	});
 }
 
