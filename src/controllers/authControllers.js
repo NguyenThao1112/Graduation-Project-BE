@@ -2,6 +2,9 @@
 const authService = require('../services/authServices');
 const authConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
+const {
+	getAccountScopusId,
+} = require('../daos/lecturerDAOS/searchLecturerDAO');
 
 /**
  *
@@ -27,6 +30,9 @@ function login(request, response) {
 					return authService.updateAccountTokenByEmail(email, token);
 				})
 				.then((account) => {
+					return getAccountScopusId(account);
+				})
+				.then((account) => {
 					if (account) {
 						responseJson.code = authConstants.SUCCESSFUL_CODE;
 						responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
@@ -34,6 +40,7 @@ function login(request, response) {
 						responseJson.expire = account.expire;
 						responseJson.accountId = account.id;
 						responseJson.role = account.role;
+						responseJson.lecturerInfo = account.lecturerInfo;
 					}
 					response.json(responseJson);
 					resolve(); // Resolve the promise after sending the response
