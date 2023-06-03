@@ -261,13 +261,13 @@ function updateAccountTokenByEmail(email, token) {
 					.add(configConstants.LOGIN_TOKEN_EXPIRE, 'hours')
 					.utc(true)
 					.format('YYYY/MM/DD hh:mm:ss');
-				const newAccount = {
+				const accountInformation = {
 					...result[0],
 					token: token,
 					expire: tokenExpiredIn,
 				};
 				accountDAO
-					.updateAccountToken(newAccount)
+					.updateAccountToken(accountInformation)
 					.then((account) => {
 						console.log(
 							'🚀 ~ file: authServices.js:266 ~ .then ~ account:',

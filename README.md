@@ -63,7 +63,31 @@ POST /api/v1/auth/login
 {
     "code": 0,
     "message": "Authenticate successfully",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcxMzgwNjI5OTY1NDY2MSwiaWF0IjoxNjc3MzMxNTI2LCJleHAiOjE2NzczMzUxMjZ9.JLoBoAREa3GNucvYT-SMkBIfMNvAsqiVrGjYR8i5nww"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMzczMTI5MzkxMjEyNDI0OTQsInJvbGUiOjEsImlhdCI6MTY4NTc4MTQyOSwiZXhwIjoxNjg1Nzg1MDI5fQ.H33p7GmKXyjImGaz7xqW8ykh7oYTjIfuPRofILyJvTs",
+    "expire": "2023/06/03 04:37:09",
+    "accountId": 2,
+    "role": 1,
+    "lecturerInfo": {
+        "id": 1,
+        "name": "Duong Nam",
+        "gender": "Nam",
+        "avatar": null,
+        "dateOfBirth": "1979-05-03T17:00:00.000Z",
+        "bio": "Dam me voi cac linh vuc nghien cuu khoa hoc. Phat trien cac ung dung lien quan den CNTT",
+        "academicRankId": 1,
+        "academicRankGainYear": 2010,
+        "academicTitleId": 1,
+        "academicTitleGainYear": 2022
+    }
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Authenticate failed"
 }
 ```
 
@@ -3824,7 +3848,6 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
     "message": "Something went wrong from the backend",
 }
 ```
-
 
 ### Save Author profile by Scopus Id and Account Id
 

@@ -276,12 +276,41 @@ function getAllLecturers() {
 			'WHERE a.is_deleted = false',
 		].join(' ');
 
-		connection.query(query, (error, results, fields) => {
+		connection.query(query, (error, results) => {
 			if (error) {
 				reject(error);
 				return;
 			}
 			resolve(results);
+		});
+	});
+}
+
+function getAccountScopusId(account) {
+	return new Promise((resolve, reject) => {
+		let query = [
+			'SELECT',
+			'a.id as id,',
+			'a.name as name,',
+			'a.gender as gender,',
+			'a.avatar as avatar,',
+			'a.date_of_birth as dateOfBirth, ',
+			'a.bio as bio,',
+			'a.academic_rank_id as academicRankId, ',
+			'a.academic_rank_gain_year as academicRankGainYear,',
+			'a.academic_title_id as academicTitleId,',
+			'a.academic_title_gain_year as academicTitleGainYear',
+			'FROM lecturer_information as a',
+			'WHERE a.is_deleted = false AND a.account_id = ?',
+			'LIMIT 1',
+		].join(' ');
+
+		connection.query(query, account.id, (error, results) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			resolve({ ...account, lecturerInfo: results[0] });
 		});
 	});
 }
@@ -292,4 +321,5 @@ module.exports = {
 	getOneLecturer,
 	getLecturerCount,
 	getAllLecturers,
+	getAccountScopusId,
 };
