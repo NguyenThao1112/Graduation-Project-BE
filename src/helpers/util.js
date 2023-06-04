@@ -1,4 +1,6 @@
 const b = require('based-blob');
+
+const base64Img = 'data:image/png;base64,';
 const convertBase64ToBinary = (base64) => {
 	if (!base64) return '';
 	const buffer = Buffer.from(base64, 'base64');
@@ -18,7 +20,8 @@ const convertBase64ToBlob = async (base64) => {
 };
 
 const convertBlobToBase64 = async (blobData) => {
-	const base64String = await Buffer.from(blobData).toString('base64');
+	let base64String = await Buffer.from(blobData).toString('base64');
+	base64String = base64Img + base64String;
 	return base64String;
 };
 
