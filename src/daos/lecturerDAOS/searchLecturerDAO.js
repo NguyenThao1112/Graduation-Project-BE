@@ -125,6 +125,7 @@ async function getBaseLecturers(option = null) {
         a.id as id,
         a.name as name,
         a.gender as gender,
+				a.scopus_id as scopusId,
         a.avatar as avatar,
         a.bio as bio,
         a.date_of_birth as dateOfBirth,
@@ -214,6 +215,7 @@ function getOneLecturer(id) {
 		let query = [
 			'SELECT',
 			'a.id as id,',
+			'a.scopus_id as scopusId,',
 			'a.name as name,',
 			'a.gender as gender,',
 			'a.avatar as avatar,',
@@ -265,6 +267,7 @@ function getAllLecturers() {
 			'SELECT',
 			'a.id as id,',
 			'a.account_id as accountId,',
+			'a.scopus_id as scopusId,',
 			'a.name as name,',
 			'a.gender as gender,',
 			'a.avatar as avatar,',
