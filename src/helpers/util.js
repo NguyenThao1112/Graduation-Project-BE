@@ -14,12 +14,14 @@ const convertBinaryToBase64 = (binary) => {
 };
 
 const convertBase64ToBlob = async (base64) => {
+	if (!base64) return '';
 	const base64Data = base64.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
 	const buffer = await Buffer.from(base64Data, 'base64');
 	return buffer;
 };
 
 const convertBlobToBase64 = async (blobData) => {
+	if (!blobData) return '';
 	let base64String = await Buffer.from(blobData).toString('base64');
 	base64String = base64Img + base64String;
 	return base64String;
