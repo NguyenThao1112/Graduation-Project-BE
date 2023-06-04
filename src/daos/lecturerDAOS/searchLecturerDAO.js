@@ -298,6 +298,7 @@ function getAccountScopusId(account) {
 			'SELECT',
 			'a.id as id,',
 			'a.name as name,',
+			'a.scopus_id as scopusId,',
 			'a.gender as gender,',
 			'a.avatar as avatar,',
 			'a.date_of_birth as dateOfBirth, ',
