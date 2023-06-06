@@ -19,7 +19,6 @@ const reportRoutes = require('./src/routes/reportRoutes');
 const scopusRoutes = require('./src/routes/scopusRoutes');
 
 const rootUrl = urls.ROOT_API_URL;
-
 // custom middleware logger
 app.use(logger);
 
@@ -49,9 +48,15 @@ app.use(
 // built-in middleware for json
 app.use(express.json({ limit: '50mb' }));
 
-if (process.env.NODE_ENV === 'develop') {
-	require('dotenv').config({ path: '.env.development' });
+const environment = 'staging';
+if (environment == 'develop') {
+	require('dotenv').config({ path: '.env' });
+} else if (environment == 'staging') {
+	require('dotenv').config({ path: '.env.staging' });
+} else if (environment == 'staging1') {
+	require('dotenv').config({ path: '.env.staging1' });
 }
+
 app.use('/test', function (req, res) {
 	res.json('text successfully');
 });
@@ -77,5 +82,4 @@ app.use(errorHandler);
 
 app.listen(configs.APP_PORT, () => {
 	console.log(`Server is serving on port ${configs.APP_PORT}`);
-	console.log(`Node env`, process.env.NODE_ENV);
 });
