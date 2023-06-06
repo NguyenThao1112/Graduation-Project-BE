@@ -57,7 +57,7 @@ if (environment == 'develop') {
 	require('dotenv').config({ path: '.env.staging1' });
 }
 
-app.use('/test', function (req, res) {
+app.get(['/', '/test'], function (req, res) {
 	res.json('text successfully');
 });
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
