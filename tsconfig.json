@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"outDir": "./built",
+		"checkJs": false,
+		"typeRoots": ["./typings", "node_modules/@types"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": false,
+		"moduleResolution": "node"
+	},
+	"include": ["./**/*"],
+	"exclude": ["node_modules", "*.js", "./built/**/*", "src/**/*"]
+}

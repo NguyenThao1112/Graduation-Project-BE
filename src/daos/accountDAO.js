@@ -3,7 +3,7 @@ const configConstants = require('../constants/configConstants');
 const moment = require('moment');
 
 /**
- *
+ * get account corresponding to email address
  * @param {string} email
  * @return {Promise}
  */
@@ -22,8 +22,7 @@ function getAccountByEmail(email) {
 				reject(error);
 				return;
 			}
-			account = results;
-			resolve(account);
+			resolve(results);
 		});
 	});
 }
@@ -57,25 +56,30 @@ function getAccountByToken(token) {
 /**
  *
  * @param {Object} account
- * @param {string} account.email
- * @param {string} account.password
  * @return {Promise}
  */
 function createAccount(account) {
 	return new Promise(function (resolve, reject) {
-		const { email, password } = account;
+		const { email, password, role } = account;
 		const query = [
 			'INSERT',
 			'INTO account (email, password, created_at, updated_at, is_deleted, role, token)',
 			'VALUES (?, ?, ?, ?, ?, ?, ?)',
 		].join(' ');
 
-		const role = configConstants.ROLE_SCHOLAR;
+		let roleAccount = 0;
+
+		if (role != undefined) {
+			roleAccount = role;
+		} else {
+			roleAccount = configConstants.ROLE_SCHOLAR;
+		}
+
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 
 		connection.query(
 			query,
-			[email, password, now, now, false, role, null],
+			[email, password, now, now, false, roleAccount, null],
 			function (error, results, fields) {
 				if (error) {
 					reject(error);

@@ -39,15 +39,18 @@ function authenticate(email, password) {
 							key: authHelper.getRandomNumber(),
 							role: account[0].role,
 						};
+						// @ts-ignore
 						jwt = sign(jwtPayload, configConstants.JWT_SECRET, {
 							expiresIn: configConstants.JWT_EXPIRE,
 						});
 					}
+					resolve(jwt);
+				} else {
+					reject('Account not found');
 				}
-
-				resolve(jwt);
 			})
 			.catch((error) => {
+				console.log(error);
 				reject(error);
 			});
 	});
@@ -59,13 +62,14 @@ function authenticate(email, password) {
  * @param {string} password
  * @return {Promise}
  */
-function accountRegistrate(email, password) {
+function accountRegistrate(email, password, role) {
 	return new Promise(function (resolve, reject) {
 		const hashPassword = authHelper.hashPassword(password);
 		accountDAO
 			.createAccount({
 				email: email,
 				password: hashPassword,
+				role: role,
 				is_deleted: false,
 			})
 			.catch((error) => {
@@ -142,7 +146,7 @@ function createTokenForForgetPassword(email) {
 			.then((token) => {
 				//Send the token to email
 				mailServices.sendTokenToUserMail(email, token);
-				resolve();
+				resolve(token);
 			});
 	});
 }
@@ -181,6 +185,7 @@ function verifyForgetPasswordToken(token) {
 				}
 
 				//The token is valid
+				// @ts-ignore
 				errorCode = messageConstants.SUCCESSFUL_CODE;
 				resolve(errorCode);
 			});
@@ -214,6 +219,7 @@ function changePasswordViaToken(token, password) {
 				const now = moment().utc(true);
 				const isExpired = now.isAfter(expireMoment);
 				if (isExpired) {
+					// @ts-ignore
 					errorCode =
 						messageConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_EXPIRE_CODE;
 					return Promise.reject(errorCode);
@@ -236,7 +242,7 @@ function changePasswordViaToken(token, password) {
 			})
 			.then(() => {
 				//The token is valid
-				errorCode = messageConstants.SUCCESSFUL_CODE;
+				const errorCode = messageConstants.SUCCESSFUL_CODE;
 				resolve(errorCode);
 			});
 	});
@@ -255,13 +261,13 @@ function updateAccountTokenByEmail(email, token) {
 					.add(configConstants.LOGIN_TOKEN_EXPIRE, 'hours')
 					.utc(true)
 					.format('YYYY/MM/DD hh:mm:ss');
-				const newAccount = {
+				const accountInformation = {
 					...result[0],
 					token: token,
 					expire: tokenExpiredIn,
 				};
 				accountDAO
-					.updateAccountToken(newAccount)
+					.updateAccountToken(accountInformation)
 					.then((account) => {
 						console.log(
 							'🚀 ~ file: authServices.js:266 ~ .then ~ account:',
