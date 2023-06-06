@@ -20,9 +20,9 @@ const convertBase64ToBlob = async (base64) => {
 	return buffer;
 };
 
-const convertBlobToBase64 = async (blobData) => {
+const convertBlobToBase64 = (blobData) => {
 	if (!blobData) return '';
-	let base64String = await Buffer.from(blobData).toString('base64');
+	let base64String = Buffer.from(blobData).toString('base64');
 	base64String = base64Img + base64String;
 	return base64String;
 };

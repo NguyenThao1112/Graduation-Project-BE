@@ -188,18 +188,12 @@ async function getBaseLecturers(option = null) {
 			});
 		});
 
-		const processedResults = await Promise.all(
-			results.map(async (result) => {
-				result.avatar = await convertBlobToBase64(result.avatar);
-				return result;
-			})
-		);
+		results.map((result) => {
+			result.avatar = convertBlobToBase64(result.avatar);
+			return result;
+		});
 
-		if (processedResults.length === 0) {
-			throw new Error('Empty lecturer');
-		}
-
-		return processedResults;
+		return results;
 	} catch (error) {
 		throw error;
 	}
@@ -234,13 +228,14 @@ function getOneLecturer(id) {
 				reject(error);
 				return;
 			}
-			results.forEach((result) => {
-				result.avatar = convertBinaryToBase64(result.avatar);
-			});
 			// if lecturer doesn't exist throw error
 			if (!results.length) {
 				reject(results);
 			}
+			results.map((result) => {
+				result.avatar = convertBlobToBase64(result.avatar);
+				return result;
+			});
 			resolve(results);
 		});
 	});
@@ -287,9 +282,11 @@ function getAllLecturers() {
 				return;
 			}
 
-			results.forEach((result) => {
-				result.avatar = convertBinaryToBase64(result.avatar);
+			results.map((result) => {
+				result.avatar = convertBlobToBase64(result.avatar);
+				return result;
 			});
+
 			resolve(results);
 		});
 	});
@@ -320,8 +317,9 @@ function getAccountScopusId(account) {
 				reject(error);
 				return;
 			}
-			results.forEach((result) => {
-				result.avatar = convertBinaryToBase64(result.avatar);
+			results.map((result) => {
+				result.avatar = convertBlobToBase64(result.avatar);
+				return result;
 			});
 			resolve({ ...account, lecturerInfo: results[0] });
 		});
