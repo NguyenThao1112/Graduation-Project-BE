@@ -10,7 +10,7 @@ const moment = require('moment');
 function getAccountByEmail(email) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			'SELECT id, email, password, role, is_deleted, token',
+			'SELECT id, email, role, is_deleted, token',
 			'FROM account',
 			'WHERE email = ?',
 			'LIMIT 1',
@@ -35,7 +35,7 @@ function getAccountByEmail(email) {
 function getAccountByToken(token) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			'SELECT id, email, password, role, is_deleted, token, token_expired_in',
+			'SELECT id, email, role, is_deleted, token, token_expired_in',
 			'FROM account',
 			'WHERE token = ?',
 			'LIMIT 1',
@@ -43,6 +43,32 @@ function getAccountByToken(token) {
 
 		let account = null;
 		connection.query(query, [token], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			account = results;
+			resolve(account);
+		});
+	});
+}
+
+/**
+ *
+ * @param {string} accountId
+ * @return {Promise}
+ */
+function getAccountById(accountId) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			'SELECT id, email, role, is_deleted, token, token_expired_in,created_at, updated_at',
+			'FROM account',
+			'WHERE id = ?',
+			'LIMIT 1',
+		].join(' ');
+
+		let account = null;
+		connection.query(query, [accountId], (error, results, fields) => {
 			if (error) {
 				reject(error);
 				return;
@@ -230,4 +256,5 @@ module.exports = {
 	updateAccountPassword,
 	getAllAccounts,
 	deleteOneAccount,
+	getAccountById,
 };

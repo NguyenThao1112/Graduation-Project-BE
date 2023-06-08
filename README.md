@@ -278,6 +278,44 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2N
 }
 ```
 
+#### Get one account by id
+
+```http
+GET /api/v1/accounts/1 HTTP/1.1
+Host: localhost:3001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get one account successfully!",
+    "data": {
+        "id": 1,
+        "email": "hadtnt71@gmail.com",
+        "role": 1,
+        "is_deleted": 0,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o",
+        "token_expired_in": "2023-06-08T03:01:37.000Z",
+        "created_at": "2023-06-07T19:01:31.000Z",
+        "updated_at": "2023-06-07T19:01:37.000Z"
+    }
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get one account failed!"
+}
+```
+
+#### Create one account
+
 #### Request
 
 ```http
@@ -286,7 +324,9 @@ Host: localhost:3000
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1MTUyMzM4MDA2MjMzLCJyb2xlIjoxLCJpYXQiOjE2Nzg4OTIzNTgsImV4cCI6MTY3ODkwMzE1OH0.gpFxXaI9XB0ioVGNysDN8lGYbvF_9z3NYJwhqz74GLw
 Content-Type: application/json
 Content-Length: 108
+```
 
+```javascript
 {
     "email": "hadtnt76@gmail.com",
     "password": "Phambinh3107@",

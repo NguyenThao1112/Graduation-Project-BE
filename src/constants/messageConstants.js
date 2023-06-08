@@ -62,6 +62,10 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
+	//Account
+	ACCOUNT_GET_ONE_SUCCESS_MESSAGE: 'Get one account successfully!',
+	ACCOUNT_GET_ONE_FAILED_MESSAGE: 'Get one account failed!',
+
 	//Get one lecturer API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
 	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
