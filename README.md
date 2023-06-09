@@ -2797,7 +2797,9 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
         {
             "id": 96,
             "name": "TEST",
-            "journal": "TEST",
+            "journal": "TEST journal",
+            "conference": "TEST conference",
+            "rank": "test rank", 
             "year": 2023,
             "page_from": 11,
             "page_to": 12,
@@ -2986,6 +2988,8 @@ POST /api/v1/articles/fetch-all
                 "id": 1,
                 "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
                 "journal": "ACM Transactions on Computing Education",
+                "conference": "",
+                "rank": "Q1",
                 "year": 2020,
                 "page_from": 8,
                 "page_to": 10,
@@ -3222,6 +3226,8 @@ Content-Disposition: form-data; name="data"
 {
     "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
     "journal": "ACM Transactions on Computing Education",
+    "conference": "",
+    "rank": "Q1",
     "year": 2020,
     "pageFrom": 8,
     "pageTo": 10,
@@ -3369,6 +3375,8 @@ Content-Disposition: form-data; name="data"
 {
     "name": "TEST",
     "journal": "TEST",
+    "conference": "TEST conf",
+    "rank": "Q1",
     "year": 2023,
     "pageFrom": 11,
     "pageTo": 12,

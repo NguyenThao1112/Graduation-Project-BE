@@ -3,6 +3,8 @@ class Article {
     #id;            //number
     #name;          //string
     #journal;       //string
+    #conference;    //string
+    #rank;          //string
     #year;          //number
     #pageFrom;      //number
     #pageTo;        //number
@@ -50,6 +52,8 @@ class Article {
         id,
         name,
         journal,
+        conference,
+        rank,
         year,
         pageFrom,
         pageTo,
@@ -86,6 +90,8 @@ class Article {
         this.#id = id;
         this.#name = name;
         this.#journal = journal;
+        this.#conference = conference;
+        this.#rank = rank;
         this.#year = year;
         this.#pageFrom = pageFrom;
         this.#pageTo = pageTo;
@@ -124,6 +130,8 @@ class Article {
     get id() {return this.#id;};    
     get name() {return this.#name;};
     get journal() {return this.#journal;};  
+    get conference() {return this.#conference;};
+    get rank() {return this.#rank;}
     get year() {return this.#year;};  
     get pageFrom() {return this.#pageFrom;}; 
     get pageTo() {return this.#pageTo;};   
@@ -161,6 +169,8 @@ class Article {
     set id(id) {this.#id = id;};    
     set name(name) {this.#name = name;};
     set journal(journal) {this.#journal = journal;};  
+    set conference(conference) {this.#conference = conference;};
+    set rank(rank) {this.#rank = rankl;};
     set year(year) {this.#year = year;};  
     set pageFrom(pageFrom) {this.#pageFrom = pageFrom;}; 
     set pageTo(pageTo) {this.#pageTo = pageTo;};   

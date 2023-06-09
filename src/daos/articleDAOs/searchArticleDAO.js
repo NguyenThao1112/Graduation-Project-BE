@@ -70,6 +70,8 @@ function getBaseArticles(option = null) {
                 'a.id as id,',
                 'a.name as name,',
                 'a.journal as journal,',
+                'a.conference as conference,',
+                'a.rank as rank,',
                 'a.year as year,',
                 'a.page_from as pageFrom,',
                 'a.page_to as pageTo,',

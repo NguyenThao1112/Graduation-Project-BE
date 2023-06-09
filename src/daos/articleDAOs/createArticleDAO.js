@@ -266,7 +266,7 @@ function createArticle(article) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO article (`,
-			`name, journal, year, page_from, page_to, volume, issue, city, abstract,`,
+			`name, journal, conference, rank, year, page_from, page_to, volume, issue, city, abstract,`,
 			`institution, department, type, month, day,`,
 			`url_date_access,`,
 			`ArXivID, DOI, ISBN, ISSN,`,
@@ -282,6 +282,8 @@ function createArticle(article) {
 		const values = [
 			article.name ?? null,
 			article.journal ?? null,
+			article.conference ?? null,
+			article.rank ?? null,
 			article.year ?? null,
 			article.pageFrom ?? null,
 			article.pageTo ?? null,
