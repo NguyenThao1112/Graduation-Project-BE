@@ -65,7 +65,7 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			} else if ("Conference Proceeding" === aggregationType) {
 
 				//TODO: doesn't support conference yet
-				articleObject.conference = entry["prism:publicationName"];
+				// articleObject.conference = entry["prism:publicationName"];
 			}
 		}
 
@@ -156,11 +156,27 @@ async function addComplexInformationForArticle(articleObject, axiosData) {
 	const bibrecord = itemData.bibrecord;
 	const bibrecordHeadSource = bibrecord.head.source;
 	const publicationDate = bibrecordHeadSource.publicationdate;
+
+	let conferenceInfo = null;
+	const additionalInfo = bibrecordHeadSource['additional-srcinfo'];
+	if (additionalInfo) {
+		conferenceInfo = additionalInfo.conferenceinfo;
+	}
 	
 	articleObject.pageFrom = coreData["prism:startingPage"];
 	articleObject.pageTo = coreData["prism:endingPage"];
 	articleObject.abstract = coreData["dc:description"];
 
+	//Get conference name
+	if (conferenceInfo) {
+		if (conferenceInfo.confevent) {
+			if (conferenceInfo.confevent.confname) {
+				articleObject.conference = conferenceInfo.confevent.confname;
+			}
+		}
+	}
+
+	
 	try {
 		articleObject.authors = await buildAuthorDataForArticle(bodyData.authors.author);
 	} catch (error) {
