@@ -29,4 +29,9 @@ router.post(
 	scopusController.findArticleByDOI
 );
 
+router.post(
+	"/issn/",
+	scopusController.getJournalRankISSNs
+)
+
 module.exports = router;

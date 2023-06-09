@@ -65,7 +65,7 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			} else if ("Conference Proceeding" === aggregationType) {
 
 				//TODO: doesn't support conference yet
-				//articleObject.conference = entry["prism:publicationName"];
+				articleObject.conference = entry["prism:publicationName"];
 			}
 		}
 
@@ -214,9 +214,47 @@ function modifyAddress(address) {
 	return finalAddress;
 }
 
+/**
+ * 
+ * @param {String} issn 
+ * @return {String}
+ */
+function normalizeIssn(issn) {
+	let result = issn;
+	if ("-" !== issn[4]) {
+		result = [issn.slice(1, 4), slice(5)].join('-')
+	}
+	return result;
+}
+
+
+/**
+ * 
+ * @param {int} percentile 
+ * @param {String|null} 
+ */
+function getQuartileFromPercentile(percentile) {
+
+	let quartile = null;
+	if (percentile < 25) {
+		quartile = "Q4";
+	} else if (percentile < 50) {
+		quartile = "Q3";
+	} else if (percentile < 75) {
+		quartile = "Q2";
+	} else {
+		quartile = "Q1";
+
+	}
+
+	return quartile;
+}
+
 module.exports = {
 	parseDataFromGetAuthorFromNameResponse,
 	modifyAddress,
 	parseBaseArticleFromScopusResponse,
 	addComplexInformationForArticle,
+	normalizeIssn,
+	getQuartileFromPercentile,
 };
