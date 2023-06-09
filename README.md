@@ -3890,7 +3890,6 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```
 
 ### Save Author profile by Scopus Id and Account Id
-
 #### Request
 
 ```http
@@ -3926,6 +3925,123 @@ POST /api/v1/scopus/author/save
 #### Error response
 
 ```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+### Find Article by DOI
+
+#### Request
+
+```http
+POST /api/v1/scopus/article
+```
+
+``` javascript
+{
+    "data": {
+        "doi": "10.1016/j.amjoto.2023.103800"
+    }
+}
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Found article with DOI = 10.1016/j.amjoto.2023.103800 successfully!",
+    "data": [
+        {
+            "name": "Support of deep learning to classify vocal fold images in flexible laryngoscopy",
+            "volume": "44",
+            "ISSN": "01960709",
+            "ISBN": null,
+            "DOI": "10.1016/j.amjoto.2023.103800",
+            "PII": "S0196070923000145",
+            "Scopus": "85150394390",
+            "urls": [
+                "https://api.elsevier.com/content/abstract/scopus_id/85150394390",
+                "https://api.elsevier.com/content/abstract/scopus_id/85150394390?field=author,affiliation",
+                "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=85150394390&origin=inward",
+                "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=85150394390&origin=inward",
+                "https://api.elsevier.com/content/article/eid/1-s2.0-S0196070923000145"
+            ],
+            "journal": "American Journal of Otolaryngology - Head and Neck Medicine and Surgery",
+            "abstract": "Purpose: To collect a dataset with adequate laryngoscopy images and identify the appearance of vocal folds and their lesions in flexible laryngoscopy images by objective deep learning models. Methods: We adopted a number of novel deep learning models to train and classify 4549 flexible laryngoscopy images as no vocal fold, normal vocal folds, and abnormal vocal folds. This could help these models recognize vocal folds and their lesions within these images. Ultimately, we made a comparison between the results of the state-of-the-art deep learning models, and another comparison of the results between the computer-aided classification system and ENT doctors. Results: This study exhibited the performance of the deep learning models by evaluating laryngoscopy images collected from 876 patients. The efficiency of the Xception model was higher and steadier than almost the rest of the models. The accuracy of no vocal fold, normal vocal folds, and vocal fold abnormalities on this model were 98.90 %, 97.36 %, and 96.26 %, respectively. Compared to our ENT doctors, the Xception model produced better results than a junior doctor and was near an expert. Conclusion: Our results show that current deep learning models can classify vocal fold images well and effectively assist physicians in vocal fold identification and classification of normal or abnormal vocal folds.",
+            "authors": [
+                {
+                    "firstName": "Bich Anh",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Thao Thi Phuong",
+                    "lastName": "Dao"
+                },
+                {
+                    "firstName": "Ho Dang Quy",
+                    "lastName": "Dung"
+                },
+                {
+                    "firstName": "Ngoc Boi",
+                    "lastName": "Van"
+                },
+                {
+                    "firstName": "Chanh Cong",
+                    "lastName": "Ha"
+                },
+                {
+                    "firstName": "Nam Hoang",
+                    "lastName": "Pham"
+                },
+                {
+                    "firstName": "Tu Cong Huyen Ton Nu Cam",
+                    "lastName": "Nguyen"
+                },
+                {
+                    "firstName": "Tan Cong",
+                    "lastName": "Nguyen"
+                },
+                {
+                    "firstName": "Minh Khoi",
+                    "lastName": "Pham"
+                },
+                {
+                    "firstName": "Mai Khiem",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Truong Minh",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Minh Triet",
+                    "lastName": "Tran"
+                },
+                {
+                    "lecturerId": 1
+                }
+            ],
+            "year": "2023",
+            "month": "05",
+            "day": "01"
+        }
+    ]
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 0,
+    "message": "Found article with DOI = 10.1016/j.amjoto.2023.103800 successfully!",
+    "data": null
+}
+
+
 {
     "code": 1,
     "message": "Something went wrong from the backend",
