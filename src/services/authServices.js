@@ -50,6 +50,7 @@ function authenticate(email, password) {
 				}
 			})
 			.catch((error) => {
+				console.log(error);
 				reject(error);
 			});
 	});
@@ -61,13 +62,14 @@ function authenticate(email, password) {
  * @param {string} password
  * @return {Promise}
  */
-function accountRegistrate(email, password) {
+function accountRegistrate(email, password, role) {
 	return new Promise(function (resolve, reject) {
 		const hashPassword = authHelper.hashPassword(password);
 		accountDAO
 			.createAccount({
 				email: email,
 				password: hashPassword,
+				role: role,
 				is_deleted: false,
 			})
 			.catch((error) => {
@@ -259,13 +261,13 @@ function updateAccountTokenByEmail(email, token) {
 					.add(configConstants.LOGIN_TOKEN_EXPIRE, 'hours')
 					.utc(true)
 					.format('YYYY/MM/DD hh:mm:ss');
-				const newAccount = {
+				const accountInformation = {
 					...result[0],
 					token: token,
 					expire: tokenExpiredIn,
 				};
 				accountDAO
-					.updateAccountToken(newAccount)
+					.updateAccountToken(accountInformation)
 					.then((account) => {
 						console.log(
 							'🚀 ~ file: authServices.js:266 ~ .then ~ account:',

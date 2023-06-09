@@ -19,7 +19,6 @@ const reportRoutes = require('./src/routes/reportRoutes');
 const scopusRoutes = require('./src/routes/scopusRoutes');
 
 const rootUrl = urls.ROOT_API_URL;
-
 // custom middleware logger
 app.use(logger);
 
@@ -49,7 +48,16 @@ app.use(
 // built-in middleware for json
 app.use(express.json({ limit: '50mb' }));
 
-app.use('/test', function (req, res) {
+const environment = 'staging';
+if (environment == 'develop') {
+	require('dotenv').config({ path: '.env' });
+} else if (environment == 'staging') {
+	require('dotenv').config({ path: '.env.staging' });
+} else if (environment == 'staging1') {
+	require('dotenv').config({ path: '.env.staging1' });
+}
+
+app.get(['/', '/test'], function (req, res) {
 	res.json('text successfully');
 });
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);

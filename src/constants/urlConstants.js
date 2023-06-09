@@ -111,6 +111,13 @@ module.exports = Object.freeze({
 	//Scopus API
 	SCOPUS_PREFIX_API_URL: '/scopus',
 	SCOPUS_GET_AUTHORS_BY_NAME_URL: '/author',
+
+	// SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL: '/author/:scopus_author_id/:account_id',
+	SCOPUS_SAVE_AUTHOR_ALL_INFO_BY_SCOPUS_ID_AND_ACCOUNT_ID: '/author/save',
+
 	SCOPUS_GET_AUTHOR_BY_SCOPUS_ID_URL: '/author/:scopus_author_id/:account_id',
-	SCOPUS_GET_ARTICLE_BY_DOI_URL: '/article/'
+
+	SCOPUS_GET_ARTICLE_BY_DOI_URL: '/article/',
+
+	SCOPUS_GET_CONFERENCE_RANK_BY_NAME: '/conference',
 });

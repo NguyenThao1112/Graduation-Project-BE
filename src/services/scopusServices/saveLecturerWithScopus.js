@@ -25,13 +25,17 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 	try {
 		const authorResponse =
 			scopusProfile['data']['author-retrieval-response'][0];
+
 		const currentUniversity =
 			authorResponse['author-profile']['affiliation-current']['affiliation'][
 				'ip-doc'
 			];
 		const currentUniversityObject = [
 			{
-				name: currentUniversity['afdispname'],
+				name:
+					currentUniversity && currentUniversity['afdispname']
+						? currentUniversity['afdispname']
+						: null,
 				address: scopusHelper.modifyAddress(currentUniversity['address']),
 			},
 		];
@@ -90,7 +94,23 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 	}
 }
 
+/**
+ *
+ * @param {String} scopusAuthorId
+ * @param {String} accountId
+ * @returns {Number | undefined} lecturerId
+ */
+async function saveLecturerWithScopus(scopusAuthorId, accountId) {
+	const scopusAuthorData = await getAuthorById(scopusAuthorId);
+	const lecturerId = await updateAuthorProfile(
+		scopusAuthorData,
+		scopusAuthorId,
+		accountId
+	);
+
+	return lecturerId;
+}
+
 module.exports = {
-	getAuthorById,
-	updateAuthorProfile,
+	saveLecturerWithScopus,
 };

@@ -62,6 +62,10 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
+	//Account
+	ACCOUNT_GET_ONE_SUCCESS_MESSAGE: 'Get one account successfully!',
+	ACCOUNT_GET_ONE_FAILED_MESSAGE: 'Get one account failed!',
+
 	//Get one lecturer API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
 	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
@@ -196,14 +200,14 @@ module.exports = Object.freeze({
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_NAME_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Retrieve author by name failed',
 	SCOPUS_FIND_AUTHOR_BY_NAME_FOUND_MESSAGE:
 		'Retrieve author by name from scopus successfully',
 
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE: 0,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE: 1,
 	SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE:
-		'Something went wrong from the backend',
+		'Something author by id from scopus failed',
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE:
 		'Retrieve author by id from scopus successfully',
 
@@ -213,4 +217,15 @@ module.exports = Object.freeze({
 		'Something went wrong from the backend',
 	SCOPUS_FIND_ARTICLE_BY_DOI_FOUND_MESSAGE:
 		'Retrieve article by DOI from scopus successfully',
+
+	SCOPUS_SAVE_AUTHOR_NOT_FOUND_CODE: 1,
+	SCOPUS_SAVE_AUTHOR_NOT_FOUND_MESSAGE: 'Something went wrong from the backend',
+	SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE: 'Save author successfully',
+
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_CODE: 0,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_MESSAGE:
+		'Retrieve conference rank failed',
+	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE:
+		'Retrieve conference rank successfully',
 });

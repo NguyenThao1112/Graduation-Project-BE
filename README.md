@@ -63,7 +63,31 @@ POST /api/v1/auth/login
 {
     "code": 0,
     "message": "Authenticate successfully",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcxMzgwNjI5OTY1NDY2MSwiaWF0IjoxNjc3MzMxNTI2LCJleHAiOjE2NzczMzUxMjZ9.JLoBoAREa3GNucvYT-SMkBIfMNvAsqiVrGjYR8i5nww"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMzczMTI5MzkxMjEyNDI0OTQsInJvbGUiOjEsImlhdCI6MTY4NTc4MTQyOSwiZXhwIjoxNjg1Nzg1MDI5fQ.H33p7GmKXyjImGaz7xqW8ykh7oYTjIfuPRofILyJvTs",
+    "expire": "2023/06/03 04:37:09",
+    "accountId": 2,
+    "role": 1,
+    "lecturerInfo": {
+        "id": 1,
+        "name": "Duong Nam",
+        "gender": "Nam",
+        "avatar": null,
+        "dateOfBirth": "1979-05-03T17:00:00.000Z",
+        "bio": "Dam me voi cac linh vuc nghien cuu khoa hoc. Phat trien cac ung dung lien quan den CNTT",
+        "academicRankId": 1,
+        "academicRankGainYear": 2010,
+        "academicTitleId": 1,
+        "academicTitleGainYear": 2022
+    }
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Authenticate failed"
 }
 ```
 
@@ -254,6 +278,44 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2N
 }
 ```
 
+#### Get one account by id
+
+```http
+GET /api/v1/accounts/1 HTTP/1.1
+Host: localhost:3001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get one account successfully!",
+    "data": {
+        "id": 1,
+        "email": "hadtnt71@gmail.com",
+        "role": 1,
+        "is_deleted": 0,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o",
+        "token_expired_in": "2023-06-08T03:01:37.000Z",
+        "created_at": "2023-06-07T19:01:31.000Z",
+        "updated_at": "2023-06-07T19:01:37.000Z"
+    }
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get one account failed!"
+}
+```
+
+#### Create one account
+
 #### Request
 
 ```http
@@ -262,7 +324,9 @@ Host: localhost:3000
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1MTUyMzM4MDA2MjMzLCJyb2xlIjoxLCJpYXQiOjE2Nzg4OTIzNTgsImV4cCI6MTY3ODkwMzE1OH0.gpFxXaI9XB0ioVGNysDN8lGYbvF_9z3NYJwhqz74GLw
 Content-Type: application/json
 Content-Length: 108
+```
 
+```javascript
 {
     "email": "hadtnt76@gmail.com",
     "password": "Phambinh3107@",
@@ -3825,6 +3889,47 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 }
 ```
 
+### Save Author profile by Scopus Id and Account Id
+#### Request
+
+```http
+POST /api/v1/scopus/author/save
+```
+
+```javascript
+{
+    "data": {
+        "scopusAuthorId": 35176729700,
+        "accountId": 1
+    }
+}
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Save author successfully",
+    "data": {
+        "lecturerId": 1,
+        "articleIds": [
+            13,
+            15,
+            14
+        ]
+    }
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
 
 ### Find Article by DOI
 
@@ -3833,6 +3938,7 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```http
 POST /api/v1/scopus/article
 ```
+
 ``` javascript
 {
     "data": {
@@ -3840,6 +3946,7 @@ POST /api/v1/scopus/article
     }
 }
 ```
+
 #### Success response
 
 ```javascript
@@ -3928,16 +4035,15 @@ POST /api/v1/scopus/article
 #### Error response
 
 ```javascript
-
 {
     "code": 0,
     "message": "Found article with DOI = 10.1016/j.amjoto.2023.103800 successfully!",
     "data": null
 }
 
+
 {
     "code": 1,
     "message": "Something went wrong from the backend",
 }
 ```
-

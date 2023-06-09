@@ -2,6 +2,9 @@
 const authService = require('../services/authServices');
 const authConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
+const {
+	getAccountScopusId,
+} = require('../daos/lecturerDAOS/searchLecturerDAO');
 
 /**
  *
@@ -11,39 +14,47 @@ const validatorHelper = require('../helpers/validatorHelper');
  */
 function login(request, response) {
 	return new Promise((resolve, reject) => {
-		const { email, password } = request.body;
-
-		//Default response is login failed
 		let responseJson = {
 			code: authConstants.AUTH_LOGIN_FAILED_CODE,
 			message: authConstants.AUTH_LOGIN_FAILED_MESSAGE,
 		};
 
-		//Check if authenticate successfully
-		authService
-			.authenticate(email, password)
-			.then((token) => {
-				authService
-					.updateAccountTokenByEmail(email, token)
-					.then((account) => {
-						if (account) {
-							responseJson.code = authConstants.SUCCESSFUL_CODE;
-							responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
-							responseJson.token = account.token;
-							responseJson.expire = account.expire;
-							responseJson.accountId = account.id;
-						}
-						resolve(account);
-					})
-					.catch((err) => {
-						reject(err);
-					})
-					.finally(() => {
-						response.json(responseJson);
-					});
-				//If authenticated success => change the response's data
-			})
-			.catch(() => {});
+		try {
+			const { email, password } = request.body;
+
+			// Check if authenticate successfully
+			authService
+				.authenticate(email, password)
+				.then((token) => {
+					// Update account token by email
+					return authService.updateAccountTokenByEmail(email, token);
+				})
+				.then((account) => {
+					return getAccountScopusId(account);
+				})
+				.then((account) => {
+					if (account) {
+						responseJson.code = authConstants.SUCCESSFUL_CODE;
+						responseJson.message = authConstants.AUTH_LOGIN_SUCCESS_MESSAGE;
+						responseJson.token = account.token;
+						responseJson.expire = account.expire;
+						responseJson.accountId = account.id;
+						responseJson.role = account.role;
+						responseJson.lecturerInfo = account.lecturerInfo;
+					}
+					response.json(responseJson);
+					resolve(); // Resolve the promise after sending the response
+				})
+				.catch((err) => {
+					console.log(err);
+					response.json(responseJson);
+					resolve(); // Resolve the promise after sending the response
+				});
+		} catch (err) {
+			console.log(err);
+			response.json(responseJson);
+			resolve(); // Resolve the promise after sending the response
+		}
 	});
 }
 
@@ -61,7 +72,7 @@ function signUp(request, response) {
 			return;
 		}
 
-		const { email, password } = request.body;
+		const { email, password, role } = request.body;
 
 		//Default response is sign up failed
 		let responseJson = {
@@ -71,7 +82,7 @@ function signUp(request, response) {
 
 		//Check if registrating successfully
 		authService
-			.accountRegistrate(email, password)
+			.accountRegistrate(email, password, role)
 			.then(() => {
 				//if then => successfully case
 				responseJson.code = authConstants.SUCCESSFUL_CODE;

@@ -1,20 +1,19 @@
 //@ts-nocheck
 const messageConstants = require('../constants/messageConstants');
-const {
-	getAuthorById,
-	updateAuthorProfile,
-} = require('../services/scopusServices/getAuthorByIdService');
 
 const {
 	getBaseLecturerByName,
 } = require('../services/scopusServices/getBaseLecturerService');
 
 const {
-	getArticleByAuthorScopusId,
 	getArticleByDOI,
 } = require('../services/scopusServices/getArticleWithScopusService');
 
-const createArticleService = require('../services/articleServices/createArticleServices');
+const {
+	saveAuthorWithScopusInfo,
+} = require('../services/scopusServices/saveAuthorWithScopus');
+
+const getConferenceRankByNameService = require('../services/getConferenceRankByNameService');
 
 /**
  * @param {Express.Request} request
@@ -51,35 +50,38 @@ async function getScopusAuthorByName(request, response) {
  * @param {Express.Response} response
  * @returns {Promise}
  */
-async function getAuthorByScopusId(request, response) {
+async function saveAuthorWithScopus(request, response) {
+	const { data } = request.body;
+
 	//Get the query params
-	const scopusAuthorId = request.params.scopus_author_id;
-	const accountId = request.params.account_id;
+	const scopusAuthorId = data.scopusAuthorId;
+	const accountId = data.accountId;
 
 	//Default response is error response
+	let statusCode = 500;
 	let responseJson = {
-		code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE,
-		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
+		code: messageConstants.SCOPUS_SAVE_AUTHOR_NOT_FOUND_CODE,
+		message: messageConstants.SCOPUS_SAVE_AUTHOR_NOT_FOUND_MESSAGE,
 	};
 
-	const scopusAuthorData = await getAuthorById(scopusAuthorId);
-	const newLecturerId = await updateAuthorProfile(
-		scopusAuthorData,
-		scopusAuthorId,
-		accountId
-	);
-	if (newLecturerId) {
-		responseJson = {
-			code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_CODE,
-			message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE,
-			data: {
-				lecturerId: newLecturerId,
-			},
+	try {
+		const resultData = await saveAuthorWithScopusInfo(
+			scopusAuthorId,
+			accountId
+		);
+
+		statusCode = 200;
+		responseJson.code = messageConstants.SUCCESSFUL_CODE;
+		responseJson.message = messageConstants.SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE;
+		responseJson.data = {
+			lecturerId: resultData[0],
+			articleIds: resultData[1],
 		};
-		return response.status(200).json(responseJson);
+	} catch (errors) {
+		console.log(errors);
 	}
 
-	return response.status(500).json(responseJson);
+	return response.status(statusCode).json(responseJson);
 }
 
 /**
@@ -87,30 +89,33 @@ async function getAuthorByScopusId(request, response) {
  * @param {Express.Response} response
  * @returns {Promise}
  */
-async function saveArticleByAuthorScopusId(request, response) {
-
-	//Get the query params
-	const scopusAuthorId = request.params.scopus_author_id;
-	const accountId = request.params.account_id;
-
+async function getConferenceRankByName(request, response) {
 	//Default response is error response
 	let statusCode = 500;
 	let responseJson = {
-		code: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_CODE,
-		message: messageConstants.SCOPUS_FIND_AUTHOR_BY_ID_NOT_FOUND_MESSAGE,
+		code: messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_CODE,
+		message:
+			messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_NOT_FOUND_MESSAGE,
 	};
-
-	const articles = await getArticleByAuthorScopusId(scopusAuthorId);
-	const createArticlePromises = articles.map((article) =>
-		createArticleService.createArticle(article, null)
-	);
 	try {
-		const articleIds = await Promise.all(createArticlePromises);
-		responseJson.code = messageConstants.SUCCESSFUL_CODE;
-		responseJson.message = `Add ${articleIds.length} article(s) via scopus successfully`;
-		statusCode = 200;
-	} catch (errors) {
+		const conferenceName = request.query.conferenceName;
+
+		if (conferenceName) {
+			const conferenceData =
+				await getConferenceRankByNameService.getConferenceRankByName(
+					conferenceName
+				);
+			statusCode = 200;
+			responseJson = {
+				code: messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_CODE,
+				message:
+					messageConstants.SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE,
+				data: conferenceData,
+			};
+		}
+	} catch (err) {
 		statusCode = 500;
+		responseJson.message = err;
 	}
 
 	return response.status(statusCode).json(responseJson);
@@ -151,7 +156,7 @@ async function findArticleByDOI(request, response) {
 
 module.exports = {
 	getScopusAuthorByName,
-	saveArticleByAuthorScopusId,
-	getAuthorByScopusId,
 	findArticleByDOI,
+	saveAuthorWithScopus,
+	getConferenceRankByName,
 };

@@ -10,7 +10,7 @@ const moment = require('moment');
 function getAccountByEmail(email) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			'SELECT id, email, password, role, is_deleted, token',
+			'SELECT id, email, role, is_deleted, token',
 			'FROM account',
 			'WHERE email = ?',
 			'LIMIT 1',
@@ -35,7 +35,7 @@ function getAccountByEmail(email) {
 function getAccountByToken(token) {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			'SELECT id, email, password, role, is_deleted, token, token_expired_in',
+			'SELECT id, email, role, is_deleted, token, token_expired_in',
 			'FROM account',
 			'WHERE token = ?',
 			'LIMIT 1',
@@ -55,24 +55,57 @@ function getAccountByToken(token) {
 
 /**
  *
+ * @param {string} accountId
+ * @return {Promise}
+ */
+function getAccountById(accountId) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			'SELECT id, email, role, is_deleted, token, token_expired_in,created_at, updated_at',
+			'FROM account',
+			'WHERE id = ?',
+			'LIMIT 1',
+		].join(' ');
+
+		let account = null;
+		connection.query(query, [accountId], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			account = results;
+			resolve(account);
+		});
+	});
+}
+
+/**
+ *
  * @param {Object} account
  * @return {Promise}
  */
 function createAccount(account) {
 	return new Promise(function (resolve, reject) {
-		const { email, password } = account;
+		const { email, password, role } = account;
 		const query = [
 			'INSERT',
 			'INTO account (email, password, created_at, updated_at, is_deleted, role, token)',
 			'VALUES (?, ?, ?, ?, ?, ?, ?)',
 		].join(' ');
 
-		const role = configConstants.ROLE_SCHOLAR;
+		let roleAccount = 0;
+
+		if (role != undefined) {
+			roleAccount = role;
+		} else {
+			roleAccount = configConstants.ROLE_SCHOLAR;
+		}
+
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 
 		connection.query(
 			query,
-			[email, password, now, now, false, role, null],
+			[email, password, now, now, false, roleAccount, null],
 			function (error, results, fields) {
 				if (error) {
 					reject(error);
@@ -223,4 +256,5 @@ module.exports = {
 	updateAccountPassword,
 	getAllAccounts,
 	deleteOneAccount,
+	getAccountById,
 };

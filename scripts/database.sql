@@ -28,7 +28,7 @@ CREATE TABLE lecturer_information (
     scopus_id VARCHAR(255) DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     gender VARCHAR(10) DEFAULT NULL,
-    avatar VARCHAR(255) DEFAULT NULL,
+    avatar LONGBLOB DEFAULT NULL,
     date_of_birth DATE DEFAULT NULL,
     bio VARCHAR(255) DEFAULT NULL,
 
@@ -157,7 +157,7 @@ CREATE TABLE article (
     year INT DEFAULT NULL,
     page_from VARCHAR(10) DEFAULT NULL,
     page_to VARCHAR(10) DEFAULT NULL,
-    volume INT DEFAULT NULL,
+    volume VARCHAR(15) DEFAULT NULL,
     issue INT DEFAULT NULL,
     city VARCHAR(50),
     abstract LONGTEXT DEFAULT NULL,
@@ -457,3 +457,5 @@ CREATE TABLE activity_type (
 );
 
 ALTER TABLE article CONVERT TO CHARACTER SET utf8mb4;
+ALTER TABLE author CONVERT TO CHARACTER SET utf8mb4;
+ALTER TABLE lecturer_information CONVERT TO CHARACTER SET utf8mb4;

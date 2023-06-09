@@ -10,15 +10,33 @@ function getAccounts(request, response) {
 		accountService
 			.getAllAccounts()
 			.then((accounts) => {
-				console.log(
-					'🚀 ~ file: accountControllers.js:9 ~ .then ~ accounts:',
-					accounts
-				);
 				if (accounts) {
 					responseJson.code = messageConstants.SUCCESSFUL_CODE;
 					responseJson.message =
 						messageConstants.ACCOUNT_GET_ALL_SUCCESS_MESSAGE;
 					responseJson.data = accounts;
+				}
+				response.json(responseJson);
+			})
+			.catch((err) => reject(err));
+	});
+}
+
+function getOneAccount(request, response) {
+	return new Promise((resolve, reject) => {
+		let responseJson = {
+			code: messageConstants.AUTH_LOGIN_FAILED_CODE,
+			message: messageConstants.ACCOUNT_GET_ONE_FAILED_MESSAGE,
+		};
+		const accountId = request.params.id;
+		accountService
+			.getOneAccount(accountId)
+			.then((account) => {
+				if (account) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.ACCOUNT_GET_ONE_SUCCESS_MESSAGE;
+					responseJson.data = account;
 				}
 				response.json(responseJson);
 			})
@@ -56,7 +74,6 @@ function deleteAccount(request, response) {
 			code: messageConstants.FAILED_CODE,
 			message: messageConstants.ACCOUNT_DELETE_FAILED_MESSAGE,
 		};
-		console.log('id ', id);
 		accountService
 			.deleteOneAccount(id)
 			.then(() => {
@@ -68,4 +85,4 @@ function deleteAccount(request, response) {
 	});
 }
 
-module.exports = { getAccounts, createAccount, deleteAccount };
+module.exports = { getAccounts, createAccount, deleteAccount, getOneAccount };
