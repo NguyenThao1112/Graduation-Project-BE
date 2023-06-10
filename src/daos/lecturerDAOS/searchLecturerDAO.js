@@ -21,6 +21,13 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 	lecturerIds
 ) {
 	return new Promise(function (resolve, reject) {
+
+		//empty check
+		if (0 === lecturerIds.length) {
+			resolve([]);
+			return;
+		}
+
 		let fromStatement = `FROM ${tableName}`;
 		if ('book_author' === tableName) {
 			fromStatement = [
