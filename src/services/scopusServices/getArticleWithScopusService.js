@@ -25,7 +25,6 @@ const {addComplexInformationForArticle} = require('./saveArticleByAuthorScopusId
 	}
 }
 
-
 module.exports = {
 	getArticleByDOI,
 };

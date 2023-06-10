@@ -238,7 +238,9 @@ function modifyAddress(address) {
 function normalizeIssn(issn) {
 	let result = issn;
 	if ("-" !== issn[4]) {
-		result = [issn.slice(1, 4), slice(5)].join('-')
+		const low = issn.slice(0, 4);
+		const high = issn.slice(4); 
+		result = [low, high].join('-');
 	}
 	return result;
 }

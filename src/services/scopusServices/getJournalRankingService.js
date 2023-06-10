@@ -22,10 +22,6 @@ async function getJournalRanking(issnArray) {
     try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
         const issnEntry = axiosResponse.data['serial-metadata-response'].entry;
-        // console.log(url);
-		// console.log(axiosResponse.data['serial-metadata-response'].entry[0].citeScoreYearInfoList.citeScoreYearInfo[0]);
-        // console.log(axiosResponse.data['serial-metadata-response'].entry[1].citeScoreYearInfoList.citeScoreYearInfo[0].citeScoreInformationList[0].citeScoreInfo[0].citeScoreSubjectRank[0]);
-
 
         //Get the map, with above example
         /**
