@@ -38,6 +38,11 @@ JWT_SECRET = secret
 JWT_EXPIRE = 24h
 ```
 
+List ROLE:
+ROLE_GUEST: 0,
+ROLE_SCHOLAR: 1,
+ROLE_ADMIN: 2,
+
 # API List (update reguraly)
 
 ## Authorization API
@@ -3898,6 +3903,7 @@ GET /api/v1/scopus/author?firstName=Quan&lastName=Tran
 ```
 
 ### Save Author profile by Scopus Id and Account Id
+
 #### Request
 
 ```http
@@ -3947,7 +3953,7 @@ POST /api/v1/scopus/author/save
 POST /api/v1/scopus/article
 ```
 
-``` javascript
+```javascript
 {
     "data": {
         "doi": "10.1016/j.amjoto.2023.103800"
