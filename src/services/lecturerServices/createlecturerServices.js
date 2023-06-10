@@ -63,6 +63,20 @@ function createContacts(contacts, lecturer) {
 			resolve(null);
 			return null;
 		}
+		let contactListIds = [1, 2, 3, 4];
+		let newContacts = contacts;
+		for (let i = 0; i < contacts.length; i++) {
+			var index = contactListIds.indexOf(contacts[i].contactTypeId);
+			if (index !== -1) {
+				contactListIds.splice(index, 1);
+			}
+		}
+		for (let i = 0; i < contactListIds.length; i++) {
+			newContacts.push({
+				contactTypeId: contactListIds[i],
+				value: null,
+			});
+		}
 
 		return createLecturerDAO
 			.createContacts(contacts, lecturer)
