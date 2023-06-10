@@ -579,12 +579,20 @@ POST /api/v1/configs/contact-type/create
 {
     "data": [
         {
-            "name": "Email",
+            "id": 1,
+            "name": "email",
         },
-
-         {
-            "name": "Mobile phone",
+        {   "id": 2,
+            "name": "address",
         },
+        {
+            "id": 3,
+            "name": "phone"
+        },
+        {
+            "id": 4,
+            "name": "link"
+        }
     ]
 }
 ```
@@ -1762,7 +1770,7 @@ DELETE /api/v1/configs/university/delete
 
 ## Lecturer API
 
-### Create lecturers
+### Create multiple lecturers
 
 ##### Request
 
