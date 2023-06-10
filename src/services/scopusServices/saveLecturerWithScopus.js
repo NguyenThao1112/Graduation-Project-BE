@@ -72,11 +72,13 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			citationCount: citationCount,
 			citedByCount: citedByCount,
 		});
+		const contacts = [];
 		const lecturerInformationObject = {
 			accountId: accountId,
 			scopusId: scopusAuthorId,
 			name: name,
 			expandColumn: expandColumn,
+			contacts: contacts,
 			currentDiscipline: {
 				universityId: currentUniversityObject[0].id,
 			},

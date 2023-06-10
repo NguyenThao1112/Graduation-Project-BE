@@ -41,4 +41,6 @@ module.exports = Object.freeze({
 			'X-ELS-Insttoken': process.env.SCOPUS_INSTITUTION_TOKEN,
 		},
 	},
+
+	DEFAULT_DATE_OF_BIRTH: '1990/01/01',
 });

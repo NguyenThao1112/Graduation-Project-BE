@@ -123,6 +123,8 @@ function createLecturers(request, response) {
 					// @ts-ignore
 					responseJson.message =
 						messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
+
+					responseJson.id = lecturerId;
 				}
 			})
 			.catch((error) => {
