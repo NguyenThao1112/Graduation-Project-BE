@@ -10,14 +10,14 @@ const queryHelper = require('../../helpers/queryHelper');
  */
  function getDataOfSubtableJoningWithArticleByArticleId(tableName, columnNames, articleIds) {
     return new Promise(function (resolve, reject) {
-
+        let selectStatement = `SELECT ${columnNames.join(', ')}`;
         let fromStatement = `FROM ${tableName}`;
         if ("author" === tableName) {
             fromStatement = [
                 fromStatement,
-                "LEFT JOIN lecturer_information ON lecturer_information.id = author.lecturer_id"
+                "LEFT JOIN lecturer_information ON lecturer_information.id = author.lecturer_id",
             ].join(' ');
-
+            selectStatement = `${selectStatement}, lecturer_information.name`;
         } else if ("article_tag" === tableName) {
             fromStatement = [
                 fromStatement,
@@ -27,8 +27,7 @@ const queryHelper = require('../../helpers/queryHelper');
 
         const query = 
         [
-            `SELECT`,
-            columnNames.join(', '), 
+            selectStatement,
             fromStatement,
             `WHERE ${tableName}.is_deleted = false AND article_id IN (?)`,
         ].join(' ');
