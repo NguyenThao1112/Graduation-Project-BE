@@ -41,6 +41,7 @@ function login(request, response) {
 						responseJson.accountId = account.id;
 						responseJson.role = account.role;
 						responseJson.lecturerInfo = account.lecturerInfo;
+
 					}
 					response.json(responseJson);
 					resolve(); // Resolve the promise after sending the response

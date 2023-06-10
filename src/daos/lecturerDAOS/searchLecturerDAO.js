@@ -130,6 +130,7 @@ async function getBaseLecturers(option = null) {
 	try {
 		const selectStatement = `SELECT
         a.id as id,
+				a.account_id as accountId,
         a.name as name,
         a.gender as gender,
 				a.scopus_id as scopusId,
@@ -162,6 +163,14 @@ async function getBaseLecturers(option = null) {
 			) {
 				query += ' AND id IN (?)';
 				bindingValues.push(option.lecturerIds);
+			}
+
+			if (
+				option.hasOwnProperty('accountId') &&
+				option.accountId !== undefined
+			) {
+				query += ' AND a.account_id = ? LIMIT 1';
+				bindingValues.push(option.accountId);
 			}
 
 			if (

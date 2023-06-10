@@ -203,11 +203,10 @@ function getAllLecturers() {
 /**
  *
  * @param {Array<Number>} scopusIds
- * @param {Array<String>} filterColumns
  * @return {Map<Number, any>} resultMap
  *
  */
-function getLecturerByScopusIds(scopusIds, filterColumns) {
+function getLecturerByScopusIds(scopusIds) {
 	const options = {
 		scopusIds,
 	};
@@ -227,10 +226,33 @@ function getLecturerByScopusIds(scopusIds, filterColumns) {
 	});
 }
 
+/**
+ *
+ * @param {Array<Number>} scopusIds
+ * @return {Map<Number, any>} resultMap
+ *
+ */
+function getLecturerByAccountId(accountId) {
+	const options = {
+		accountId,
+	};
+	return new Promise((resolve, reject) => {
+		searchLecturerDAO
+			.getBaseLecturers(options)
+			.then((lecturerInfor) => {
+				resolve(lecturerInfor[0]);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
+
 module.exports = {
 	getLecturersWithPagination,
 	getOneLecturer,
 	getLecturerPagingSize,
 	getAllLecturers,
 	getLecturerByScopusIds,
+	getLecturerByAccountId,
 };
