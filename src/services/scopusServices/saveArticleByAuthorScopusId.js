@@ -5,6 +5,7 @@ const createArticleService = require('../../services/articleServices/createArtic
 const { getJournalRanking } = require('./getJournalRankingService');
 const { SCOPUS_CONFIG } = require('../../constants/configConstants');
 const { chunkArray } = require('../../helpers/commonHelper');
+const { getConferenceRankByMultipleNames } = require('../getConferenceRankByNameService');
 
 async function addComplexInformationForArticle(articleObject) {
 
@@ -90,10 +91,16 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 
 	//Map data ranking for journal
 	let issnArray = articles.map(article => article.ISSN ?? null).filter(issn => issn);
-	const journalRankMap = await getJournalRanking(issnArray);
+	let conferenceArray = articles.filter(article => article.conference).map(article => article.conference);
+
+	//Call API to get rank for journal and conference	
+	const [journalRankMap, conferenceRankMap]  = await Promise.all([
+		getJournalRanking(issnArray),
+		getConferenceRankByMultipleNames(conferenceArray),
+	]);
 
 	//Add ranking for article published from journal
-	let articlesWithJournalRank = articles.map(article => {
+	let articlesWithJournalRank = result.map(article => {
 		if (article.journal && article.ISSN && article.year) {
 			const normalizedIssn = scopusHelper.normalizeIssn(article.ISSN);
 			const year = article.year;
@@ -112,8 +119,16 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 	})
 	result = articlesWithJournalRank;
 
-	//Map data ranking for conference
-	//TODO:
+	//Add data ranking for article published from conference
+	let articleWithConferenceRank = result.map(article => {
+		const conference = article.conference;
+		if (conference) {
+			article.rank = conferenceRankMap[conference];
+		}
+
+		return article;
+	});
+	result = articleWithConferenceRank;
 
 	return result;
 }
