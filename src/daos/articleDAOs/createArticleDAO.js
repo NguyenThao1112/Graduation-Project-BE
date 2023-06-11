@@ -278,7 +278,7 @@ function createArticle(article, options = null) {
 		const query = [
 			`INSERT INTO article (`,
 			insertId,
-			`name, journal, conference, rank, year, page_from, page_to, volume, issue, city, abstract,`,
+			'name, journal, conference, `rank`, year, page_from, page_to, volume, issue, city, abstract,',
 			`institution, department, type, month, day,`,
 			`url_date_access,`,
 			`ArXivID, DOI, ISBN, ISSN,`,
