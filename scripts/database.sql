@@ -462,3 +462,10 @@ ALTER TABLE article CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE author CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE lecturer_information CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE university CONVERT TO CHARACTER SET utf8mb4;
+
+INSERT INTO contact_type(`id`, `name`, `created_at`, `updated_at`, `is_deleted`) VALUES 
+    (1, 'email', SYSDATE(), SYSDATE(), 0),
+    (2, 'address', SYSDATE(), SYSDATE(), 0),
+    (3, 'phone', SYSDATE(), SYSDATE(), 0),
+    (4, 'link', SYSDATE(), SYSDATE(), 0);
+
