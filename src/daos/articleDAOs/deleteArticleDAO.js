@@ -46,6 +46,44 @@ function deleteRecordInTable(tableName, deletedIds) {
 	});
 }
 
+
+/**
+ *  Query to hard delete multiple record in a certain table at the same time
+ *
+ * @param {string} tableName
+ * @param {Array<number>} deletedIds
+ * @return {Promise}
+ */
+ function hardDeleteRecordInTable(tableName, deletedIds) {
+    return new Promise(function (resolve, reject) {
+        
+        let whereStatement = "WHERE id IN (?)";
+        if (0 === deletedIds.length) {
+			resolve(0);
+			return;
+        }
+
+        const query = 
+        [
+            `DELETE FROM ${tableName}`,
+            whereStatement,
+        ].join(' ');
+
+
+		//Using bulk update for better performance
+		connection.query(query, [deletedIds], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Number of records are deleted
+			const size = result.affectedRows;
+			resolve(size);
+		});
+	});
+}
+
 // /**
 //  *  Query to delete multiple ArticleUrl at the same time
 //  *
@@ -259,4 +297,5 @@ module.exports = {
 	// deleteArticle,
 
 	deleteRecordInTable,
+	hardDeleteRecordInTable,
 };
