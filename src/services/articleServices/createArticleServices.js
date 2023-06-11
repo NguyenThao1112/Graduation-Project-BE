@@ -222,17 +222,18 @@ function createArticleCategories(article, articleCategories) {
  * create an article
  * @param {Object} articleObject
  * @param {fileUpload.FileArray | null} articleFiles
+ * @param {Object} options
  * @return {Promise}
  *
  */
-function createArticle(articleObject, articleFiles) {
+function createArticle(articleObject, articleFiles, options = null) {
 	const builder = new articleHelper.ArticleBuilder();
 	builder.reset();
 	builder.setBulk(articleObject);
 	const article = builder.build();
 
 	return articleDAO
-		.createArticle(article)
+		.createArticle(article, options)
 		.catch((error) => {
 			console.log(error);
 		})

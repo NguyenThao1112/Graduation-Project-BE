@@ -3,6 +3,7 @@ const connection = require('../../configs/database');
 const moment = require('moment');
 const _ = require('lodash');
 const { currentDiscipline } = require('../../constants/tableQueryConstants');
+const configConstants = require('../../constants/configConstants');
 
 /**
  *
@@ -521,6 +522,9 @@ function createLecturer(lecturer) {
 	return new Promise(function (resolve, reject) {
 		if (!lecturer) {
 			return resolve(null);
+		}
+		if (!lecturer.hasOwnProperty('dateOfBirth')) {
+			lecturer.dateOfBirth = configConstants.DEFAULT_DATE_OF_BIRTH;
 		}
 		const query =
 			'INSERT INTO lecturer_information ( account_id, scopus_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';

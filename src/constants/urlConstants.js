@@ -28,6 +28,7 @@ module.exports = Object.freeze({
 	//All lecturer api (${API_URL}`) would be `${ROOT_API_URL}${LECTURER_PREFIX_API_URL}${API_URL}`
 	LECTURER_PREFIX_API_URL: `/lecturers`,
 	LECTURER_GET_ONE_LECTURER: `/detail/:id`,
+	LECTURER_GET_ONE_LECTURER_FROM_ACCOUNT_ID: `/account/:id`,
 	LECTURER_GET_ALL_URL: `/fetch-all`,
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
 	LECTURER_CREATE_URL: '/create',

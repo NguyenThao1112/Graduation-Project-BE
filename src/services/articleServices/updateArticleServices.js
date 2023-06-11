@@ -11,6 +11,8 @@ const {ArticleUrl} = require('../../models/article/articleUrl');
 const {ArticleNote} = require('../../models/article/articleNote');
 const {Author} = require('../../models/article/author');
 const {createTags} = require('../configurationServices');
+const {hardDeleteArticles} = require('./deleteArticleServices');
+const {createArticle} = require('./createArticleServices');
 
 /**
  * create article files (save its data to filesystem + save metadata to database)
@@ -325,6 +327,40 @@ function updateArticleCategories(article, articleCategories) {
     })
 }
 
+// /**
+//  * create an article
+//  * @param {Object} articleObject
+//  * @param {fileUpload.FileArray | null} articleFiles
+//  * @return {Promise}
+//  *  
+//  */
+// function updateArticle(articleObject, articleFiles) {
+
+//     const builder = new articleHelper.ArticleBuilder();
+//     builder.reset();
+//     builder.setBulk(articleObject);
+//     const article = builder.build();
+
+//     return updateArticleDAO.updateArticle(article)
+//         .catch(error => {
+//             console.log(error);
+//         })
+//         .then(article => {
+
+//             return Promise.all([
+//                 updateArticleFiles(article, article.files, articleFiles).catch(error => {console.log(error);}),
+//                 updateArticleNotes(article, articleObject.notes).catch(error => {console.log(error);}),
+//                 updateArticleCategories(article, articleObject.tags).catch(error => {console.log(error);}),
+//                 updateArticleUrls(article, articleObject.urls).catch(error => {console.log(error);}),
+//                 updateAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
+//             ])
+//             .then((data) => {
+//                 return Promise.resolve(true);
+//             });
+
+//         })
+// }
+
 /**
  * create an article
  * @param {Object} articleObject
@@ -332,31 +368,28 @@ function updateArticleCategories(article, articleCategories) {
  * @return {Promise}
  *  
  */
-function updateArticle(articleObject, articleFiles) {
+ function updateArticle(articleObject, articleFiles) {
 
     const builder = new articleHelper.ArticleBuilder();
     builder.reset();
     builder.setBulk(articleObject);
     const article = builder.build();
 
-    return updateArticleDAO.updateArticle(article)
+    const articleIds = [article.id];
+
+    return hardDeleteArticles(articleIds)
         .catch(error => {
             console.log(error);
         })
-        .then(article => {
-
-            return Promise.all([
-                updateArticleFiles(article, article.files, articleFiles).catch(error => {console.log(error);}),
-                updateArticleNotes(article, articleObject.notes).catch(error => {console.log(error);}),
-                updateArticleCategories(article, articleObject.tags).catch(error => {console.log(error);}),
-                updateArticleUrls(article, articleObject.urls).catch(error => {console.log(error);}),
-                updateAuthors(article, articleObject.authors).catch(error => {console.log(error);}),
-            ])
-            .then((data) => {
-                return Promise.resolve(true);
-            });
-
-        })
+        .then(() => {
+            const options = {
+                hasId: true,
+            }
+            return createArticle(articleObject, articleFiles, options)
+                .then(data => {
+                    return Promise.resolve(true);
+                });
+        });
 }
 
 module.exports = {

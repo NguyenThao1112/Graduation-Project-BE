@@ -123,6 +123,8 @@ function createLecturers(request, response) {
 					// @ts-ignore
 					responseJson.message =
 						messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
+
+					responseJson.id = lecturerId;
 				}
 			})
 			.catch((error) => {
@@ -310,6 +312,43 @@ function getLecturerPagingSize(request, response) {
 	});
 }
 
+/**
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getOneLecturerFromAccountId(request, response) {
+	return new Promise((resolve, reject) => {
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE,
+		};
+
+		const accountId = request.params.id;
+
+		//Try to get the number of page with paging size
+		searchLecturerServices
+			.getLecturerByAccountId(accountId)
+			.then((lecturer) => {
+				//If there is a not-null data => change the response's data
+				if (lecturer) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE;
+					responseJson.lecturerId = lecturer.id;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	getOneLecturer,
 	getAllLecturers,
@@ -318,4 +357,5 @@ module.exports = {
 	updateLecturer,
 	deleteLecturers,
 	getLecturerPagingSize,
+	getOneLecturerFromAccountId,
 };

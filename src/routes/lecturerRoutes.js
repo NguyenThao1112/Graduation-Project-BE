@@ -22,6 +22,9 @@ router.get(urls.LECTURER_GET_ALL_URL, lecturerControllers.getAllLecturers);
 //get one lecturer base on its id
 router.get(urls.LECTURER_GET_ONE_LECTURER, lecturerControllers.getOneLecturer);
 
+//get lecturer Id from accountId
+router.get(urls.LECTURER_GET_ONE_LECTURER_FROM_ACCOUNT_ID,lecturerControllers.getOneLecturerFromAccountId);
+
 //create lecturers
 router.post(urls.LECTURER_CREATE_URL, lecturerControllers.createLecturers);
 

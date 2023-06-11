@@ -260,13 +260,25 @@ function createArticleCategories(categories) {
  *  Query to create an article
  *
  * @param {Array<Article>} article
+ * @param {Object} options
  * @return {Promise}
  */
-function createArticle(article) {
+function createArticle(article, options = null) {
 	return new Promise(function (resolve, reject) {
+
+		let insertId = '';
+		let values = [];
+		if (null !== options) {
+			if (options.hasOwnProperty('hasId') && options.hasId) {
+				insertId = 'id,';
+				values = [article.id];
+			}
+		}
+
 		const query = [
 			`INSERT INTO article (`,
-			`name, journal, conference, rank, year, page_from, page_to, volume, issue, city, abstract,`,
+			insertId,
+			`name, journal, year, page_from, page_to, volume, issue, city, abstract,`,
 			`institution, department, type, month, day,`,
 			`url_date_access,`,
 			`ArXivID, DOI, ISBN, ISSN,`,
@@ -279,7 +291,8 @@ function createArticle(article) {
 
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 		const is_deleted = false;
-		const values = [
+		values = [
+			...values,
 			article.name ?? null,
 			article.journal ?? null,
 			article.conference ?? null,

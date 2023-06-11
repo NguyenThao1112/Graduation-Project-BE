@@ -30,15 +30,21 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			authorResponse['author-profile']['affiliation-current']['affiliation'][
 				'ip-doc'
 			];
-		const currentUniversityObject = [
-			{
-				name:
-					currentUniversity && currentUniversity['afdispname']
-						? currentUniversity['afdispname']
-						: null,
-				address: scopusHelper.modifyAddress(currentUniversity['address']),
-			},
-		];
+		
+		let currentUniversityObject = null;
+		if (currentUniversity) {
+			currentUniversityObject = [
+				{
+					name:
+						currentUniversity && currentUniversity['afdispname']
+							? currentUniversity['afdispname']
+							: null,
+					address: currentUniversity 
+							? scopusHelper.modifyAddress(currentUniversity['address'])
+							: null,
+				},
+			];
+		}
 		const affiliationHistory =
 			authorResponse['author-profile']['affiliation-history']['affiliation'];
 		let historyUniversityList = [];
@@ -50,13 +56,17 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 				),
 			});
 		}
-		const currentUniversityIds = await createUniversities(
-			currentUniversityObject
-		);
 		const historyUniversityIds = await createUniversities(
 			historyUniversityList
 		);
-		currentUniversityObject[0].id = currentUniversityIds.pop();
+		
+		if (null !== currentUniversityObject) {
+			const currentUniversityIds = await createUniversities(
+				currentUniversityObject
+			);
+			currentUniversityObject[0].id = currentUniversityIds.pop();
+		}
+
 		const name =
 			authorResponse['author-profile']['preferred-name']['surname'] +
 			' ' +
@@ -72,14 +82,20 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			citationCount: citationCount,
 			citedByCount: citedByCount,
 		});
+		const contacts = [];
+		let currentDiscipline = null;
+		if (null !== currentUniversityObject) {
+			currentDiscipline = {
+				universityId: currentUniversityObject[0].id,
+			};
+		}
 		const lecturerInformationObject = {
 			accountId: accountId,
 			scopusId: scopusAuthorId,
 			name: name,
 			expandColumn: expandColumn,
-			currentDiscipline: {
-				universityId: currentUniversityObject[0].id,
-			},
+			contacts: contacts,
+			currentDiscipline,
 			workPositions: historyUniversityIds.map((ele) => {
 				return {
 					universityId: ele,
