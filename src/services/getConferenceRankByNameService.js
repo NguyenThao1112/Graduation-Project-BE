@@ -46,9 +46,38 @@ async function getConferenceRankByName(conferenceName) {
 		})
 		.get();
 
+	if (!conferences[0]) {
+		return null;
+	}
+
 	return conferences[0].rank;
+}
+
+async function getConferenceRankByMultipleNames(conferenceNames) {
+
+	try {
+		const conferenceRanks = await Promise.all(
+			conferenceNames.map(confName => getConferenceRankByName(confName))
+		);
+
+		//Map the conference name with its rank
+		const confLength = conferenceRanks.length;
+		const conferenceRankMap = {};
+		for (let i = 0; i < confLength; i++) {
+			conferenceRankMap[conferenceNames[i]] = conferenceRanks[i];  
+		}
+		
+
+		return conferenceRankMap;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+
+	return null;
 }
 
 module.exports = {
 	getConferenceRankByName,
+	getConferenceRankByMultipleNames,
 };

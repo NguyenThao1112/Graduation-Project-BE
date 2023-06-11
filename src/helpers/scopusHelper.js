@@ -65,7 +65,7 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			} else if ("Conference Proceeding" === aggregationType) {
 
 				//TODO: doesn't support conference yet
-				//articleObject.conference = entry["prism:publicationName"];
+				// articleObject.conference = entry["prism:publicationName"];
 			}
 		}
 
@@ -156,11 +156,27 @@ async function addComplexInformationForArticle(articleObject, axiosData) {
 	const bibrecord = itemData.bibrecord;
 	const bibrecordHeadSource = bibrecord.head.source;
 	const publicationDate = bibrecordHeadSource.publicationdate;
+
+	let conferenceInfo = null;
+	const additionalInfo = bibrecordHeadSource['additional-srcinfo'];
+	if (additionalInfo) {
+		conferenceInfo = additionalInfo.conferenceinfo;
+	}
 	
 	articleObject.pageFrom = coreData["prism:startingPage"];
 	articleObject.pageTo = coreData["prism:endingPage"];
 	articleObject.abstract = coreData["dc:description"];
 
+	//Get conference name
+	if (conferenceInfo) {
+		if (conferenceInfo.confevent) {
+			if (conferenceInfo.confevent.confname) {
+				articleObject.conference = conferenceInfo.confevent.confname;
+			}
+		}
+	}
+
+	
 	try {
 		articleObject.authors = await buildAuthorDataForArticle(bodyData.authors.author);
 	} catch (error) {
@@ -214,9 +230,49 @@ function modifyAddress(address) {
 	return finalAddress;
 }
 
+/**
+ * 
+ * @param {String} issn 
+ * @return {String}
+ */
+function normalizeIssn(issn) {
+	let result = issn;
+	if ("-" !== issn[4]) {
+		const low = issn.slice(0, 4);
+		const high = issn.slice(4); 
+		result = [low, high].join('-');
+	}
+	return result;
+}
+
+
+/**
+ * 
+ * @param {int} percentile 
+ * @param {String|null} 
+ */
+function getQuartileFromPercentile(percentile) {
+
+	let quartile = null;
+	if (percentile < 25) {
+		quartile = "Q4";
+	} else if (percentile < 50) {
+		quartile = "Q3";
+	} else if (percentile < 75) {
+		quartile = "Q2";
+	} else {
+		quartile = "Q1";
+
+	}
+
+	return quartile;
+}
+
 module.exports = {
 	parseDataFromGetAuthorFromNameResponse,
 	modifyAddress,
 	parseBaseArticleFromScopusResponse,
 	addComplexInformationForArticle,
+	normalizeIssn,
+	getQuartileFromPercentile,
 };
