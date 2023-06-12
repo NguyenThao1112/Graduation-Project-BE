@@ -51,7 +51,9 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			DOI: entry["prism:doi"] ?? null,
 			PII: entry["pii"]?? null,
 			Scopus: scopusId,
-
+			journal: null,
+			conference: null,
+			rank: null,
 			urls,
 		}
 

@@ -136,5 +136,6 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 
 module.exports = {
 	addComplexInformationForArticle,
-	saveArticleByAuthorScopusId
+	saveArticleByAuthorScopusId,
+	addRankingForArticle,
 };
