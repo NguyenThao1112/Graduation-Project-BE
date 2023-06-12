@@ -339,7 +339,7 @@ CREATE TABLE current_discipline (
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
 
-    PRIMARY KEY(id,lecturer_id)
+    PRIMARY KEY(id)
 );
 
 --  môn học 
