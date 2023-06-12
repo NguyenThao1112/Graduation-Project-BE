@@ -2,7 +2,10 @@ const axios = require('axios');
 const scopusHelper = require('../../helpers/scopusHelper');
 const scopusConstants = require('../../constants/scopusConstants');
 const { SCOPUS_CONFIG } = require('../../constants/configConstants');
-const {addComplexInformationForArticle} = require('./saveArticleByAuthorScopusId');
+const {
+	addComplexInformationForArticle,
+	addRankingForArticle,
+} = require('./saveArticleByAuthorScopusId');
 
 /**
  * 
@@ -15,6 +18,7 @@ const {addComplexInformationForArticle} = require('./saveArticleByAuthorScopusId
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
 		let articles = scopusHelper.parseBaseArticleFromScopusResponse(axiosResponse.data);
 		articles =  await Promise.all(articles.map(article => addComplexInformationForArticle(article)));
+		articles = await addRankingForArticle(articles);
 
 		return articles;
 	} catch (error) {
