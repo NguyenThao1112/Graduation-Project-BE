@@ -405,6 +405,8 @@ function parseArticlePaginationQueryResultToResponseData(
 			conference: article.conference,
 			rank: article.rank,
 			year: article.year,
+			month: article.month,
+			day: article.day,
 			page_from: article.pageFrom,
 			page_to: article.pageTo,
 			volume: article.volume,
