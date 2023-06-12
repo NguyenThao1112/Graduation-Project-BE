@@ -72,6 +72,8 @@ function getBaseArticles(option = null) {
                 'a.conference as conference,',
                 'a.`rank` as `rank`,',
                 'a.year as year,',
+                'a.month as month,',
+                'a.day as day,',
                 'a.page_from as pageFrom,',
                 'a.page_to as pageTo,',
                 'a.volume as volume,',
