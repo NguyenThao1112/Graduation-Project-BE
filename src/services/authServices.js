@@ -24,7 +24,6 @@ function authenticate(email, password) {
 		accountDAO
 			.getAccountByEmail(email)
 			.then((account) => {
-				console.log('vao authenticate');
 				//Check if the account is empty or not
 				if (account && account.length > 0) {
 					const hashPassword = account[0].password;

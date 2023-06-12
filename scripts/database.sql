@@ -13,7 +13,7 @@ CREATE TABLE account (
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
-    role INT NOT NULL,
+    role INT DEFAULT 1,
     token VARCHAR(255) DEFAULT NULL,
     token_expired_in DATETIME DEFAULT NULL,
     PRIMARY KEY(id)
@@ -22,7 +22,7 @@ CREATE TABLE account (
 --   thong tin giang vien
 CREATE TABLE lecturer_information (
     id INT NOT NULL AUTO_INCREMENT,
-    account_id INT NOT NULL,
+    account_id INT DEFAULT NULL,
 
     --   base info
     scopus_id VARCHAR(255) DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE lecturer_information (
 --  nghiên cứu sinh
 CREATE TABLE phd_thesis (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     project_name VARCHAR(255) DEFAULT NULL,
     phd_name VARCHAR(255) DEFAULT NULL,
     graduation_year INT DEFAULT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE book (
     name VARCHAR(255) DEFAULT NULL,
     project_id INT DEFAULT NULL,
     publisher_name VARCHAR(255) DEFAULT NULL,
-    public_year INT NOT NULL,
+    public_year INT DEFAULT NULL,
     co_authors VARCHAR(255) DEFAULT NULL,
     pseudonym VARCHAR(255) DEFAULT NULL,
     created_at DATETIME,
@@ -88,8 +88,8 @@ CREATE TABLE book (
 --  tác giả bài báo, sách
 CREATE TABLE book_author(
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id int NOT NULL,
-    book_id int NOT NULL,
+    lecturer_id int DEFAULT NULL,
+    book_id int DEFAULT NULL,
     created_at DATETIME,
     updated_at DATETIME,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -113,7 +113,7 @@ CREATE TABLE contact_type (
 --  dữ liệu liên lạc tương ứng ( a@gmail.com, 0972621328)
 CREATE TABLE contact (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     contact_type_id INT DEFAULT NULL,
     value VARCHAR(255) DEFAULT NULL,
     created_at DATETIME,
@@ -293,7 +293,7 @@ CREATE TABLE author(
 --  cac du an ( vi du : Xây dựng môi trường tích hợp trên web hỗ trợ cho đào tạo, nghiên cứu và phát triển dự án trong công nghệ phần mềm")
 CREATE TABLE project (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     project_code VARCHAR(255) DEFAULT NULL,
     from_date VARCHAR(7) DEFAULT NULL,
@@ -330,7 +330,7 @@ CREATE TABLE university (
 --  nơi làm việc hiện tại
 CREATE TABLE current_discipline (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     discipline_id INT,
     department_id INT,
     university_id INT,
@@ -368,9 +368,9 @@ CREATE TABLE department(
 --  lĩnh vực và chuyên ngành
 CREATE TABLE expertise (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    specialization VARCHAR(255) NOT NULL,
+    lecturer_id INT DEFAULT NULL,
+    title VARCHAR(255) DEFAULT NULL,
+    specialization VARCHAR(255) DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,
@@ -382,9 +382,9 @@ CREATE TABLE expertise (
 --  hướng nghiên cứu
 CREATE TABLE research_field (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
-    research_name VARCHAR(255) NOT NULL,
-    note VARCHAR(255) NOT NULL,
+    lecturer_id INT DEFAULT NULL,
+    research_name VARCHAR(255) DEFAULT NULL,
+    note VARCHAR(255) DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,
@@ -396,7 +396,7 @@ CREATE TABLE research_field (
 -- bằng cấp
 CREATE TABLE degree (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     academic_title_id INT DEFAULT NULL,
     university_id INT DEFAULT NULL,
     specialization VARCHAR(255) DEFAULT NULL,
@@ -413,7 +413,7 @@ CREATE TABLE degree (
 --  lịch sử các địa điểm làm việ
 CREATE TABLE work_position (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     university_id INT DEFAULT NULL,
     company VARCHAR(255) DEFAULT NULL,
     position VARCHAR(255) DEFAULT NULL,
@@ -431,7 +431,7 @@ CREATE TABLE work_position (
 -- chi tiết các hoạt động đã tham gia
 CREATE TABLE activity (
     id INT NOT NULL AUTO_INCREMENT,
-    lecturer_id INT NOT NULL,
+    lecturer_id INT DEFAULT NULL,
     activity_type_id INT DEFAULT NULL,
     name VARCHAR(255) DEFAULT NULL,
     note VARCHAR(255) DEFAULT NULL,
