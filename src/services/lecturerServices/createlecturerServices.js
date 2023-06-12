@@ -208,10 +208,14 @@ function createExpertises(expertises, lecturer) {
 					}
 				}
 			}
+			return createLecturerDAO
+				.createExpertises(newExpertises, lecturer)
+				.then((ids) => resolve(ids))
+				.catch((err) => console.log(err));
 		}
 
 		return createLecturerDAO
-			.createExpertises(newExpertises, lecturer)
+			.createExpertises(expertises, lecturer)
 			.then((ids) => resolve(ids))
 			.catch((err) => console.log(err));
 	});
