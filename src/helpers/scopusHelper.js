@@ -140,6 +140,7 @@ async function buildTagDataForArticle(tagObject) {
 	//Build the return value
 	const existTagIds = existTags.map(tag => ({
 		"tag_id": tag.id,
+		"tag_name": tag.name,
 	}))
 	const notExistTagNames = notExistTag.map(tag => ({
 		"name": tag,
