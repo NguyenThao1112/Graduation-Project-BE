@@ -4041,9 +4041,34 @@ POST /api/v1/scopus/article
                     "lastName": "Tran"
                 },
                 {
-                    "lecturerId": 1
+                    "lecturerId": 1,
+                    "lecturerName": "Tran Minh Triet"
                 }
             ],
+
+            "tags": [
+                {
+                    "tag_id": 112,
+                    "tag_name": "Computer-aided diagnosis"
+                },
+                {
+                    "tag_id": 113,
+                    "tag_name": "Deep learning"
+                },
+                {
+                    "tag_id": 114,
+                    "tag_name": "Flexible laryngoscopy"
+                },
+                {
+                    "tag_id": 115,
+                    "tag_name": "Vocal folds"
+                },
+                {
+                    "tag_id": 168,
+                    "tag_name": "Deep Learning"
+                }
+            ],
+            
             "year": "2023",
             "month": "05",
             "day": "01"
