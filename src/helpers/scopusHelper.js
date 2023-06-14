@@ -111,8 +111,9 @@ async function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 		}));
 
 	//Get the author who already exist on the database
-	const noNeedToCreateAuthors = [...alreadyExistAuthorMap.values()].map(authorId => ({
-		lecturerId: authorId,
+	const noNeedToCreateAuthors = [...alreadyExistAuthorMap.values()].map(author => ({
+		lecturerId: author.id,
+		lecturerName: author.name,
 	}));
 
 	const authors = createNewAuthors.concat(noNeedToCreateAuthors);
@@ -139,6 +140,7 @@ async function buildTagDataForArticle(tagObject) {
 	//Build the return value
 	const existTagIds = existTags.map(tag => ({
 		"tag_id": tag.id,
+		"tag_name": tag.name,
 	}))
 	const notExistTagNames = notExistTag.map(tag => ({
 		"name": tag,
