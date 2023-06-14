@@ -215,7 +215,10 @@ function getLecturerByScopusIds(scopusIds) {
 			.getBaseLecturers(options)
 			.then((lecturerInfor) => {
 				const scopusIdLecturerMap = new Map(
-					lecturerInfor.map((lecturer) => [lecturer.scopus_id, lecturer.id])
+					lecturerInfor.map((lecturer) => [lecturer.scopus_id, {
+						id: lecturer.id,
+						name: lecturer.name,
+					}])
 				);
 
 				resolve(scopusIdLecturerMap);
