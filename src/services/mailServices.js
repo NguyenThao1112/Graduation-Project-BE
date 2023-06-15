@@ -35,19 +35,13 @@ function sendTokenToUserMail(userEmail, token) {
     const sender = senderPool[MAIL_SUPPORT_INDEX];
     const senderEmail = mailConstants.MAIL_SUPPORT_USERNAME;
     const emailSubject = FORGET_PASSWORD_SUBJECT;
-    const host = configConstants.APP_HOST;
-    const port = configConstants.APP_PORT;
-    const ssl = 443 === port ? 's' : '';
 
-    const rootApiUrl = urlConstants.ROOT_API_URL;
-    const authApiUrl = urlConstants.AUTH_PREFIX_API_URL;
-    const forgetPasswordApiUrl = urlConstants.AUTH_FORGET_PASSWORD_API_URL;
-    const apiUrl = `${rootApiUrl}${authApiUrl}${forgetPasswordApiUrl}`;
+    const forgetPwdFrontendUrl = configConstants.FRONTEND_RESET_PWD_FORM_URL;
     const tokenParam = `${urlConstants.AUTH_FORGET_PASSWORD_TOKEN_PARAM}`;
 
     const emailHtml = [
       `<span class="str">You requested for reset password, kindly use this </span>`,
-      `<a href="http${ssl}://${host}:${port}${apiUrl}?${tokenParam}=${token}"><span class="str">link</span></a>`,
+      `<a href="${forgetPwdFrontendUrl}?${tokenParam}=${token}"><span class="str">link</span></a>`,
       `<span class="str"> to reset your password</span>`,
     ].join(' ');
 
