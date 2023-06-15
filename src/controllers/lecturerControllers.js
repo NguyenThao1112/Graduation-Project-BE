@@ -349,6 +349,48 @@ function getOneLecturerFromAccountId(request, response) {
 	});
 }
 
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function uploadFile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const uploadLecturerFiles = request.files;
+
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_FILE_FAILED_MESSAGE,
+		};
+
+		if (!uploadLecturerFiles) {
+			response.json(responseJson);
+		}
+
+		createLecturerServices
+			.uploadFile(id, uploadLecturerFiles)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message = messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	getOneLecturer,
 	getAllLecturers,
@@ -358,4 +400,5 @@ module.exports = {
 	deleteLecturers,
 	getLecturerPagingSize,
 	getOneLecturerFromAccountId,
+	uploadFile,
 };

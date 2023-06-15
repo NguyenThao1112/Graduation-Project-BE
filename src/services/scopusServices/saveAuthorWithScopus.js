@@ -13,15 +13,17 @@ async function saveAuthorWithScopusInfo(scopusAuthorId, accountId) {
 	let resultData = [null, []];
 
 	try {
-		resultData = await Promise.all([
-			saveLecturerWithScopus(scopusAuthorId, accountId),
-			saveArticleByAuthorScopusId(scopusAuthorId),
-		]);
+		resultData[0] = await saveLecturerWithScopus(scopusAuthorId, accountId);
+		resultData[1] = await saveArticleByAuthorScopusId(scopusAuthorId);
 	} catch (errors) {
-		//do nothing
+		console.log(
+			'🚀 ~ file: saveAuthorWithScopus.js:21 ~ saveAuthorWithScopusInfo ~ errors:',
+			errors
+		);
+		// do nothing
 	}
 
-	//Format the data
+	// Format the data
 	if (null === resultData[0] || undefined === resultData[0]) {
 		resultData[0] = null;
 	}

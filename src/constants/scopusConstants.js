@@ -12,7 +12,6 @@ module.exports = Object.freeze({
 	SCOPUS_SEARCH_JOURNAL_RANKING_API:
 		'https://api.elsevier.com/content/serial/title',
 
-
 	SCOPUS_API_KEY: process.env.SCOPUS_API_KEY,
 	SCOPUS_INSTITUTION_TOKEN: process.env.SCOPUS_INSTITUTION_TOKEN,
 

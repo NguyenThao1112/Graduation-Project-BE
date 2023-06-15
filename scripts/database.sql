@@ -52,6 +52,21 @@ CREATE TABLE lecturer_information (
     PRIMARY KEY(id)
 );
 
+--  file article
+CREATE TABLE lecturer_file (
+    id INT NOT NULL AUTO_INCREMENT,
+    lecturer_id INT DEFAULT NULL,
+
+    file_path TEXT DEFAULT NULL,
+    original_file_name TEXT DEFAULT NULL,
+
+    created_at DATETIME,
+    updated_at DATETIME,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    
+    PRIMARY KEY(id)  
+);
+
 --  nghiên cứu sinh
 CREATE TABLE phd_thesis (
     id INT NOT NULL AUTO_INCREMENT,
