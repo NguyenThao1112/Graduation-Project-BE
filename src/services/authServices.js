@@ -129,7 +129,7 @@ function createTokenForForgetPassword(email) {
 				const tokenExpiredIn = moment()
 					.add(configConstants.FORGET_PASSWORD_TOKEN_EXPIRE, 'minutes')
 					.utc(true)
-					.format('YYYY/MM/DD hh:mm:ss');
+					.format('YYYY/MM/DD HH:mm:ss');
 
 				const dao = {
 					id: account[0].id,
@@ -142,7 +142,9 @@ function createTokenForForgetPassword(email) {
 			.catch((error) => {
 				reject(error);
 			})
-			.then((token) => {
+			.then((account) => {
+				const token = account.token;
+
 				//Send the token to email
 				mailServices.sendTokenToUserMail(email, token);
 				resolve(token);
