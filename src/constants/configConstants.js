@@ -4,6 +4,10 @@ module.exports = Object.freeze({
 	//App configs
 	APP_PORT: process.env.APP_PORT || 3001,
 	APP_HOST: process.env.APP_HOST,
+	FRONTEND_URL: process.env.FRONTEND_HOST,
+
+	//Some usage frontend url
+	FRONTEND_RESET_PWD_FORM_URL: `${process.env.FRONTEND_HOST}/reset-password`,
 
 	//DB configs
 	DB_PORT: process.env.DB_PORT,
