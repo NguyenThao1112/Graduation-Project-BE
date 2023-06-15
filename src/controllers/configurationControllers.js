@@ -1358,6 +1358,41 @@ function deleteUniversities(request, response) {
 	});
 }
 
+
+/**
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getAllDisciplines(request, response) {
+	return new Promise((resolve, reject) => {
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.CONFIG_DISCIPLINE_INVALID_CODE,
+			message: messageConstants.CONFIG_DISCIPLINE_INVALID_MESSAGE,
+		};
+
+		//Try to get all the disciplines from the database
+		configurationService
+			.getAllDiscipline()
+			.then((disciplines) => {
+				//If there is a not-null disciplines => change the response's data
+				if (disciplines) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =messageConstants.CONFIG_DISCIPLINE_SUCCESS_MESSAGE;
+					responseJson.data = disciplines;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypesWithPagination,
@@ -1400,4 +1435,7 @@ module.exports = {
 	createUniversities,
 	updateUniversity,
 	deleteUniversities,
+
+	//Disciplines
+	getAllDisciplines,
 };
