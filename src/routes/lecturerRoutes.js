@@ -40,13 +40,17 @@ router.post(
 	uploadFileMiddlewares.checkFileExtension(
 		configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT
 	),
-	uploadFileMiddlewares.checkFileSizeLimit,
 	lecturerControllers.uploadFile
 );
 
 router.put(urls.LECTURER_UPDATE_URL, lecturerControllers.updateLecturer);
 
 router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
+
+router.delete(
+	urls.LECTURER_DELETE_FILE_URL,
+	lecturerControllers.deleteLecturerFile
+);
 
 //Get the page count, while on pagination process
 router.get(

@@ -36,6 +36,41 @@ function deleteRecordInTable(tableName, deletedIds) {
 	});
 }
 
+/**
+ *  Query to delete file belong to lecturer
+ *
+ * @return {Promise}
+ */
+function deleteFile(fileId, lecturerId) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`UPDATE lecturer_file`,
+			'SET is_deleted = ?, updated_at = ?',
+			'WHERE id = ? AND lecturer_id = ?',
+		].join(' ');
+
+		const now = getCurrentTimeFormat();
+		const isDeleted = true;
+
+		//Using bulk update for better performance
+		connection.query(
+			query,
+			[isDeleted, now, fileId, lecturerId],
+			(error, result) => {
+				if (error) {
+					reject(error);
+					return;
+				}
+
+				//Number of records are deleted
+				const size = result.affectedRows;
+				resolve(size);
+			}
+		);
+	});
+}
+
 module.exports = {
 	deleteRecordInTable,
+	deleteFile,
 };

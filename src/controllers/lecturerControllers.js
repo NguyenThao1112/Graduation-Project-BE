@@ -269,6 +269,42 @@ function deleteLecturers(request, response) {
 }
 
 /**
+ * Delete multiple lecturers
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function deleteLecturerFile(request, response) {
+	return new Promise((resolve, reject) => {
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_DELETE_FILE_FAILED_MESSAGE,
+		};
+
+		const { fileId, lecturerId } = request.body;
+
+		deleteLecturerService
+			.deleteLecturerFile(fileId, lecturerId)
+			.then(() => {
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_DELETE_FILE_SUCCESS_MESSAGE;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
  *
  * @param {Express.Request} request
  * @param {Express.Response} response
@@ -378,7 +414,8 @@ function uploadFile(request, response) {
 				//If there is a not empty id array => change the response's data
 
 				responseJson.code = messageConstants.SUCCESSFUL_CODE;
-				responseJson.message = messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE;
 				responseJson.data = ids;
 			})
 			.catch((error) => {
@@ -401,4 +438,5 @@ module.exports = {
 	getLecturerPagingSize,
 	getOneLecturerFromAccountId,
 	uploadFile,
+	deleteLecturerFile,
 };

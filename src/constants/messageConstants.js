@@ -81,6 +81,8 @@ module.exports = Object.freeze({
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
+	LECTURER_DELETE_FILE_SUCCESS_MESSAGE: 'Delete lecturer file successfully!',
+	LECTURER_DELETE_FILE_FAILED_MESSAGE: 'Delete lecturer file failed',
 	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: 'Get paging size successfully',
 	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: 'Get paging count failed',
 	LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE: 'Upload file successfully',
