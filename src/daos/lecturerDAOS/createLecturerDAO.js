@@ -677,6 +677,50 @@ function createDepartments(departments) {
 	});
 }
 
+function createLecturerFile(lecturerFiles) {
+	return new Promise((resolve, reject) => {
+		const query = [
+			`INSERT INTO lecturer_file (
+				lecturer_id, file_path, original_file_name,`,
+			`created_at,`,
+			`updated_at,`,
+			`is_deleted`,
+			`)`,
+			`VALUES ?`,
+		].join('');
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = lecturerFiles.map((file) => [
+			file.lecturerId,
+			file.path,
+			file.originalFileName,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created ones
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
 module.exports = {
 	createPhdThesises,
 	createBookAuthors,
@@ -692,4 +736,5 @@ module.exports = {
 	createBooks,
 	createDisciplines,
 	createDepartments,
+	createLecturerFile,
 };

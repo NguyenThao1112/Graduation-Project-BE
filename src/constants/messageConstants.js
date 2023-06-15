@@ -68,6 +68,8 @@ module.exports = Object.freeze({
 
 	//Get one lecturer API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
+	LECTURER_INVALID_CODE: 1,
+	LECTURER_VALID_CODE: 0,
 	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
 	LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE: 'Get one lecturer successfully!',
 	LECTURER_GET_ALL_INVALID_MESSAGE: 'Get lecturers failed',
@@ -81,6 +83,8 @@ module.exports = Object.freeze({
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
 	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: 'Get paging size successfully',
 	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: 'Get paging count failed',
+	LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE: 'Upload file successfully',
+	LECTURER_UPLOAD_FILE_FAILED_MESSAGE: 'Upload file failed',
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,

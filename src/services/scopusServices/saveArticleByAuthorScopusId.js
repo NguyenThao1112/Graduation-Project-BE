@@ -5,14 +5,18 @@ const createArticleService = require('../../services/articleServices/createArtic
 const { getJournalRanking } = require('./getJournalRankingService');
 const { SCOPUS_CONFIG } = require('../../constants/configConstants');
 const { chunkArray } = require('../../helpers/commonHelper');
-const { getConferenceRankByMultipleNames } = require('../getConferenceRankByNameService');
+const {
+	getConferenceRankByMultipleNames,
+} = require('../getConferenceRankByNameService');
 
 async function addComplexInformationForArticle(articleObject) {
-
 	const url = `${scopusConstants.SCOPUS_SEARCH_ABSTRACT_BY_ARTICLE_ID}/${articleObject.Scopus}`;
 	try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
-		articleObject = await scopusHelper.addComplexInformationForArticle(articleObject, axiosResponse.data);
+		articleObject = await scopusHelper.addComplexInformationForArticle(
+			articleObject,
+			axiosResponse.data
+		);
 		// console.log(articleObject);
 
 		return articleObject;
@@ -22,45 +26,47 @@ async function addComplexInformationForArticle(articleObject) {
 
 		return null;
 	}
-	
 }
 
 /**
- * 
- * @param {string} scopusId 
- * @returns {Promise<any>} 
+ *
+ * @param {string} scopusId
+ * @returns {Promise<any>}
  */
 async function getArticleByAuthorScopusId(scopusId) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_BASE_ARTICLE_BY_AUTHOR_ID}?query=AU-ID(${scopusId})`;
 	try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
-		const baseArticles = scopusHelper.parseBaseArticleFromScopusResponse(axiosResponse.data);
-		const baseArticleBatch = chunkArray(baseArticles, scopusConstants.SCOPUS_API_BATCH_SIZE);
+		const baseArticles = scopusHelper.parseBaseArticleFromScopusResponse(
+			axiosResponse.data
+		);
 		const articles = [];
+		const concurrencyLimit = 5;
 
-		for (const baseArticleBuffer of baseArticleBatch) {
-			const articleBuffer = await Promise.all(baseArticleBuffer.map(baseArticle => addComplexInformationForArticle(baseArticle)));
-			articles.push(...articleBuffer);
+		for (let i = 0; i < baseArticles.length; i += concurrencyLimit) {
+			const articlePromises = baseArticles
+				.slice(i, i + concurrencyLimit)
+				.map((baseArticle) => addComplexInformationForArticle(baseArticle));
+			const batchArticles = await Promise.all(articlePromises);
+			articles.push(...batchArticles);
 
-			//Sleep 2 second before calling another batch from Scopus, to avoid "To many request"
-			await new Promise(r => setTimeout(r, 10000));
+			// Sleep for a short duration before making the next batch of API calls
+			await new Promise((resolve) => setTimeout(resolve, 2000));
 		}
 
-		
 		return articles;
 	} catch (error) {
 		// handle any errors here
 		console.error(error);
-
 		return null;
 	}
 }
 
 /**
- * 
- * @param {string} authorScopusId 
+ *
+ * @param {string} authorScopusId
  * @returns {Promise<Number>} articleIds;
- * 
+ *
  */
 async function saveArticleByAuthorScopusId(authorScopusId) {
 	let articles = await getArticleByAuthorScopusId(authorScopusId);
@@ -80,33 +86,35 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 	return articleIds;
 }
 
-
 /**
- * @param {Object[]} articles 
+ * @param {Object[]} articles
  * @return {Object[]}
  */
- async function addRankingForArticle(articles) {
-	
+async function addRankingForArticle(articles) {
 	let result = articles;
 
 	//Map data ranking for journal
-	let issnArray = articles.map(article => article.ISSN ?? null).filter(issn => issn);
-	let conferenceArray = articles.filter(article => article.conference).map(article => article.conference);
+	let issnArray = articles
+		.map((article) => article.ISSN ?? null)
+		.filter((issn) => issn);
+	let conferenceArray = articles
+		.filter((article) => article.conference)
+		.map((article) => article.conference);
 
-	//Call API to get rank for journal and conference	
-	const [journalRankMap, conferenceRankMap]  = await Promise.all([
+	//Call API to get rank for journal and conference
+	const [journalRankMap, conferenceRankMap] = await Promise.all([
 		getJournalRanking(issnArray),
 		getConferenceRankByMultipleNames(conferenceArray),
 	]);
 
 	//Add ranking for article published from journal
-	let articlesWithJournalRank = result.map(article => {
+	let articlesWithJournalRank = result.map((article) => {
 		if (article.journal && article.ISSN && article.year) {
 			const normalizedIssn = scopusHelper.normalizeIssn(article.ISSN);
 			const year = article.year;
 
 			let percentile = null;
-			
+
 			if (journalRankMap.hasOwnProperty(normalizedIssn)) {
 				if (journalRankMap[normalizedIssn].hasOwnProperty(year)) {
 					percentile = journalRankMap[normalizedIssn][year];
@@ -116,11 +124,11 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 		}
 
 		return article;
-	})
+	});
 	result = articlesWithJournalRank;
 
 	//Add data ranking for article published from conference
-	let articleWithConferenceRank = result.map(article => {
+	let articleWithConferenceRank = result.map((article) => {
 		const conference = article.conference;
 		if (conference) {
 			article.rank = conferenceRankMap[conference];
@@ -132,7 +140,6 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 
 	return result;
 }
-
 
 module.exports = {
 	addComplexInformationForArticle,
