@@ -104,20 +104,24 @@ function createArticleFiles(article, articleFiles) {
 			return null;
 		}
 
-		const fileDtos = await uploadAndFormatFile(articleFiles);
+		return uploadAndFormatFile(articleFiles)
+		.then(fileDtos => {
+			
+			//Save the upload file metadata to database
+			const articleFileDtos = fileDtos.map((fileDto) => {
+				const articleFile = new ArticleFile();
+				articleFile.article = article;
+				articleFile.originalFileName = fileDto.originalFileName;
+				articleFile.path = fileDto.path;
+				return articleFile;
+			});
 
-		//Save the upload file metadata to database
-		const articleFileDtos = fileDtos.map((fileDto) => {
-			const articleFile = new ArticleFile();
-			articleFile.article = article;
-			articleFile.originalFileName = fileDto.originalFileName;
-			articleFile.path = fileDto.path;
-			return articleFile;
+			return articleDAO
+				.createArticleFiles(articleFileDtos)
+				.then((ids) => resolve(ids));
 		});
 
-		return articleDAO
-			.createArticleFiles(articleFileDtos)
-			.then((ids) => resolve(ids));
+		
 	}).catch((error) => {
 		console.log(error);
 	});
