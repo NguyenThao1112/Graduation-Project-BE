@@ -478,6 +478,9 @@ ALTER TABLE author CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE lecturer_information CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE university CONVERT TO CHARACTER SET utf8mb4;
 ALTER TABLE expertise CONVERT TO CHARACTER SET utf8mb4;
+ALTER TABLE academic_rank CONVERT TO CHARACTER SET utf8mb4;
+ALTER TABLE academic_title CONVERT TO CHARACTER SET utf8mb4;
+
 
 INSERT INTO contact_type(`id`, `name`, `created_at`, `updated_at`, `is_deleted`) VALUES 
     (1, 'email', SYSDATE(), SYSDATE(), 0),
@@ -485,3 +488,12 @@ INSERT INTO contact_type(`id`, `name`, `created_at`, `updated_at`, `is_deleted`)
     (3, 'phone', SYSDATE(), SYSDATE(), 0),
     (4, 'link', SYSDATE(), SYSDATE(), 0);
 
+INSERT INTO academic_rank(`id`, `name`, `created_at`, `updated_at`, `is_deleted`) VALUES 
+    (1, 'Phó giáo sư', SYSDATE(), SYSDATE(), 0),
+    (2, 'Giáo sư', SYSDATE(), SYSDATE(), 0);
+
+INSERT INTO academic_title(`id`, `name`, `created_at`, `updated_at`, `is_deleted`) VALUES 
+    (1, 'Cử nhân', SYSDATE(), SYSDATE(), 0),
+    (2, 'Thạc sĩ', SYSDATE(), SYSDATE(), 0),
+    (3, 'Tiến sĩ', SYSDATE(), SYSDATE(), 0),
+    (4, 'Tiến sĩ khoa học', SYSDATE(), SYSDATE(), 0);
