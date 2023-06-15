@@ -1772,6 +1772,35 @@ DELETE /api/v1/configs/university/delete
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
+### Discipline
+
+#### Get all discipline
+##### Request
+
+```http
+GET /api/v1/configs/discipline/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get discipline successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
 
 ## Lecturer API
 
