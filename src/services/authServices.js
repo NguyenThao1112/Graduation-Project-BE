@@ -270,11 +270,6 @@ function updateAccountTokenByEmail(email, token) {
 				accountDAO
 					.updateAccountToken(accountInformation)
 					.then((account) => {
-						console.log(
-							'🚀 ~ file: authServices.js:266 ~ .then ~ account:',
-							account
-						);
-
 						resolve(account);
 					})
 					.catch((err) => {

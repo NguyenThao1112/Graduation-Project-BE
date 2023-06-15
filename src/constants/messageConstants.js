@@ -17,10 +17,9 @@ module.exports = Object.freeze({
 
 	//Forget password's
 	AUTH_FORGET_PASSWORD_FAILED_CODE: 1,
-	AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE:
-		'Please login to the email for reseting password',
+	AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE: 'Check your email to reset password',
 	AUTH_FORGET_PASSWORD_FAILED_MESSAGE:
-		'There is something wrong on forgot password feature',
+		'Reset password failed, check your email',
 
 	//Forget password token verify's
 	AUTH_FORGET_PASSWORD_VERIFY_INVALID_CODE: 1,

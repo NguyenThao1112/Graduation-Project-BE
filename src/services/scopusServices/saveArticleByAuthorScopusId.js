@@ -17,7 +17,6 @@ async function addComplexInformationForArticle(articleObject) {
 			articleObject,
 			axiosResponse.data
 		);
-		// console.log(articleObject);
 
 		return articleObject;
 	} catch (error) {
