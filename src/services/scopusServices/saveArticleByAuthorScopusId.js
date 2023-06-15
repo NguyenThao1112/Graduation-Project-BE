@@ -41,17 +41,23 @@ async function getArticleByAuthorScopusId(scopusId) {
 			axiosResponse.data
 		);
 		const articles = [];
-		const concurrencyLimit = 5;
+		const concurrencyLimit = scopusConstants.SCOPUS_API_BATCH_SIZE;
 
 		for (let i = 0; i < baseArticles.length; i += concurrencyLimit) {
 			const articlePromises = baseArticles
 				.slice(i, i + concurrencyLimit)
 				.map((baseArticle) => addComplexInformationForArticle(baseArticle));
-			const batchArticles = await Promise.all(articlePromises);
-			articles.push(...batchArticles);
+
+			try {
+				const batchResponse = await Promise.allSettled(articlePromises);
+				const batchArticles = batchResponse.filter(response => "fulfilled" === response.status && !!response.value).map(response => response.value);
+				articles.push(...batchArticles);
+			} catch (error) {
+				//do nothing
+			}
 
 			// Sleep for a short duration before making the next batch of API calls
-			await new Promise((resolve) => setTimeout(resolve, 2000));
+			// await new Promise((resolve) => setTimeout(resolve, 2000));
 		}
 
 		return articles;
