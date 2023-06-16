@@ -735,6 +735,30 @@ function getAllDiscipline() {
 	});
 }
 
+/****************************************************************
+ **************************EXPERTISE*****************************
+ ****************************************************************/
+
+
+/**
+ * Get all the expertise
+ *
+ * @return {Promise}
+ *
+ */
+ function getAllExpertise() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllExpertise()
+			.then((expertises) => {
+				resolve(expertises);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -783,4 +807,7 @@ module.exports = {
 
 	//Disciplines
 	getAllDiscipline,
+
+	//Expertise
+	getAllExpertise,
 };

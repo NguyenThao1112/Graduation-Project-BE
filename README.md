@@ -1803,6 +1803,35 @@ GET /api/v1/configs/discipline/fetch-all
 }
 ```
 
+### Expertise
+
+#### Get all expertise
+##### Request
+
+```http
+GET /api/v1/configs/expertise/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get expertise successfully",
+    "data": [
+        {
+            "name": "Test 0",
+            "code": "TEST1",
+        },
+
+        {
+            "name": "Test 1",
+            "code": "TEST1",
+        }
+    ]
+}
+```
+
 
 ## Lecturer API
 
@@ -1992,16 +2021,17 @@ POST /api/v1/lecturers/create
 #### Request
 
 ```http
-GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=asc&universityIds=1,2,3,4,5
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=asc&universityIds=1,2,3,4,5&expertiseCodes=1,2,3,4
 ```
 
-| Param        | Datatype               | Note                                                    |
-| ------------ | ---------------------- | ------------------------------------------------------- |
-| pageOffset   | integer greater than 0 | required, using 1-indexing                              |
-| limitSize    | integer greater than 0 | required, maximum number of records to return           |
-| keyword      | string                 | not require, the keyword to search the Article with its |
-| sort         | must in ['asc', 'desc']| not require, ordering of sort by name                   |
-| universityIds| array of integer       | not require, find lecturer which has all university     |
+| Param         | Datatype               | Note                                                    |
+| ------------- | ---------------------- | ------------------------------------------------------- |
+| pageOffset    | integer greater than 0 | required, using 1-indexing                              |
+| limitSize     | integer greater than 0 | required, maximum number of records to return           |
+| keyword       | string                 | not require, the keyword to search the Article with its |
+| sort          | must in ['asc', 'desc']| not require, ordering of sort by name                   |
+| universityIds | array of integer       | not require, find lecturer which has all university     |
+| expertiseCodes| array of integer       | not require, find lecturer which has all expertises     |
 
 #### Success response
 

@@ -172,11 +172,18 @@ function getLecturersWithPagination(request, response) {
 			sort = "ASC";
 		}
 
+		let expertiseCodes = [];
+        const expertiseCodeRaw = request.query.expertiseCodes;
+        if (expertiseCodeRaw) {
+            expertiseCodes = expertiseCodeRaw.split(",");
+        }
+
 		const options = {
 			// @ts-ignore
 			searchByKeyword: request.query.keyword ?? undefined,
 			universityIds,
 			sort,
+			expertiseCodes,
 		};
 
 		searchLecturerServices

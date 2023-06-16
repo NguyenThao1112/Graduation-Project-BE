@@ -213,6 +213,28 @@ async function getBaseLecturers(option = null) {
                 }
             }
 
+			//Check if there is search with expertise codes criteria
+			if (option.hasOwnProperty('expertiseCodes')) {
+				const expertiseCodes = option.expertiseCodes;
+				if (Array.isArray(expertiseCodes) && expertiseCodes.length > 0) {
+					query = [
+						query,
+						'AND NOT EXISTS (',
+							'SElECT 1',
+							'FROM expertise AS e1',
+							'WHERE e1.code IN (?) AND NOT EXISTS (',
+								'SELECT 1',
+								'FROM lecturer_information AS a2',
+								'WHERE a.id = a2.id AND a.id = e1.lecturer_id',
+							')',
+						')',
+					].join(' '),
+
+					bindingValues.push(option.expertiseCodes);
+				}
+			}
+
+			//Ordering
 			if (option.hasOwnProperty('sort') && option.sort) {
 				query = [
 					query,

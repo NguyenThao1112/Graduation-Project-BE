@@ -131,4 +131,12 @@ module.exports = Object.freeze({
 	CONFIG_DISCIPLINE_CREATE: `/create`,
 	CONFIG_DISCIPLINE_UPDATE: `/:id/update`,
 	CONFIG_DISCIPLINE_DELETE: `/delete`,
+
+	//Expertise API
+	CONFIG_EXPERTISE_API_URL: `/expertise`,
+	CONFIG_EXPERTISE_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_EXPERTISE_GET_ALL: `/fetch-all`,
+	CONFIG_EXPERTISE_CREATE: `/create`,
+	CONFIG_EXPERTISE_UPDATE: `/:id/update`,
+	CONFIG_EXPERTISE_DELETE: `/delete`,
 });

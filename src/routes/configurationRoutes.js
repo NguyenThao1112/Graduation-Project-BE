@@ -196,4 +196,12 @@ router.delete(
 	configController.getAllDisciplines,
 );
 
+/****************************************************************
+ **************************EXPERTISE******************************
+ ****************************************************************/
+ router.get(
+	`${urls.CONFIG_EXPERTISE_API_URL}${urls.CONFIG_EXPERTISE_GET_ALL}`,
+	configController.getAllExpertise,
+);
+
 module.exports = router;
