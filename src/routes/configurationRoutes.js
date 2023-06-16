@@ -188,4 +188,12 @@ router.delete(
 	configController.deleteUniversities
 );
 
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+ router.get(
+	`${urls.CONFIG_DISCIPLINE_API_URL}${urls.CONFIG_DISCIPLINE_GET_ALL}`,
+	configController.getAllDisciplines,
+);
+
 module.exports = router;

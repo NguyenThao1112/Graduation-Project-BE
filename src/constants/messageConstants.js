@@ -233,4 +233,9 @@ module.exports = Object.freeze({
 		'Retrieve conference rank failed',
 	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE:
 		'Retrieve conference rank successfully',
+
+	//Discipline API
+	CONFIG_DISCIPLINE_INVALID_CODE: 1,
+	CONFIG_DISCIPLINE_INVALID_MESSAGE: 'Something went wrong from the backend',
+	CONFIG_DISCIPLINE_SUCCESS_MESSAGE: 'Get discipline successfully',
 });

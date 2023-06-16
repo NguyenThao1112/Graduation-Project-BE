@@ -710,6 +710,31 @@ function deleteUniversities(universityIds) {
 	});
 }
 
+
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+
+
+/**
+ * Get all the discipline
+ *
+ * @return {Promise}
+ *
+ */
+function getAllDiscipline() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllDiscipline()
+			.then((disciplines) => {
+				resolve(disciplines);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -755,4 +780,7 @@ module.exports = {
 	deleteUniversities,
 	
 	//Books
+
+	//Disciplines
+	getAllDiscipline,
 };

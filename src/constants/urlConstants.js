@@ -123,4 +123,12 @@ module.exports = Object.freeze({
 	SCOPUS_GET_ARTICLE_BY_DOI_URL: '/article/',
 
 	SCOPUS_GET_CONFERENCE_RANK_BY_NAME: '/conference',
+
+	//Discipline API
+	CONFIG_DISCIPLINE_API_URL: `/discipline`,
+	CONFIG_DISCIPLINE_GET_WITH_PAGINATION: `/fetch`,
+	CONFIG_DISCIPLINE_GET_ALL: `/fetch-all`,
+	CONFIG_DISCIPLINE_CREATE: `/create`,
+	CONFIG_DISCIPLINE_UPDATE: `/:id/update`,
+	CONFIG_DISCIPLINE_DELETE: `/delete`,
 });

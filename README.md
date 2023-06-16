@@ -438,13 +438,15 @@ GET /api/v1/lecturers/fetch-all
 #### Request
 
 ```http
-GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=desc&universityIds=1,2,3,4
 ```
 
-| Param      | Datatype               | Note                                |
-| ---------- | ---------------------- | ----------------------------------- |
-| pageOffset | integer greater than 0 | using 1-indexing                    |
-| limitSize  | integer greater than 0 | maximum number of records to return |
+| Param        | Datatype               | Note                                   |
+| ------------ | ---------------------- | -------------------------------------- |
+| pageOffset   | integer greater than 0 | using 1-indexing                       |
+| limitSize    | integer greater than 0 | maximum number of records to return    |
+| sort         | must in ['asc', 'desc']| ordering of sort by name               |
+| universityIds| array of integer       | find lecturer which has all university |
 
 #### Success response
 
@@ -1772,6 +1774,35 @@ DELETE /api/v1/configs/university/delete
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
+### Discipline
+
+#### Get all discipline
+##### Request
+
+```http
+GET /api/v1/configs/discipline/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get discipline successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
 
 ## Lecturer API
 
@@ -1961,14 +1992,16 @@ POST /api/v1/lecturers/create
 #### Request
 
 ```http
-GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=asc&universityIds=1,2,3,4,5
 ```
 
-| Param      | Datatype               | Note                                                    |
-| ---------- | ---------------------- | ------------------------------------------------------- |
-| pageOffset | integer greater than 0 | required, using 1-indexing                              |
-| limitSize  | integer greater than 0 | required, maximum number of records to return           |
-| keyword    | string                 | not require, the keyword to search the Article with its |
+| Param        | Datatype               | Note                                                    |
+| ------------ | ---------------------- | ------------------------------------------------------- |
+| pageOffset   | integer greater than 0 | required, using 1-indexing                              |
+| limitSize    | integer greater than 0 | required, maximum number of records to return           |
+| keyword      | string                 | not require, the keyword to search the Article with its |
+| sort         | must in ['asc', 'desc']| not require, ordering of sort by name                   |
+| universityIds| array of integer       | not require, find lecturer which has all university     |
 
 #### Success response
 
@@ -2791,7 +2824,7 @@ GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
 #### Request
 
 ```http
-GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
+GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc
 ```
 
 | Param      | Datatype               | Note                                                    |
@@ -2799,6 +2832,8 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
 | pageOffset | integer greater than 0 | required, using 1-indexing                              |
 | limitSize  | integer greater than 0 | required, maximum number of records to return           |
 | keyword    | string                 | not require, the keyword to search the Article with its |
+| sort       | must in ['asc', 'desc']| not require, ordering of sort by name                   |
+
 
 #### Success response
 

@@ -1151,6 +1151,36 @@ function createUniversities(universities) {
 	});
 }
 
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllDiscipline() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name`,
+			'FROM discipline',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+		].join(' ');
+
+		let disciplines = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			disciplines = results;
+			resolve(disciplines);
+		});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -1200,4 +1230,7 @@ module.exports = {
 	getUniversityById,
 	updateUniversity,
 	deleteUniversities,
+
+	//Disciplines
+	getAllDiscipline,
 };

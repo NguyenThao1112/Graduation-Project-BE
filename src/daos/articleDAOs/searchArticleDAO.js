@@ -95,6 +95,7 @@ function getBaseArticles(option = null) {
             ].join(' ');
         let fromStatement = 'FROM article as a';
         let whereStatement = 'WHERE a.is_deleted = false';
+        let orderStatement = `ORDER BY a.id ASC`;
         let paginationStatement = '';
         let bindingValues = [];
         
@@ -138,13 +139,18 @@ function getBaseArticles(option = null) {
                     } 
 
             }
+
+            //Order
+            if (option.hasOwnProperty('sort') && option.sort) {
+				orderStatement =`ORDER BY name ${option.sort}`;
+			}
         }
         
         const query = [
             selectStatement,
             fromStatement,
             whereStatement,
-            `ORDER BY a.id ASC`,
+            orderStatement,
             paginationStatement,
         ].join(' ');
     
