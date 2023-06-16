@@ -1646,6 +1646,44 @@ GET /api/v1/configs/university/fetch-all
 }
 ```
 
+#### Get all university to filter
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch-all-to-filter
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+
 #### Create multiple universities
 
 ##### Request
