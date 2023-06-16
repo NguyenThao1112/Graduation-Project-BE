@@ -204,4 +204,9 @@ router.delete(
 	configController.getAllExpertise,
 );
 
+router.get(
+	`${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_ALL}-to-filter`,
+	configController.getAllUniversityToFilter
+);
+
 module.exports = router;

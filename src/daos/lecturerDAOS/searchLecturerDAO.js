@@ -146,7 +146,7 @@ async function getBaseLecturers(option = null) {
 
 		const bindingValues = [];
 		let query = selectStatement;
-
+		
 		if (option !== null) {
 			if (
 				option.hasOwnProperty('searchByKeyword') &&

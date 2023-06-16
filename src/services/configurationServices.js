@@ -759,6 +759,25 @@ function getAllDiscipline() {
 	});
 }
 
+/**
+ * Get all the university
+ *
+ * @return {Promise}
+ *
+ */
+ function getAllUniversityToFilter() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllUniversityToFilter()
+			.then((universities) => {
+				resolve(universities);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -810,4 +829,6 @@ module.exports = {
 
 	//Expertise
 	getAllExpertise,
+
+	getAllUniversityToFilter,
 };
