@@ -189,30 +189,9 @@ function createResearchFields(researchFields, lecturer) {
 //bằng cấp
 function createExpertises(expertises, lecturer) {
 	return new Promise((resolve, reject) => {
-		if (!expertises || expertises.length <= 2) {
-			let newExpertises = [
-				{
-					title: 'Lĩnh vực',
-					specialization: null,
-				},
-				{
-					title: 'Chuyên ngành',
-					specialization: null,
-				},
-			];
-			if (expertises) {
-				for (let i = 0; i < newExpertises.length; i++) {
-					for (let j = 0; j < expertises.length; j++) {
-						if (newExpertises[i].title === expertises[j].title) {
-							newExpertises[i].specialization = expertises[j].specialization;
-						}
-					}
-				}
-			}
-			return createLecturerDAO
-				.createExpertises(newExpertises, lecturer)
-				.then((ids) => resolve(ids))
-				.catch((err) => console.log(err));
+		if (!expertises) {
+			resolve(null);
+			return null;
 		}
 
 		return createLecturerDAO

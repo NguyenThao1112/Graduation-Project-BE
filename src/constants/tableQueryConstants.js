@@ -67,6 +67,7 @@ const expertise = [
 	'lecturer_id as lecturerId',
 	'title',
 	'specialization',
+	'code',
 ];
 
 const researchField = [

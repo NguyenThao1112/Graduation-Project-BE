@@ -8,49 +8,49 @@ const uploadFileMiddlewares = require('../middlewares/uploadFileMiddlewares');
 const configConstants = require('../constants/configConstants');
 const commonValidators = require('../validators/commonValidators');
 
-
 router.get(
-    `${urls.ARTICLE_GET_WITH_PAGINATION}`, 
-    commonValidators.getPaginationValidators(),
-    articleController.getArticlesWithPagination
+	`${urls.ARTICLE_GET_WITH_PAGINATION}`,
+	commonValidators.getPaginationValidators(),
+	articleController.getArticlesWithPagination
 );
 
 router.post(
-    `${urls.ARTICLE_GET_ALL_WITH_LECTURER_ID}`,
-    articleController.getArticlesByLecturerIds
-)
+	`${urls.ARTICLE_GET_ALL_WITH_LECTURER_ID}`,
+	articleController.getArticlesByLecturerIds
+);
 
 router.post(
-    `${urls.ARTICLE_CREATE}`, 
-    fileUpload({createParentPath: true}),
-    uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),
-    uploadFileMiddlewares.checkFileSizeLimit,
-    articleController.createArticle
+	`${urls.ARTICLE_CREATE}`,
+	fileUpload({ createParentPath: true }),
+	uploadFileMiddlewares.checkFileExtension(
+		configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT
+	),
+	uploadFileMiddlewares.checkFileSizeLimit,
+	articleController.createArticle
 );
 
 router.put(
-    `${urls.ARTICLE_UPDATE}`, 
-    fileUpload({createParentPath: true}),
-    uploadFileMiddlewares.checkFileExtension(configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT),
-    uploadFileMiddlewares.checkFileSizeLimit,
-    articleController.updateArticle
+	`${urls.ARTICLE_UPDATE}`,
+	fileUpload({ createParentPath: true }),
+	uploadFileMiddlewares.checkFileExtension(
+		configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT
+	),
+	uploadFileMiddlewares.checkFileSizeLimit,
+	articleController.updateArticle
 );
 
-router.delete(
-    `${urls.ARTICLE_DELETE}`, 
-    articleController.deleteArticles
+router.delete(`${urls.ARTICLE_DELETE}`, articleController.deleteArticles);
+
+router.get(
+	`${urls.ARTICLE_PAGE_SIZE}`,
+	commonValidators.getPageSizeValidator(),
+	articleController.getArticlePagingSize
 );
 
 router.get(
-    `${urls.ARTICLE_PAGE_SIZE}`, 
-    commonValidators.getPageSizeValidator(),
-    articleController.getArticlePagingSize
+	`${urls.ARTICLE_GET_ONE_ARTICLE}`,
+	commonValidators.getIdValidator(),
+	articleController.getArticleById
 );
-
-router.get(
-    `${urls.ARTICLE_GET_ONE_ARTICLE}`,
-    commonValidators.getIdValidator(),
-    articleController.getArticleById
-)
 
 module.exports = router;

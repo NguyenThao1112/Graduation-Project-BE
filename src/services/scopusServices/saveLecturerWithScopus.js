@@ -30,7 +30,18 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			authorResponse['author-profile']['affiliation-current']['affiliation'][
 				'ip-doc'
 			];
-		
+
+		const subjectAreaScopus = authorResponse['subject-areas']['subject-area'];
+		let currentExpertiseArr = [];
+		if (subjectAreaScopus && subjectAreaScopus.length > 0) {
+			for (let i = 0; i < subjectAreaScopus.length; i++) {
+				currentExpertiseArr.push({
+					code: subjectAreaScopus[i]['@abbrev'] + subjectAreaScopus[i]['@code'],
+					specialization: subjectAreaScopus[i]['$'],
+				});
+			}
+		}
+
 		let currentUniversityObject = null;
 		if (currentUniversity) {
 			currentUniversityObject = [
@@ -39,9 +50,9 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 						currentUniversity && currentUniversity['afdispname']
 							? currentUniversity['afdispname']
 							: null,
-					address: currentUniversity 
-							? scopusHelper.modifyAddress(currentUniversity['address'])
-							: null,
+					address: currentUniversity
+						? scopusHelper.modifyAddress(currentUniversity['address'])
+						: null,
 				},
 			];
 		}
@@ -59,7 +70,7 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 		const historyUniversityIds = await createUniversities(
 			historyUniversityList
 		);
-		
+
 		if (null !== currentUniversityObject) {
 			const currentUniversityIds = await createUniversities(
 				currentUniversityObject
@@ -96,6 +107,7 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			expandColumn: expandColumn,
 			contacts: contacts,
 			currentDiscipline,
+			expertises: currentExpertiseArr,
 			workPositions: historyUniversityIds.map((ele) => {
 				return {
 					universityId: ele,
