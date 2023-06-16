@@ -34,7 +34,7 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 		const subjectAreaScopus = authorResponse['subject-areas']['subject-area'];
 		let currentExpertiseArr = [];
 		if (subjectAreaScopus && subjectAreaScopus.length > 0) {
-			for (let i = 0; i < subjectAreaScopus.length; i++) {
+			for (let i = 0; i < 5; i++) {
 				currentExpertiseArr.push({
 					code: subjectAreaScopus[i]['@abbrev'] + subjectAreaScopus[i]['@code'],
 					specialization: subjectAreaScopus[i]['$'],
