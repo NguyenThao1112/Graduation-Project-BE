@@ -345,11 +345,28 @@ function getLecturerPagingSize(request, response) {
 		};
 
 		const limitSize = parseInt(request.query.limitSize);
-		const keyword = request.query.keyword ?? null;
+		const keyword = request.query.keyword ?? undefined;
+		let universityIds = [];
+        const universityIdRaw = request.query.universityIds;
+        if (universityIdRaw) {
+            universityIds = universityIdRaw.split(",");
+		}
+		let expertiseCodes = [];
+        const expertiseCodeRaw = request.query.expertiseCodes;
+        if (expertiseCodeRaw) {
+            expertiseCodes = expertiseCodeRaw.split(",");
+        }
+
+		const options = {
+			limitSize,
+			searchByKeyword: keyword,
+			expertiseCodes,
+			universityIds,
+		}
 
 		//Try to get the number of page with paging size
 		searchLecturerServices
-			.getLecturerPagingSize(limitSize, keyword)
+			.getLecturerPagingSize(options)
 			.then((pagingSize) => {
 				//If there is a not-null data => change the response's data
 				if (-1 !== pagingSize) {
