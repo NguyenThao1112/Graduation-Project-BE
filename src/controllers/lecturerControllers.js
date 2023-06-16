@@ -162,14 +162,14 @@ function getLecturersWithPagination(request, response) {
 		const limitSize = parseInt(request.query.limitSize);
 
 		let universityIds = [];
-        const universityIdRaw = request.query.universityIds;
-        if (universityIdRaw) {
-            universityIds = universityIdRaw.split(",");
-        }
+		const universityIdRaw = request.query.universityIds;
+		if (universityIdRaw) {
+			universityIds = universityIdRaw.split(',');
+		}
 
-		let sort = request.query.sort ?? "ASC";
-		if (!["ASC", "DESC"].includes(sort.toUpperCase())) {
-			sort = "ASC";
+		let sort = request.query.sort ?? 'ASC';
+		if (!['ASC', 'DESC'].includes(sort.toUpperCase())) {
+			sort = 'ASC';
 		}
 
 		let expertiseCodes = [];
