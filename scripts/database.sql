@@ -386,6 +386,7 @@ CREATE TABLE expertise (
     lecturer_id INT DEFAULT NULL,
     title VARCHAR(255) DEFAULT NULL,
     specialization VARCHAR(255) DEFAULT NULL,
+    code VARCHAR(255) DEFAULT NULL,
 
     created_at DATETIME,
     updated_at DATETIME,
