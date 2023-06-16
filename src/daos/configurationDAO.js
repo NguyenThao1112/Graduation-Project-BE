@@ -1193,7 +1193,7 @@ function createUniversities(universities) {
  function getAllExpertise() {
 	return new Promise(function (resolve, reject) {
 		const query = [
-			`SELECT DISTINCT name, code`,
+			`SELECT DISTINCT specialization, code`,
 			'FROM expertise',
 			queryConstants.FILTER_DELETED_RECORD_QUERY,
 			`ORDER BY code ASC`,
