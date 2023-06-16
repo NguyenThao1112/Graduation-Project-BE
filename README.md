@@ -2818,13 +2818,15 @@ DELETE /api/v1/lecturers/delete
 #### Request
 
 ```http
-GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
+GET /api/v1/lecturers/page-size?limitSize=10&keyword=test&universityIds=1,2,3&expertiseCodes=1,2,3
 ```
 
-| Param     | Datatype               | Note                                                          |
-| --------- | ---------------------- | ------------------------------------------------------------- |
-| limitSize | integer greater than 0 | required, maximum number of records to return                 |
-| keyword   | string                 | not require, the keyword to search the Lecturer with their id |
+| Param         | Datatype               | Note                                                          |
+| ------------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize     | integer greater than 0 | required, maximum number of records to return                 |
+| keyword       | string                 | not require, the keyword to search the Lecturer with their id |
+| universityIds | array of integer       | not require, find lecturer which has all university           |
+| expertiseCodes| array of string        | not require, find lecturer which has all expertises           |
 
 #### Success response
 

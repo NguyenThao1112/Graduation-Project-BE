@@ -219,15 +219,15 @@ async function getBaseLecturers(option = null) {
 				if (Array.isArray(expertiseCodes) && expertiseCodes.length > 0) {
 					query = [
 						query,
-						'AND NOT EXISTS (',
-							'SElECT 1',
-							'FROM expertise AS e1',
-							'WHERE e1.code IN (?) AND NOT EXISTS (',
-								'SELECT 1',
-								'FROM lecturer_information AS a2',
-								'WHERE a.id = a2.id AND a.id = e1.lecturer_id',
-							')',
-						')',
+						'AND NOT EXISTS (' ,
+                            'SElECT 1 ',
+                            'FROM (SELECT DISTINCT code FROM expertise) as temp',
+                            'WHERE temp.code IN (?) AND NOT EXISTS ( ',
+                                'SELECT 1',
+                                'FROM expertise AS e' ,
+                                `WHERE e.code = temp.code and a.id = e.lecturer_id`,
+                            ')',
+                        ')',
 					].join(' '),
 
 					bindingValues.push(option.expertiseCodes);

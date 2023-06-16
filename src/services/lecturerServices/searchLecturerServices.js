@@ -156,18 +156,12 @@ function getOneLecturer(lecturerIds) {
 /**
  * Get paging size, after pagination process
  *
- * @param {number} limitSize maximum number of record in a page
- * @param {string} keyword the keyword to search
+ * @param {Object} options 
  * @return {Promise<>}
  *
  */
-function getLecturerPagingSize(limitSize, keyword = '') {
-	let options = null;
-	if (null !== keyword) {
-		options = {
-			searchByKeyword: keyword,
-		};
-	}
+function getLecturerPagingSize(options) {
+	const limitSize = options.limitSize;
 
 	return new Promise((resolve, reject) => {
 		searchLecturerDAO
