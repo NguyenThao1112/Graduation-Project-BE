@@ -167,8 +167,14 @@ const commonHelper = require('../helpers/commonHelper');
                 request.query.limitSize
             );
 
+        let sort = request.query.sort ?? "ASC";
+        if (!["ASC", "DESC"].includes(sort.toUpperCase())) {
+            sort = "ASC";
+        }
+
         const options = {
             searchByKeyword: request.query.keyword ?? undefined,
+            sort,
         }
 
         //Try to get all the article with pagination from the database

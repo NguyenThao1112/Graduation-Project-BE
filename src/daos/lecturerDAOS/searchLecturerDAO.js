@@ -191,6 +191,34 @@ async function getBaseLecturers(option = null) {
 				query += ' AND a.scopus_id IN (?)';
 				bindingValues.push(option.scopusIds);
 			}
+
+			//Check if there is search with university criteria
+            if (option.hasOwnProperty('universityIds')) {
+                const universityIds = option.universityIds;
+                if (Array.isArray(universityIds) && universityIds.length > 0) {
+                    query = [
+						query,
+						'AND NOT EXISTS (',
+							'SElECT 1',
+							'FROM university AS u1',
+							'WHERE u1.id IN (?) AND NOT EXISTS (',
+								'SELECT 1',
+								'FROM work_position AS wp2',
+								'WHERE a.id = wp2.lecturer_id AND u1.id = wp2.university_id',
+							')',
+						')',
+					].join(' '),
+
+					bindingValues.push(option.universityIds);
+                }
+            }
+
+			if (option.hasOwnProperty('sort') && option.sort) {
+				query = [
+					query,
+					`ORDER BY name ${option.sort}`
+				].join(' ');
+			}
 		}
 
 		const results = await new Promise((resolve, reject) => {
