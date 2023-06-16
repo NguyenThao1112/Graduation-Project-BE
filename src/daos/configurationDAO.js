@@ -1181,6 +1181,36 @@ function createUniversities(universities) {
 	});
 }
 
+/****************************************************************
+ **************************EXPERTISE*****************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the expertise
+ *
+ * @return {Promise}
+ */
+ function getAllExpertise() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT specialization, code`,
+			'FROM expertise',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY code ASC`,
+		].join(' ');
+
+		let expertises = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			expertises = results;
+			resolve(expertises);
+		});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -1233,4 +1263,7 @@ module.exports = {
 
 	//Disciplines
 	getAllDiscipline,
+
+	//Expertise
+	getAllExpertise,
 };

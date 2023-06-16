@@ -238,4 +238,9 @@ module.exports = Object.freeze({
 	CONFIG_DISCIPLINE_INVALID_CODE: 1,
 	CONFIG_DISCIPLINE_INVALID_MESSAGE: 'Something went wrong from the backend',
 	CONFIG_DISCIPLINE_SUCCESS_MESSAGE: 'Get discipline successfully',
+
+	//Experties API
+	CONFIG_EXPERTISE_INVALID_CODE: 1,
+	CONFIG_EXPERTISE_INVALID_MESSAGE: 'Something went wrong from the backend',
+	CONFIG_EXPERTISE_SUCCESS_MESSAGE: 'Get expertise successfully',
 });

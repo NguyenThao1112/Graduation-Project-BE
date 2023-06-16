@@ -1393,6 +1393,46 @@ function getAllDisciplines(request, response) {
 	});
 }
 
+/****************************************************************
+ *************************EXPERTIES******************************
+ ****************************************************************/
+
+/**
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getAllExpertise(request, response) {
+	return new Promise((resolve, reject) => {
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.CONFIG_EXPERTISE_INVALID_CODE,
+			message: messageConstants.CONFIG_EXPERTISE_INVALID_MESSAGE,
+		};
+
+		//Try to get all the expertises from the database
+		configurationService
+			.getAllExpertise()
+			.then((expertises) => {
+				//If there is a not-null expertises => change the response's data
+				if (expertises) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =messageConstants.CONFIG_EXPERTISE_SUCCESS_MESSAGE;
+					responseJson.data = expertises;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+
+
 module.exports = {
 	//Contact types
 	getContactTypesWithPagination,
@@ -1438,4 +1478,7 @@ module.exports = {
 
 	//Disciplines
 	getAllDisciplines,
+
+	//Expertises
+	getAllExpertise,
 };
