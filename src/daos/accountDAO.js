@@ -1,5 +1,6 @@
 const connection = require('../configs/database');
 const configConstants = require('../constants/configConstants');
+const messageQueryConstants = require('../constants/messageQueryConstants');
 const moment = require('moment');
 
 /**
@@ -12,7 +13,7 @@ function getAccountByEmail(email) {
 		const query = [
 			'SELECT id, email, password, role, is_deleted, token',
 			'FROM account',
-			'WHERE email = ?',
+			`${messageQueryConstants.FILTER_DELETED_RECORD_QUERY} AND email = ?`,
 			'LIMIT 1',
 		].join(' ');
 
