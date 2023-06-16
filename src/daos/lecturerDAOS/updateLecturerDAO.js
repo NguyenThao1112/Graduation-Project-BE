@@ -314,6 +314,9 @@ function updateResearchFields(researchFields, lecturer) {
  */
 function updateExpertises(expertises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!expertises || !expertises.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO expertise (`,
 			`id, lecturer_id,title,specialization, created_at,updated_at, is_deleted)`,
