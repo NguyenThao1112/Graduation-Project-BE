@@ -1211,6 +1211,34 @@ function createUniversities(universities) {
 	});
 }
 
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllUniversityToFilter() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT u.id, u.name`,
+			'FROM work_position as wp',
+				'JOIN university as u ON wp.university_id = u.id',
+			'WHERE wp.is_deleted = false',
+			`ORDER BY u.id ASC`,
+		].join(' ');
+
+		let universities = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -1266,4 +1294,6 @@ module.exports = {
 
 	//Expertise
 	getAllExpertise,
+
+	getAllUniversityToFilter,
 };
