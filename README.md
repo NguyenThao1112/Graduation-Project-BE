@@ -2894,15 +2894,17 @@ GET /api/v1/lecturers/page-size?limitSize=10&keyword=test&universityIds=1,2,3&ex
 #### Request
 
 ```http
-GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc
+GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc&isExport=true&fromYear=2023
 ```
 
-| Param      | Datatype               | Note                                                    |
-| ---------- | ---------------------- | ------------------------------------------------------- |
-| pageOffset | integer greater than 0 | required, using 1-indexing                              |
-| limitSize  | integer greater than 0 | required, maximum number of records to return           |
-| keyword    | string                 | not require, the keyword to search the Article with its |
-| sort       | must in ['asc', 'desc']| not require, ordering of sort by name                   |
+| Param      | Datatype                 | Note                                                    |
+| ---------- | ------------------------ | ------------------------------------------------------- |
+| pageOffset | integer greater than 0   | required, using 1-indexing                              |
+| limitSize  | integer greater than 0   | required, maximum number of records to return           |
+| keyword    | string                   | not require, the keyword to search the Article with its |
+| sort       | must in ['asc', 'desc']  | not require, ordering of sort by name                   |
+| isExport   | must in ['true', 'false']| not require, to excel export                            |
+| fromYear   | integer                  | not require, to filter                                  |
 
 
 #### Success response

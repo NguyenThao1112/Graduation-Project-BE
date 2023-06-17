@@ -5,6 +5,8 @@ const searchArticleService = require('../services/articleServices/searchArticleS
 const messageConstants = require('../constants/messageConstants');
 const validatorHelper = require('../helpers/validatorHelper');
 const commonHelper = require('../helpers/commonHelper');
+const path = require("path");
+const fs = require("fs");
 
 /**
  * Create an article
@@ -162,28 +164,76 @@ function getArticlesWithPagination(request, response) {
 			sort = 'ASC';
 		}
 
+		let isExport = request.query.isExport ?? false;
+		if (!!isExport) {
+			if (!["true", "false"].includes(isExport.trim().toLowerCase())) {
+				isExport = false;
+			} else {
+				isExport = (isExport == "true");
+			}
+		}
+
+		let fromYear = request.query.fromYear ?? undefined;
+		try {
+			fromYear = parseInt(fromYear);
+		} catch (err) {
+			fromYear = undefined;
+		}
+
 		const options = {
 			searchByKeyword: request.query.keyword ?? undefined,
 			sort,
+			isExport,
+			fromYear,
 		};
 
 		//Try to get all the article with pagination from the database
 		searchArticleService
 			.getArticlesWithPagination(pageOffset, limitSize, options)
-			.then((articleDatas) => {
+			.then((data) => {
+
 				//If there is a not-null data => change the response's data
-				if (articleDatas) {
-					responseJson.code = messageConstants.SUCCESSFUL_CODE;
-					responseJson.message = messageConstants.ARTICLE_GET_SUCCESS_MESSAGE;
-					responseJson.data = articleDatas;
+				if (data) {
+
+					if (!isExport) {
+						responseJson.code = messageConstants.SUCCESSFUL_CODE;
+						responseJson.message = messageConstants.ARTICLE_GET_SUCCESS_MESSAGE;
+						responseJson.data = data;
+						response.json(responseJson);
+					} else {
+
+						//Export process 
+						const {workbook, excelFileName} = data;
+						const filePath = path.join(__dirname, "../../resources", `${excelFileName}`);
+						
+						return workbook.xlsx
+							.writeFile(path.join("resources", excelFileName))
+							.then(res => {
+								response.download(filePath, excelFileName, error => {
+									if (error) {
+										console.log(error);
+										res.sendStatus(500);
+									}
+
+									//Delete file from temp storage after sending
+									fs.unlink(filePath, function (err, stats) {
+									 
+										if (err) {
+											return console.error(err);
+										}
+									 
+									 });
+								});
+							});
+					}
 				}
 			})
 			.catch((error) => {
 				console.log(error);
 			})
-			.finally(() => {
-				response.json(responseJson);
-			});
+			// .finally(() => {
+			// 	response.json(responseJson);
+			// });
 	});
 }
 

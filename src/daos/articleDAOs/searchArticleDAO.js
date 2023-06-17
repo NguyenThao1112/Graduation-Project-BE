@@ -126,26 +126,40 @@ function getBaseArticles(option = null) {
                 bindingValues.push(articleIds);
             }
 
-            //Check if there is pagination option
-            if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
-
-                if ((option.hasOwnProperty('offset') && (undefined !== option.offset)) && 
-                    (option.hasOwnProperty('limit') && (undefined !== option.limit))) {
-
-                        const {offset, limitSize} = option.pagination;
-                        [offset, limitSize].forEach(bindingValue => {
-                            bindingValues.push(bindingValue);
-                        });
-
-                        paginationStatement = 'LIMIT ?, ?';
-                    } 
-
+            //Check if there is search article by year
+            if (option.hasOwnProperty('fromYear') && option.fromYear) {
+                whereStatement = `${whereStatement} AND year = ?`;
+                const year = option.fromYear;
+                bindingValues.push(year);
             }
 
-            //Order
-            if (option.hasOwnProperty('sort') && option.sort) {
-				orderStatement =`ORDER BY name ${option.sort}`;
-			}
+            //Check if there is pagination option
+            if (option.hasOwnProperty('isExport') && option.isExport) {
+                
+                //Ordering
+                orderStatement = `ORDER BY id ASC`;
+            } else {
+
+                //Order
+                if (option.hasOwnProperty('sort') && option.sort) {
+                    orderStatement =`ORDER BY name ${option.sort}`;
+                }
+
+                if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
+
+                    if ((option.hasOwnProperty('offset') && (undefined !== option.offset)) && 
+                        (option.hasOwnProperty('limit') && (undefined !== option.limit))) {
+    
+                            const {offset, limitSize} = option.pagination;
+                            [offset, limitSize].forEach(bindingValue => {
+                                bindingValues.push(bindingValue);
+                            });
+    
+                            paginationStatement = 'LIMIT ?, ?';
+                        } 
+    
+                }
+            }
         }
         
         const query = [
