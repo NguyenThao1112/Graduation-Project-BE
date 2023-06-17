@@ -29,15 +29,21 @@ const ARTICLE_COLUMN_HEADERS = [
     { header:"SGR", key: "SGR", width: 10},
 
     { header:"Authors", key: "authors", width: 10},
-    { header:"VNU Authors", key: "VNUAuthors", width: 10},
+    // { header:"VNU Authors", key: "VNUAuthors", width: 10},
 ];
 
-function buildWorkbook(headers, data) {
+function buildWorkbook(headers, data, options = null) {
     
     try {
         const workbook = new exceljs.Workbook();
         const worksheet = workbook.addWorksheet();
         worksheet.columns = headers;
+
+        if (options.hasOwnProperty("article") && options.article) {
+            worksheet.getColumn("abstract").alignment = { ... worksheet.getColumn("abstract").alignment, wrapText: true };
+            worksheet.getColumn("authors").alignment = { ... worksheet.getColumn("authors").alignment, wrapText: true };
+        }
+
         data.forEach(row => {
             worksheet.addRow(row);
         });

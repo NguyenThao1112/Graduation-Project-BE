@@ -213,12 +213,14 @@ function buildArticleExportExcel(articles) {
             PII: article.PII,
             SGR: article.SGR,
             authors: authorToString,
-            VNUAuthors: "",
         }
     });
 
     const headers = excelHelper.ARTICLE_COLUMN_HEADERS;
-    const workbook = excelHelper.buildWorkbook(headers, excelRows);
+    const options = {
+        article: true,
+    }
+    const workbook = excelHelper.buildWorkbook(headers, excelRows, options);
     const excelFileName = `ArticleReport_${Date.now()}.xlsx`;
    
     return {
