@@ -69,6 +69,7 @@ function getBaseArticles(option = null) {
                 'a.id as id,',
                 'a.name as name,',
                 'a.journal as journal,',
+                'a.journalUrl as journalUrl,',
                 'a.conference as conference,',
                 'a.`rank` as `rank`,',
                 'a.year as year,',
