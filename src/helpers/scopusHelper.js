@@ -55,6 +55,7 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 			conference: null,
 			rank: null,
 			urls,
+			citationCount: entry['citedby-count'],
 		}
 
 		//Check if the article come from Conference or Journal

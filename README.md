@@ -2940,6 +2940,7 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc
             "project_id": "TEST",
             "citation_key": "TEST",
             "general_note": "TEST",
+            "citationCount: 17",
             "urls": [
                 {
                     "id": 253,
@@ -3133,6 +3134,7 @@ POST /api/v1/articles/fetch-all
                 "project_id": "testProjectId",
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
+                "citationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3242,6 +3244,7 @@ POST /api/v1/articles/fetch-all
                 "project_id": "testProjectId",
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
+                "citationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3378,6 +3381,7 @@ Content-Disposition: form-data; name="data"
     "projectId": "testProjectId",
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3529,6 +3533,7 @@ Content-Disposition: form-data; name="data"
     "projectId": "testProjectId",
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3680,6 +3685,7 @@ Content-Disposition: form-data; name="data"
 {
     "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
     "journal": "ACM Transactions on Computing Education",
+    "journalUrl": "https://www.scopus.com/sourceid/25674",
     "conference": "",
     "rank": "Q1",
     "year": 2020,
@@ -3702,6 +3708,7 @@ Content-Disposition: form-data; name="data"
     "projectId": "testProjectId",
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3851,6 +3858,7 @@ GET /api/v1/articles/detail/:id
         "id": 3,
         "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
         "journal": "ACM Transactions on Computing Education",
+        "journalUrl": "https://www.scopus.com/sourceid/25674",
         "conference": "",
         "rank": "Q1",
         "year": 2020,
@@ -3874,6 +3882,7 @@ GET /api/v1/articles/detail/:id
         "project_id": "testProjectId",
         "citation_key": "testCitationKey",
         "general_note": "This is the general note for testing",
+        "citationCount: 17",
         "urls": [
             {
                 "id": 7,

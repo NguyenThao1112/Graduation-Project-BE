@@ -92,7 +92,8 @@ function getBaseArticles(option = null) {
                 'a.SGR as SGR,',
                 'a.project_id as projectId,',
                 'a.citation_key as citationKey,',
-                'a.general_note as generalNote'
+                'a.general_note as generalNote,',
+                'a.citationCount as citationCount',
             ].join(' ');
         let fromStatement = 'FROM article as a';
         let whereStatement = 'WHERE a.is_deleted = false';

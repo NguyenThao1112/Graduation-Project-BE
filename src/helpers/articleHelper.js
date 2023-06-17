@@ -38,6 +38,7 @@ class ArticleBuilder {
 	#projectId; //string
 	#citationKey; //string
 	#generalNote; //string
+	#citationCount; //string
 
 	//meta data
 	#createdAt; //datetime
@@ -171,6 +172,10 @@ class ArticleBuilder {
 		this.#generalNote = generalNote;
 		return this;
 	}
+	setCitationCount(citationCount) {
+		this.#citationCount = citationCount;
+		return this;
+	}
 	setCreatedAt(createdAt) {
 		this.#createdAt = createdAt;
 		return this;
@@ -237,6 +242,7 @@ class ArticleBuilder {
 		this.#projectId = articleObject.projectId ?? null;
 		this.#citationKey = articleObject.citationKey ?? null;
 		this.#generalNote = articleObject.generalNote ?? null;
+		this.#citationCount = articleObject.citationCount ?? null;
 		this.#createdAt = articleObject.createdAt ?? null;
 		this.#updatedAt = articleObject.updatedAt ?? null;
 		this.#isDeleted = articleObject.isDeleted ?? null;
@@ -278,6 +284,7 @@ class ArticleBuilder {
 		this.#projectId = null;
 		this.#citationKey = null;
 		this.#generalNote = null;
+		this.#citationCount = null;
 		this.#createdAt = null;
 		this.#updatedAt = null;
 		this.#isDeleted = null;
@@ -320,6 +327,7 @@ class ArticleBuilder {
 			this.#projectId,
 			this.#citationKey,
 			this.#generalNote,
+			this.#citationCount,
 			this.#createdAt,
 			this.#updatedAt,
 			this.#isDeleted,
@@ -434,6 +442,7 @@ function parseArticlePaginationQueryResultToResponseData(
 			project_id: article.projectId,
 			citation_key: article.citationKey,
 			general_note: article.generalNote,
+			citationCount: article.citationCount,
 
 			urls: urlMap.get(article.id),
 			files: fileMap.get(article.id),
