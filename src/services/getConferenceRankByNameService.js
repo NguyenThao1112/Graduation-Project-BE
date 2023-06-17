@@ -5,11 +5,25 @@ const cheerio = require('cheerio');
 
 const otherUrlConstants = require('../constants/otherUrlConstants');
 
+function conferenceNameKeywordChooser(conferenceName) {
+	const tokens = conferenceName.split(',').map(token => token.trim());
+	let chosenKeyword = conferenceName;
+	if (tokens.length > 1) {
+		const acronymHaystack = tokens[1];
+		const acronymTokens = acronymHaystack.split(' ');
+		const acronym = acronymTokens[0];
+		chosenKeyword = acronym;
+	}
+
+	return chosenKeyword;
+}
+
 async function getConferenceRankByName(conferenceName) {
 	const baseUrl = `${otherUrlConstants.CORE_EDU_GET_CONFERENCE_RANK_BY_NAME}`;
+	const chosenKeyword = conferenceNameKeywordChooser(conferenceName);
 	const queryParams = {
-		search: conferenceName,
-		by: 'all',
+		search: chosenKeyword,
+		by: 'acronym',
 		source: 'CORE2021',
 		sort: 'atitle',
 		page: 1,
@@ -50,7 +64,18 @@ async function getConferenceRankByName(conferenceName) {
 		return null;
 	}
 
-	return conferences[0].rank;
+	const hitConferences = conferences.filter(conference => chosenKeyword.trim() == conference.acronym.trim());
+	if (hitConferences.length > 0) {
+		const hitConference = hitConferences[0];
+		let rank = null;
+		if (["A*", "A", "B", "C"].includes(hitConference.rank)) {
+			rank = hitConference.rank;
+		}
+
+		return rank;
+	} 
+
+	return null;
 }
 
 async function getConferenceRankByMultipleNames(conferenceNames) {
