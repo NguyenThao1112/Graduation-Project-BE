@@ -3685,6 +3685,7 @@ Content-Disposition: form-data; name="data"
 {
     "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
     "journal": "ACM Transactions on Computing Education",
+    "journalUrl": "https://www.scopus.com/sourceid/25674",
     "conference": "",
     "rank": "Q1",
     "year": 2020,
@@ -3857,6 +3858,7 @@ GET /api/v1/articles/detail/:id
         "id": 3,
         "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
         "journal": "ACM Transactions on Computing Education",
+        "journalUrl": "https://www.scopus.com/sourceid/25674",
         "conference": "",
         "rank": "Q1",
         "year": 2020,
