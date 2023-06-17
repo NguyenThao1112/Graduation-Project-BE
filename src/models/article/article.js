@@ -3,6 +3,7 @@ class Article {
     #id;            //number
     #name;          //string
     #journal;       //string
+    #journalUrl;    //string
     #conference;    //string
     #rank;          //string
     #year;          //number
@@ -53,6 +54,7 @@ class Article {
         id,
         name,
         journal,
+        journalUrl,
         conference,
         rank,
         year,
@@ -92,6 +94,7 @@ class Article {
         this.#id = id;
         this.#name = name;
         this.#journal = journal;
+        this.#journalUrl = journalUrl;
         this.#conference = conference;
         this.#rank = rank;
         this.#year = year;
@@ -132,7 +135,8 @@ class Article {
     //Getters
     get id() {return this.#id;};    
     get name() {return this.#name;};
-    get journal() {return this.#journal;};  
+    get journal() {return this.#journal;};
+    get journalUrl() {return this.#journalUrl;};  
     get conference() {return this.#conference;};
     get rank() {return this.#rank;}
     get year() {return this.#year;};  
@@ -172,7 +176,8 @@ class Article {
     //Setters
     set id(id) {this.#id = id;};    
     set name(name) {this.#name = name;};
-    set journal(journal) {this.#journal = journal;};  
+    set journal(journal) {this.#journal = journal;};
+    set journalUrl(journalUrl) {this.#journalUrl = journalUrl};  
     set conference(conference) {this.#conference = conference;};
     set rank(rank) {this.#rank = rank;};
     set year(year) {this.#year = year;};  

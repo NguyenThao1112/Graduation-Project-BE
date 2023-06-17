@@ -111,21 +111,25 @@ async function addRankingForArticle(articles) {
 		getJournalRanking(issnArray),
 		getConferenceRankByMultipleNames(conferenceArray),
 	]);
-
 	//Add ranking for article published from journal
 	let articlesWithJournalRank = result.map((article) => {
-		if (article.journal && article.ISSN && article.year) {
+		if (article.journal && article.ISSN) {
+
 			const normalizedIssn = scopusHelper.normalizeIssn(article.ISSN);
-			const year = article.year;
+			article.journalUrl = journalRankMap[normalizedIssn]?.journalUrl ?? null;
+			if (article.year) {
+				const year = article.year;
 
-			let percentile = null;
+				let percentile = null;
 
-			if (journalRankMap.hasOwnProperty(normalizedIssn)) {
-				if (journalRankMap[normalizedIssn].hasOwnProperty(year)) {
-					percentile = journalRankMap[normalizedIssn][year];
-					article.rank = scopusHelper.getQuartileFromPercentile(percentile);
+				if (journalRankMap.hasOwnProperty(normalizedIssn)) {
+					if (journalRankMap[normalizedIssn].hasOwnProperty(year)) {
+						percentile = journalRankMap[normalizedIssn][year];
+						article.rank = scopusHelper.getQuartileFromPercentile(percentile);
+					}
 				}
 			}
+
 		}
 
 		return article;
