@@ -1,5 +1,6 @@
 const searchArticleDAO = require("../../daos/articleDAOs/searchArticleDAO");
 const articleHelper = require("../../helpers/articleHelper");
+const excelHelper = require("../../helpers/excelHelper");
 
 
 /**
@@ -69,7 +70,20 @@ function getArticlesWithOptions(options) {
         }
     }
 
-    return getArticlesWithOptions(options);
+    return getArticlesWithOptions(options)
+        .then(articles => {
+            return new Promise((resolve, reject) => {
+                if (options.hasOwnProperty('isExport') && options.isExport) {
+                
+                    //Send file
+                    const workbook = buildArticleExportExcel(articles);
+                    resolve(workbook);
+    
+                } else {
+                    resolve(articles);
+                }
+            })
+        });
 }
 
 /**
@@ -154,6 +168,63 @@ function getArticleByIds(articleIds) {
     }
 
     return getArticlesWithOptions(options);
+}
+
+function buildArticleExportExcel(articles) {
+    const excelRows = articles.map(article => {
+
+        const authors = [];
+        article.authors.forEach(author => {
+            let name = null;
+            if (!!author.lecturer_id) {
+                name = author.lecturer_name;
+            } else {
+               name = `${author.lastName} ${author.firstName} `
+            }
+
+            if (name) {
+                authors.push(name);
+            }
+        })
+        const authorToString = authors.join(", ");
+
+        return {
+            id: article.id,
+            name: article.name,
+            journal: article.journal,
+            journalUrl: article.journalUrl,
+            conference: article.conference,
+            rank: article.rank,
+            pageFrom: article.page_from,
+            pageTo: article.page_to,
+            volume: article.volume,
+            issue: article.issue,
+            citationCount: article.citationCount,
+            abstract: article.abstract,
+            month: article.month,
+            day: article.day,
+            year: article.year,
+            ArXivID: article.ArXivID,
+            DOI: article.DOI,
+            ISBN: article.ISBN,
+            ISSN: article.ISSN,
+            PMID: article.PMID,
+            Scopus: article.Scopus,
+            PII: article.PII,
+            SGR: article.SGR,
+            authors: authorToString,
+            VNUAuthors: "",
+        }
+    });
+
+    const headers = excelHelper.ARTICLE_COLUMN_HEADERS;
+    const workbook = excelHelper.buildWorkbook(headers, excelRows);
+    const excelFileName = `ArticleReport_${Date.now()}.xlsx`;
+   
+    return {
+        workbook,
+        excelFileName,
+    }
 }
  
 module.exports = {

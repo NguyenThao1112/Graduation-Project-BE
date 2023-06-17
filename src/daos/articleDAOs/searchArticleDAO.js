@@ -127,25 +127,32 @@ function getBaseArticles(option = null) {
             }
 
             //Check if there is pagination option
-            if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
+            if (option.hasOwnProperty('isExport') && option.isExport) {
+                
+                //Ordering
+                orderStatement = `ORDER BY id ASC`;
+            } else {
 
-                if ((option.hasOwnProperty('offset') && (undefined !== option.offset)) && 
-                    (option.hasOwnProperty('limit') && (undefined !== option.limit))) {
+                //Order
+                if (option.hasOwnProperty('sort') && option.sort) {
+                    orderStatement =`ORDER BY name ${option.sort}`;
+                }
 
-                        const {offset, limitSize} = option.pagination;
-                        [offset, limitSize].forEach(bindingValue => {
-                            bindingValues.push(bindingValue);
-                        });
+                if (option.hasOwnProperty('pagination') && (undefined !== option.pagination)) {
 
-                        paginationStatement = 'LIMIT ?, ?';
-                    } 
-
+                    if ((option.hasOwnProperty('offset') && (undefined !== option.offset)) && 
+                        (option.hasOwnProperty('limit') && (undefined !== option.limit))) {
+    
+                            const {offset, limitSize} = option.pagination;
+                            [offset, limitSize].forEach(bindingValue => {
+                                bindingValues.push(bindingValue);
+                            });
+    
+                            paginationStatement = 'LIMIT ?, ?';
+                        } 
+    
+                }
             }
-
-            //Order
-            if (option.hasOwnProperty('sort') && option.sort) {
-				orderStatement =`ORDER BY name ${option.sort}`;
-			}
         }
         
         const query = [
