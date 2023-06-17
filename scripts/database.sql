@@ -205,6 +205,7 @@ CREATE TABLE article (
     citation_key VARCHAR(50) DEFAULT NULL,
 
     general_note TEXT DEFAULT NULL,
+    citationCount INT DEFAULT NULL,
 
     --  metadata stuffs
     created_at DATETIME,
