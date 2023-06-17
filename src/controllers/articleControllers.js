@@ -165,16 +165,26 @@ function getArticlesWithPagination(request, response) {
 		}
 
 		let isExport = request.query.isExport ?? false;
-		if (!["true", "false"].includes(isExport.trim().toLowerCase())) {
-			isExport = false;
-		} else {
-			isExport = (isExport == "true");
+		if (!!isExport) {
+			if (!["true", "false"].includes(isExport.trim().toLowerCase())) {
+				isExport = false;
+			} else {
+				isExport = (isExport == "true");
+			}
+		}
+
+		let fromYear = request.query.fromYear ?? undefined;
+		try {
+			fromYear = parseInt(fromYear);
+		} catch (err) {
+			fromYear = undefined;
 		}
 
 		const options = {
 			searchByKeyword: request.query.keyword ?? undefined,
 			sort,
 			isExport,
+			fromYear,
 		};
 
 		//Try to get all the article with pagination from the database

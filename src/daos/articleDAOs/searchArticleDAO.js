@@ -126,6 +126,13 @@ function getBaseArticles(option = null) {
                 bindingValues.push(articleIds);
             }
 
+            //Check if there is search article by year
+            if (option.hasOwnProperty('fromYear') && option.fromYear) {
+                whereStatement = `${whereStatement} AND year = ?`;
+                const year = option.fromYear;
+                bindingValues.push(year);
+            }
+
             //Check if there is pagination option
             if (option.hasOwnProperty('isExport') && option.isExport) {
                 
