@@ -192,6 +192,24 @@ async function getBaseLecturers(option = null) {
 				bindingValues.push(option.scopusIds);
 			}
 
+			if (option.hasOwnProperty('vnuCurrent')) {
+				const lecturerIds = option.vnuCurrent;
+				if (Array.isArray(lecturerIds) && lecturerIds.length > 0) {
+					const keywords = ["VNU", "vnu", "National University Ho Chi Minh City"];
+					query = [
+						query,
+						'AND id IN (',
+							'SELECT l1.id',
+							'FROM lecturer_information AS l1',
+								'JOIN current_discipline AS cp1 ON l1.id = cp1.lecturer_id',
+								'JOIN university AS u1 ON cp1.university_id = u1.id',
+							"WHERE l1.id IN (?) AND (", keywords.map(keyword => `u1.name LIKE '%${keyword}%'`).join(" OR "), ")",
+						')'
+					].join(' ')
+					bindingValues.push(lecturerIds);
+				}
+			}
+
 			//Check if there is search with university criteria
             if (option.hasOwnProperty('universityIds')) {
                 const universityIds = option.universityIds;
@@ -207,7 +225,7 @@ async function getBaseLecturers(option = null) {
 								'WHERE a.id = wp2.lecturer_id AND u1.id = wp2.university_id',
 							')',
 						')',
-					].join(' '),
+					].join(' ');
 
 					bindingValues.push(option.universityIds);
                 }
@@ -228,7 +246,7 @@ async function getBaseLecturers(option = null) {
                                 `WHERE e.code = temp.code and a.id = e.lecturer_id`,
                             ')',
                         ')',
-					].join(' '),
+					].join(' ');
 
 					bindingValues.push(option.expertiseCodes);
 				}
@@ -242,7 +260,6 @@ async function getBaseLecturers(option = null) {
 				].join(' ');
 			}
 		}
-
 		const results = await new Promise((resolve, reject) => {
 			connection.query(query, bindingValues, (error, results, fields) => {
 				if (error) {
