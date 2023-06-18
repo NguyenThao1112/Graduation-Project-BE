@@ -207,6 +207,10 @@ function updateCurrentDiscipline(currentDisciplineObject, lecturer) {
 			? [{ name: currentDisciplineObject.departmentName }]
 			: [];
 
+		const nonexistentUniversities = !currentDisciplineObject.universityId
+			? [{ name: currentDisciplineObject.universityName }]
+			: [];
+
 		const promises = [];
 
 		if (nonexistentDiscipline.length) {
@@ -215,6 +219,12 @@ function updateCurrentDiscipline(currentDisciplineObject, lecturer) {
 
 		if (nonexistentDepartment.length) {
 			promises.push(createLecturerDAO.createDepartments(nonexistentDepartment));
+		}
+
+		if (nonexistentUniversities.length) {
+			promises.push(
+				createLecturerDAO.createUniversities(nonexistentUniversities)
+			);
 		}
 
 		Promise.all(promises).then((newIdsWithNull) => {
@@ -228,6 +238,12 @@ function updateCurrentDiscipline(currentDisciplineObject, lecturer) {
 				nonexistentDiscipline.length,
 				nonexistentDiscipline.length + nonexistentDepartment.length
 			);
+			const newUniversitiesIds = newIds.slice(
+				nonexistentDiscipline.length + nonexistentDepartment.length,
+				nonexistentDiscipline.length +
+					nonexistentDepartment.length +
+					nonexistentUniversities.length
+			);
 
 			const newCurrentDisciplineObject = {
 				...currentDisciplineObject,
@@ -237,10 +253,13 @@ function updateCurrentDiscipline(currentDisciplineObject, lecturer) {
 				departmentId: newDepartmentIds.length
 					? newDepartmentIds[0]
 					: currentDisciplineObject.departmentId,
+				universityId: newUniversitiesIds.length
+					? newUniversitiesIds[0]
+					: currentDisciplineObject.universityId,
 			};
 
 			updateLecturerDAO
-				.updateCurrentDiscipline([newCurrentDisciplineObject], lecturer)
+				.updateCurrentDiscipline(newCurrentDisciplineObject, lecturer)
 				.then((currentDisciplineId) => {
 					return resolve(currentDisciplineId);
 				})
@@ -576,6 +595,32 @@ function updateLecturer(lecturerObject) {
 	});
 }
 
+async function updateProfile(id, file) {
+	// try {
+	// 	const pdfParser = new PDFParser();
+	// 	pdfParser.on('pdfParser_dataError', (errData) =>
+	// 		console.error(errData.parserError)
+	// 	);
+	// 	pdfParser.on('pdfParser_dataReady', (pdfData) => {
+	// 		const text = pdfParser.getRawTextContent();
+	// 		// Extract the desired values using regular expressions
+	// 		const name = extractValue(text, /Họ và tên:\s*(.*)/i);
+	// 		const dateOfBirth = extractValue(text, /Ngày sinh:\s*(.*)/i);
+	// 		// Add more extraction patterns for other fields as needed
+	// 		// Output the extracted values
+	// 		console.log('Name:', name);
+	// 		console.log('Date of Birth:', dateOfBirth);
+	// 		// Output more fields as needed
+	// 	});
+	// 	const dataBuffer = file.data;
+	// 	pdfParser.parseBuffer(dataBuffer);
+	// 	// Output more fields as needed
+	// } catch (error) {
+	// 	console.log('Error:', error);
+	// }
+}
+
 module.exports = {
 	updateLecturer,
+	updateProfile,
 };

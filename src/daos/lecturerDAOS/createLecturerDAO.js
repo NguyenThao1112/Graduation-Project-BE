@@ -679,6 +679,44 @@ function createDepartments(departments) {
 	});
 }
 
+function createUniversities(universities) {
+	return new Promise(function (resolve, reject) {
+		if (!universities.length) {
+			return resolve(null);
+		}
+		const query = `INSERT INTO university (name, address, created_at, updated_at, is_deleted) VALUES ?`;
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = universities.map((university) => [
+			university.name,
+			university.address,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
 function createLecturerFile(lecturerFiles) {
 	return new Promise((resolve, reject) => {
 		const query = [
@@ -739,4 +777,5 @@ module.exports = {
 	createDisciplines,
 	createDepartments,
 	createLecturerFile,
+	createUniversities,
 };

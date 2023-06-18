@@ -173,10 +173,10 @@ function getLecturersWithPagination(request, response) {
 		}
 
 		let expertiseCodes = [];
-        const expertiseCodeRaw = request.query.expertiseCodes;
-        if (expertiseCodeRaw) {
-            expertiseCodes = expertiseCodeRaw.split(",");
-        }
+		const expertiseCodeRaw = request.query.expertiseCodes;
+		if (expertiseCodeRaw) {
+			expertiseCodes = expertiseCodeRaw.split(',');
+		}
 
 		const options = {
 			// @ts-ignore
@@ -347,22 +347,22 @@ function getLecturerPagingSize(request, response) {
 		const limitSize = parseInt(request.query.limitSize);
 		const keyword = request.query.keyword ?? undefined;
 		let universityIds = [];
-        const universityIdRaw = request.query.universityIds;
-        if (universityIdRaw) {
-            universityIds = universityIdRaw.split(",");
+		const universityIdRaw = request.query.universityIds;
+		if (universityIdRaw) {
+			universityIds = universityIdRaw.split(',');
 		}
 		let expertiseCodes = [];
-        const expertiseCodeRaw = request.query.expertiseCodes;
-        if (expertiseCodeRaw) {
-            expertiseCodes = expertiseCodeRaw.split(",");
-        }
+		const expertiseCodeRaw = request.query.expertiseCodes;
+		if (expertiseCodeRaw) {
+			expertiseCodes = expertiseCodeRaw.split(',');
+		}
 
 		const options = {
 			limitSize,
 			searchByKeyword: keyword,
 			expertiseCodes,
 			universityIds,
-		}
+		};
 
 		//Try to get the number of page with paging size
 		searchLecturerServices
@@ -465,6 +465,92 @@ function uploadFile(request, response) {
 	});
 }
 
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function uploadFile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const uploadLecturerFiles = request.files;
+
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_FILE_FAILED_MESSAGE,
+		};
+
+		if (!uploadLecturerFiles) {
+			response.json(responseJson);
+		}
+
+		createLecturerServices
+			.uploadFile(id, uploadLecturerFiles)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function updateProfile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+
+		const file = request.files.file;
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_PROFILE_FAILED_MESSAGE,
+		};
+
+		if (!file || !id) {
+			response.json(responseJson);
+		}
+
+		updateLecturerService
+			.updateProfile(id, file)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_PROFILE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	getOneLecturer,
 	getAllLecturers,
@@ -476,4 +562,5 @@ module.exports = {
 	getOneLecturerFromAccountId,
 	uploadFile,
 	deleteLecturerFile,
+	updateProfile,
 };

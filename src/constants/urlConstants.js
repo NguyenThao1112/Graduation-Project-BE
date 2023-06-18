@@ -33,6 +33,7 @@ module.exports = Object.freeze({
 	LECTURER_GET_ALL_PAGINATION_URL: `/fetch`,
 	LECTURER_CREATE_URL: '/create',
 	LECTURER_UPDATE_URL: '/:id/update',
+	LECTURER_UPDATE_PROFILE_URL: '/update-profile',
 	LECTURER_DELETE_URL: '/delete',
 	LECTURER_DELETE_FILE_URL: '/delete-file',
 	LECTURER_PAGE_SIZE: '/page-size',

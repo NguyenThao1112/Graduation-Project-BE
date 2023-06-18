@@ -43,6 +43,15 @@ router.post(
 	lecturerControllers.uploadFile
 );
 
+router.post(
+	urls.LECTURER_UPDATE_PROFILE_URL,
+	fileUpload({ createParentPath: true }),
+	uploadFileMiddlewares.checkFileExtension(
+		configConstants.ARTICLE_FILE_UPLOAD_ALLOWED_EXT
+	),
+	lecturerControllers.updateProfile
+);
+
 router.put(urls.LECTURER_UPDATE_URL, lecturerControllers.updateLecturer);
 
 router.delete(urls.LECTURER_DELETE_URL, lecturerControllers.deleteLecturers);
