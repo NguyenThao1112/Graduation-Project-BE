@@ -518,4 +518,4 @@ INSERT INTO nckh.university (id, name,address,created_at,updated_at,is_deleted) 
     (14, 'Institute for Computational Science and Technology','SBI Building, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, Ho Chi Minh City, Vietnam Ho Chi Minh City Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
     (15, 'Vietnam National University Hanoi, Institute for Environment and Resources','144- Xuân Thủy Street - Cầu Giấy Hanoi Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
     (16, 'Information Technology College of Hochiminh City, Department of Mathematics','Hoa Thanh, Tan Phu, Hochiminh City Hoa Thanh Tan Phu Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
-    (17, 'HCMC University of Technology','268 Ly Thuong Kiet ,District 10 Ho Chi Minh City Vietnam 70000 Viet Nam ','2023-06-16 02:58:57','2023-06-16 02:58:57',0),
+    (17, 'HCMC University of Technology','268 Ly Thuong Kiet ,District 10 Ho Chi Minh City Vietnam 70000 Viet Nam ','2023-06-16 02:58:57','2023-06-16 02:58:57',0);

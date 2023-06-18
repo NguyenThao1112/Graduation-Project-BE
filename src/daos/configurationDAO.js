@@ -1254,7 +1254,7 @@ function createUniversities(universities) {
 			`ORDER BY u.id ASC`,
 		].join(' ');
 
-		const idThreshold = 8;
+		const idThreshold = 18;
 		let universities = null;
 		connection.query(query,[idThreshold], (error, results, fields) => {
 			if (error) {
