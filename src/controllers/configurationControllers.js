@@ -1468,6 +1468,44 @@ function getAllExpertise(request, response) {
 	});
 }
 
+
+/**
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+ function getAllDiffferentUniversity(request, response) {
+	return new Promise((resolve, reject) => {
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.CONFIG_UNIVERSITY_INVALID_CODE,
+			message: messageConstants.CONFIG_UNIVERSITY_INVALID_MESSAGE,
+		};
+
+		//Try to get all the activity types from the database
+		configurationService
+			.getAllDifferentUniversity()
+			.then((universities) => {
+				//If there is a not-null activity types => change the response's data
+				if (universities) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.CONFIG_UNIVERSITY_SUCCESS_MESSAGE;
+					// responseJson.data = JSON.stringify(universities);
+					responseJson.data = universities;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+
 module.exports = {
 	//Contact types
 	getContactTypesWithPagination,
@@ -1518,4 +1556,5 @@ module.exports = {
 	getAllExpertise,
 
 	getAllUniversityToFilter,
+	getAllDiffferentUniversity,
 };
