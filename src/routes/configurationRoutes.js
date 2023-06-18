@@ -209,4 +209,9 @@ router.get(
 	configController.getAllUniversityToFilter
 );
 
+router.get(
+	`${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_ALL}-difference`,
+	configController.getAllDiffferentUniversity
+);
+
 module.exports = router;

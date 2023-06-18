@@ -500,3 +500,22 @@ INSERT INTO academic_title(`id`, `name`, `created_at`, `updated_at`, `is_deleted
     (2, 'Thạc sĩ', SYSDATE(), SYSDATE(), 0),
     (3, 'Tiến sĩ', SYSDATE(), SYSDATE(), 0),
     (4, 'Tiến sĩ khoa học', SYSDATE(), SYSDATE(), 0);
+
+INSERT INTO nckh.university (id, name,address,created_at,updated_at,is_deleted) VALUES
+    (1, 'Viet Nam National University Ho Chi Minh City','Linh Trung Ward Ho Chi Minh City Viet Nam ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (2, 'International Training and Education Center','Ho Chi Minh City Viet Nam ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (3, 'VNUHCM-University of Science, Software Engineering Lab','227 Nguyen Van Cu Str., Dist. 5, HCM-City Viet Nam ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (4, 'John von Neumann Institute','Linh Trung, Thu Duc Ho Chi Minh City 700000 Viet Nam ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (5, 'Research Organization of Information and Systems National Institute of Informatics','2-1-2 Hitotsubashi, Chiyoda-ku Tokyo 101-8430 Japan ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (6, 'SIRET Research Group, Department of Software Engineering','Czech Republic ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (7, 'École Pratique des Hautes Études','Les Patios Saint-Jacques, 4-14 rue Ferrus Paris Ile-de-France 75014 France ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (8, 'Carnegie Mellon University','5000 Forbes Avenue Pittsburgh PA 15213-3890 United States ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (9, 'Concordia University, Faculty of Information Technology','Sir George Williams Campus, 1455 De Maisonneuve Blvd. W. Montreal QC H3G 1M8 Canada ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+ 	(10, 'International Crane Foundation','Baraboo WI United States ','2023-06-16 08:50:21','2023-06-16 08:50:21',0),
+    (11, 'Posts and Telecommunications Institute of Technology Vietnam, Department of Scientific Fundamentals','Hoang Quoc Viet Road Hanoi Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0), 
+    (12, 'Institute for Environment and Resources','142 To Hien Thanh Street, District 10 Ho Chi Minh City 700000 Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
+    (13, 'Institute for Circular Economy Development (ICED)','01 Vo Truong Toan, Linh Trung, Thu Duc Ho Chi Minh City Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
+    (14, 'Institute for Computational Science and Technology','SBI Building, Quang Trung Software City, Tan Chanh Hiep Ward, District 12, Ho Chi Minh City, Vietnam Ho Chi Minh City Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
+    (15, 'Vietnam National University Hanoi, Institute for Environment and Resources','144- Xuân Thủy Street - Cầu Giấy Hanoi Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
+    (16, 'Information Technology College of Hochiminh City, Department of Mathematics','Hoa Thanh, Tan Phu, Hochiminh City Hoa Thanh Tan Phu Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
+    (17, 'HCMC University of Technology','268 Ly Thuong Kiet ,District 10 Ho Chi Minh City Vietnam 70000 Viet Nam ','2023-06-16 02:58:57','2023-06-16 02:58:57',0),

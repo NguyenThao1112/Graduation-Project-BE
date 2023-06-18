@@ -1239,6 +1239,34 @@ function createUniversities(universities) {
 	});
 }
 
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllDifferentUniversity() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT u.id, u.name`,
+			'FROM university AS u',
+			'WHERE u.is_deleted = false AND u.id < ?',
+			`ORDER BY u.id ASC`,
+		].join(' ');
+
+		const idThreshold = 8;
+		let universities = null;
+		connection.query(query,[idThreshold], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -1296,4 +1324,5 @@ module.exports = {
 	getAllExpertise,
 
 	getAllUniversityToFilter,
+	getAllDifferentUniversity,
 };

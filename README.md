@@ -1674,6 +1674,35 @@ GET /api/v1/configs/university/fetch-all-to-filter
 }
 ```
 
+
+#### Get all different university
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch-all-difference
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
 ##### Error response
 
 ```javascript
