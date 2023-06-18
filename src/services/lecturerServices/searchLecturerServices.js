@@ -254,6 +254,14 @@ function getLecturerByAccountId(accountId) {
 	});
 }
 
+function findVNULecturer(lecturerIds) {
+	const options = {
+		vnuCurrent: lecturerIds,
+	}
+	return searchLecturerDAO.getBaseLecturers(options);
+
+}
+
 module.exports = {
 	getLecturersWithPagination,
 	getOneLecturer,
@@ -261,4 +269,5 @@ module.exports = {
 	getAllLecturers,
 	getLecturerByScopusIds,
 	getLecturerByAccountId,
+	findVNULecturer,
 };

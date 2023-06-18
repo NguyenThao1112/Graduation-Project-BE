@@ -29,7 +29,7 @@ const ARTICLE_COLUMN_HEADERS = [
     { header:"SGR", key: "SGR", width: 10},
 
     { header:"Authors", key: "authors", width: 10},
-    // { header:"VNU Authors", key: "VNUAuthors", width: 10},
+    { header:"VNU Authors", key: "VNUAuthors", width: 10},
 ];
 
 function buildWorkbook(headers, data, options = null) {
