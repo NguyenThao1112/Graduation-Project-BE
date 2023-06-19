@@ -3,6 +3,7 @@ const connection = require('../../configs/database');
 const moment = require('moment');
 const _ = require('lodash');
 const { currentDiscipline } = require('../../constants/tableQueryConstants');
+const configConstants = require('../../constants/configConstants');
 
 /**
  *
@@ -275,6 +276,7 @@ function createExpertises(expertises, lecturer) {
 			`lecturer_id,`,
 			`title,`,
 			`specialization,`,
+			`code,`,
 			`created_at,`,
 			`updated_at,`,
 			`is_deleted`,
@@ -287,6 +289,7 @@ function createExpertises(expertises, lecturer) {
 			lecturer.id,
 			ele.title,
 			ele.specialization,
+			ele.code,
 			now,
 			now,
 			is_deleted,
@@ -522,6 +525,9 @@ function createLecturer(lecturer) {
 		if (!lecturer) {
 			return resolve(null);
 		}
+		if (!lecturer.hasOwnProperty('dateOfBirth')) {
+			lecturer.dateOfBirth = configConstants.DEFAULT_DATE_OF_BIRTH;
+		}
 		const query =
 			'INSERT INTO lecturer_information ( account_id, scopus_id, name, gender, avatar, date_of_birth, academic_rank_id, academic_rank_gain_year, academic_title_id, academic_title_gain_year, expand_column, created_at, updated_at, is_deleted) VALUES (?)';
 
@@ -673,6 +679,88 @@ function createDepartments(departments) {
 	});
 }
 
+function createUniversities(universities) {
+	return new Promise(function (resolve, reject) {
+		if (!universities.length) {
+			return resolve(null);
+		}
+		const query = `INSERT INTO university (name, address, created_at, updated_at, is_deleted) VALUES ?`;
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = universities.map((university) => [
+			university.name,
+			university.address,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created contact types
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
+function createLecturerFile(lecturerFiles) {
+	return new Promise((resolve, reject) => {
+		const query = [
+			`INSERT INTO lecturer_file (
+				lecturer_id, file_path, original_file_name,`,
+			`created_at,`,
+			`updated_at,`,
+			`is_deleted`,
+			`)`,
+			`VALUES ?`,
+		].join('');
+
+		const now = getCurrentTimeFormat();
+		const is_deleted = false;
+		const values = lecturerFiles.map((file) => [
+			file.lecturerId,
+			file.path,
+			file.originalFileName,
+			now,
+			now,
+			is_deleted,
+		]);
+
+		//Using bulk insertion for better performance
+		connection.query(query, [values], (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			//Get the id of the created ones
+			const size = result.affectedRows;
+			const firstId = result.insertId;
+			const aboveMaxId = firstId + size;
+			let ids = [];
+			for (let i = firstId; i < aboveMaxId; i++) {
+				ids.push(i);
+			}
+
+			resolve(ids);
+		});
+	});
+}
+
 module.exports = {
 	createPhdThesises,
 	createBookAuthors,
@@ -688,4 +776,6 @@ module.exports = {
 	createBooks,
 	createDisciplines,
 	createDepartments,
+	createLecturerFile,
+	createUniversities,
 };

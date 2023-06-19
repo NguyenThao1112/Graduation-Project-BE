@@ -3,6 +3,9 @@ class Article {
     #id;            //number
     #name;          //string
     #journal;       //string
+    #journalUrl;    //string
+    #conference;    //string
+    #rank;          //string
     #year;          //number
     #pageFrom;      //number
     #pageTo;        //number
@@ -33,6 +36,7 @@ class Article {
     #projectId;     //string
     #citationKey;   //string
     #generalNote;   //string
+    #citationCount; 
 
     //meta data
     #createdAt;     //datetime
@@ -50,6 +54,9 @@ class Article {
         id,
         name,
         journal,
+        journalUrl,
+        conference,
+        rank,
         year,
         pageFrom,
         pageTo,
@@ -74,6 +81,7 @@ class Article {
         projectId,
         citationKey,
         generalNote,
+        citationCount,
         createdAt,
         updatedAt,
         isDeleted,
@@ -86,6 +94,9 @@ class Article {
         this.#id = id;
         this.#name = name;
         this.#journal = journal;
+        this.#journalUrl = journalUrl;
+        this.#conference = conference;
+        this.#rank = rank;
         this.#year = year;
         this.#pageFrom = pageFrom;
         this.#pageTo = pageTo;
@@ -110,6 +121,7 @@ class Article {
         this.#projectId = projectId;
         this.#citationKey = citationKey;
         this.#generalNote = generalNote;
+        this.#citationCount = citationCount;
         this.#createdAt = createdAt;
         this.#updatedAt = updatedAt;
         this.#isDeleted = isDeleted;
@@ -123,7 +135,10 @@ class Article {
     //Getters
     get id() {return this.#id;};    
     get name() {return this.#name;};
-    get journal() {return this.#journal;};  
+    get journal() {return this.#journal;};
+    get journalUrl() {return this.#journalUrl;};  
+    get conference() {return this.#conference;};
+    get rank() {return this.#rank;}
     get year() {return this.#year;};  
     get pageFrom() {return this.#pageFrom;}; 
     get pageTo() {return this.#pageTo;};   
@@ -148,6 +163,7 @@ class Article {
     get projectId() {return this.#projectId;}; 
     get citationKey() {return this.#citationKey;};    
     get generalNote() {return this.#generalNote;};
+    get citationCount() {return this.#citationCount;};
     get createdAt() {return this.#createdAt;};
     get updatedAt() {return this.#updatedAt;}; 
     get isDeleted() {return this.#isDeleted;};
@@ -160,7 +176,10 @@ class Article {
     //Setters
     set id(id) {this.#id = id;};    
     set name(name) {this.#name = name;};
-    set journal(journal) {this.#journal = journal;};  
+    set journal(journal) {this.#journal = journal;};
+    set journalUrl(journalUrl) {this.#journalUrl = journalUrl};  
+    set conference(conference) {this.#conference = conference;};
+    set rank(rank) {this.#rank = rank;};
     set year(year) {this.#year = year;};  
     set pageFrom(pageFrom) {this.#pageFrom = pageFrom;}; 
     set pageTo(pageTo) {this.#pageTo = pageTo;};   
@@ -185,6 +204,7 @@ class Article {
     set projectId(projectId) {this.#projectId = projectId;}; 
     set citationKey(citationKey) {this.#citationKey = citationKey;};    
     set generalNote(generalNote) {this.#generalNote = generalNote;};
+    set citationCount(citationCount) {this.#citationCount = citationCount;};
     set createdAt(createdAt) {this.#createdAt = createdAt;};
     set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
     set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};

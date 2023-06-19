@@ -123,6 +123,8 @@ function createLecturers(request, response) {
 					// @ts-ignore
 					responseJson.message =
 						messageConstants.LECTURER_CREATE_SUCCESS_MESSAGE;
+
+					responseJson.id = lecturerId;
 				}
 			})
 			.catch((error) => {
@@ -159,9 +161,29 @@ function getLecturersWithPagination(request, response) {
 
 		const limitSize = parseInt(request.query.limitSize);
 
+		let universityIds = [];
+		const universityIdRaw = request.query.universityIds;
+		if (universityIdRaw) {
+			universityIds = universityIdRaw.split(',');
+		}
+
+		let sort = request.query.sort ?? 'ASC';
+		if (!['ASC', 'DESC'].includes(sort.toUpperCase())) {
+			sort = 'ASC';
+		}
+
+		let expertiseCodes = [];
+		const expertiseCodeRaw = request.query.expertiseCodes;
+		if (expertiseCodeRaw) {
+			expertiseCodes = expertiseCodeRaw.split(',');
+		}
+
 		const options = {
 			// @ts-ignore
 			searchByKeyword: request.query.keyword ?? undefined,
+			universityIds,
+			sort,
+			expertiseCodes,
 		};
 
 		searchLecturerServices
@@ -267,6 +289,42 @@ function deleteLecturers(request, response) {
 }
 
 /**
+ * Delete multiple lecturers
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function deleteLecturerFile(request, response) {
+	return new Promise((resolve, reject) => {
+		const hasError = validatorHelper.verifyValidations(request, response);
+		if (hasError) {
+			return;
+		}
+
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_DELETE_FILE_FAILED_MESSAGE,
+		};
+
+		const { fileId, lecturerId } = request.body;
+
+		deleteLecturerService
+			.deleteLecturerFile(fileId, lecturerId)
+			.then(() => {
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_DELETE_FILE_SUCCESS_MESSAGE;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
  *
  * @param {Express.Request} request
  * @param {Express.Response} response
@@ -287,11 +345,28 @@ function getLecturerPagingSize(request, response) {
 		};
 
 		const limitSize = parseInt(request.query.limitSize);
-		const keyword = request.query.keyword ?? null;
+		const keyword = request.query.keyword ?? undefined;
+		let universityIds = [];
+		const universityIdRaw = request.query.universityIds;
+		if (universityIdRaw) {
+			universityIds = universityIdRaw.split(',');
+		}
+		let expertiseCodes = [];
+		const expertiseCodeRaw = request.query.expertiseCodes;
+		if (expertiseCodeRaw) {
+			expertiseCodes = expertiseCodeRaw.split(',');
+		}
+
+		const options = {
+			limitSize,
+			searchByKeyword: keyword,
+			expertiseCodes,
+			universityIds,
+		};
 
 		//Try to get the number of page with paging size
 		searchLecturerServices
-			.getLecturerPagingSize(limitSize, keyword)
+			.getLecturerPagingSize(options)
 			.then((pagingSize) => {
 				//If there is a not-null data => change the response's data
 				if (-1 !== pagingSize) {
@@ -310,6 +385,172 @@ function getLecturerPagingSize(request, response) {
 	});
 }
 
+/**
+ *
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function getOneLecturerFromAccountId(request, response) {
+	return new Promise((resolve, reject) => {
+		//Default response is error response
+		let responseJson = {
+			code: messageConstants.FAILED_CODE,
+			message: messageConstants.LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE,
+		};
+
+		const accountId = request.params.id;
+
+		//Try to get the number of page with paging size
+		searchLecturerServices
+			.getLecturerByAccountId(accountId)
+			.then((lecturer) => {
+				//If there is a not-null data => change the response's data
+				if (lecturer) {
+					responseJson.code = messageConstants.SUCCESSFUL_CODE;
+					responseJson.message =
+						messageConstants.LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE;
+					responseJson.lecturerId = lecturer.id;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function uploadFile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const uploadLecturerFiles = request.files;
+
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_FILE_FAILED_MESSAGE,
+		};
+
+		if (!uploadLecturerFiles) {
+			response.json(responseJson);
+		}
+
+		createLecturerServices
+			.uploadFile(id, uploadLecturerFiles)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function uploadFile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+		const uploadLecturerFiles = request.files;
+
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_FILE_FAILED_MESSAGE,
+		};
+
+		if (!uploadLecturerFiles) {
+			response.json(responseJson);
+		}
+
+		createLecturerServices
+			.uploadFile(id, uploadLecturerFiles)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function updateProfile(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+
+		const file = request.files.file;
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_UPLOAD_PROFILE_FAILED_MESSAGE,
+		};
+
+		if (!file || !id) {
+			response.json(responseJson);
+		}
+
+		updateLecturerService
+			.updateProfile(id, file)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message =
+					messageConstants.LECTURER_UPLOAD_PROFILE_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	getOneLecturer,
 	getAllLecturers,
@@ -318,4 +559,8 @@ module.exports = {
 	updateLecturer,
 	deleteLecturers,
 	getLecturerPagingSize,
+	getOneLecturerFromAccountId,
+	uploadFile,
+	deleteLecturerFile,
+	updateProfile,
 };

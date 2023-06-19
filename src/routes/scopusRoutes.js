@@ -24,4 +24,14 @@ router.get(
 	scopusController.getConferenceRankByName
 );
 
+router.post(
+	urls.SCOPUS_GET_ARTICLE_BY_DOI_URL,
+	scopusController.findArticleByDOI
+);
+
+router.post(
+	"/issn/",
+	scopusController.getJournalRankISSNs
+)
+
 module.exports = router;

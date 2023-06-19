@@ -17,10 +17,9 @@ module.exports = Object.freeze({
 
 	//Forget password's
 	AUTH_FORGET_PASSWORD_FAILED_CODE: 1,
-	AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE:
-		'Please login to the email for reseting password',
+	AUTH_FORGET_PASSWORD_SUCCESS_MESSAGE: 'Check your email to reset password',
 	AUTH_FORGET_PASSWORD_FAILED_MESSAGE:
-		'There is something wrong on forgot password feature',
+		'Reset password failed, check your email',
 
 	//Forget password token verify's
 	AUTH_FORGET_PASSWORD_VERIFY_INVALID_CODE: 1,
@@ -62,8 +61,14 @@ module.exports = Object.freeze({
 	ACCOUNT_DELETE_SUCCESS_MESSAGE: 'Delete account successfully!',
 	ACCOUNT_DELETE_FAILED_MESSAGE: 'Delete account failed!',
 
+	//Account
+	ACCOUNT_GET_ONE_SUCCESS_MESSAGE: 'Get one account successfully!',
+	ACCOUNT_GET_ONE_FAILED_MESSAGE: 'Get one account failed!',
+
 	//Get one lecturer API
 	LECTURER_GET_ALL_INVALID_CODE: 1,
+	LECTURER_INVALID_CODE: 1,
+	LECTURER_VALID_CODE: 0,
 	LECTURER_GET_ONE_LECTURER_FAILED_MESSAGE: 'Get one lecturer failed!',
 	LECTURER_GET_ONE_LECTURER_SUCCESS_MESSAGE: 'Get one lecturer successfully!',
 	LECTURER_GET_ALL_INVALID_MESSAGE: 'Get lecturers failed',
@@ -75,8 +80,14 @@ module.exports = Object.freeze({
 	LECTURER_UPDATE_SUCCESS_MESSAGE: 'Update lecturer successfully!',
 	LECTURER_DELETE_SUCCESS_MESSAGE: 'Delete lecturer successfully!',
 	LECTURER_DELETE_FAILED_MESSAGE: 'Delete lecturer failed',
+	LECTURER_DELETE_FILE_SUCCESS_MESSAGE: 'Delete lecturer file successfully!',
+	LECTURER_DELETE_FILE_FAILED_MESSAGE: 'Delete lecturer file failed',
 	LECTURER_GET_PAGING_SIZE_SUCCESS_MESSAGE: 'Get paging size successfully',
 	LECTURER_GET_PAGING_COUNT_FAILED_MESSAGE: 'Get paging count failed',
+	LECTURER_UPLOAD_FILE_SUCCESS_MESSAGE: 'Upload file successfully',
+	LECTURER_UPLOAD_FILE_FAILED_MESSAGE: 'Upload file failed',
+	LECTURER_UPLOAD_PROFILE_SUCCESS_MESSAGE: 'Upload profile successfully',
+	LECTURER_UPLOAD_PROFILE_FAILED_MESSAGE: 'Upload profile failed',
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,
@@ -207,6 +218,13 @@ module.exports = Object.freeze({
 	SCOPUS_FIND_AUTHOR_BY_ID_FOUND_MESSAGE:
 		'Retrieve author by id from scopus successfully',
 
+	SCOPUS_FIND_ARTICLE_BY_DOI_FOUND_CODE: 0,
+	SCOPUS_FIND_ARTICLE_BY_DOI_NOT_FOUND_CODE: 1,
+	SCOPUS_FIND_ARTICLE_BY_DOI_NOT_FOUND_MESSAGE:
+		'Something went wrong from the backend',
+	SCOPUS_FIND_ARTICLE_BY_DOI_FOUND_MESSAGE:
+		'Retrieve article by DOI from scopus successfully',
+
 	SCOPUS_SAVE_AUTHOR_NOT_FOUND_CODE: 1,
 	SCOPUS_SAVE_AUTHOR_NOT_FOUND_MESSAGE: 'Something went wrong from the backend',
 	SCOPUS_SAVE_AUTHOR_SUCCESS_MESSAGE: 'Save author successfully',
@@ -217,4 +235,14 @@ module.exports = Object.freeze({
 		'Retrieve conference rank failed',
 	SCOPUS_FIND_CONFERENCE_RANK_BY_ID_FOUND_MESSAGE:
 		'Retrieve conference rank successfully',
+
+	//Discipline API
+	CONFIG_DISCIPLINE_INVALID_CODE: 1,
+	CONFIG_DISCIPLINE_INVALID_MESSAGE: 'Something went wrong from the backend',
+	CONFIG_DISCIPLINE_SUCCESS_MESSAGE: 'Get discipline successfully',
+
+	//Experties API
+	CONFIG_EXPERTISE_INVALID_CODE: 1,
+	CONFIG_EXPERTISE_INVALID_MESSAGE: 'Something went wrong from the backend',
+	CONFIG_EXPERTISE_SUCCESS_MESSAGE: 'Get expertise successfully',
 });

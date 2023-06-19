@@ -24,7 +24,6 @@ function authenticate(email, password) {
 		accountDAO
 			.getAccountByEmail(email)
 			.then((account) => {
-				console.log('vao authenticate');
 				//Check if the account is empty or not
 				if (account && account.length > 0) {
 					const hashPassword = account[0].password;
@@ -130,7 +129,7 @@ function createTokenForForgetPassword(email) {
 				const tokenExpiredIn = moment()
 					.add(configConstants.FORGET_PASSWORD_TOKEN_EXPIRE, 'minutes')
 					.utc(true)
-					.format('YYYY/MM/DD hh:mm:ss');
+					.format('YYYY/MM/DD HH:mm:ss');
 
 				const dao = {
 					id: account[0].id,
@@ -143,7 +142,9 @@ function createTokenForForgetPassword(email) {
 			.catch((error) => {
 				reject(error);
 			})
-			.then((token) => {
+			.then((account) => {
+				const token = account.token;
+
 				//Send the token to email
 				mailServices.sendTokenToUserMail(email, token);
 				resolve(token);
@@ -269,11 +270,6 @@ function updateAccountTokenByEmail(email, token) {
 				accountDAO
 					.updateAccountToken(accountInformation)
 					.then((account) => {
-						console.log(
-							'🚀 ~ file: authServices.js:266 ~ .then ~ account:',
-							account
-						);
-
 						resolve(account);
 					})
 					.catch((err) => {

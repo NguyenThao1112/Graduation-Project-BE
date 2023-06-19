@@ -1,5 +1,6 @@
 const searchLecturerDAO = require('../../daos/lecturerDAOS/searchLecturerDAO.js');
 const deleteServiceDAO = require('../../daos/deleteServiceDAO');
+const { isEmpty } = require('lodash');
 /**
  * Delete the table's data, which join with the lecturer table
  * @param {string} tableName
@@ -79,6 +80,30 @@ function deleteLecturers(lecturerIds) {
 	});
 }
 
+/**
+ * delete multiple lecturers
+ *
+ * @return {Promise}
+ *
+ */
+function deleteLecturerFile(fileId, lecturerId) {
+	return new Promise((resolve, reject) => {
+		if (!fileId || !lecturerId) {
+			reject(null);
+			return;
+		}
+		deleteServiceDAO
+			.deleteFile(fileId, lecturerId)
+			.catch((err) => {
+				console.log(err);
+			})
+			.then((data) => {
+				resolve(true);
+			});
+	});
+}
+
 module.exports = {
 	deleteLecturers,
+	deleteLecturerFile,
 };

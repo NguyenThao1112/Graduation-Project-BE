@@ -248,7 +248,7 @@ function updateArticle(article) {
 		const query = [
 			`UPDATE article`,
 			`SET`,
-			`name = ?, journal = ?, year = ?, page_from = ?, page_to = ?, volume = ?, issue = ?, city = ?, abstract = ?,`,
+			`name = ?, journal = ?, conference = ?, rank = ?, year = ?, page_from = ?, page_to = ?, volume = ?, issue = ?, city = ?, abstract = ?,`,
 			`institution = ?, department = ?, type = ?, month = ?, day = ?,`,
 			`url_date_access = ?,`,
 			`ArXivID = ?, DOI = ?, ISBN = ?, ISSN = ?,`,
@@ -262,6 +262,8 @@ function updateArticle(article) {
 		const values = [
 			article.name,
 			article.journal,
+			article.conference,
+			article.rank,
 			article.year,
 			article.pageFrom,
 			article.pageTo,

@@ -217,18 +217,18 @@ function updateProjects(projects, lecturer) {
 /**
  *  Query to update currrent discipline
  *
- * @param {Object} currentDisciplines
+ * @param {Object} currentDiscipline
  * @return {Promise}
  */
-function updateCurrentDiscipline(currentDisciplines, lecturer) {
+function updateCurrentDiscipline(currentDiscipline, lecturer) {
 	return new Promise(function (resolve, reject) {
-		if (!currentDisciplines.length) {
+		if (!currentDiscipline) {
 			return resolve(null);
 		}
 		const query = [
 			`INSERT INTO current_discipline (`,
 			`id,lecturer_id,discipline_id,department_id,university_id,position, created_at,updated_at, is_deleted)`,
-			`VALUES ?`,
+			`VALUES (?)`,
 			`ON DUPLICATE KEY UPDATE`,
 			`discipline_id = VALUES(discipline_id),`,
 			`department_id = VALUES(department_id),`,
@@ -239,17 +239,17 @@ function updateCurrentDiscipline(currentDisciplines, lecturer) {
 
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = currentDisciplines.map((ele) => [
-			ele.id,
+		const values = [
+			currentDiscipline.id,
 			lecturer.id,
-			ele.disciplineId,
-			ele.departmentId,
-			ele.universityId,
-			ele.position,
+			currentDiscipline.disciplineId[0],
+			currentDiscipline.departmentId[0],
+			currentDiscipline.universityId[0],
+			currentDiscipline.position,
 			now,
 			now,
 			is_deleted,
-		]);
+		];
 
 		connection.query(query, [values], (error, result) => {
 			if (error) {
@@ -261,7 +261,6 @@ function updateCurrentDiscipline(currentDisciplines, lecturer) {
 		});
 	});
 }
-
 /**
  *  Query to update researchFields
  *
@@ -314,6 +313,9 @@ function updateResearchFields(researchFields, lecturer) {
  */
 function updateExpertises(expertises, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!expertises || !expertises.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO expertise (`,
 			`id, lecturer_id,title,specialization, created_at,updated_at, is_deleted)`,

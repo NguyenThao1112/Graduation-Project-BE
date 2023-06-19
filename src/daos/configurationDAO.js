@@ -1151,6 +1151,122 @@ function createUniversities(universities) {
 	});
 }
 
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllDiscipline() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT id, name`,
+			'FROM discipline',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY id ASC`,
+		].join(' ');
+
+		let disciplines = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			disciplines = results;
+			resolve(disciplines);
+		});
+	});
+}
+
+/****************************************************************
+ **************************EXPERTISE*****************************
+ ****************************************************************/
+
+/**
+ *  Query to get all the expertise
+ *
+ * @return {Promise}
+ */
+ function getAllExpertise() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT specialization, code`,
+			'FROM expertise',
+			queryConstants.FILTER_DELETED_RECORD_QUERY,
+			`ORDER BY code ASC`,
+		].join(' ');
+
+		let expertises = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			expertises = results;
+			resolve(expertises);
+		});
+	});
+}
+
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllUniversityToFilter() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT u.id, u.name`,
+			'FROM work_position as wp',
+				'JOIN university as u ON wp.university_id = u.id',
+			'WHERE wp.is_deleted = false',
+			`ORDER BY u.id ASC`,
+		].join(' ');
+
+		let universities = null;
+		connection.query(query, (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
+
+/**
+ *  Query to get all the university
+ *
+ * @return {Promise}
+ */
+ function getAllDifferentUniversity() {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			`SELECT DISTINCT u.id, u.name`,
+			'FROM university AS u',
+			'WHERE u.is_deleted = false AND u.id < ?',
+			`ORDER BY u.id ASC`,
+		].join(' ');
+
+		const idThreshold = 18;
+		let universities = null;
+		connection.query(query,[idThreshold], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			universities = results;
+			resolve(universities);
+		});
+	});
+}
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -1200,4 +1316,13 @@ module.exports = {
 	getUniversityById,
 	updateUniversity,
 	deleteUniversities,
+
+	//Disciplines
+	getAllDiscipline,
+
+	//Expertise
+	getAllExpertise,
+
+	getAllUniversityToFilter,
+	getAllDifferentUniversity,
 };

@@ -1,6 +1,7 @@
 const createLecturerDAO = require('../../daos/lecturerDAOS/createLecturerDAO');
 const configurationDAO = require('../../daos/configurationDAO');
 const lecturerHelper = require('../../helpers/lecturerHelper');
+const { uploadAndFormatFile } = require('../../helpers/commonHelper');
 
 function createPhdThesis(phdThesises, lecturer) {
 	return new Promise((resolve, reject) => {
@@ -62,6 +63,20 @@ function createContacts(contacts, lecturer) {
 		if (!contacts) {
 			resolve(null);
 			return null;
+		}
+		let contactListIds = [1, 2, 3, 4];
+		let newContacts = contacts;
+		for (let i = 0; i < contacts.length; i++) {
+			var index = contactListIds.indexOf(contacts[i].contactTypeId);
+			if (index !== -1) {
+				contactListIds.splice(index, 1);
+			}
+		}
+		for (let i = 0; i < contactListIds.length; i++) {
+			newContacts.push({
+				contactTypeId: contactListIds[i],
+				value: null,
+			});
 		}
 
 		return createLecturerDAO
@@ -341,6 +356,21 @@ function createLecturer(lecturerObject) {
 		});
 }
 
+async function uploadFile(id, file) {
+	try {
+		const fileDtos = await uploadAndFormatFile(file);
+		fileDtos?.forEach((item) => {
+			item.lecturerId = id;
+		});
+
+		const ids = await createLecturerDAO.createLecturerFile(fileDtos);
+		return ids;
+	} catch (err) {
+		console.error('error', err);
+	}
+}
+
 module.exports = {
 	createLecturer,
+	uploadFile,
 };

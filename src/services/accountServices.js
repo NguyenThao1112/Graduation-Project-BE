@@ -3,7 +3,6 @@ const authHelper = require('../helpers/authHelper');
 
 /**
  *
- *@param void
  *@returns {Promise}
  */
 function getAllAccounts() {
@@ -14,6 +13,24 @@ function getAllAccounts() {
 				resolve(accounts);
 			})
 			.catch((err) => reject(err));
+	});
+}
+
+/**
+ *
+ * @param {string} accountId
+ * @return {Promise}
+ */
+function getOneAccount(accountId) {
+	return new Promise(function (resolve, reject) {
+		accountDAO
+			.getAccountById(accountId)
+			.catch((error) => {
+				reject(error);
+			})
+			.then((accountDAOs) => {
+				resolve(accountDAOs[0]);
+			});
 	});
 }
 
@@ -57,4 +74,5 @@ module.exports = {
 	getAllAccounts,
 	createOneAccount,
 	deleteOneAccount,
+	getOneAccount,
 };

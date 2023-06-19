@@ -197,10 +197,6 @@ function verifyForgetPasswordToken(request, response) {
 function changePasswordAfterForgeting(request, response) {
 	return new Promise((resolve, reject) => {
 		//Check if the request is valid
-		const hasError = validatorHelper.verifyValidations(request, response);
-		if (hasError) {
-			return;
-		}
 
 		const { token, password } = request.body;
 
@@ -214,9 +210,9 @@ function changePasswordAfterForgeting(request, response) {
 		//Check if registrating successfully
 		authService
 			.changePasswordViaToken(token, password)
-			.then((errorCode) => {
+			.then((successCode) => {
 				//if then => successfully case
-				responseJson.code = errorCode;
+				responseJson.code = successCode;
 				responseJson.message =
 					authConstants.AUTH_FORGET_PASSWORD_CHANGE_PASSWORD_SUCCESS_MESSAGE;
 			})

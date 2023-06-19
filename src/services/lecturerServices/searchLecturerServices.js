@@ -12,6 +12,7 @@ const {
 	degree,
 	workPosition,
 	activity,
+	lecturerFile,
 } = require('../../constants/tableQueryConstants');
 const searchLecturerDAO = require('../../daos/lecturerDAOS/searchLecturerDAO');
 const lecturerHelper = require('../../helpers/lecturerHelper');
@@ -95,6 +96,11 @@ function getLecturersWithOption(option) {
 						activity,
 						lecturerIds
 					),
+					searchLecturerDAO.getDataOfSubtableJoningWithLecturerInformationByLecturerId(
+						'lecturer_file',
+						lecturerFile,
+						lecturerIds
+					),
 				]).then((extraLecturerData) => {
 					const lecturerDTOs = lecturerHelper.combineBaseAndExtraLecturerData(
 						lecturers,
@@ -150,18 +156,12 @@ function getOneLecturer(lecturerIds) {
 /**
  * Get paging size, after pagination process
  *
- * @param {number} limitSize maximum number of record in a page
- * @param {string} keyword the keyword to search
+ * @param {Object} options 
  * @return {Promise<>}
  *
  */
-function getLecturerPagingSize(limitSize, keyword = '') {
-	let options = null;
-	if (null !== keyword) {
-		options = {
-			searchByKeyword: keyword,
-		};
-	}
+function getLecturerPagingSize(options) {
+	const limitSize = options.limitSize;
 
 	return new Promise((resolve, reject) => {
 		searchLecturerDAO
@@ -203,11 +203,10 @@ function getAllLecturers() {
 /**
  *
  * @param {Array<Number>} scopusIds
- * @param {Array<String>} filterColumns
  * @return {Map<Number, any>} resultMap
  *
  */
-function getLecturerByScopusIds(scopusIds, filterColumns) {
+function getLecturerByScopusIds(scopusIds) {
 	const options = {
 		scopusIds,
 	};
@@ -216,7 +215,13 @@ function getLecturerByScopusIds(scopusIds, filterColumns) {
 			.getBaseLecturers(options)
 			.then((lecturerInfor) => {
 				const scopusIdLecturerMap = new Map(
-					lecturerInfor.map((lecturer) => [lecturer.scopus_id, lecturer.id])
+					lecturerInfor.map((lecturer) => [
+						lecturer.scopus_id,
+						{
+							id: lecturer.id,
+							name: lecturer.name,
+						},
+					])
 				);
 
 				resolve(scopusIdLecturerMap);
@@ -227,10 +232,42 @@ function getLecturerByScopusIds(scopusIds, filterColumns) {
 	});
 }
 
+/**
+ *
+ * @param {Array<Number>} scopusIds
+ * @return {Map<Number, any>} resultMap
+ *
+ */
+function getLecturerByAccountId(accountId) {
+	const options = {
+		accountId,
+	};
+	return new Promise((resolve, reject) => {
+		searchLecturerDAO
+			.getBaseLecturers(options)
+			.then((lecturerInfor) => {
+				resolve(lecturerInfor[0]);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
+
+function findVNULecturer(lecturerIds) {
+	const options = {
+		vnuCurrent: lecturerIds,
+	}
+	return searchLecturerDAO.getBaseLecturers(options);
+
+}
+
 module.exports = {
 	getLecturersWithPagination,
 	getOneLecturer,
 	getLecturerPagingSize,
 	getAllLecturers,
 	getLecturerByScopusIds,
+	getLecturerByAccountId,
+	findVNULecturer,
 };

@@ -21,6 +21,12 @@ function getDataOfSubtableJoningWithLecturerInformationByLecturerId(
 	lecturerIds
 ) {
 	return new Promise(function (resolve, reject) {
+		//empty check
+		if (0 === lecturerIds.length) {
+			resolve([]);
+			return;
+		}
+
 		let fromStatement = `FROM ${tableName}`;
 		if ('book_author' === tableName) {
 			fromStatement = [
@@ -123,6 +129,7 @@ async function getBaseLecturers(option = null) {
 	try {
 		const selectStatement = `SELECT
         a.id as id,
+				a.account_id as accountId,
         a.name as name,
         a.gender as gender,
 				a.scopus_id as scopusId,
@@ -139,7 +146,7 @@ async function getBaseLecturers(option = null) {
 
 		const bindingValues = [];
 		let query = selectStatement;
-
+		
 		if (option !== null) {
 			if (
 				option.hasOwnProperty('searchByKeyword') &&
@@ -155,6 +162,14 @@ async function getBaseLecturers(option = null) {
 			) {
 				query += ' AND id IN (?)';
 				bindingValues.push(option.lecturerIds);
+			}
+
+			if (
+				option.hasOwnProperty('accountId') &&
+				option.accountId !== undefined
+			) {
+				query += ' AND a.account_id = ? LIMIT 1';
+				bindingValues.push(option.accountId);
 			}
 
 			if (
@@ -176,8 +191,75 @@ async function getBaseLecturers(option = null) {
 				query += ' AND a.scopus_id IN (?)';
 				bindingValues.push(option.scopusIds);
 			}
-		}
 
+			if (option.hasOwnProperty('vnuCurrent')) {
+				const lecturerIds = option.vnuCurrent;
+				if (Array.isArray(lecturerIds) && lecturerIds.length > 0) {
+					const keywords = ["VNU", "vnu", "National University Ho Chi Minh City"];
+					query = [
+						query,
+						'AND id IN (',
+							'SELECT l1.id',
+							'FROM lecturer_information AS l1',
+								'JOIN current_discipline AS cp1 ON l1.id = cp1.lecturer_id',
+								'JOIN university AS u1 ON cp1.university_id = u1.id',
+							"WHERE l1.id IN (?) AND (", keywords.map(keyword => `u1.name LIKE '%${keyword}%'`).join(" OR "), ")",
+						')'
+					].join(' ')
+					bindingValues.push(lecturerIds);
+				}
+			}
+
+			//Check if there is search with university criteria
+            if (option.hasOwnProperty('universityIds')) {
+                const universityIds = option.universityIds;
+                if (Array.isArray(universityIds) && universityIds.length > 0) {
+                    query = [
+						query,
+						'AND NOT EXISTS (',
+							'SElECT 1',
+							'FROM university AS u1',
+							'WHERE u1.id IN (?) AND NOT EXISTS (',
+								'SELECT 1',
+								'FROM work_position AS wp2',
+								'WHERE a.id = wp2.lecturer_id AND u1.id = wp2.university_id',
+							')',
+						')',
+					].join(' ');
+
+					bindingValues.push(option.universityIds);
+                }
+            }
+
+			//Check if there is search with expertise codes criteria
+			if (option.hasOwnProperty('expertiseCodes')) {
+				const expertiseCodes = option.expertiseCodes;
+				if (Array.isArray(expertiseCodes) && expertiseCodes.length > 0) {
+					query = [
+						query,
+						'AND NOT EXISTS (' ,
+                            'SElECT 1 ',
+                            'FROM (SELECT DISTINCT code FROM expertise) as temp',
+                            'WHERE temp.code IN (?) AND NOT EXISTS ( ',
+                                'SELECT 1',
+                                'FROM expertise AS e' ,
+                                `WHERE e.code = temp.code and a.id = e.lecturer_id`,
+                            ')',
+                        ')',
+					].join(' ');
+
+					bindingValues.push(option.expertiseCodes);
+				}
+			}
+
+			//Ordering
+			if (option.hasOwnProperty('sort') && option.sort) {
+				query = [
+					query,
+					`ORDER BY name ${option.sort}`
+				].join(' ');
+			}
+		}
 		const results = await new Promise((resolve, reject) => {
 			connection.query(query, bindingValues, (error, results, fields) => {
 				if (error) {

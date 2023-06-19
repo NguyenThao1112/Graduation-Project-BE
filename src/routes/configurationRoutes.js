@@ -188,4 +188,30 @@ router.delete(
 	configController.deleteUniversities
 );
 
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+ router.get(
+	`${urls.CONFIG_DISCIPLINE_API_URL}${urls.CONFIG_DISCIPLINE_GET_ALL}`,
+	configController.getAllDisciplines,
+);
+
+/****************************************************************
+ **************************EXPERTISE******************************
+ ****************************************************************/
+ router.get(
+	`${urls.CONFIG_EXPERTISE_API_URL}${urls.CONFIG_EXPERTISE_GET_ALL}`,
+	configController.getAllExpertise,
+);
+
+router.get(
+	`${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_ALL}-to-filter`,
+	configController.getAllUniversityToFilter
+);
+
+router.get(
+	`${urls.CONFIG_UNIVERSITY_API_URL}${urls.CONFIG_UNIVERSITY_GET_ALL}-difference`,
+	configController.getAllDiffferentUniversity
+);
+
 module.exports = router;

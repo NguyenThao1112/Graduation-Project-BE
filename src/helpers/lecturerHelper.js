@@ -331,6 +331,12 @@ function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
 		mapLecturerIdToExtraLecturerData(activity.lecturerId, activities, activity);
 	});
 
+	//lecturerFiles
+	const lecturerFiles = new Map();
+	extraLecturerData[12].forEach((file) => {
+		mapLecturerIdToExtraLecturerData(file.lecturerId, lecturerFiles, file);
+	});
+
 	const completeLecturerData = lecturerData.map((ele) => {
 		return {
 			...ele,
@@ -347,6 +353,7 @@ function combineBaseAndExtraLecturerData(lecturerData, extraLecturerData) {
 			degrees: degrees.get(ele.id),
 			workPositions: workPositions.get(ele.id),
 			activities: activities.get(ele.id),
+			lecturerFiles: lecturerFiles.get(ele.id),
 		};
 	});
 

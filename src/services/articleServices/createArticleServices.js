@@ -9,6 +9,85 @@ const { ArticleUrl } = require('../../models/article/articleUrl');
 const { ArticleNote } = require('../../models/article/articleNote');
 const { Author } = require('../../models/article/author');
 const { createTags } = require('../configurationServices');
+const { uploadAndFormatFile } = require('../../helpers/commonHelper');
+
+
+// /**
+//  * create article files (save its data to filesystem + save metadata to database)
+//  * @param {Article} article
+//  * @param {fileUpload.FileArray | null} articleFiles
+//  * @return {Promise}
+//  *
+//  */
+// function createArticleFiles(article, articleFiles) {
+// 	return new Promise((resolve, reject) => {
+// 		//If the user doesn't send the article files while creating article
+// 		if (!articleFiles) {
+// 			resolve(null);
+// 			return null;
+// 		}
+
+// 		//Handling to save each article file to the directory
+// 		const stringId = '' + article.id; //cast articleId to string
+// 		const dirPath = path.join(
+// 			__dirname,
+// 			'..',
+// 			'..',
+// 			'..',
+// 			urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE,
+// 			stringId,
+// 			'article_files'
+// 		);
+// 		const errors = [];
+// 		const fileNames = [];
+
+// 		Object.keys(articleFiles).forEach((key) => {
+// 			const file = articleFiles[key];
+
+// 			if (Array.isArray(file)) {
+// 				file.forEach((f) => {
+// 					const fileName = `${uuid.v4()}${path.extname(f.name)}`; //using uuid to generate an unique file name
+// 					const filePath = path.join(dirPath, fileName);
+// 					fileNames.push([f.name, fileName]); //save the original name with the new name
+// 					f.mv(filePath, (error) => {
+// 						errors.push(error);
+// 						fileNames.pop(); //remove the already add name
+// 					});
+// 				});
+// 			} else {
+// 				const fileName = `${uuid.v4()}${path.extname(file.name)}`; //using uuid to generate an unique file name
+// 				const filePath = path.join(dirPath, fileName);
+// 				fileNames.push([file.name, fileName]); //save the original name with the new name
+// 				file.mv(filePath, (error) => {
+// 					errors.push(error);
+// 					fileNames.pop(); //remove the already add name
+// 				});
+// 			}
+// 		});
+
+// 		//Terminate the process, if saving process to filesystem has error
+// 		if (errors?.length) {
+// 			reject(errors);
+// 			return;
+// 		}
+
+// 		//Save the upload file metadata to database
+// 		const articleFileDtos = fileNames.map((fileName) => {
+// 			const articleFile = new ArticleFile();
+// 			articleFile.article = article;
+// 			articleFile.originalFileName = fileName[0];
+// 			articleFile.path = fileName[1];
+// 			return articleFile;
+// 		});
+
+// 		return articleDAO
+// 			.createArticleFiles(articleFileDtos)
+// 			.then((ids) => resolve(ids));
+// 	}).catch((error) => {
+// 		console.log(error);
+// 	});
+// }
+
 
 /**
  * create article files (save its data to filesystem + save metadata to database)
@@ -25,62 +104,24 @@ function createArticleFiles(article, articleFiles) {
 			return null;
 		}
 
-		//Handling to save each article file to the directory
-		const stringId = '' + article.id; //cast articleId to string
-		const dirPath = path.join(
-			__dirname,
-			'..',
-			'..',
-			'..',
-			urlConstants.ARTICLE_RESOURCE_ARTICLE_FILE,
-			stringId,
-			'article_files'
-		);
-		const errors = [];
-		const fileNames = [];
+		return uploadAndFormatFile(articleFiles)
+		.then(fileDtos => {
+			
+			//Save the upload file metadata to database
+			const articleFileDtos = fileDtos.map((fileDto) => {
+				const articleFile = new ArticleFile();
+				articleFile.article = article;
+				articleFile.originalFileName = fileDto.originalFileName;
+				articleFile.path = fileDto.path;
+				return articleFile;
+			});
 
-		Object.keys(articleFiles).forEach((key) => {
-			const file = articleFiles[key];
-
-			if (Array.isArray(file)) {
-				file.forEach((f) => {
-					const fileName = `${uuid.v4()}${path.extname(f.name)}`; //using uuid to generate an unique file name
-					const filePath = path.join(dirPath, fileName);
-					fileNames.push([f.name, fileName]); //save the original name with the new name
-					f.mv(filePath, (error) => {
-						errors.push(error);
-						fileNames.pop(); //remove the already add name
-					});
-				});
-			} else {
-				const fileName = `${uuid.v4()}${path.extname(file.name)}`; //using uuid to generate an unique file name
-				const filePath = path.join(dirPath, fileName);
-				fileNames.push([file.name, fileName]); //save the original name with the new name
-				file.mv(filePath, (error) => {
-					errors.push(error);
-					fileNames.pop(); //remove the already add name
-				});
-			}
+			return articleDAO
+				.createArticleFiles(articleFileDtos)
+				.then((ids) => resolve(ids));
 		});
 
-		//Terminate the process, if saving process to filesystem has error
-		if (errors?.length) {
-			reject(errors);
-			return;
-		}
-
-		//Save the upload file metadata to database
-		const articleFileDtos = fileNames.map((fileName) => {
-			const articleFile = new ArticleFile();
-			articleFile.article = article;
-			articleFile.originalFileName = fileName[0];
-			articleFile.path = fileName[1];
-			return articleFile;
-		});
-
-		return articleDAO
-			.createArticleFiles(articleFileDtos)
-			.then((ids) => resolve(ids));
+		
 	}).catch((error) => {
 		console.log(error);
 	});
@@ -222,17 +263,18 @@ function createArticleCategories(article, articleCategories) {
  * create an article
  * @param {Object} articleObject
  * @param {fileUpload.FileArray | null} articleFiles
+ * @param {Object} options
  * @return {Promise}
  *
  */
-function createArticle(articleObject, articleFiles) {
+function createArticle(articleObject, articleFiles, options = null) {
 	const builder = new articleHelper.ArticleBuilder();
 	builder.reset();
 	builder.setBulk(articleObject);
 	const article = builder.build();
 
 	return articleDAO
-		.createArticle(article)
+		.createArticle(article, options)
 		.catch((error) => {
 			console.log(error);
 		})

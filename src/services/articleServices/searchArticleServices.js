@@ -1,5 +1,7 @@
 const searchArticleDAO = require("../../daos/articleDAOs/searchArticleDAO");
 const articleHelper = require("../../helpers/articleHelper");
+const excelHelper = require("../../helpers/excelHelper");
+const searchLecturerService = require("../lecturerServices/searchLecturerServices");
 
 
 /**
@@ -69,7 +71,21 @@ function getArticlesWithOptions(options) {
         }
     }
 
-    return getArticlesWithOptions(options);
+    return getArticlesWithOptions(options)
+        .then(articles => {
+            return new Promise((resolve, reject) => {
+                if (options.hasOwnProperty('isExport') && options.isExport) {
+                
+                    //Send file
+                    buildArticleExportExcel(articles)
+                        .then(workbook => {
+                            resolve(workbook);
+                        });
+                } else {
+                    resolve(articles);
+                }
+            })
+        });
 }
 
 /**
@@ -154,6 +170,82 @@ function getArticleByIds(articleIds) {
     }
 
     return getArticlesWithOptions(options);
+}
+
+function buildArticleExportExcel(articles) {
+    return new Promise((resolve, reject) => {
+        const excelRows = []
+        const data = articles.map(article => {
+
+            const excelRow = {
+                id: article.id,
+                name: article.name,
+                journal: article.journal,
+                journalUrl: article.journalUrl,
+                conference: article.conference,
+                rank: article.rank,
+                pageFrom: article.page_from,
+                pageTo: article.page_to,
+                volume: article.volume,
+                issue: article.issue,
+                citationCount: article.citationCount,
+                abstract: article.abstract,
+                month: article.month,
+                day: article.day,
+                year: article.year,
+                ArXivID: article.ArXivID,
+                DOI: article.DOI,
+                ISBN: article.ISBN,
+                ISSN: article.ISSN,
+                PMID: article.PMID,
+                Scopus: article.Scopus,
+                PII: article.PII,
+                SGR: article.SGR,
+            };
+
+            const authors = [];
+            const existAuthor =  article.authors.filter(author => !!author.lecturer_id);
+            const nonExistAuthor = article.authors.filter(author => !author.lecturer_id);
+            authors.push(...existAuthor.map(author => author.lecturer_name));
+            authors.push(...nonExistAuthor.map(author => `${author.lastName} ${author.firstName}`));
+            const authorToString = authors.join(", ");
+            excelRow.authors = authorToString;
+
+            return {
+                article,
+                excelRow,
+                existAuthor,
+            }
+
+        });
+
+        const promises = data.map(data => {
+            const {existAuthor, excelRow} = data;
+            const lecturerIds = existAuthor.map(author => author.lecturer_id);
+            const promise = searchLecturerService.findVNULecturer(lecturerIds)
+                .then(vnuAuthors => {
+                    const vnuAuthorToString = vnuAuthors.map(author => author.name).join(", ");
+                    excelRow.VNUAuthors = vnuAuthorToString;
+                    excelRows.push(excelRow);
+                });
+            
+            return promise;
+        })
+        
+        return Promise.all(promises)
+            .then(() => {
+                const headers = excelHelper.ARTICLE_COLUMN_HEADERS;
+                const options = {
+                    article: true,
+                }
+                const workbook = excelHelper.buildWorkbook(headers, excelRows, options);
+                const excelFileName = `ArticleReport_${Date.now()}.xlsx`;
+                resolve({
+                    workbook,
+                    excelFileName,
+                });
+            })
+    });
 }
  
 module.exports = {

@@ -4,6 +4,10 @@ module.exports = Object.freeze({
 	//App configs
 	APP_PORT: process.env.APP_PORT || 3001,
 	APP_HOST: process.env.APP_HOST,
+	FRONTEND_URL: process.env.FRONTEND_HOST,
+
+	//Some usage frontend url
+	FRONTEND_RESET_PWD_FORM_URL: `${process.env.FRONTEND_HOST}/reset-password`,
 
 	//DB configs
 	DB_PORT: process.env.DB_PORT,
@@ -25,7 +29,7 @@ module.exports = Object.freeze({
 	ROLE_ADMIN: 2,
 
 	//Forget password token expiration
-	FORGET_PASSWORD_TOKEN_EXPIRE: 10, //forget password token will expired in 10 minutes before creating,
+	FORGET_PASSWORD_TOKEN_EXPIRE: 20, //forget password token will expired in 10 minutes before creating,
 	LOGIN_TOKEN_EXPIRE: 1,
 
 	//Upload file limiter
@@ -41,4 +45,12 @@ module.exports = Object.freeze({
 			'X-ELS-Insttoken': process.env.SCOPUS_INSTITUTION_TOKEN,
 		},
 	},
+
+	DEFAULT_DATE_OF_BIRTH: '1990/01/01',
+
+	GOOGLE_DRIVE_CLIENT_ID: process.env.GOOGLE_DRIVE_CLIENT_ID,
+	GOOGLE_DRIVE_CLIENT_SECRET: process.env.GOOGLE_DRIVE_CLIENT_SECRET,
+	GOOGLE_DRIVE_REDIRECT_URI: process.env.GOOGLE_DRIVE_REDIRECT_URI,
+	GOOGLE_DRIVE_REFRESH_TOKEN: process.env.GOOGLE_DRIVE_REFRESH_TOKEN,
+	GOOGLE_DRIVE_FOLDER_ID: process.env.GOOGLE_DRIVE_FOLDER_ID,
 });

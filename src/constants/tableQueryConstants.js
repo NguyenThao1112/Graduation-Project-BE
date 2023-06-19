@@ -67,6 +67,7 @@ const expertise = [
 	'lecturer_id as lecturerId',
 	'title',
 	'specialization',
+	'code',
 ];
 
 const researchField = [
@@ -108,6 +109,13 @@ const activity = [
 	'to_date as toDate',
 ];
 
+const lecturerFile = [
+	'lecturer_file.id as id',
+	'lecturer_id as lecturerId',
+	'file_path as filePath',
+	'original_file_name  as originalFileName',
+];
+
 module.exports = {
 	phdThesis,
 	book,
@@ -121,4 +129,5 @@ module.exports = {
 	degree,
 	workPosition,
 	activity,
+	lecturerFile,
 };

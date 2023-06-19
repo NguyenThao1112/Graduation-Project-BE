@@ -9,9 +9,11 @@ module.exports = Object.freeze({
 		'https://api.elsevier.com/content/search/scopus',
 	SCOPUS_SEARCH_ABSTRACT_BY_ARTICLE_ID:
 		'https://api.elsevier.com/content/abstract/scopus_id',
+	SCOPUS_SEARCH_JOURNAL_RANKING_API:
+		'https://api.elsevier.com/content/serial/title',
 
 	SCOPUS_API_KEY: process.env.SCOPUS_API_KEY,
 	SCOPUS_INSTITUTION_TOKEN: process.env.SCOPUS_INSTITUTION_TOKEN,
 
-	SCOPUS_API_BATCH_SIZE: 10,
+	SCOPUS_API_BATCH_SIZE: 7,
 });

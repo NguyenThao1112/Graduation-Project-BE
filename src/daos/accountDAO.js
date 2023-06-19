@@ -1,5 +1,6 @@
 const connection = require('../configs/database');
 const configConstants = require('../constants/configConstants');
+const messageQueryConstants = require('../constants/messageQueryConstants');
 const moment = require('moment');
 
 /**
@@ -12,7 +13,7 @@ function getAccountByEmail(email) {
 		const query = [
 			'SELECT id, email, password, role, is_deleted, token',
 			'FROM account',
-			'WHERE email = ?',
+			`${messageQueryConstants.FILTER_DELETED_RECORD_QUERY} AND email = ?`,
 			'LIMIT 1',
 		].join(' ');
 
@@ -43,6 +44,32 @@ function getAccountByToken(token) {
 
 		let account = null;
 		connection.query(query, [token], (error, results, fields) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+			account = results;
+			resolve(account);
+		});
+	});
+}
+
+/**
+ *
+ * @param {string} accountId
+ * @return {Promise}
+ */
+function getAccountById(accountId) {
+	return new Promise(function (resolve, reject) {
+		const query = [
+			'SELECT id, email, password, role, is_deleted, token, token_expired_in,created_at, updated_at',
+			'FROM account',
+			'WHERE id = ?',
+			'LIMIT 1',
+		].join(' ');
+
+		let account = null;
+		connection.query(query, [accountId], (error, results, fields) => {
 			if (error) {
 				reject(error);
 				return;
@@ -230,4 +257,5 @@ module.exports = {
 	updateAccountPassword,
 	getAllAccounts,
 	deleteOneAccount,
+	getAccountById,
 };

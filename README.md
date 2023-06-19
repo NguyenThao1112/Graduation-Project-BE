@@ -38,6 +38,11 @@ JWT_SECRET = secret
 JWT_EXPIRE = 24h
 ```
 
+List ROLE:
+ROLE_GUEST: 0,
+ROLE_SCHOLAR: 1,
+ROLE_ADMIN: 2,
+
 # API List (update reguraly)
 
 ## Authorization API
@@ -278,6 +283,44 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuNjk5MDM2N
 }
 ```
 
+#### Get one account by id
+
+```http
+GET /api/v1/accounts/1 HTTP/1.1
+Host: localhost:3001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get one account successfully!",
+    "data": {
+        "id": 1,
+        "email": "hadtnt71@gmail.com",
+        "role": 1,
+        "is_deleted": 0,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuODcwMTQ0MzcxMjU5NjI1Mywicm9sZSI6MSwiaWF0IjoxNjg2MTg5Njk3LCJleHAiOjE2ODYxOTMyOTd9.ySh_NzT85oxCYjX3jPcXPkWaRPR8qZ8FMkxfY9VBU7o",
+        "token_expired_in": "2023-06-08T03:01:37.000Z",
+        "created_at": "2023-06-07T19:01:31.000Z",
+        "updated_at": "2023-06-07T19:01:37.000Z"
+    }
+}
+```
+
+#### Failed response
+
+```javascript
+{
+    "code": 1,
+    "message": "Get one account failed!"
+}
+```
+
+#### Create one account
+
 #### Request
 
 ```http
@@ -286,7 +329,9 @@ Host: localhost:3000
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOjAuMDIxODY1MTUyMzM4MDA2MjMzLCJyb2xlIjoxLCJpYXQiOjE2Nzg4OTIzNTgsImV4cCI6MTY3ODkwMzE1OH0.gpFxXaI9XB0ioVGNysDN8lGYbvF_9z3NYJwhqz74GLw
 Content-Type: application/json
 Content-Length: 108
+```
 
+```javascript
 {
     "email": "hadtnt76@gmail.com",
     "password": "Phambinh3107@",
@@ -393,13 +438,15 @@ GET /api/v1/lecturers/fetch-all
 #### Request
 
 ```http
-GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=desc&universityIds=1,2,3,4
 ```
 
-| Param      | Datatype               | Note                                |
-| ---------- | ---------------------- | ----------------------------------- |
-| pageOffset | integer greater than 0 | using 1-indexing                    |
-| limitSize  | integer greater than 0 | maximum number of records to return |
+| Param        | Datatype               | Note                                   |
+| ------------ | ---------------------- | -------------------------------------- |
+| pageOffset   | integer greater than 0 | using 1-indexing                       |
+| limitSize    | integer greater than 0 | maximum number of records to return    |
+| sort         | must in ['asc', 'desc']| ordering of sort by name               |
+| universityIds| array of integer       | find lecturer which has all university |
 
 #### Success response
 
@@ -539,12 +586,20 @@ POST /api/v1/configs/contact-type/create
 {
     "data": [
         {
-            "name": "Email",
+            "id": 1,
+            "name": "email",
         },
-
-         {
-            "name": "Mobile phone",
+        {   "id": 2,
+            "name": "address",
         },
+        {
+            "id": 3,
+            "name": "phone"
+        },
+        {
+            "id": 4,
+            "name": "link"
+        }
     ]
 }
 ```
@@ -1591,6 +1646,73 @@ GET /api/v1/configs/university/fetch-all
 }
 ```
 
+#### Get all university to filter
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch-all-to-filter
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+
+#### Get all different university
+
+##### Request
+
+```http
+GET /api/v1/configs/university/fetch-all-difference
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get university successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+##### Error response
+
+```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+
 #### Create multiple universities
 
 ##### Request
@@ -1719,10 +1841,68 @@ DELETE /api/v1/configs/university/delete
     "message": "The number of deleted record is not equal to the input: ${deleteCount}/${inputCount}",
 }
 ```
+### Discipline
+
+#### Get all discipline
+##### Request
+
+```http
+GET /api/v1/configs/discipline/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get discipline successfully",
+    "data": [
+        {
+            "id": 1,
+            "name": "Test 0",
+        },
+
+         {
+            "id": 2,
+            "name": "Test 1",
+        },
+    ]
+}
+```
+
+### Expertise
+
+#### Get all expertise
+##### Request
+
+```http
+GET /api/v1/configs/expertise/fetch-all
+```
+
+##### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Get expertise successfully",
+    "data": [
+        {
+            "specialization": "Test 0",
+            "code": "TEST1",
+        },
+
+        {
+            "specialization": "Test 1",
+            "code": "TEST1",
+        }
+    ]
+}
+```
+
 
 ## Lecturer API
 
-### Create lecturers
+### Create multiple lecturers
 
 ##### Request
 
@@ -1908,14 +2088,17 @@ POST /api/v1/lecturers/create
 #### Request
 
 ```http
-GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10
+GET /api/v1/lecturers/fetch?pageOffset=1&limitSize=10&sort=asc&universityIds=1,2,3,4,5&expertiseCodes=1,2,3,4
 ```
 
-| Param      | Datatype               | Note                                                    |
-| ---------- | ---------------------- | ------------------------------------------------------- |
-| pageOffset | integer greater than 0 | required, using 1-indexing                              |
-| limitSize  | integer greater than 0 | required, maximum number of records to return           |
-| keyword    | string                 | not require, the keyword to search the Article with its |
+| Param         | Datatype               | Note                                                    |
+| ------------- | ---------------------- | ------------------------------------------------------- |
+| pageOffset    | integer greater than 0 | required, using 1-indexing                              |
+| limitSize     | integer greater than 0 | required, maximum number of records to return           |
+| keyword       | string                 | not require, the keyword to search the Article with its |
+| sort          | must in ['asc', 'desc']| not require, ordering of sort by name                   |
+| universityIds | array of integer       | not require, find lecturer which has all university     |
+| expertiseCodes| array of string        | not require, find lecturer which has all expertises     |
 
 #### Success response
 
@@ -2702,13 +2885,15 @@ DELETE /api/v1/lecturers/delete
 #### Request
 
 ```http
-GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
+GET /api/v1/lecturers/page-size?limitSize=10&keyword=test&universityIds=1,2,3&expertiseCodes=1,2,3
 ```
 
-| Param     | Datatype               | Note                                                          |
-| --------- | ---------------------- | ------------------------------------------------------------- |
-| limitSize | integer greater than 0 | required, maximum number of records to return                 |
-| keyword   | string                 | not require, the keyword to search the Lecturer with their id |
+| Param         | Datatype               | Note                                                          |
+| ------------- | ---------------------- | ------------------------------------------------------------- |
+| limitSize     | integer greater than 0 | required, maximum number of records to return                 |
+| keyword       | string                 | not require, the keyword to search the Lecturer with their id |
+| universityIds | array of integer       | not require, find lecturer which has all university           |
+| expertiseCodes| array of string        | not require, find lecturer which has all expertises           |
 
 #### Success response
 
@@ -2738,14 +2923,18 @@ GET /api/v1/lecturers/page-size?limitSize=10&keyword=test
 #### Request
 
 ```http
-GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
+GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc&isExport=true&fromYear=2023
 ```
 
-| Param      | Datatype               | Note                                                    |
-| ---------- | ---------------------- | ------------------------------------------------------- |
-| pageOffset | integer greater than 0 | required, using 1-indexing                              |
-| limitSize  | integer greater than 0 | required, maximum number of records to return           |
-| keyword    | string                 | not require, the keyword to search the Article with its |
+| Param      | Datatype                 | Note                                                    |
+| ---------- | ------------------------ | ------------------------------------------------------- |
+| pageOffset | integer greater than 0   | required, using 1-indexing                              |
+| limitSize  | integer greater than 0   | required, maximum number of records to return           |
+| keyword    | string                   | not require, the keyword to search the Article with its |
+| sort       | must in ['asc', 'desc']  | not require, ordering of sort by name                   |
+| isExport   | must in ['true', 'false']| not require, to excel export                            |
+| fromYear   | integer                  | not require, to filter                                  |
+
 
 #### Success response
 
@@ -2757,8 +2946,13 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
         {
             "id": 96,
             "name": "TEST",
-            "journal": "TEST",
+            "journal": "TEST journal",
+            "journalUrl": "https://www.scopus.com/sourceid/25674",
+            "conference": "TEST conference",
+            "rank": "test rank", 
             "year": 2023,
+            "month": 8,
+            "day": 12,
             "page_from": 11,
             "page_to": 12,
             "volume": 24,
@@ -2777,6 +2971,7 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&
             "project_id": "TEST",
             "citation_key": "TEST",
             "general_note": "TEST",
+            "citationCount: 17",
             "urls": [
                 {
                     "id": 253,
@@ -2946,7 +3141,12 @@ POST /api/v1/articles/fetch-all
                 "id": 1,
                 "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
                 "journal": "ACM Transactions on Computing Education",
+                "journalUrl": "https://www.scopus.com/sourceid/25674",
+                "conference": "",
+                "rank": "Q1",
                 "year": 2020,
+                "month": 8,
+                "day": 1,
                 "page_from": 8,
                 "page_to": 10,
                 "volume": 20,
@@ -2965,6 +3165,7 @@ POST /api/v1/articles/fetch-all
                 "project_id": "testProjectId",
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
+                "citationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3050,7 +3251,12 @@ POST /api/v1/articles/fetch-all
                 "id": 1,
                 "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
                 "journal": "ACM Transactions on Computing Education",
+                "journalUrl": "https://www.scopus.com/sourceid/25674",
+                "conference": "",
+                "rank": "Q1",
                 "year": 2020,
+                "month": null,
+                "day": null,
                 "page_from": 8,
                 "page_to": 10,
                 "volume": 20,
@@ -3069,6 +3275,7 @@ POST /api/v1/articles/fetch-all
                 "project_id": "testProjectId",
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
+                "citationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3182,6 +3389,9 @@ Content-Disposition: form-data; name="data"
 {
     "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
     "journal": "ACM Transactions on Computing Education",
+    "journalUrl": "https://www.scopus.com/sourceid/25674",
+    "conference": "",
+    "rank": "Q1",
     "year": 2020,
     "pageFrom": 8,
     "pageTo": 10,
@@ -3202,6 +3412,7 @@ Content-Disposition: form-data; name="data"
     "projectId": "testProjectId",
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3326,9 +3537,13 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 ----WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="data"
 
+
 {
     "name": "TEST",
     "journal": "TEST",
+    "journalUrl": "https://www.scopus.com/sourceid/25674",
+    "conference": "TEST conf",
+    "rank": "Q1",
     "year": 2023,
     "pageFrom": 11,
     "pageTo": 12,
@@ -3336,92 +3551,74 @@ Content-Disposition: form-data; name="data"
     "issue": 3,
     "month":  3,
     "day": 28,
-    "abstract": "TEST",
-    "urlAccessDate": "28/03/2023",
-    "ArXivID": "TEST",
-    "DOI": "TEST",
-    "ISBN": "TEST",
-    "ISSN": "TEST",
-    "PMID": "TEST",
-    "Scopus": "TEST",
-    "PII": "TEST",
-    "SGR": "TEST",
-    "projectId": "TEST",
-    "citationKey": "TEST",
-    "generalNote": "TEST",
+    "abstract": "Gamification is the use of game elements in domains other than games. Gamification use is often suggested for difficult activities because it enhances users' engagement and motivation level. Due to such benefits, the use of gamification is also proposed in education environments to improve students' performance, engagement, and satisfaction. Computer science in higher education is a tough area of study and thus needs to utilize various already explored benefits of gamification. This research develops an empirical study to evaluate the effectiveness of gamification in teaching computer science in higher education. Along with the learning outcomes, the effect of group size on students' satisfaction level is also measured. Furthermore, the impact of gamification over time is analyzed throughout a semester to observe its effectiveness as a long-term learning technique. The analysis, covering both learning outcome and students' satisfaction, suggests that gamification is an effective tool to teach tough courses at higher education level; however, group size should be taken into account for optimal classroom size and better learning experience.",
+    "urlAccessDate": "28/02/2023",
+    "ArXivID": "test",
+    "DOI": "10.1145/3383456",
+    "ISBN": "testISBN",
+    "ISSN": "10.1145/3383456",
+    "PMID": "testPMID",
+    "Scopus": "2-s2.0-85085248397",
+    "PII": "testPII",
+    "SGR": "85085248397",
+    "projectId": "testProjectId",
+    "citationKey": "testCitationKey",
+    "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
-            "tag_id": 6,
-            "create": true
+            "tag_id": 4
         },
         {
-            "id": 156,
-            "delete": true
+            "tag_id": 5
         },
         {
-            "id": 153,
-            "delete": true
+            "name": "test tag 0"
         },
         {
-            "name": "test tag 1",
-            "create": true
+            "name": "test tag 1"
         }
     ],
     "authors": [
         {
-            "lecturerId": 1,
-            "create": true
+            "lecturerId": 1
         },
         {
-            "firstName": "first_keke",
-            "lastName": "last_keke",
-            "create": true
+            "firstName": "first0",
+            "lastName": "last0"
+        },
+                        {
+            "firstName": "first1",
+            "lastName": "last1"
+        },
+                        {
+            "firstName": "first2",
+            "lastName": "last2"
         },
         {
-            "id": 352,
-            "firstName": "first_352",
-            "lastName": "last_352",
-            "update": true
-        },
-        {
-            "id": 353,
-            "delete": true
+            "lecturerId": 2
         }
     ],
     "urls": [
         {
-            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql",
-            "create": true
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=date+format+in+js+with+mysql"
         },
         {
-            "id": 227,
-            "url": "url_227",
-            "update": true
+            "url": "https://www.google.com/search?channel=fs&client=ubuntu-sn&q=moment+date+parse"
         },
         {
-            "id": 228,
-            "delete": true
+            "url": "https://stackoverflow.com/questions/22184747/parse-string-to-date-with-moment-js"
         }
     ],
     "notes": [
         {
-            "note": "Sample note test CREATE",
-            "create": true
+            "note": "Sample note test 0"
         },
         {
-            "id": 230,
-            "note": "Sample note test 230",
-            "update": true
+            "note": "Sample note test 1"
         },
         {
-            "id": 229,
-            "delete": true
-        }
-    ],
-    "files": [
-        {
-            "id": 9,
-            "delete": true
+            "note": "Sample note test 2"
         }
     ]
 }
@@ -3519,6 +3716,9 @@ Content-Disposition: form-data; name="data"
 {
     "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
     "journal": "ACM Transactions on Computing Education",
+    "journalUrl": "https://www.scopus.com/sourceid/25674",
+    "conference": "",
+    "rank": "Q1",
     "year": 2020,
     "pageFrom": 8,
     "pageTo": 10,
@@ -3539,6 +3739,7 @@ Content-Disposition: form-data; name="data"
     "projectId": "testProjectId",
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
+    "citationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3688,7 +3889,12 @@ GET /api/v1/articles/detail/:id
         "id": 3,
         "name": "The Impact of Gamification on Learning Outcomes of Computer Science Majors",
         "journal": "ACM Transactions on Computing Education",
+        "journalUrl": "https://www.scopus.com/sourceid/25674",
+        "conference": "",
+        "rank": "Q1",
         "year": 2020,
+        "month": null,
+        "day": null,
         "page_from": 8,
         "page_to": 10,
         "volume": 20,
@@ -3707,6 +3913,7 @@ GET /api/v1/articles/detail/:id
         "project_id": "testProjectId",
         "citation_key": "testCitationKey",
         "general_note": "This is the general note for testing",
+        "citationCount: 17",
         "urls": [
             {
                 "id": 7,
@@ -3886,6 +4093,150 @@ POST /api/v1/scopus/author/save
 #### Error response
 
 ```javascript
+{
+    "code": 1,
+    "message": "Something went wrong from the backend",
+}
+```
+
+### Find Article by DOI
+
+#### Request
+
+```http
+POST /api/v1/scopus/article
+```
+
+```javascript
+{
+    "data": {
+        "doi": "10.1016/j.amjoto.2023.103800"
+    }
+}
+```
+
+#### Success response
+
+```javascript
+{
+    "code": 0,
+    "message": "Found article with DOI = 10.1016/j.amjoto.2023.103800 successfully!",
+    "data": [
+        {
+            "name": "Support of deep learning to classify vocal fold images in flexible laryngoscopy",
+            "volume": "44",
+            "ISSN": "01960709",
+            "ISBN": null,
+            "DOI": "10.1016/j.amjoto.2023.103800",
+            "PII": "S0196070923000145",
+            "Scopus": "85150394390",
+            "urls": [
+                "https://api.elsevier.com/content/abstract/scopus_id/85150394390",
+                "https://api.elsevier.com/content/abstract/scopus_id/85150394390?field=author,affiliation",
+                "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=85150394390&origin=inward",
+                "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=85150394390&origin=inward",
+                "https://api.elsevier.com/content/article/eid/1-s2.0-S0196070923000145"
+            ],
+            "journal": "American Journal of Otolaryngology - Head and Neck Medicine and Surgery",
+            "conference": null,
+            "rank": "Q1",
+            "abstract": "Purpose: To collect a dataset with adequate laryngoscopy images and identify the appearance of vocal folds and their lesions in flexible laryngoscopy images by objective deep learning models. Methods: We adopted a number of novel deep learning models to train and classify 4549 flexible laryngoscopy images as no vocal fold, normal vocal folds, and abnormal vocal folds. This could help these models recognize vocal folds and their lesions within these images. Ultimately, we made a comparison between the results of the state-of-the-art deep learning models, and another comparison of the results between the computer-aided classification system and ENT doctors. Results: This study exhibited the performance of the deep learning models by evaluating laryngoscopy images collected from 876 patients. The efficiency of the Xception model was higher and steadier than almost the rest of the models. The accuracy of no vocal fold, normal vocal folds, and vocal fold abnormalities on this model were 98.90 %, 97.36 %, and 96.26 %, respectively. Compared to our ENT doctors, the Xception model produced better results than a junior doctor and was near an expert. Conclusion: Our results show that current deep learning models can classify vocal fold images well and effectively assist physicians in vocal fold identification and classification of normal or abnormal vocal folds.",
+            "authors": [
+                {
+                    "firstName": "Bich Anh",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Thao Thi Phuong",
+                    "lastName": "Dao"
+                },
+                {
+                    "firstName": "Ho Dang Quy",
+                    "lastName": "Dung"
+                },
+                {
+                    "firstName": "Ngoc Boi",
+                    "lastName": "Van"
+                },
+                {
+                    "firstName": "Chanh Cong",
+                    "lastName": "Ha"
+                },
+                {
+                    "firstName": "Nam Hoang",
+                    "lastName": "Pham"
+                },
+                {
+                    "firstName": "Tu Cong Huyen Ton Nu Cam",
+                    "lastName": "Nguyen"
+                },
+                {
+                    "firstName": "Tan Cong",
+                    "lastName": "Nguyen"
+                },
+                {
+                    "firstName": "Minh Khoi",
+                    "lastName": "Pham"
+                },
+                {
+                    "firstName": "Mai Khiem",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Truong Minh",
+                    "lastName": "Tran"
+                },
+                {
+                    "firstName": "Minh Triet",
+                    "lastName": "Tran"
+                },
+                {
+                    "lecturerId": 1,
+                    "lecturerName": "Tran Minh Triet"
+                }
+            ],
+
+            "tags": [
+                {
+                    "tag_id": 112,
+                    "tag_name": "Computer-aided diagnosis"
+                },
+                {
+                    "tag_id": 113,
+                    "tag_name": "Deep learning"
+                },
+                {
+                    "tag_id": 114,
+                    "tag_name": "Flexible laryngoscopy"
+                },
+                {
+                    "tag_id": 115,
+                    "tag_name": "Vocal folds"
+                },
+                {
+                    "tag_id": 168,
+                    "tag_name": "Deep Learning"
+                }
+            ],
+            
+            "year": "2023",
+            "month": "05",
+            "day": "01"
+        }
+    ]
+}
+```
+
+#### Error response
+
+```javascript
+{
+    "code": 0,
+    "message": "Found article with DOI = 10.1016/j.amjoto.2023.103800 successfully!",
+    "data": null
+}
+
+
 {
     "code": 1,
     "message": "Something went wrong from the backend",

@@ -710,6 +710,94 @@ function deleteUniversities(universityIds) {
 	});
 }
 
+
+/****************************************************************
+ **************************DISCIPLINE****************************
+ ****************************************************************/
+
+
+/**
+ * Get all the discipline
+ *
+ * @return {Promise}
+ *
+ */
+function getAllDiscipline() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllDiscipline()
+			.then((disciplines) => {
+				resolve(disciplines);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/****************************************************************
+ **************************EXPERTISE*****************************
+ ****************************************************************/
+
+
+/**
+ * Get all the expertise
+ *
+ * @return {Promise}
+ *
+ */
+ function getAllExpertise() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllExpertise()
+			.then((expertises) => {
+				resolve(expertises);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Get all the university
+ *
+ * @return {Promise}
+ *
+ */
+ function getAllUniversityToFilter() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllUniversityToFilter()
+			.then((universities) => {
+				resolve(universities);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+/**
+ * Get all the university
+ *
+ * @return {Promise}
+ *
+ */
+ function getAllDifferentUniversity() {
+	return new Promise((resolve, reject) => {
+		configurationDAO
+			.getAllDifferentUniversity()
+			.then((universities) => {
+				resolve(universities);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
+}
+
+
 module.exports = {
 	//Contact types
 	getContactTypeWithPagination,
@@ -755,4 +843,13 @@ module.exports = {
 	deleteUniversities,
 	
 	//Books
+
+	//Disciplines
+	getAllDiscipline,
+
+	//Expertise
+	getAllExpertise,
+
+	getAllUniversityToFilter,
+	getAllDifferentUniversity,
 };

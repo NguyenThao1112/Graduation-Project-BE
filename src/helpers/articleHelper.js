@@ -5,6 +5,9 @@ class ArticleBuilder {
 	#id; //number
 	#name; //string
 	#journal; //string
+	#journalUrl; //string
+	#conference; //string
+	#rank; //string
 	#year; //number
 	#pageFrom; //number
 	#pageTo; //number
@@ -35,6 +38,7 @@ class ArticleBuilder {
 	#projectId; //string
 	#citationKey; //string
 	#generalNote; //string
+	#citationCount; //string
 
 	//meta data
 	#createdAt; //datetime
@@ -58,6 +62,18 @@ class ArticleBuilder {
 	}
 	setJournal(journal) {
 		this.#journal = journal;
+		return this;
+	}
+	setJournalUrl(journalUrl) {
+		this.#journalUrl = journalUrl;
+		return this;
+	}
+	setConference(conference) {
+		this.#conference = conference;
+		return this;
+	}
+	setRank(rank) {
+		this.#rank = rank;
 		return this;
 	}
 	setYear(year) {
@@ -156,6 +172,10 @@ class ArticleBuilder {
 		this.#generalNote = generalNote;
 		return this;
 	}
+	setCitationCount(citationCount) {
+		this.#citationCount = citationCount;
+		return this;
+	}
 	setCreatedAt(createdAt) {
 		this.#createdAt = createdAt;
 		return this;
@@ -192,6 +212,9 @@ class ArticleBuilder {
 	setBulk(articleObject) {
 		this.#id = articleObject.id ?? null;
 		this.#journal = articleObject.journal ?? null;
+		this.#journalUrl = articleObject.journalUrl ?? null;
+		this.#conference = articleObject.conference ?? null;
+		this.#rank = articleObject.rank ?? null;
 		this.#name = articleObject.name ?? null;
 		this.#year = articleObject.year ?? null;
 		this.#pageFrom = articleObject.pageFrom ?? null;
@@ -219,6 +242,7 @@ class ArticleBuilder {
 		this.#projectId = articleObject.projectId ?? null;
 		this.#citationKey = articleObject.citationKey ?? null;
 		this.#generalNote = articleObject.generalNote ?? null;
+		this.#citationCount = articleObject.citationCount ?? null;
 		this.#createdAt = articleObject.createdAt ?? null;
 		this.#updatedAt = articleObject.updatedAt ?? null;
 		this.#isDeleted = articleObject.isDeleted ?? null;
@@ -233,6 +257,9 @@ class ArticleBuilder {
 		this.#id = null;
 		this.#name = null;
 		this.#journal = null;
+		this.#journalUrl = null;
+		this.#conference= null;
+		this.#rank = null;
 		this.#year = null;
 		this.#pageFrom = null;
 		this.#pageTo = null;
@@ -257,6 +284,7 @@ class ArticleBuilder {
 		this.#projectId = null;
 		this.#citationKey = null;
 		this.#generalNote = null;
+		this.#citationCount = null;
 		this.#createdAt = null;
 		this.#updatedAt = null;
 		this.#isDeleted = null;
@@ -272,6 +300,9 @@ class ArticleBuilder {
 			this.#id,
 			this.#name,
 			this.#journal,
+			this.#journalUrl,
+			this.#conference,
+			this.#rank,
 			this.#year,
 			this.#pageFrom,
 			this.#pageTo,
@@ -296,6 +327,7 @@ class ArticleBuilder {
 			this.#projectId,
 			this.#citationKey,
 			this.#generalNote,
+			this.#citationCount,
 			this.#createdAt,
 			this.#updatedAt,
 			this.#isDeleted,
@@ -386,7 +418,12 @@ function parseArticlePaginationQueryResultToResponseData(
 			id: article.id,
 			name: article.name,
 			journal: article.journal,
+			journalUrl: article.journalUrl,
+			conference: article.conference,
+			rank: article.rank,
 			year: article.year,
+			month: article.month,
+			day: article.day,
 			page_from: article.pageFrom,
 			page_to: article.pageTo,
 			volume: article.volume,
@@ -405,6 +442,7 @@ function parseArticlePaginationQueryResultToResponseData(
 			project_id: article.projectId,
 			citation_key: article.citationKey,
 			general_note: article.generalNote,
+			citationCount: article.citationCount,
 
 			urls: urlMap.get(article.id),
 			files: fileMap.get(article.id),

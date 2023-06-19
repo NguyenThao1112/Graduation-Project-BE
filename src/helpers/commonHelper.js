@@ -1,4 +1,6 @@
 const queryConstants = require('../constants/messageQueryConstants');
+const { isEmpty } = require('lodash');
+const { handleFileUpload } = require('../services/googleDriveService');
 
 function convertRowsDataToArray(data) {
 	return Object.values(JSON.parse(JSON.stringify(data)));
@@ -27,7 +29,6 @@ function normalizePaginationParam(pageOffsetRaw, limitSizeRaw) {
 }
 
 function chunkArray(array, chunkSize) {
-
 	const batchArray = [];
 	const arraySize = array.length;
 	for (let i = 0; i < arraySize; i += chunkSize) {
@@ -38,8 +39,41 @@ function chunkArray(array, chunkSize) {
 	return batchArray;
 }
 
+async function uploadAndFormatFile(listFiles) {
+	if (isEmpty(listFiles)) {
+		return null;
+	}
+
+	const fileNames = [];
+
+	try {
+		for (const key of Object.keys(listFiles)) {
+			const files = Array.isArray(listFiles[key])
+				? listFiles[key]
+				: [listFiles[key]];
+
+			for (const file of files) {
+				const url = await handleFileUpload(file);
+				fileNames.push({ name: file.name, url });
+			}
+		}
+
+		const fileDtos = fileNames.map((fileName) => {
+			const file = {};
+			file.originalFileName = fileName.name;
+			file.path = fileName.url;
+			return file;
+		});
+
+		return fileDtos;
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 module.exports = {
 	convertRowsDataToArray,
 	normalizePaginationParam,
 	chunkArray,
+	uploadAndFormatFile,
 };

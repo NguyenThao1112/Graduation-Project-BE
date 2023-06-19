@@ -260,18 +260,30 @@ function createArticleCategories(categories) {
  *  Query to create an article
  *
  * @param {Array<Article>} article
+ * @param {Object} options
  * @return {Promise}
  */
-function createArticle(article) {
+function createArticle(article, options = null) {
 	return new Promise(function (resolve, reject) {
+
+		let insertId = '';
+		let values = [];
+		if (null !== options) {
+			if (options.hasOwnProperty('hasId') && options.hasId) {
+				insertId = 'id,';
+				values = [article.id];
+			}
+		}
+
 		const query = [
 			`INSERT INTO article (`,
-			`name, journal, year, page_from, page_to, volume, issue, city, abstract,`,
+			insertId,
+			'name, journal, journalUrl, conference, `rank`, year, page_from, page_to, volume, issue, city, abstract,',
 			`institution, department, type, month, day,`,
 			`url_date_access,`,
 			`ArXivID, DOI, ISBN, ISSN,`,
 			`PMID, Scopus, PII, SGR,`,
-			`project_id, citation_key, general_note,`,
+			`project_id, citation_key, general_note, citationCount, `,
 			`created_at, updated_at, is_deleted`,
 			`)`,
 			'VALUES (?)',
@@ -279,9 +291,13 @@ function createArticle(article) {
 
 		const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
 		const is_deleted = false;
-		const values = [
+		values = [
+			...values,
 			article.name ?? null,
 			article.journal ?? null,
+			article.journalUrl ?? null,
+			article.conference ?? null,
+			article.rank ?? null,
 			article.year ?? null,
 			article.pageFrom ?? null,
 			article.pageTo ?? null,
@@ -306,6 +322,7 @@ function createArticle(article) {
 			article.projectId ?? null,
 			article.citationKey ?? null,
 			article.generalNote ?? null,
+			article.citationCount ?? null,
 			now ?? null,
 			now ?? null,
 			is_deleted ?? null,
