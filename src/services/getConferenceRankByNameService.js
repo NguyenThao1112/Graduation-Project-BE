@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 const otherUrlConstants = require('../constants/otherUrlConstants');
 
 function conferenceNameKeywordChooser(conferenceName) {
-	const tokens = conferenceName.split(',').map(token => token.trim());
+	const tokens = conferenceName.split(',').map((token) => token.trim());
 	let chosenKeyword = conferenceName;
 	if (tokens.length > 1) {
 		const acronymHaystack = tokens[1];
@@ -24,7 +24,7 @@ async function getConferenceRankByName(conferenceName) {
 	const queryParams = {
 		search: chosenKeyword,
 		by: 'acronym',
-		source: 'CORE2021',
+		source: 'All',
 		sort: 'atitle',
 		page: 1,
 	};
@@ -64,34 +64,34 @@ async function getConferenceRankByName(conferenceName) {
 		return null;
 	}
 
-	const hitConferences = conferences.filter(conference => chosenKeyword.trim() == conference.acronym.trim());
+	const hitConferences = conferences.filter(
+		(conference) => chosenKeyword.trim() == conference.acronym.trim()
+	);
 	if (hitConferences.length > 0) {
 		const hitConference = hitConferences[0];
 		let rank = null;
-		if (["A*", "A", "B", "C"].includes(hitConference.rank)) {
+		if (['A*', 'A', 'B', 'C'].includes(hitConference.rank)) {
 			rank = hitConference.rank;
 		}
 
 		return rank;
-	} 
+	}
 
 	return null;
 }
 
 async function getConferenceRankByMultipleNames(conferenceNames) {
-
 	try {
 		const conferenceRanks = await Promise.all(
-			conferenceNames.map(confName => getConferenceRankByName(confName))
+			conferenceNames.map((confName) => getConferenceRankByName(confName))
 		);
 
 		//Map the conference name with its rank
 		const confLength = conferenceRanks.length;
 		const conferenceRankMap = {};
 		for (let i = 0; i < confLength; i++) {
-			conferenceRankMap[conferenceNames[i]] = conferenceRanks[i];  
+			conferenceRankMap[conferenceNames[i]] = conferenceRanks[i];
 		}
-		
 
 		return conferenceRankMap;
 	} catch (error) {
