@@ -46,6 +46,7 @@ const currentDiscipline = [
 	'current_discipline.id as id',
 	'lecturer_id as lecturerId',
 	'department.name as departmentName',
+	'discipline.name as disciplineName',
 	'university.name as universityName',
 	'position',
 ];

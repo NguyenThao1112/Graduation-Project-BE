@@ -191,17 +191,17 @@ router.delete(
 /****************************************************************
  **************************DISCIPLINE****************************
  ****************************************************************/
- router.get(
+router.get(
 	`${urls.CONFIG_DISCIPLINE_API_URL}${urls.CONFIG_DISCIPLINE_GET_ALL}`,
-	configController.getAllDisciplines,
+	configController.getAllDisciplines
 );
 
 /****************************************************************
  **************************EXPERTISE******************************
  ****************************************************************/
- router.get(
+router.get(
 	`${urls.CONFIG_EXPERTISE_API_URL}${urls.CONFIG_EXPERTISE_GET_ALL}`,
-	configController.getAllExpertise,
+	configController.getAllExpertise
 );
 
 router.get(
