@@ -28,6 +28,7 @@ const whitelist = [
 	'http://localhost:5000',
 	'http://localhost:8080',
 	'http://localhost:8000',
+	'https://frontendnckh.vercel.app',
 ];
 const corsOptions = {
 	origin: (origin, callback) => {
