@@ -139,7 +139,7 @@ function getBaseArticles(option = null) {
 
 			//Check if there is search article by year
 			if (option.hasOwnProperty('fromYear') && option.fromYear) {
-				whereStatement = `${whereStatement} AND year >= ?`;
+				whereStatement = `${whereStatement} AND year = ?`;
 				const year = option.fromYear;
 				bindingValues.push(year);
 			}
