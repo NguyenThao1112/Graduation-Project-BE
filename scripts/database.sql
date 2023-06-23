@@ -519,3 +519,14 @@ INSERT INTO nckh.university (id, name,address,created_at,updated_at,is_deleted) 
     (15, 'Vietnam National University Hanoi, Institute for Environment and Resources','144- Xuân Thủy Street - Cầu Giấy Hanoi Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
     (16, 'Information Technology College of Hochiminh City, Department of Mathematics','Hoa Thanh, Tan Phu, Hochiminh City Hoa Thanh Tan Phu Viet Nam ','2023-06-16 10:18:53','2023-06-16 10:18:53',0),
     (17, 'HCMC University of Technology','268 Ly Thuong Kiet ,District 10 Ho Chi Minh City Vietnam 70000 Viet Nam ','2023-06-16 02:58:57','2023-06-16 02:58:57',0);
+ 
+INSERT INTO nckh.account(`id`, `email`, `password`, `created_at`, `updated_at`, `is_deleted`, `role`) VALUES
+	(1, 'admin@gmail.com', '$2b$10$Bk.2cvP/4KbosKzDBMSbZurKVToTyYRhp5AiLMC4yttzjBR.DEzsa', SYSDATE(), SYSDATE(), 0, 0),
+    (2, 'user@gmail.com', '$2b$10$ligux5DPLIIXqgoXnKnCvOVbKJCr2tYdGymtXbEJ6jILsZL9bkUie', SYSDATE(), SYSDATE(), 0, 1),
+    (3, 'superuser@gmail.com', '$2b$10$KX.l9gLLlE9IfSggO638eeprm5gRiC7hDjieB0MxHvpSuQI1HfxtK', SYSDATE(), SYSDATE(), 0, 2);
+
+CREATE USER 'backendnckh'@'%' IDENTIFIED BY 'Phambinh3107@';
+GRANT ALL PRIVILEGES ON *.* TO 'backendnckh'@'%' WITH GRANT OPTION;
+    
+CREATE USER 'backendnckh'@'localhost' IDENTIFIED BY 'Phambinh3107@';
+GRANT ALL PRIVILEGES ON *.* TO 'backendnckh'@'localhost' WITH GRANT OPTION;
