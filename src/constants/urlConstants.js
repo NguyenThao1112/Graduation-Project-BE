@@ -38,6 +38,7 @@ module.exports = Object.freeze({
 	LECTURER_DELETE_FILE_URL: '/delete-file',
 	LECTURER_PAGE_SIZE: '/page-size',
 	LECTURER_UPLOAD_FILE: '/upload-file',
+	LECTURER_RESET: '/reset',
 
 	//Resources url for lectureRr API
 	LECTURER_RESOURCE_LECTURER_AVATAR: `${process.env.RESOURCE_HOST}/lecturer/images/avatar/`,

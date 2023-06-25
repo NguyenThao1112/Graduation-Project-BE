@@ -88,6 +88,8 @@ module.exports = Object.freeze({
 	LECTURER_UPLOAD_FILE_FAILED_MESSAGE: 'Upload file failed',
 	LECTURER_UPLOAD_PROFILE_SUCCESS_MESSAGE: 'Upload profile successfully',
 	LECTURER_UPLOAD_PROFILE_FAILED_MESSAGE: 'Upload profile failed',
+	LECTURER_RESET_SUCCESS_MESSAGE: 'Reset lecturer successfully',
+	LECTURER_RESET_FAILED_MESSAGE: 'Reset lecturer failed',
 
 	//Get all LECTURERs with pagination API
 	LECTURER_GET_ALL_PAGINATION_INVALID_CODE: 1,

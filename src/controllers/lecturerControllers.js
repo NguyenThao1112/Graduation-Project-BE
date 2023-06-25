@@ -551,6 +551,47 @@ function updateProfile(request, response) {
 	});
 }
 
+/**
+ * Upload file
+ * @param {Express.Request} request
+ * @param {Express.Response} response
+ * @returns {Promise}
+ */
+function resetLecturer(request, response) {
+	// @ts-ignore
+	return new Promise((resolve, reject) => {
+		//Check if the request is valid
+
+		const id = request.body.id;
+
+		let responseJson = {
+			code: messageConstants.LECTURER_INVALID_CODE,
+			message: messageConstants.LECTURER_RESET_FAILED_MESSAGE,
+		};
+
+		if (!id) {
+			response.json(responseJson);
+		}
+
+		deleteLecturerService
+			.resetLecturer(id)
+			.then((ids) => {
+				//If there is a not empty id array => change the response's data
+
+				responseJson.code = messageConstants.SUCCESSFUL_CODE;
+				responseJson.message = messageConstants.LECTURER_RESET_SUCCESS_MESSAGE;
+				responseJson.data = ids;
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(() => {
+				// @ts-ignore
+				response.json(responseJson);
+			});
+	});
+}
+
 module.exports = {
 	getOneLecturer,
 	getAllLecturers,
@@ -563,4 +604,5 @@ module.exports = {
 	uploadFile,
 	deleteLecturerFile,
 	updateProfile,
+	resetLecturer,
 };

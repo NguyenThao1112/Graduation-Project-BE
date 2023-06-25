@@ -71,6 +71,7 @@ function deleteLecturers(lecturerIds) {
 			deleteDataInTableWhichJoinLecturerTable(tableName, lecturerIds).catch(
 				(error) => {
 					console.log(error);
+					return;
 				}
 			)
 		),
@@ -103,7 +104,37 @@ function deleteLecturerFile(fileId, lecturerId) {
 	});
 }
 
+/**
+ * delete multiple lecturers
+ *
+ * @return {Promise}
+ *
+ */
+function resetLecturer(lecturerId) {
+	return new Promise((resolve, reject) => {
+		const tableJoiningWithLecturerTableNames = [
+			'expertise',
+			'research_field',
+			'work_position',
+		];
+
+		return Promise.all([
+			...tableJoiningWithLecturerTableNames.map((tableName) =>
+				deleteDataInTableWhichJoinLecturerTable(tableName, [lecturerId]).catch(
+					(error) => {
+						console.log(error);
+						reject(error);
+					}
+				)
+			),
+		]).then((data) => {
+			resolve(true);
+		});
+	});
+}
+
 module.exports = {
 	deleteLecturers,
 	deleteLecturerFile,
+	resetLecturer,
 };

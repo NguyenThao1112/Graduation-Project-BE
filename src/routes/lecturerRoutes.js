@@ -61,6 +61,8 @@ router.delete(
 	lecturerControllers.deleteLecturerFile
 );
 
+router.delete(urls.LECTURER_RESET, lecturerControllers.resetLecturer);
+
 //Get the page count, while on pagination process
 router.get(
 	`${urls.LECTURER_PAGE_SIZE}`,
