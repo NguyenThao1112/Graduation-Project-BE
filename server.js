@@ -22,25 +22,25 @@ const rootUrl = urls.ROOT_API_URL;
 // custom middleware logger
 app.use(logger);
 
-// // Cross Origin Resource Sharing
-// const whitelist = [
-// 	'http://localhost:3001',
-// 	'http://localhost:5000',
-// 	'http://localhost:8080',
-// 	'http://localhost:8000',
-// 	'https://frontendnckh.vercel.app',
-// ];
-// const corsOptions = {
-// 	origin: (origin, callback) => {
-// 		if (whitelist.indexOf(origin) !== -1 || !origin) {
-// 			callback(null, true);
-// 		} else {
-// 			callback(new Error('Not allowed by CORS'));
-// 		}
-// 	},
-// 	optionsSuccessStatus: 200,
-// };
-// app.use(cors(corsOptions));
+// Cross Origin Resource Sharing
+const whitelist = [
+	'http://localhost:3001',
+	'http://localhost:5000',
+	'http://localhost:8080',
+	'http://localhost:8000',
+	'https://frontendnckh.vercel.app',
+];
+const corsOptions = {
+	origin: (origin, callback) => {
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
+	optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // built-in middleware to handle urlencoded data
 app.use(
@@ -50,14 +50,14 @@ app.use(
 // built-in middleware for json
 app.use(express.json({ limit: '50mb' }));
 
-const environment = 'staging';
-if (environment == 'develop') {
-	require('dotenv').config({ path: '.env' });
-} else if (environment == 'staging') {
-	require('dotenv').config({ path: '.env.staging' });
-} else if (environment == 'staging1') {
-	require('dotenv').config({ path: '.env.staging1' });
-}
+// const environment = 'develop';
+// if (environment == 'develop') {
+// 	require('dotenv').config({ path: '.env' });
+// } else if (environment == 'staging') {
+// 	require('dotenv').config({ path: '.env.staging' });
+// } else if (environment == 'staging1') {
+// 	require('dotenv').config({ path: '.env.staging1' });
+// }
 
 app.get(['/', '/test'], function (req, res) {
 	res.json('text successfully');
