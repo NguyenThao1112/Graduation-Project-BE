@@ -98,6 +98,7 @@ function getArticlesWithOptions(options) {
 
     const options = {
         lecturerIds,
+        orderBy: "year",
     }
 
     return new Promise((resolve, reject) => {
