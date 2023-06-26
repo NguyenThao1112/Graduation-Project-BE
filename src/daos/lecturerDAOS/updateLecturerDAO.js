@@ -251,6 +251,10 @@ function updateCurrentDiscipline(currentDiscipline, lecturer) {
 			is_deleted,
 		];
 
+		if (typeof lecturer.id === 'string') {
+			values[1] = parseInt(lecturer.id);
+		}
+
 		connection.query(query, [values], (error, result) => {
 			if (error) {
 				reject(error);
@@ -407,6 +411,9 @@ function updateDegrees(degrees, lecturer) {
  */
 function updateWorkPositions(workPositions, lecturer) {
 	return new Promise(function (resolve, reject) {
+		if (!workPositions.length) {
+			return resolve(null);
+		}
 		const query = [
 			`INSERT INTO work_position (`,
 			`id, lecturer_id,university_id,company, position,is_now, from_date, to_date, created_at, updated_at, is_deleted)`,
