@@ -8,6 +8,7 @@ class ArticleBuilder {
 	#journalUrl; //string
 	#conference; //string
 	#rank; //string
+	#rankUrl; //string
 	#year; //number
 	#pageFrom; //number
 	#pageTo; //number
@@ -74,6 +75,10 @@ class ArticleBuilder {
 	}
 	setRank(rank) {
 		this.#rank = rank;
+		return this;
+	}
+	setRankUrl(rankUrl) {
+		this.#rankUrl = rankUrl;
 		return this;
 	}
 	setYear(year) {
@@ -215,6 +220,7 @@ class ArticleBuilder {
 		this.#journalUrl = articleObject.journalUrl ?? null;
 		this.#conference = articleObject.conference ?? null;
 		this.#rank = articleObject.rank ?? null;
+		this.#rankUrl = articleObject.rankUrl ?? null;
 		this.#name = articleObject.name ?? null;
 		this.#year = articleObject.year ?? null;
 		this.#pageFrom = articleObject.pageFrom ?? null;
@@ -260,6 +266,7 @@ class ArticleBuilder {
 		this.#journalUrl = null;
 		this.#conference= null;
 		this.#rank = null;
+		this.#rankUrl = null;
 		this.#year = null;
 		this.#pageFrom = null;
 		this.#pageTo = null;
@@ -303,6 +310,7 @@ class ArticleBuilder {
 			this.#journalUrl,
 			this.#conference,
 			this.#rank,
+			this.#rankUrl,
 			this.#year,
 			this.#pageFrom,
 			this.#pageTo,
@@ -421,6 +429,7 @@ function parseArticlePaginationQueryResultToResponseData(
 			journalUrl: article.journalUrl,
 			conference: article.conference,
 			rank: article.rank,
+			rankUrl: article.rankUrl,
 			year: article.year,
 			month: article.month,
 			day: article.day,
