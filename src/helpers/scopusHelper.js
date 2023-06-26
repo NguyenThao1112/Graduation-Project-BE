@@ -76,7 +76,6 @@ function parseBaseArticleFromScopusResponse(scopusResponse) {
 		articleObjects.push(articleObject);
 	})
 
-
 	return articleObjects;
 }
 
@@ -90,7 +89,6 @@ async function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 	let alreadyExistAuthorMap = new Map(); //init 
 	try {
 		alreadyExistAuthorMap = await getLecturerByScopusIds(authorScopusIds, ["id"]);
-		console.log(alreadyExistAuthorMap);
 	} catch (error) {
 		//do nothing
 	}

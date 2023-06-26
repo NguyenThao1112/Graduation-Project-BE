@@ -248,10 +248,26 @@ function buildArticleExportExcel(articles) {
             })
     });
 }
- 
+
+/**
+ * Get detail information of an article, by given scopus ids
+ * @param {Array<Number>} scopusIds
+ * 
+ * @return {Promise<Array<Object>>} articles
+ */
+function getArticleByScopusIds(scopusIds) {
+
+    const options = {
+        scopusIds
+    }
+
+    return getArticlesWithOptions(options);
+}
+
 module.exports = {
     getArticlesWithPagination,
     getArticlesWithLecturerIds,
     getArticlePagingSize,
     getArticleByIds,
+    getArticleByScopusIds,
 }

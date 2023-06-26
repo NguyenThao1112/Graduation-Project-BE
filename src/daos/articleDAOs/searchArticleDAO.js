@@ -137,6 +137,16 @@ function getBaseArticles(option = null) {
 				bindingValues.push(articleIds);
 			}
 
+			//Check if there is search article with given scopus ids
+			if (
+				option.hasOwnProperty('scopusIds') &&
+				undefined !== option.scopusIds
+			) {
+				whereStatement = `${whereStatement} AND (Scopus IN (?))`;
+				const scopusIds = option.scopusIds;
+				bindingValues.push(scopusIds);
+			}
+
 			//Check if there is search article by year
 			if (option.hasOwnProperty('fromYear') && option.fromYear) {
 				whereStatement = `${whereStatement} AND year = ?`;

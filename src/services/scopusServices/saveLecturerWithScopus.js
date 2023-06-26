@@ -125,7 +125,6 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 		const isSuccess = await deactiveLecturerByAccountIds([accountId]);
 		const lecturerIds = await createLecturer(lecturerInformationObject);
 		const isUpdateAuthorSuccess = await addLecturerIdForAuthorWithGivenScopusId(lecturerIds, scopusAuthorId);
-		console.log(isUpdateAuthorSuccess);
 		return lecturerIds;
 	} catch (err) {
 		console.log(err);
