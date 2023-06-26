@@ -15,14 +15,26 @@ function parseDataFromGetAuthorFromNameResponse(scopusResponse) {
 			entry.hasOwnProperty('dc:identifier') &&
 			entry.hasOwnProperty('preferred-name')
 		) {
+			let scopusUrl = null;
+			if (entry.link) {
+				const links = entry.link;
+				const result = links.filter(link => (link["@ref"] && "scopus-author" === link["@ref"]));
+				const resultUrl = result.length > 0 ? result[0] : null; 
+				if (!!resultUrl) {
+					if (resultUrl["@href"]) {
+						scopusUrl = resultUrl["@href"];
+					}
+				}
+			}
+
 			const surname = entry['preferred-name']['surname'];
 			const givenName = entry['preferred-name']['given-name'];
 			const scopusId = entry['dc:identifier'].substring('AUTHOR_ID:'.length);
-
 			const authorEntry = {
 				surname,
 				givenName,
 				scopusId,
+				scopusUrl,
 			};
 
 			authorData.push(authorEntry);
