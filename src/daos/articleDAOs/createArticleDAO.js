@@ -280,7 +280,7 @@ function createArticle(article, options = null) {
 		const query = [
 			`INSERT INTO article (`,
 			insertId,
-			'name, journal, journalUrl, conference, `rank`, year, page_from, page_to, volume, issue, city, abstract,',
+			'name, journal, journalUrl, conference, `rank`, rankUrl, year, page_from, page_to, volume, issue, city, abstract,',
 			`institution, department, type, month, day,`,
 			`url_date_access,`,
 			`ArXivID, DOI, ISBN, ISSN,`,
@@ -300,6 +300,7 @@ function createArticle(article, options = null) {
 			article.journalUrl ?? null,
 			article.conference ?? null,
 			article.rank ?? null,
+			article.rankUrl ?? null,
 			article.year ?? null,
 			article.pageFrom ?? null,
 			article.pageTo ?? null,

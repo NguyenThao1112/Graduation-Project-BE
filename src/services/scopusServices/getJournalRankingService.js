@@ -54,7 +54,9 @@ async function getJournalRanking(issnArray) {
             const entryLinks = entry.link?.filter(url => {
                 return 'scopus-source' === url['@ref'];
             });
-            issnMap[issn].journalUrl = !!entryLinks && entryLinks[0] ? entryLinks[0]['@href']: null;
+            const entryLink = !!entryLinks && entryLinks[0] ? entryLinks[0]['@href']: null;
+            issnMap[issn].journalUrl = entryLink
+            issnMap[issn].rankUrl = entryLink
         })
 
 		return issnMap;

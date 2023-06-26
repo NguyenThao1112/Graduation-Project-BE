@@ -9,7 +9,7 @@ function conferenceNameKeywordChooser(conferenceName) {
 	const tokens = conferenceName.split(',').map((token) => token.trim());
 	let chosenKeyword = conferenceName;
 	if (tokens.length > 1) {
-		const acronymHaystack = tokens[1];
+		const acronymHaystack = tokens[tokens.length - 1];
 		const acronymTokens = acronymHaystack.split(' ');
 		const acronym = acronymTokens[0];
 		chosenKeyword = acronym;
@@ -48,6 +48,11 @@ async function getConferenceRankByName(conferenceName) {
 	const conferences = rows
 		.map((index, element) => {
 			const columns = $(element).find('td');
+			const rawRankUrl = $(element).attr("onclick");
+
+			//get /conf-ranks/2188/ from "navigate('/conf-ranks/2188/')""
+			const rankPath = rawRankUrl.match(/navigate\('(.*?)'\)/)[1];
+			const rankUrl = `http://portal.core.edu.au${rankPath}`;
 
 			// Extract the values from each column
 			const title = $(columns[0]).text().trim();
@@ -56,7 +61,7 @@ async function getConferenceRankByName(conferenceName) {
 			const rank = $(columns[3]).text().trim();
 
 			// Create an object with the extracted values
-			return { title, acronym, source, rank };
+			return { title, acronym, source, rank, rankUrl};
 		})
 		.get();
 
@@ -72,9 +77,13 @@ async function getConferenceRankByName(conferenceName) {
 		let rank = null;
 		if (['A*', 'A', 'B', 'C'].includes(hitConference.rank)) {
 			rank = hitConference.rank;
+			rankUrl = hitConference.rankUrl;
 		}
 
-		return rank;
+		return {
+			rank,
+			rankUrl,
+		};
 	}
 
 	return null;

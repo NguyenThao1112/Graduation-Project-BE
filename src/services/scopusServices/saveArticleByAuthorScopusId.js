@@ -126,7 +126,10 @@ async function addRankingForArticle(articles) {
 		if (article.journal && article.ISSN) {
 
 			const normalizedIssn = scopusHelper.normalizeIssn(article.ISSN);
-			article.journalUrl = journalRankMap[normalizedIssn]?.journalUrl ?? null;
+			const journalUrl = journalRankMap[normalizedIssn]?.journalUrl ?? null;
+			const rankUrl =  journalRankMap[normalizedIssn]?.rankUrl ?? null;  
+			article.journalUrl = journalUrl;
+			article.rankUrl = rankUrl;
 			if (article.year) {
 				const year = article.year;
 
@@ -150,7 +153,8 @@ async function addRankingForArticle(articles) {
 	let articleWithConferenceRank = result.map((article) => {
 		const conference = article.conference;
 		if (conference) {
-			article.rank = conferenceRankMap[conference];
+			article.rank = conferenceRankMap[conference]?.rank;
+			article.rankUrl = conferenceRankMap[conference]?.rankUrl;
 		}
 
 		return article;

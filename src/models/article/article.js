@@ -6,6 +6,7 @@ class Article {
     #journalUrl;    //string
     #conference;    //string
     #rank;          //string
+    #rankUrl;       //string
     #year;          //number
     #pageFrom;      //number
     #pageTo;        //number
@@ -57,6 +58,7 @@ class Article {
         journalUrl,
         conference,
         rank,
+        rankUrl,
         year,
         pageFrom,
         pageTo,
@@ -97,6 +99,7 @@ class Article {
         this.#journalUrl = journalUrl;
         this.#conference = conference;
         this.#rank = rank;
+        this.#rankUrl = rankUrl;
         this.#year = year;
         this.#pageFrom = pageFrom;
         this.#pageTo = pageTo;
@@ -139,6 +142,7 @@ class Article {
     get journalUrl() {return this.#journalUrl;};  
     get conference() {return this.#conference;};
     get rank() {return this.#rank;}
+    get rankUrl() {return this.#rankUrl;};
     get year() {return this.#year;};  
     get pageFrom() {return this.#pageFrom;}; 
     get pageTo() {return this.#pageTo;};   
@@ -180,6 +184,7 @@ class Article {
     set journalUrl(journalUrl) {this.#journalUrl = journalUrl};  
     set conference(conference) {this.#conference = conference;};
     set rank(rank) {this.#rank = rank;};
+    set rankUrl(rankUrl) {this.#rankUrl = rankUrl;};
     set year(year) {this.#year = year;};  
     set pageFrom(pageFrom) {this.#pageFrom = pageFrom;}; 
     set pageTo(pageTo) {this.#pageTo = pageTo;};   
