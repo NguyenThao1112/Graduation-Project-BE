@@ -236,6 +236,8 @@ function updateAuthors(article, authors) {
                 author.lastName = obj.lastName ?? null;
                 author.articleId = article.id ?? null;
                 author.lecturerId = null;
+                author.scopusId = obj.scopusId ?? null;
+
                 return author;
             });
 
@@ -249,6 +251,7 @@ function updateAuthors(article, authors) {
                 author.lastName = obj.lastName ?? null;
                 author.articleId = article.id ?? null;
                 author.lecturerId = obj.lecturerId ?? null;
+                author.scopusId = obj.scopusId ?? null;
                 return author;
             });
 
@@ -392,7 +395,32 @@ function updateArticleCategories(article, articleCategories) {
         });
 }
 
+/**
+ * 
+ * @param {Number} lecturerId 
+ * @param {String} scopusId 
+ */
+function addLecturerIdForAuthorWithGivenScopusId(lecturerId, scopusId) {
+    const options = {
+        addLecturerWithGivenScopusId: {
+            lecturerId,
+            scopusId,
+        }
+    }
+    return new Promise((resolve, reject) => {
+        return updateArticleDAO.updateAuthorWithOption(options)
+            .then(isSuccess => {
+                resolve(isSuccess);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    })
+   
+}
+
 module.exports = {
     updateArticle,
+    addLecturerIdForAuthorWithGivenScopusId,
 }
 

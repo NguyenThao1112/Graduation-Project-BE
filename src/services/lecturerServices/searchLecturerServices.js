@@ -216,10 +216,11 @@ function getLecturerByScopusIds(scopusIds) {
 			.then((lecturerInfor) => {
 				const scopusIdLecturerMap = new Map(
 					lecturerInfor.map((lecturer) => [
-						lecturer.scopus_id,
+						lecturer.scopusId,
 						{
 							id: lecturer.id,
 							name: lecturer.name,
+							scopusId: lecturer.scopusId,
 						},
 					])
 				);

@@ -205,6 +205,7 @@ function createAuthors(article, authors) {
 			author.lastName = dto.lastName ?? null;
 			author.lecturerId = dto.lecturerId ?? null;
 			author.articleId = article.id;
+			author.scopusId = dto.scopusId ?? null;
 
 			return author;
 		});

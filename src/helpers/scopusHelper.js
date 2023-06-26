@@ -90,6 +90,7 @@ async function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 	let alreadyExistAuthorMap = new Map(); //init 
 	try {
 		alreadyExistAuthorMap = await getLecturerByScopusIds(authorScopusIds, ["id"]);
+		console.log(alreadyExistAuthorMap);
 	} catch (error) {
 		//do nothing
 	}
@@ -106,17 +107,22 @@ async function buildAuthorDataForArticle(scopusAuthorDataResponse) {
 			const scopusId = author["author-url"].substring('https://api.elsevier.com/content/author/author_id/'.length);
 			return notExistAuthorScopusId.has(scopusId);
 		})
-		.map(author => ({
-			firstName: author["preferred-name"]["ce:given-name"],
-			lastName: author["preferred-name"]["ce:surname"],
-		}));
+		.map(author => {
+			const scopusId = author["author-url"].substring('https://api.elsevier.com/content/author/author_id/'.length);
+			return {
+				firstName: author["preferred-name"]["ce:given-name"],
+				lastName: author["preferred-name"]["ce:surname"],
+				scopusId,
+			}
+		});
 
 	//Get the author who already exist on the database
-	const noNeedToCreateAuthors = [...alreadyExistAuthorMap.values()].map(author => ({
-		lecturerId: author.id,
-		lecturerName: author.name,
-	}));
-
+	const noNeedToCreateAuthors = [...alreadyExistAuthorMap.values()]
+		.map(author => ({
+			lecturerId: author.id,
+			lecturerName: author.name,
+			scopusId: author.scopusId,
+		}));
 	const authors = createNewAuthors.concat(noNeedToCreateAuthors);
 	return authors;
 }

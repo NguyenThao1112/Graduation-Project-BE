@@ -265,7 +265,7 @@ CREATE TABLE article_note (
 CREATE TABLE tag (
     id INT NOT NULL AUTO_INCREMENT,
     
-    name VARCHAR(50) DEFAULT NULL,
+    name VARCHAR(255) DEFAULT NULL,
 
     --  metadata stuffs
     created_at DATETIME,
@@ -295,6 +295,7 @@ CREATE TABLE author(
     id INT NOT NULL AUTO_INCREMENT,
     lecturer_id INT DEFAULT NULL,
     article_id INT DEFAULT NULL,
+    scopus_id VARCHAR(11) DEFAULT NULL,
 
     first_name VARCHAR(30) DEFAULT NULL,
     last_name VARCHAR(30) DEFAULT NULL,
