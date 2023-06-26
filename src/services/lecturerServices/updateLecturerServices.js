@@ -620,7 +620,30 @@ async function updateProfile(id, file) {
 	// }
 }
 
+/**
+ * 
+ * @param {Number[]} accountIds 
+ */
+async function deactiveLecturerByAccountIds(accountIds) {
+
+	const options = {
+		accountIds,
+	}
+
+	return new Promise((resolve, reject) => {
+		updateLecturerDAO.deactiveLecturer(options)
+			.then((isSuccess) => {
+				resolve(isSuccess);
+			})
+			.catch((err) => {
+				reject(err);
+			});
+	});
+}
+
+
 module.exports = {
 	updateLecturer,
 	updateProfile,
+	deactiveLecturerByAccountIds,
 };
