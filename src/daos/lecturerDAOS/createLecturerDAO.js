@@ -222,9 +222,9 @@ function createProjects(project, lecturer) {
 	});
 }
 
-function createCurrentDisciplines(currentDisciplines, lecturer) {
+function createCurrentDisciplines(currentDiscipline, lecturer) {
 	return new Promise(function (resolve, reject) {
-		if (_.size(currentDisciplines) == 0) {
+		if (!currentDiscipline) {
 			return resolve(null);
 		}
 		const query = [
@@ -238,20 +238,36 @@ function createCurrentDisciplines(currentDisciplines, lecturer) {
 			`updated_at,`,
 			`is_deleted`,
 			`)`,
-			`VALUES ?`,
+			`VALUES (?)`,
 		].join(' ');
 		const now = getCurrentTimeFormat();
 		const is_deleted = false;
-		const values = currentDisciplines.map((ele) => [
+		const disciplineId = Array.isArray(currentDiscipline.disciplineId)
+			? currentDiscipline.disciplineId[0]
+			: currentDiscipline.disciplineId;
+
+		const departmentId = Array.isArray(currentDiscipline.departmentId)
+			? currentDiscipline.departmentId[0]
+			: currentDiscipline.departmentId;
+
+		const universityId = Array.isArray(currentDiscipline.universityId)
+			? currentDiscipline.universityId[0]
+			: currentDiscipline.universityId;
+
+		const values = [
 			lecturer.id,
-			ele.disciplineId,
-			ele.departmentId,
-			ele.universityId,
-			ele.position,
+			disciplineId,
+			departmentId,
+			universityId,
+			currentDiscipline.position,
 			now,
 			now,
 			is_deleted,
-		]);
+		];
+
+		if (typeof lecturer.id === 'string') {
+			values[0] = parseInt(lecturer.id);
+		}
 
 		connection.query(query, [values], (err, result) => {
 			if (err) {
@@ -441,7 +457,7 @@ function createWorkPositions(workPositions, lecturer) {
 			ele.position,
 			ele.isNow,
 			ele.fromDate,
-			ele.toDate,
+			ele.toDate == 'Nay' ? moment().format('YYYY') : ele.toDate,
 			now,
 			now,
 			is_deleted,

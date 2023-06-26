@@ -158,7 +158,7 @@ function createCurrentDiscipline(currentDiscipline, lecturer) {
 
 				// Resolve the Promise with any value you want to return
 				createLecturerDAO
-					.createCurrentDisciplines([newCurrentDiscipline], lecturer)
+					.createCurrentDisciplines(newCurrentDiscipline, lecturer)
 					.then((currentDisciplineId) => {
 						resolve(currentDisciplineId);
 					})

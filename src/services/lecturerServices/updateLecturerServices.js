@@ -258,12 +258,21 @@ function updateCurrentDiscipline(currentDisciplineObject, lecturer) {
 					: currentDisciplineObject.universityId,
 			};
 
-			updateLecturerDAO
-				.updateCurrentDiscipline(newCurrentDisciplineObject, lecturer)
-				.then((currentDisciplineId) => {
-					return resolve(currentDisciplineId);
-				})
-				.catch((err) => console.log(err));
+			if (newCurrentDisciplineObject.create === true) {
+				createLecturerDAO
+					.createCurrentDisciplines(newCurrentDisciplineObject, lecturer)
+					.then((currentDisciplineId) => {
+						return resolve(currentDisciplineId);
+					})
+					.catch((err) => console.log(err));
+			} else {
+				updateLecturerDAO
+					.updateCurrentDiscipline(newCurrentDisciplineObject, lecturer)
+					.then((currentDisciplineId) => {
+						return resolve(currentDisciplineId);
+					})
+					.catch((err) => console.log(err));
+			}
 		});
 	});
 }
