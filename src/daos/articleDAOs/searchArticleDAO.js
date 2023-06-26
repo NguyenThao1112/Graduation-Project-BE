@@ -144,6 +144,12 @@ function getBaseArticles(option = null) {
 				bindingValues.push(year);
 			}
 
+			if (option.hasOwnProperty("orderBy") && !!option.orderBy) {
+				if ("year" === option.orderBy) {
+					orderStatement = `ORDER BY year DESC`;
+				}
+			}
+
 			//Check if there is pagination option
 			if (option.hasOwnProperty('isExport') && option.isExport) {
 				//Ordering
