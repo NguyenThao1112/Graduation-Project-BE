@@ -159,7 +159,7 @@ function createAuthors(authors) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO author (`,
-			`lecturer_id, article_id,`,
+			`lecturer_id, article_id, scopus_id,`,
 			`first_name, last_name,`,
 			`created_at, updated_at, is_deleted`,
 			`)`,
@@ -171,10 +171,12 @@ function createAuthors(authors) {
 		const values = authors.map((author) => {
 			const lecturerId = author.lecturerId ?? null;
 			const articleId = author.articleId ?? null;
+			const scopusId = author.scopusId ?? null;
 
 			return [
 				lecturerId,
 				articleId,
+				scopusId,
 				author.firstName,
 				author.lastName,
 				now,

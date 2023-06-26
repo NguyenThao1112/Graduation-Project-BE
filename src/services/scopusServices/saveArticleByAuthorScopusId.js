@@ -8,6 +8,9 @@ const { chunkArray } = require('../../helpers/commonHelper');
 const {
 	getConferenceRankByMultipleNames,
 } = require('../getConferenceRankByNameService');
+const {
+	getArticleByScopusIds,
+} = require("../articleServices/searchArticleServices");
 
 async function addComplexInformationForArticle(articleObject) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_ABSTRACT_BY_ARTICLE_ID}/${articleObject.Scopus}`;
@@ -36,9 +39,16 @@ async function getArticleByAuthorScopusId(scopusId) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_BASE_ARTICLE_BY_AUTHOR_ID}?query=AU-ID(${scopusId})`;
 	try {
 		const axiosResponse = await axios.get(url, SCOPUS_CONFIG);
-		const baseArticles = scopusHelper.parseBaseArticleFromScopusResponse(
+		let baseArticles = scopusHelper.parseBaseArticleFromScopusResponse(
 			axiosResponse.data
 		);
+
+		//Filter to remove the already exist article
+		const articleScopusIds = baseArticles.map(obj => obj.Scopus); 
+		const alreadyExistArticles = await getArticleByScopusIds(articleScopusIds);
+		const alreadyExistArticleScopusIdMap = new Map(alreadyExistArticles.map(article => [article.Scopus, true]));
+		baseArticles = baseArticles.filter(article => !alreadyExistArticleScopusIdMap.has(article.Scopus));
+
 		const articles = [];
 		const concurrencyLimit = scopusConstants.SCOPUS_API_BATCH_SIZE;
 

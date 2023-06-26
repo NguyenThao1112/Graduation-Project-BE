@@ -142,7 +142,7 @@ function updateAuthors(authors) {
 	return new Promise(function (resolve, reject) {
 		const query = [
 			`INSERT INTO author (`,
-			`id, lecturer_id, article_id,`,
+			`id, lecturer_id, article_id, scopus_id,`,
 			`first_name, last_name,`,
 			`created_at, updated_at, is_deleted`,
 			`)`,
@@ -158,11 +158,12 @@ function updateAuthors(authors) {
 		const values = authors.map((author) => {
 			const lecturerId = author.lecturerId ?? null;
 			const articleId = author.articleId ?? null;
-
+			const scopusId = author.scopusId ?? null;
 			return [
 				author.id,
 				lecturerId,
 				articleId,
+				scopusId,
 				author.firstName,
 				author.lastName,
 				now,
@@ -303,6 +304,47 @@ function updateArticle(article) {
 	});
 }
 
+/**
+ * @param {Number} lecturerId 
+ * @param {String} scopusId 
+ */
+function updateAuthorWithOption(options) {
+	return new Promise((resolve, reject) => {
+
+		if (!options) {
+			resolve(false);
+		}
+
+		const updateStatement = "UPDATE author";
+		let setStatement = "SET";
+		let whereStatement = "WHERE 1=1";
+		const values = [];
+
+		if (!!options?.addLecturerWithGivenScopusId) {
+			const {lecturerId, scopusId} = options.addLecturerWithGivenScopusId;
+			const now = moment().utc().format('YYYY/MM/DD hh:mm:ss');
+			setStatement = `${setStatement} lecturer_id = ?, updated_at = ?`;
+			whereStatement = `${whereStatement} AND scopus_id = ?`;
+			values.push(lecturerId, now, scopusId);
+		}
+
+		const query = [
+			updateStatement,
+			setStatement,
+			whereStatement,
+		].join(" ");
+
+		connection.query(query, values, (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(true);
+		});
+	})
+}
+
 module.exports = {
 	updateArticleUrls,
 	// updateArticleFiles,
@@ -310,4 +352,5 @@ module.exports = {
 	updateAuthors,
 	// updateArticleCategories,
 	updateArticle,
+	updateAuthorWithOption,
 };

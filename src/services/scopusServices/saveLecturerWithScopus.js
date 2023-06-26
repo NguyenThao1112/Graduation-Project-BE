@@ -7,6 +7,12 @@ const { createUniversities } = require('../configurationServices');
 const {
 	createLecturer,
 } = require('../lecturerServices/createlecturerServices');
+const {
+	deactiveLecturerByAccountIds,
+} = require('../lecturerServices/updateLecturerServices');
+const {
+	addLecturerIdForAuthorWithGivenScopusId
+} = require("../articleServices/updateArticleServices");
 
 async function getAuthorById(scopusAuthorId) {
 	const url = `${scopusConstants.SCOPUS_SEARCH_AUTHOR_BY_ID_API}${scopusAuthorId}`;
@@ -116,7 +122,9 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			}),
 		};
 
+		const isSuccess = await deactiveLecturerByAccountIds([accountId]);
 		const lecturerIds = await createLecturer(lecturerInformationObject);
+		const isUpdateAuthorSuccess = await addLecturerIdForAuthorWithGivenScopusId(lecturerIds, scopusAuthorId);
 		return lecturerIds;
 	} catch (err) {
 		console.log(err);
@@ -136,7 +144,6 @@ async function saveLecturerWithScopus(scopusAuthorId, accountId) {
 		scopusAuthorId,
 		accountId
 	);
-
 	return lecturerId;
 }
 

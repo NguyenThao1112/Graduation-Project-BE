@@ -559,6 +559,53 @@ function updateLecturer(lecturer) {
 	});
 }
 
+
+/**
+ *  Query to deactive lecturer by options
+ *
+ * @param {Object} options
+ * @return {Promise}
+ */
+ function deactiveLecturer(options) {
+	return new Promise(function (resolve, reject) {
+		if (!options) {
+			return resolve(false);
+		}
+
+		let query = "";
+		const updateStatement = 'UPDATE lecturer_information';
+		let setStatement = "";
+		let whereStatement = "WHERE 1=1";
+		const now = getCurrentTimeFormat();
+		const values = [];
+
+		if (!!options) {
+			if (options.hasOwnProperty("accountIds") && options?.accountIds?.length > 0) {
+				
+				const accountIds = options.accountIds;
+				values.push(now, accountIds);
+				setStatement = "SET account_id = NULL, updated_at = ?";
+				whereStatement = `${whereStatement} AND account_id IN (?)`;
+			}
+		}
+
+		query = [
+			updateStatement,
+			setStatement,
+			whereStatement,
+		].join (" ")
+		connection.query(query, values, (error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			resolve(true);
+		});
+	});
+}
+
+
 module.exports = {
 	updatePhdThesises,
 	updateBooks,
@@ -571,4 +618,5 @@ module.exports = {
 	updateDegrees,
 	updateWorkPositions,
 	updateActivities,
+	deactiveLecturer,
 };
