@@ -23,15 +23,10 @@ const rootUrl = urls.ROOT_API_URL;
 app.use(logger);
 
 // Cross Origin Resource Sharing
-const whitelist = [
-	'http://localhost:8000',
-	'https://frontendnckh.vercel.app',
-	'https://backend-nckh2.onrender.com',
-];
+const whitelist = ['http://localhost:8000', 'https://frontendnckh.vercel.app'];
 const corsOptions = {
 	origin: (origin, callback) => {
-		console.log('🚀 ~ file: server.js:33 ~ origin:', origin);
-		if (whitelist.indexOf(origin) !== -1) {
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
 			callback(null, true);
 		} else {
 			callback(new Error('Not allowed by CORS'));
