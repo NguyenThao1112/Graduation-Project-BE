@@ -23,7 +23,11 @@ const rootUrl = urls.ROOT_API_URL;
 app.use(logger);
 
 // Cross Origin Resource Sharing
-const whitelist = ['http://localhost:8000', 'https://frontendnckh.vercel.app'];
+const whitelist = [
+	'http://localhost:8000',
+	'https://frontendnckh.vercel.app',
+	'https://backend-nckh2.onrender.com',
+];
 const corsOptions = {
 	origin: (origin, callback) => {
 		if (whitelist.indexOf(origin) !== -1) {
@@ -54,7 +58,9 @@ app.use(express.json({ limit: '50mb' }));
 // }
 
 app.get(['/', '/test'], function (req, res) {
-	res.json('text successfully');
+	const currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+	console.log(`Current app URL: ${currentUrl}`);
+	res.json('Test successfully!');
 });
 app.use(`${rootUrl}${urls.AUTH_PREFIX_API_URL}`, authRoutes);
 app.use(`${rootUrl}${urls.ACCOUNT_PREFIX_API_URL}`, accountRoutes);
