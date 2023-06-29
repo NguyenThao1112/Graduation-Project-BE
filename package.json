@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node server",
 		"dev": "nodemon server",
-		"lint:fix": "eslint --fix ./*.js"
+		"lint:fix": "eslint --fix ./*.js",
+		"test": "npx jest"
 	},
 	"author": "Dave Gray",
 	"license": "ISC",
