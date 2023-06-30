@@ -5,3 +5,9 @@ test('should Get Base Lecturer by id', async () => {
 	const lecturer = await SearchLecturerDAO.getBaseLecturers(lecturerIds);
 	expect(lecturer.length).toEqual(2);
 });
+
+test('should Get all Lecturer if pass empty id', async () => {
+	const lecturerIds = [];
+	const lecturer = await SearchLecturerDAO.getBaseLecturers(lecturerIds);
+	expect(lecturer.length).toBeGreaterThan(0);
+});
