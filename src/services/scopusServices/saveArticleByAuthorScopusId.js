@@ -2,6 +2,7 @@ const axios = require('axios');
 const scopusHelper = require('../../helpers/scopusHelper');
 const scopusConstants = require('../../constants/scopusConstants');
 const createArticleService = require('../../services/articleServices/createArticleServices');
+const googleScholarService = require('../../services/googleScholarService');
 const { getJournalRanking } = require('./getJournalRankingService');
 const { SCOPUS_CONFIG } = require('../../constants/configConstants');
 const { chunkArray } = require('../../helpers/commonHelper');
@@ -90,6 +91,9 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 		createArticleService.createArticle(article, null)
 	);
 	let articleIds = [];
+
+	const doiArray = articles.filter(article => !!article.DOI).map(article => article.DOI);
+	const doiSearchResult = await googleScholarService.getCitationCountFromMultipleDOI(doiArray);
 
 	try {
 		articleIds = await Promise.all(createArticlePromises);
