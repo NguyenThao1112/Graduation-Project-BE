@@ -1,4 +1,3 @@
-const {GScholar} = require("senginta");
 const {getRandomInt} = require("../helpers/commonHelper");
 const {searchFromGoogleScholar} = require("../helpers/googleScholarHelper");
 
@@ -33,9 +32,9 @@ function retrieveCitationCountFromGoogleScholarResponse($, searchEntry) {
  * @returns 
  */
 async function getCitationCountFromDOI(doi) {
-	const searchResults = await searchFromGoogleScholar(doi, retrieveCitationCountFromGoogleScholarResponse);
-	console.log(doi, searchResults);
-	return searchResults;
+	const searchResult = await searchFromGoogleScholar(doi, retrieveCitationCountFromGoogleScholarResponse);
+	citationCount = parseInt(searchResult) || null;
+	return citationCount;
 }
 
 /**
