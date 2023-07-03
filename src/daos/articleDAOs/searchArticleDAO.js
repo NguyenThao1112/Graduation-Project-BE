@@ -97,7 +97,8 @@ function getBaseArticles(option = null) {
 			'a.project_id as projectId,',
 			'a.citation_key as citationKey,',
 			'a.general_note as generalNote,',
-			'a.citationCount as citationCount',
+			'a.citationCount as citationCount,',
+			'a.googleScholarCitationCount as googleScholarCitationCount',
 		].join(' ');
 		let fromStatement = 'FROM article as a';
 		let whereStatement = 'WHERE a.is_deleted = false';

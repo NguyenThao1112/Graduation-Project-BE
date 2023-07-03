@@ -37,7 +37,8 @@ class Article {
     #projectId;     //string
     #citationKey;   //string
     #generalNote;   //string
-    #citationCount; 
+    #citationCount;
+    #googleScholarCitationCount; 
 
     //meta data
     #createdAt;     //datetime
@@ -84,6 +85,7 @@ class Article {
         citationKey,
         generalNote,
         citationCount,
+        googleScholarCitationCount,
         createdAt,
         updatedAt,
         isDeleted,
@@ -125,6 +127,7 @@ class Article {
         this.#citationKey = citationKey;
         this.#generalNote = generalNote;
         this.#citationCount = citationCount;
+        this.#googleScholarCitationCount = googleScholarCitationCount;
         this.#createdAt = createdAt;
         this.#updatedAt = updatedAt;
         this.#isDeleted = isDeleted;
@@ -168,6 +171,7 @@ class Article {
     get citationKey() {return this.#citationKey;};    
     get generalNote() {return this.#generalNote;};
     get citationCount() {return this.#citationCount;};
+    get googleScholarCitationCount() {return this.#googleScholarCitationCount;};
     get createdAt() {return this.#createdAt;};
     get updatedAt() {return this.#updatedAt;}; 
     get isDeleted() {return this.#isDeleted;};
@@ -210,6 +214,7 @@ class Article {
     set citationKey(citationKey) {this.#citationKey = citationKey;};    
     set generalNote(generalNote) {this.#generalNote = generalNote;};
     set citationCount(citationCount) {this.#citationCount = citationCount;};
+    set googleScholarCitationCount(googleScholarCitationCount) {this.#googleScholarCitationCount = googleScholarCitationCount;};
     set createdAt(createdAt) {this.#createdAt = createdAt;};
     set updatedAt(updatedAt) {this.#updatedAt = updatedAt;}; 
     set isDeleted(isDeleted) {this.#isDeleted = isDeleted;};

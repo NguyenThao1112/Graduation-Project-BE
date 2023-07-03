@@ -40,6 +40,7 @@ class ArticleBuilder {
 	#citationKey; //string
 	#generalNote; //string
 	#citationCount; //string
+	#googleScholarCitationCount; //string
 
 	//meta data
 	#createdAt; //datetime
@@ -181,6 +182,10 @@ class ArticleBuilder {
 		this.#citationCount = citationCount;
 		return this;
 	}
+	setGoogleScholarCitationCount(googleScholarCitationCount) {
+		this.#googleScholarCitationCount = googleScholarCitationCount;
+		return this;
+	}
 	setCreatedAt(createdAt) {
 		this.#createdAt = createdAt;
 		return this;
@@ -249,6 +254,7 @@ class ArticleBuilder {
 		this.#citationKey = articleObject.citationKey ?? null;
 		this.#generalNote = articleObject.generalNote ?? null;
 		this.#citationCount = articleObject.citationCount ?? null;
+		this.#googleScholarCitationCount = articleObject.googleScholarCitationCount ?? null;
 		this.#createdAt = articleObject.createdAt ?? null;
 		this.#updatedAt = articleObject.updatedAt ?? null;
 		this.#isDeleted = articleObject.isDeleted ?? null;
@@ -292,6 +298,7 @@ class ArticleBuilder {
 		this.#citationKey = null;
 		this.#generalNote = null;
 		this.#citationCount = null;
+		this.#googleScholarCitationCount = null;
 		this.#createdAt = null;
 		this.#updatedAt = null;
 		this.#isDeleted = null;
@@ -336,6 +343,7 @@ class ArticleBuilder {
 			this.#citationKey,
 			this.#generalNote,
 			this.#citationCount,
+			this.#googleScholarCitationCount,
 			this.#createdAt,
 			this.#updatedAt,
 			this.#isDeleted,
@@ -452,6 +460,7 @@ function parseArticlePaginationQueryResultToResponseData(
 			citation_key: article.citationKey,
 			general_note: article.generalNote,
 			citationCount: article.citationCount,
+			googleScholarCitationCount: article.googleScholarCitationCount,
 
 			urls: urlMap.get(article.id),
 			files: fileMap.get(article.id),

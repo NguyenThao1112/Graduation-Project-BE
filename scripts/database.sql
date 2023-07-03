@@ -208,6 +208,7 @@ CREATE TABLE article (
 
     general_note TEXT DEFAULT NULL,
     citationCount INT DEFAULT NULL,
+    googleScholarCitationCount INT DEFAULT NULL,
 
     --  metadata stuffs
     created_at DATETIME,

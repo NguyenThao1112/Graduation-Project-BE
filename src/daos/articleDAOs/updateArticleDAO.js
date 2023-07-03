@@ -345,6 +345,49 @@ function updateAuthorWithOption(options) {
 	})
 }
 
+
+/**
+ * @param {Number} lecturerId 
+ * @param {String} scopusId 
+ */
+ function updateArticleWithOption(options) {
+	return new Promise((resolve, reject) => {
+
+		if (!options) {
+			resolve(false);
+		}
+
+		const updateStatement = "UPDATE article";
+		let setStatement = "SET";
+		let whereStatement = "WHERE 1=1";
+		const values = [];
+
+		if (!!options) {
+			if (options?.googleScholarCitationMap) {
+				const dataMap = options.googleScholarCitationMap;
+				for (const [doi, googleScholarCitationCount] of dataMap) {
+					if (null === googleScholarCitationCount) {
+						continue;
+					}
+					
+					setStatement = "SET googleScholarCitationCount = ?";
+					whereStatement = "WHERE DOI = ?";
+					const bindingValues = [googleScholarCitationCount, doi];
+					const query = [
+						updateStatement,
+						setStatement,
+						whereStatement,
+					].join(" ");
+					connection.query(query, bindingValues);
+					// console.log(query);
+				}
+				resolve(true);
+			}
+		}
+
+	})
+}
+
 module.exports = {
 	updateArticleUrls,
 	// updateArticleFiles,
@@ -353,4 +396,5 @@ module.exports = {
 	// updateArticleCategories,
 	updateArticle,
 	updateAuthorWithOption,
+	updateArticleWithOption,
 };
