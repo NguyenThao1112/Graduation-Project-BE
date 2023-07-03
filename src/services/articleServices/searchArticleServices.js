@@ -1,273 +1,321 @@
-const searchArticleDAO = require("../../daos/articleDAOs/searchArticleDAO");
-const articleHelper = require("../../helpers/articleHelper");
-const excelHelper = require("../../helpers/excelHelper");
-const searchLecturerService = require("../lecturerServices/searchLecturerServices");
-
+const searchArticleDAO = require('../../daos/articleDAOs/searchArticleDAO');
+const articleHelper = require('../../helpers/articleHelper');
+const excelHelper = require('../../helpers/excelHelper');
+const searchLecturerService = require('../lecturerServices/searchLecturerServices');
 
 /**
- * 
- * @param {Object} options 
+ *
+ * @param {Object} options
  * @returns {Promise}
  */
 function getArticlesWithOptions(options) {
-    return new Promise((resolve, reject) => {
-        searchArticleDAO.getBaseArticles(options)
-            .catch(error => {reject(error);})
-            .then(articles => {
-                const articleIds = articles.map(article => article.id);
-                // const articleDetails = searchArticleDAO.getDetailArticlesWithIds(articleIds);
-                // const articleDtos = articleHelper.parsePaginationQueryResultToResponseData(articles, articleDetails);
-                if (articleIds.length > 0) {
-                    Promise.all([
-                        searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId("article_url",   ["id", "article_id", "url"], articleIds),
-                        searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId("article_note",  ["id", "article_id", "note"], articleIds),
-                        searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId("article_file",  ["id", "article_id", "file_path", "original_file_name"], articleIds),
-                        searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId("author",        
-                            ["author.id as id", 
-                            "author.article_id as article_id", 
-                            "author.first_name as first_name", 
-                            "author.last_name as last_name", 
-                            "author.lecturer_id as lecturer_id", 
-                            "lecturer_information.name as name"], articleIds),
+	return new Promise((resolve, reject) => {
+		searchArticleDAO
+			.getBaseArticles(options)
+			.catch((error) => {
+				reject(error);
+			})
+			.then((articles) => {
+				const articleIds = articles.map((article) => article.id);
+				// const articleDetails = searchArticleDAO.getDetailArticlesWithIds(articleIds);
+				// const articleDtos = articleHelper.parsePaginationQueryResultToResponseData(articles, articleDetails);
+				if (articleIds.length > 0) {
+					Promise.all([
+						searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(
+							'article_url',
+							['id', 'article_id', 'url'],
+							articleIds
+						),
+						searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(
+							'article_note',
+							['id', 'article_id', 'note'],
+							articleIds
+						),
+						searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(
+							'article_file',
+							['id', 'article_id', 'file_path', 'original_file_name'],
+							articleIds
+						),
+						searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(
+							'author',
+							[
+								'author.id as id',
+								'author.article_id as article_id',
+								'author.first_name as first_name',
+								'author.last_name as last_name',
+								'author.lecturer_id as lecturer_id',
+								'lecturer_information.name as name',
+							],
+							articleIds
+						),
 
-                        searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId("article_tag",   
-                            ["article_tag.id as id", 
-                            "article_tag.article_id as article_id", 
-                            "tag.id as tag_id", 
-                            "tag.name as name"], articleIds),
-                            
-                    ]).then(articleDetails => {
-
-                        const articleDtos = articleHelper.parseArticlePaginationQueryResultToResponseData(articles, articleDetails, options);
-                        resolve(articleDtos);
-                    })
-                } else {
-                    resolve([]);
-                };   
-            })
-            .catch(error => {reject(error);})
-
-    });
+						searchArticleDAO.getDataOfSubtableJoningWithArticleByArticleId(
+							'article_tag',
+							[
+								'article_tag.id as id',
+								'article_tag.article_id as article_id',
+								'tag.id as tag_id',
+								'tag.name as name',
+							],
+							articleIds
+						),
+					]).then((articleDetails) => {
+						const articleDtos =
+							articleHelper.parseArticlePaginationQueryResultToResponseData(
+								articles,
+								articleDetails,
+								options
+							);
+						resolve(articleDtos);
+					});
+				} else {
+					resolve([]);
+				}
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * Get Article with pagination
- * 
+ *
  * @param {int} pageOffset which page, in 1-offset-indexing
  * @param {int} limitSize maximum number of record in a page
  * @param {object} options addition option for querying
  * @return {Promise}
- *  
+ *
  */
- function getArticlesWithPagination(pageOffset, limitSize, options) {
+function getArticlesWithPagination(pageOffset, limitSize, options) {
+	//Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
+	const recordOffset = (pageOffset - 1) * limitSize;
+	options = {
+		...options,
+		pagination: {
+			offset: recordOffset,
+			limit: limitSize,
+		},
+	};
 
-    //Convert the page offset in 1-indexing => record offset in database, in 0-indexing;
-    const recordOffset = (pageOffset - 1) * limitSize;
-    options = {
-        ...options,
-        pagination: {
-            offset: recordOffset,
-            limit: limitSize,
-        }
-    }
-
-    return getArticlesWithOptions(options)
-        .then(articles => {
-            return new Promise((resolve, reject) => {
-                if (options.hasOwnProperty('isExport') && options.isExport) {
-                
-                    //Send file
-                    buildArticleExportExcel(articles)
-                        .then(workbook => {
-                            resolve(workbook);
-                        });
-                } else {
-                    resolve(articles);
-                }
-            })
-        });
+	return getArticlesWithOptions(options).then((articles) => {
+		return new Promise((resolve, reject) => {
+			if (options.hasOwnProperty('isExport') && options.isExport) {
+				//Send file
+				buildArticleExportExcel(articles, options).then((workbook) => {
+					resolve(workbook);
+				});
+			} else {
+				resolve(articles);
+			}
+		});
+	});
 }
 
 /**
- * Search Article which are authoring by lecturers, with the given ids 
+ * Search Article which are authoring by lecturers, with the given ids
  * @param {Array<int>} lecturerIds //The lecturers who are the author of the articles
  * @return {Promise}
- *  
+ *
  */
- function getArticlesWithLecturerIds(lecturerIds) {
+function getArticlesWithLecturerIds(lecturerIds) {
+	const options = {
+		lecturerIds,
+		orderBy: 'year',
+	};
 
-    const options = {
-        lecturerIds,
-        orderBy: "year",
-    }
+	return new Promise((resolve, reject) => {
+		getArticlesWithOptions(options)
+			.then((resultData) => {
+				const lecturerArticleMap = {};
+				lecturerIds.forEach((lecturerId) => {
+					lecturerArticleMap[lecturerId] = [];
+				});
 
-    return new Promise((resolve, reject) => {
-        getArticlesWithOptions(options)
-            .then(resultData => {
-                const lecturerArticleMap = {};
-                lecturerIds.forEach(lecturerId => {
-                    lecturerArticleMap[lecturerId] = [];
-                })
-                
-                resultData.forEach(article => {
-                    const lecturerId = article.lecturer_id;
-                    if (lecturerId) {
-                        lecturerArticleMap[lecturerId].push(article);
-                    }
-                })
+				resultData.forEach((article) => {
+					const lecturerId = article.lecturer_id;
+					if (lecturerId) {
+						lecturerArticleMap[lecturerId].push(article);
+					}
+				});
 
-                resolve(lecturerArticleMap);
-            })
-            .catch(error => {
-                reject(error);
-            })
-    });
-    
+				resolve(lecturerArticleMap);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * Get paging size, after pagination process
- * 
+ *
  * @param {int} limitSize maximum number of record in a page
  * @param {string} keyword the keyword to search
  * @return {Promise<int>}
- *  
+ *
  */
 function getArticlePagingSize(limitSize, keyword = null) {
-    
-    let options = null;
-    if (null !== keyword) {
-        options = {
-            searchByKeyword: keyword
-        }
-    }
+	let options = null;
+	if (null !== keyword) {
+		options = {
+			searchByKeyword: keyword,
+		};
+	}
 
-    return new Promise((resolve, reject) => {
-        searchArticleDAO.getArticleCount(options)
-            .then(count => {
-                count = parseInt(count);
-                const divideValue = Math.floor(count / limitSize);
-                const numberOfPage = (0 === (count % limitSize)) ? divideValue : divideValue + 1;
-                const data = {
-                    number_of_page: numberOfPage,
-                }
-                resolve(data);
-            })
-            .catch(error => {reject(error);})
-
-    });
+	return new Promise((resolve, reject) => {
+		searchArticleDAO
+			.getArticleCount(options)
+			.then((count) => {
+				count = parseInt(count);
+				const divideValue = Math.floor(count / limitSize);
+				const numberOfPage =
+					0 === count % limitSize ? divideValue : divideValue + 1;
+				const data = {
+					number_of_page: numberOfPage,
+				};
+				resolve(data);
+			})
+			.catch((error) => {
+				reject(error);
+			});
+	});
 }
 
 /**
  * Get detail information of an article, by given id
  * @param {Array<Number>} articleIds
- * 
+ *
  * @return {Promise<Array<Object>>} articles
  */
 function getArticleByIds(articleIds) {
+	const options = {
+		articleIds,
+	};
 
-    const options = {
-        articleIds
-    }
-
-    return getArticlesWithOptions(options);
+	return getArticlesWithOptions(options);
 }
 
-function buildArticleExportExcel(articles) {
-    return new Promise((resolve, reject) => {
-        const excelRows = []
-        const data = articles.map(article => {
+function buildArticleExportExcel(articles, options) {
+	return new Promise((resolve, reject) => {
+		const excelRows = [];
+		const data = articles.map((article) => {
+			const excelRow = options.isBrief
+				? {
+						id: article.id,
+						name: article.name,
+						journal: article.journal,
+						conference: article.conference,
+						rank: article.rank,
+						DOI: article.DOI,
+						year: article.year,
+						Scopus: article.Scopus,
+				  }
+				: {
+						id: article.id,
+						name: article.name,
+						journal: article.journal,
+						journalUrl: article.journalUrl,
+						conference: article.conference,
+						rank: article.rank,
+						pageFrom: article.page_from,
+						pageTo: article.page_to,
+						volume: article.volume,
+						issue: article.issue,
+						citationCount: article.citationCount,
+						abstract: article.abstract,
+						month: article.month,
+						day: article.day,
+						year: article.year,
+						ArXivID: article.ArXivID,
+						DOI: article.DOI,
+						ISBN: article.ISBN,
+						ISSN: article.ISSN,
+						PMID: article.PMID,
+						Scopus: article.Scopus,
+						PII: article.PII,
+						SGR: article.SGR,
+				  };
 
-            const excelRow = {
-                id: article.id,
-                name: article.name,
-                journal: article.journal,
-                journalUrl: article.journalUrl,
-                conference: article.conference,
-                rank: article.rank,
-                pageFrom: article.page_from,
-                pageTo: article.page_to,
-                volume: article.volume,
-                issue: article.issue,
-                citationCount: article.citationCount,
-                abstract: article.abstract,
-                month: article.month,
-                day: article.day,
-                year: article.year,
-                ArXivID: article.ArXivID,
-                DOI: article.DOI,
-                ISBN: article.ISBN,
-                ISSN: article.ISSN,
-                PMID: article.PMID,
-                Scopus: article.Scopus,
-                PII: article.PII,
-                SGR: article.SGR,
-            };
+			const authors = [];
+			const existAuthor = article.authors.filter(
+				(author) => !!author.lecturer_id
+			);
+			const nonExistAuthor = article.authors.filter(
+				(author) => !author.lecturer_id
+			);
+			authors.push(...existAuthor.map((author) => author.lecturer_name));
+			authors.push(
+				...nonExistAuthor.map(
+					(author) => `${author.lastName} ${author.firstName}`
+				)
+			);
+			const authorToString = authors.join(', ');
+			excelRow.authors = authorToString;
 
-            const authors = [];
-            const existAuthor =  article.authors.filter(author => !!author.lecturer_id);
-            const nonExistAuthor = article.authors.filter(author => !author.lecturer_id);
-            authors.push(...existAuthor.map(author => author.lecturer_name));
-            authors.push(...nonExistAuthor.map(author => `${author.lastName} ${author.firstName}`));
-            const authorToString = authors.join(", ");
-            excelRow.authors = authorToString;
+			return {
+				article,
+				excelRow,
+				existAuthor,
+			};
+		});
 
-            return {
-                article,
-                excelRow,
-                existAuthor,
-            }
+		const promises = data.map((data) => {
+			const { existAuthor, excelRow } = data;
+			const lecturerIds = existAuthor.map((author) => author.lecturer_id);
+			const promise = searchLecturerService
+				.findVNULecturer(lecturerIds)
+				.then((vnuAuthors) => {
+					const vnuAuthorToString = vnuAuthors
+						.map((author) => author.name)
+						.join(', ');
+					excelRow.VNUAuthors = vnuAuthorToString;
+					excelRows.push(excelRow);
+				});
 
-        });
+			return promise;
+		});
 
-        const promises = data.map(data => {
-            const {existAuthor, excelRow} = data;
-            const lecturerIds = existAuthor.map(author => author.lecturer_id);
-            const promise = searchLecturerService.findVNULecturer(lecturerIds)
-                .then(vnuAuthors => {
-                    const vnuAuthorToString = vnuAuthors.map(author => author.name).join(", ");
-                    excelRow.VNUAuthors = vnuAuthorToString;
-                    excelRows.push(excelRow);
-                });
-            
-            return promise;
-        })
-        
-        return Promise.all(promises)
-            .then(() => {
-                const headers = excelHelper.ARTICLE_COLUMN_HEADERS;
-                const options = {
-                    article: true,
-                }
-                const workbook = excelHelper.buildWorkbook(headers, excelRows, options);
-                const excelFileName = `ArticleReport_${Date.now()}.xlsx`;
-                resolve({
-                    workbook,
-                    excelFileName,
-                });
-            })
-    });
+		return Promise.all(promises).then(() => {
+			const headers = options.isBrief
+				? excelHelper.ARTICLE_BRIEF_COLUMN_HEADERS
+				: excelHelper.ARTICLE_COLUMN_HEADERS;
+			const optionsBuild = {
+				article: true,
+				isBrief: options.isBrief,
+			};
+			const workbook = excelHelper.buildWorkbook(
+				headers,
+				excelRows,
+				optionsBuild
+			);
+			const excelFileName = `ArticleReport_${Date.now()}.xlsx`;
+			resolve({
+				workbook,
+				excelFileName,
+			});
+		});
+	});
 }
 
 /**
  * Get detail information of an article, by given scopus ids
  * @param {Array<Number>} scopusIds
- * 
+ *
  * @return {Promise<Array<Object>>} articles
  */
 function getArticleByScopusIds(scopusIds) {
+	const options = {
+		scopusIds,
+	};
 
-    const options = {
-        scopusIds
-    }
-
-    return getArticlesWithOptions(options);
+	return getArticlesWithOptions(options);
 }
 
 module.exports = {
-    getArticlesWithPagination,
-    getArticlesWithLecturerIds,
-    getArticlePagingSize,
-    getArticleByIds,
-    getArticleByScopusIds,
-}
+	getArticlesWithPagination,
+	getArticlesWithLecturerIds,
+	getArticlePagingSize,
+	getArticleByIds,
+	getArticleByScopusIds,
+};
