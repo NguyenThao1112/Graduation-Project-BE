@@ -115,11 +115,11 @@ async function updateAuthorProfile(scopusProfile, scopusAuthorId, accountId) {
 			contacts: contacts,
 			currentDiscipline,
 			expertises: currentExpertiseArr,
-			workPositions: historyUniversityIds.map((ele) => {
-				return {
-					universityId: ele,
-				};
-			}),
+			// workPositions: historyUniversityIds.map((ele) => {
+			// 	return {
+			// 		universityId: ele,
+			// 	};
+			// }),
 		};
 
 		const isSuccess = await deactiveLecturerByAccountIds([accountId]);
