@@ -2973,6 +2973,7 @@ GET /api/v1/articles/fetch?pageOffset=1&limitSize=10&keyword=abc&sort=desc&isExp
             "citation_key": "TEST",
             "general_note": "TEST",
             "citationCount: 17",
+            "googleScholarCitationCount: 17",
             "urls": [
                 {
                     "id": 253,
@@ -3168,6 +3169,7 @@ POST /api/v1/articles/fetch-all
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
                 "citationCount: 17",
+                "googleScholarCitationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3279,6 +3281,7 @@ POST /api/v1/articles/fetch-all
                 "citation_key": "testCitationKey",
                 "general_note": "This is the general note for testing",
                 "citationCount: 17",
+                "googleScholarCitationCount: 17",
                 "urls": [
                     {
                         "id": 1,
@@ -3417,6 +3420,7 @@ Content-Disposition: form-data; name="data"
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
     "citationCount: 17",
+    "googleScholarCitationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3570,6 +3574,7 @@ Content-Disposition: form-data; name="data"
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
     "citationCount: 17",
+    "googleScholarCitationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3746,6 +3751,7 @@ Content-Disposition: form-data; name="data"
     "citationKey": "testCitationKey",
     "generalNote": "This is the general note for testing",
     "citationCount: 17",
+    "googleScholarCitationCount: 17",
     "tags": [
         {
             "tag_id": 4
@@ -3921,6 +3927,7 @@ GET /api/v1/articles/detail/:id
         "citation_key": "testCitationKey",
         "general_note": "This is the general note for testing",
         "citationCount: 17",
+        "googleScholarCitationCount: 17",
         "urls": [
             {
                 "id": 7,
