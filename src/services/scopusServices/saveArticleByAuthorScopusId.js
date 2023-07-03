@@ -92,8 +92,10 @@ async function saveArticleByAuthorScopusId(authorScopusId) {
 	);
 	let articleIds = [];
 
+	//Run the worker to get the google scholar citation count
 	const doiArray = articles.filter(article => !!article.DOI).map(article => article.DOI);
-	const doiSearchResult = await googleScholarService.getCitationCountFromMultipleDOI(doiArray);
+	googleScholarService.googleScholarWorker.addDOIArray(doiArray);
+	googleScholarService.googleScholarWorker.run();
 
 	try {
 		articleIds = await Promise.all(createArticlePromises);

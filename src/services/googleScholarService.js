@@ -1,29 +1,37 @@
 const {getRandomInt} = require("../helpers/commonHelper");
 const {searchFromGoogleScholar} = require("../helpers/googleScholarHelper");
+const {addGoogleScholarCitationCountForMultipleArticle} = require("./articleServices/updateArticleServices");
+const cheerio = require('cheerio');
 
-function retrieveCitationCountFromGoogleScholarResponse($, searchEntry) {
-	const divHasCitationCount = $(searchEntry).find("div[class='gs_fl']");
-	const tags = divHasCitationCount.children();
+function retrieveCitationCountFromGoogleScholarResponse(response) {
+
+	const html = response?.text;
+
+    if (!html) {
+        return null;
+    }
+
+    const $ = cheerio.load(html);
+    const searchEntries = $("div.gs_fl").children("a");
+	// console.log(html);
 	let textHasCitationCount = null;
-	tags.each((idx, tag) => {
-		if (tag?.attribs?.href) {
+	let citationCount = null;
+    searchEntries.each((idx, tag) => {
+        if  (!!tag?.attribs?.href) {
 			const href = tag.attribs.href;
 			if (href.includes("scholar?cites")) {
 				textHasCitationCount = $(tag).text();
 			}
 		}
-	})
-
-	// if (!!)
-	let citationCount = null;
+    });
+    
 	if (!!textHasCitationCount) {
 		const matches = textHasCitationCount.match(/\d+/g);
 		if (matches.length > 0) {
 			citationCount = matches[0];
 		}
 	}
-
-	return citationCount;
+    return citationCount;
 }
 
 /**
@@ -32,8 +40,10 @@ function retrieveCitationCountFromGoogleScholarResponse($, searchEntry) {
  * @returns 
  */
 async function getCitationCountFromDOI(doi) {
-	const searchResult = await searchFromGoogleScholar(doi, retrieveCitationCountFromGoogleScholarResponse);
-	citationCount = parseInt(searchResult) || null;
+	const citationCountRaw = await searchFromGoogleScholar(doi, retrieveCitationCountFromGoogleScholarResponse);
+	
+	// console.log(doi, citationCountRaw);
+	citationCount = parseInt(citationCountRaw) || null;
 	return citationCount;
 }
 
@@ -48,14 +58,54 @@ async function getCitationCountFromMultipleDOI(doiArray) {
 		doiMap.set(doi, searchResults);
 
 		//Delay to avoid google scholar protection
-		const sleepInterval = 1000 + getRandomInt(250, 750);	//We will delay 1250 ~ 1750 ms for each google scholar call
+		const sleepInterval = getRandomInt(10000, 60000);	//We will delay 10s ~ 60s for each google scholar call
 		await new Promise(r => setTimeout(r, sleepInterval));
 	}
 
 	return doiMap;
 }
 
+class GoogleScholarWorker {
+	#isRunning;
+	#doiQueue;
+
+	constructor() {
+		this.#isRunning = false;
+		this.#doiQueue = [];
+	}
+
+	async run() {
+
+		//Terminate if the worker is already run
+		if (this.#isRunning) {
+			return;
+		}
+
+		this.#isRunning = true;
+		while(true) {
+			if (0 === this.#doiQueue.length) {
+				this.#isRunning = false;
+				return;
+			}
+
+			const doiArray = this.#doiQueue.shift();
+			const doiMap = await getCitationCountFromMultipleDOI(doiArray);
+			console.log("Google Scholar doiMap info: ", doiMap);
+
+			//update the citation count data in db
+			addGoogleScholarCitationCountForMultipleArticle(doiMap);
+		}
+	}
+
+	addDOIArray(doiArray) {
+		this.#doiQueue.push(doiArray);
+	}
+}
+
+const googleScholarWorker = new GoogleScholarWorker();
+
 module.exports = { 
 	getCitationCountFromDOI,
 	getCitationCountFromMultipleDOI,
+	googleScholarWorker,
 };

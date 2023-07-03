@@ -419,8 +419,21 @@ function addLecturerIdForAuthorWithGivenScopusId(lecturerId, scopusId) {
    
 }
 
+function addGoogleScholarCitationCountForMultipleArticle(dataMap) {
+    const options = {
+        googleScholarCitationMap: dataMap,
+    }
+    return new Promise((resolve, reject) => {
+        return updateArticleDAO.updateArticleWithOption(options)
+            .then(isSuccess => {
+                resolve(isSuccess);
+            });
+    });
+}
+
 module.exports = {
     updateArticle,
     addLecturerIdForAuthorWithGivenScopusId,
+    addGoogleScholarCitationCountForMultipleArticle,
 }
 

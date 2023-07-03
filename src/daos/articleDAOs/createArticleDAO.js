@@ -326,7 +326,7 @@ function createArticle(article, options = null) {
 			article.citationKey ?? null,
 			article.generalNote ?? null,
 			article.citationCount ?? null,
-			aritcle.googleScholarCitationCount ?? null,
+			article.googleScholarCitationCount ?? null,
 			now ?? null,
 			now ?? null,
 			is_deleted ?? null,
